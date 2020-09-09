@@ -14,8 +14,9 @@ import DarkIcon from '@material-ui/icons/Brightness6'
 import LightIcon from '@material-ui/icons/Brightness7'
 import MenuIcon from '@material-ui/icons/Menu'
 import { Actions, useAppShell } from '../AppShellProvider'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Badge from '@material-ui/core/Badge'
+import { useRouter } from 'next/router'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,10 +38,39 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+function useSetAppTitle(separator: string, defaultTitle: string) {
+  const router = useRouter()
+  const [title, setTitle] = useState(defaultTitle)
+
+  useEffect(() => {
+    const path = router.pathname
+    const found = path.split('/')
+
+    if (found[2]) {
+      setTitle(
+        // python where are you?
+        found[2]
+          .replace('/', separator)
+          .replace('-', ' ')
+          .split(' ')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')
+      )
+    } else {
+      setTitle(defaultTitle)
+    }
+
+    // console.log('pathname ', router.pathname)
+    // console.log('found ', found)
+  }, [separator, router.pathname, defaultTitle])
+
+  return title
+}
+
 export function AppToolbar() {
   const theme = useTheme()
   const classes = useStyles()
-
+  const appTitle = useSetAppTitle(' / ', 'Browse')
   const { state, dispatch } = useAppShell()
 
   const [counter, setCounter] = useState(0)
@@ -72,7 +102,7 @@ export function AppToolbar() {
       position="fixed"
       elevation={0}
     >
-      <Toolbar>
+      <Toolbar variant="dense">
         <IconButton
           color="inherit"
           aria-label="open drawer"
@@ -92,7 +122,7 @@ export function AppToolbar() {
           {state.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
         </IconButton>
         <Typography variant="h6" noWrap>
-          App Name
+          {appTitle}
         </Typography>
         <Tooltip
           title={

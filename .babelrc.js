@@ -1,6 +1,8 @@
 const pkg = require('./package.json')
-
-const pkgVersion = process.env.PKG_VERSION || pkg.version
+const childProcess = require('child_process')
+const pkgVersion = `${
+  process.env.PKG_VERSION || pkg.version
+}-${childProcess.execSync('git rev-parse --short HEAD')}`
 
 module.exports = {
   presets: ['next/babel'],

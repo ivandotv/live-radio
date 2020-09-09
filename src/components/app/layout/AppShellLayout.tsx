@@ -24,11 +24,13 @@ const useStyles = makeStyles((theme: Theme) =>
     navWrapper: {
       zIndex: theme.zIndex.appBar - 1
     },
-    appBarSpacer: {
-      ...theme.mixins.toolbar
-    },
+    // appBarSpacer: {
+    //   ...theme.mixins.toolbar
+    // },
     contentSpacer: {
-      ...theme.mixins.toolbar,
+      // ...theme.mixins.toolbar,
+      // media query - izbrisati za mobile varijantu
+      paddingTop: theme.spacing(4),
       marginBottom: theme.spacing(5)
     },
     content: {
@@ -51,7 +53,7 @@ export const AppShellLayout = ({
 }) => {
   const { state } = useAppShell()
   const theme = useTheme()
-  const classes = useStyles({ drawerWidth: state.desktopDrawerWidth })
+  const classes = useStyles()
 
   useDesktopDrawerPosition(useAppShell)
 
@@ -76,10 +78,10 @@ export const AppShellLayout = ({
         <AppToolbar />
         <nav className={classes.navWrapper}>
           <Hidden mdUp implementation="js">
-            <MobileSidebar sidebar={mobileSidebar} />
+            <MobileSidebar />
           </Hidden>
           <Hidden smDown implementation="css">
-            <DesktopSidebar sidebar={desktopSidebar} />
+            <DesktopSidebar />
           </Hidden>
         </nav>
 

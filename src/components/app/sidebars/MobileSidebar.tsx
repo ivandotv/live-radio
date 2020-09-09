@@ -14,6 +14,7 @@ import { memo, useCallback, useEffect } from 'react'
 import { NextApplicationPage } from '../../../pages/_app'
 import { Actions, useAppShell } from '../AppShellProvider'
 import { DefaultMenuItems } from './DefaultMenuItems'
+import { Menu } from './Menu'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -166,7 +167,8 @@ export const MobileSidebar = memo(function MobileSidebar({
             </Box>
           </Box>
         </Card>
-        {menuItems}
+
+        <Menu position="mobile" />
       </SwipeableDrawer>
     </Box>
   )

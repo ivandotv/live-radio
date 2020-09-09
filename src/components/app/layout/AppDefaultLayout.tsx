@@ -5,10 +5,7 @@ import { AppShellLayout } from './AppShellLayout'
 export function AppDefaultLayout(Component: NextApplicationPage, props: any) {
   return (
     <AppShellProvider>
-      <AppShellLayout
-        mobileSidebar={Component.mobileSidebar}
-        desktopSidebar={Component.desktopSidebar}
-      >
+      <AppShellLayout>
         <Component {...props} />
       </AppShellLayout>
     </AppShellProvider>

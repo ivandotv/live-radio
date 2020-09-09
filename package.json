@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
+    "build": "npm run countries && next build",
     "start": "next start",
-    "analyze": "env ANALYZE=true npm run build"
+    "analyze": "env ANALYZE=true npm run build",
+    "countries": "node scripts/generate-countries.js"
   },
   "browserslist": [
     ">0.3%",
@@ -20,20 +21,25 @@
     "@material-ui/icons": "^4.9.1",
     "clsx": "^1.1.1",
     "csso": "^4.0.3",
-    "next": "9.5.2",
-    "next-pwa": "^3.1.1",
+    "next": "9.5.3",
+    "next-pwa": "^3.1.3",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-virtualized-auto-sizer": "^1.0.2",
+    "react-window": "^1.8.5"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^9.5.2",
     "@types/csso": "^3.5.1",
-    "@types/node": "^14.6.0",
-    "@types/react": "^16.9.46",
-    "@typescript-eslint/eslint-plugin": "^3.9.1",
-    "@typescript-eslint/parser": "^3.9.1",
+    "@types/node": "^14.6.1",
+    "@types/react": "^16.9.48",
+    "@types/react-virtualized-auto-sizer": "^1.0.0",
+    "@types/react-window": "^1.8.2",
+    "@typescript-eslint/eslint-plugin": "^3.10.1",
+    "@typescript-eslint/parser": "^3.10.1",
     "babel-plugin-inline-react-svg": "^1.1.1",
     "babel-plugin-transform-define": "^2.0.0",
+    "countries-list": "^2.5.6",
     "eslint-config-prettier": "^6.11.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
@@ -44,8 +50,8 @@
     "eslint-plugin-react-hooks": "^4.1.0",
     "eslint-plugin-standard": "^4.0.1",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
-    "prettier": "^2.0.5",
+    "lint-staged": "^10.2.13",
+    "prettier": "^2.1.1",
     "prettier-standard": "^16.4.1",
     "typescript": "^4.0.2"
   }

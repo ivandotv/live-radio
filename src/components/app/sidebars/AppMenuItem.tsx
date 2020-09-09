@@ -1,20 +1,29 @@
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Link, { LinkProps } from 'next/link'
-import { useRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 import { ReactNode, useEffect, useState } from 'react'
 
 export function AppMenuItem({
   onClick,
-  children,
   link,
-  icon
+  icon,
+  // trackingKey,
+  primary,
+  secondary = '',
+  selected
 }: {
   link: LinkProps
+  // trackingKey?: string | number
+  primary: string
+  secondary?: string
   onClick?: (...args: any[]) => void
-  children: ReactNode
+  selected?: (router: NextRouter) => boolean
+  // children?: ReactNode
   icon?: ReactNode
 }) {
+  // trackingKey = trackingKey || primary
+  // console.log('tracking key', trackingKey)
   const router = useRouter()
   const [clientRender, setClientRender] = useState(false)
 
@@ -35,10 +44,10 @@ export function AppMenuItem({
         button
         component="a"
         onClick={handleClick}
-        selected={clientRender && router.asPath === link.href}
+        selected={clientRender && selected && selected(router)}
       >
         {icon}
-        <ListItemText>{children}</ListItemText>
+        <ListItemText primary={primary} secondary={secondary} />
       </ListItem>
     </Link>
   )

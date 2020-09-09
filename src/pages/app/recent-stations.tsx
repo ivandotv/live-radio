@@ -1,8 +1,8 @@
 import Paper from '@material-ui/core/Paper'
 import { AppDefaultLayout } from '../../components/app/layout/AppDefaultLayout'
 
-export default function Settings() {
-  return <Paper>settings</Paper>
+export default function RecentStations() {
+  return <Paper>recent</Paper>
 }
 
-Settings.layout = AppDefaultLayout
+RecentStations.layout = AppDefaultLayout

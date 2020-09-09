@@ -8,6 +8,7 @@ const nextConfig = {
   pwa: {
     dest: 'public',
     runtimeCaching,
+    scope: '/app',
     disable: process.env.NODE_ENV === 'development'
   }
 }

@@ -14,7 +14,8 @@ const Actions = {
   SET_THEME: 'SET_THEME',
   DESKTOP_DRAWER_IS_OPEN: 'DESKTOP_DRAWER_IS_OPEN',
   MOBILE_DRAWER_IS_OPEN: 'MOBILE_DRAWER_IS_OPEN',
-  READY_TO_SHOW: 'ready_to_show'
+  READY_TO_SHOW: 'ready_to_show',
+  SET_APP_TITLE: 'set_app_title'
 } as const
 
 type Payload = {
@@ -22,6 +23,7 @@ type Payload = {
   [Actions.MOBILE_DRAWER_IS_OPEN]: boolean
   [Actions.DESKTOP_DRAWER_IS_OPEN]: boolean
   [Actions.READY_TO_SHOW]: boolean
+  [Actions.SET_APP_TITLE]: string
 }
 
 const initialState = {
@@ -33,7 +35,8 @@ const initialState = {
     typeof navigator !== 'undefined' &&
     /iPad|iPhone|iPod/.test(navigator.userAgent),
   theme: 'light',
-  showApp: false
+  showApp: false,
+  appTitle: 'Next Radio'
 }
 
 // todo - omit ready toshow
@@ -61,6 +64,11 @@ const reducer = (state: typeof initialState, action: ProductActions) => {
       return {
         ...state,
         showApp: action.payload
+      }
+    case Actions.SET_APP_TITLE:
+      return {
+        ...state,
+        appTitle: action.payload
       }
     default:
       throw assertUnrecognizedAction(action)

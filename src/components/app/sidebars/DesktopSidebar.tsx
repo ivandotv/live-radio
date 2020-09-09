@@ -12,6 +12,7 @@ import { memo } from 'react'
 import { NextApplicationPage } from '../../../pages/_app'
 import { useAppShell } from '../AppShellProvider'
 import { DefaultMenuItems } from './DefaultMenuItems'
+import { Menu } from './Menu'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,21 +52,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const DesktopSidebar = memo(function DesktopSidebar({
-  sidebar
-}: {
-  sidebar?: NextApplicationPage['desktopSidebar']
-}) {
+export const DesktopSidebar = memo(function DesktopSidebar() {
   const { state } = useAppShell()
   const classes = useStyles({ drawerWidth: state.desktopDrawerWidth })
   const theme = useTheme()
-
-  const defaultItems = <DefaultMenuItems></DefaultMenuItems>
-  const menuItems = sidebar ? (
-    sidebar(defaultItems)
-  ) : (
-    <List>{defaultItems}</List>
-  )
 
   return (
     <Box
@@ -96,7 +86,7 @@ export const DesktopSidebar = memo(function DesktopSidebar({
         }}
       >
         <div className={classes.appBarSpacer}></div>
-        {menuItems}
+        <Menu position="desktop" />
       </Drawer>
     </Box>
   )
