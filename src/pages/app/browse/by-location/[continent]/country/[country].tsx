@@ -3,7 +3,7 @@ import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Paper from '@material-ui/core/Paper'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { createStyles, makeStyles, fade } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -14,8 +14,12 @@ import { countries, continents } from 'countries-list'
 import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
 import { FixedSizeList } from 'react-window'
 import AutoSizer from 'react-virtualized-auto-sizer'
-
-// todo - implement react window
+import InputBase from '@material-ui/core/InputBase'
+import SearchIcon from '@material-ui/icons/Search'
+import TextField from '@material-ui/core/TextField'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import * as JsSearch from 'js-search'
+import { FilterData } from '../../../../../../components/app/filterData'
 
 export type RadioStation = {
   tags: string[]
@@ -82,15 +86,23 @@ export const getStaticPaths: GetStaticPaths = async function () {
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    root: {
-      // opacity: 0
-      // width: '100%',
-      // // maxWidth: 360,
-      // backgroundColor: theme.palette.background.paper
+    paper: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: 'calc( 100vh - 72px )' // todo calculate the value dinamically
+    },
+    scrollWrap: {
+      // height: 'calc( 100vh - 147px )', // todo calculate the value dinamically
+      position: 'relative',
+      height: '100%'
     },
     secondary: {
       // opacity: 0,
       // marginTop: theme.spacing(1)
+    },
+    search: {
+      margin: theme.spacing(2)
+      // width: '100%'
     }
   })
 })
@@ -112,14 +124,35 @@ export default function CountryStations({
   const classes = useStyles()
   const router = useRouter()
   console.log('stations router ', router)
+
+  // index stations
+
+  const searchApi = useRef<JsSearch.Search>()
+  const filteredData = []
+  useEffect(() => {
+    // console.log(`station ${stations[0]}`)
+    console.log('station effect is fallback:', router.isFallback)
+    console.log('window exists ', window)
+    console.log(`stations: ${stations}`)
+    if (!router.isFallback) {
+      if (!searchApi.current) {
+        searchApi.current = new JsSearch.Search('uuid')
+        searchApi.current.addIndex('tags')
+        searchApi.current.addIndex('name')
+      }
+      searchApi.current.addDocuments(stations)
+      if (window) {
+        window.searchTest = searchApi.current
+      }
+    }
+  }, [stations, router.isFallback])
+
   if (router.isFallback) {
     return <CircularProgress />
   }
   if (!stations.length) {
     return <h2>NO DATA for </h2>
   }
-
-  // console.log(`station ${stations[0]}`)
 
   const stationsList = []
   for (const station of stations) {
@@ -144,10 +177,12 @@ export default function CountryStations({
     return (
       <ListItem divider button style={style} key={station.uuid}>
         <ListItemText
-          classes={{
-            root: classes.root,
-            secondary: classes.secondary
-          }}
+          classes={
+            {
+              // root: classes.root,
+              // secondary: classes.secondary
+            }
+          }
           primary={station.name}
           secondary={<TagList tags={station.tags} />}
         />
@@ -159,12 +194,10 @@ export default function CountryStations({
   const breadcrumbLinks = [
     {
       href: '/app/browse',
-      // as: '/app/browse',
       text: 'Browse'
     },
     {
       href: '/app/browse/by-location',
-      // as: '/app/browse/by-location',
       text: 'By Location'
     },
     {
@@ -172,30 +205,35 @@ export default function CountryStations({
       as: `/app/browse/by-location/${continentCode}`,
       text: `${continentName}`
     },
-
     {
       text: `${countryName}`
     }
   ]
 
+  const handleSearchData = (v: string) => {
+    console.log('search data parent ', v)
+    // console.log('search: ', searchApi.current!.search(v))
+  }
+
   return (
-    <Paper>
+    <Paper className={classes.paper}>
       <LocationBreadCrumbs links={breadcrumbLinks} />
-      {/* <div> */}
-      <AutoSizer>
-        {({ height, width }) => (
-          <FixedSizeList
-            height={height}
-            itemSize={100}
-            itemData={stations}
-            itemCount={stations.length}
-            width={width}
-          >
-            {row}
-          </FixedSizeList>
-        )}
-      </AutoSizer>
-      {/* </div> */}
+      <FilterData cb={handleSearchData} />
+      <div className={classes.scrollWrap}>
+        <AutoSizer>
+          {({ height, width }) => (
+            <FixedSizeList
+              height={height}
+              itemSize={100}
+              itemData={stations}
+              itemCount={stations.length}
+              width={width}
+            >
+              {row}
+            </FixedSizeList>
+          )}
+        </AutoSizer>
+      </div>
     </Paper>
   )
 }
