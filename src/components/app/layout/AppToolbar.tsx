@@ -70,7 +70,7 @@ function useSetAppTitle(separator: string, defaultTitle: string) {
 export function AppToolbar() {
   const theme = useTheme()
   const classes = useStyles()
-  const appTitle = useSetAppTitle(' / ', 'Browse')
+  const appTitle = useSetAppTitle(' / ', '')
   const { state, dispatch } = useAppShell()
 
   const [counter, setCounter] = useState(0)
