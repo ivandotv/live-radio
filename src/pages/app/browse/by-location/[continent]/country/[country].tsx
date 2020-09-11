@@ -185,7 +185,7 @@ export default function CountryStations({
       text: `${continentName}`
     },
     {
-      text: `${countryName}`
+      text: `${countryName} ( ${stationListData.length} results )`
     }
   ]
 
