@@ -1,9 +1,9 @@
-import CircularProgress from '@material-ui/core/CircularProgress'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Paper from '@material-ui/core/Paper'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import Skeleton from '@material-ui/lab/Skeleton'
 import { continents, countries } from 'countries-list'
 import * as JsSearch from 'js-search'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -59,7 +59,6 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
     })
   }
 
-  // todo throw error test
   return {
     props: {
       stations: leanStations,
@@ -88,17 +87,25 @@ const useStyles = makeStyles((theme: Theme) => {
       height: 'calc( 100vh - 72px )' // todo calculate the value dinamically
     },
     scrollWrap: {
-      // height: 'calc( 100vh - 147px )', // todo calculate the value dinamically
       position: 'relative',
       height: '100%'
     },
-    secondary: {
-      // opacity: 0,
-      // marginTop: theme.spacing(1)
-    },
     search: {
       margin: theme.spacing(2)
-      // width: '100%'
+    },
+    noData: {
+      margin: theme.spacing(2)
+    },
+    breadcrumbsSkeleton: {
+      margin: theme.spacing(2),
+      height: '1.7rem'
+    },
+    listSkeleton: {
+      marginTop: theme.spacing(0.5),
+      marginBottom: theme.spacing(0.5),
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+      flex: 1
     }
   })
 })
@@ -116,17 +123,15 @@ export default function CountryStations({
   continentName: string
   continentCode: string
 }) {
-  // list continents
   const classes = useStyles()
   const router = useRouter()
   const [searchValue, setSearchValue] = useState('')
   const searchApi = useRef<JsSearch.Search>()
+  const handleSearchData = (v: string) => {
+    setSearchValue(v)
+  }
 
   useEffect(() => {
-    // console.log(`station ${stations[0]}`)
-    // console.log('station effect is fallback:', router.isFallback)
-    // console.log('window exists ', window)
-    // console.log(`stations: ${stations}`)
     if (!router.isFallback) {
       if (!searchApi.current) {
         searchApi.current = new JsSearch.Search('uuid')
@@ -138,10 +143,31 @@ export default function CountryStations({
   }, [stations, router.isFallback])
 
   if (router.isFallback) {
-    return <CircularProgress />
-  }
-  if (!stations.length) {
-    return <h2>NO DATA for </h2>
+    // const skeletonList = []
+    const skeletonList = new Array(5)
+      .fill(1)
+      .map((_, i) => (
+        <Skeleton
+          component="div"
+          className={classes.listSkeleton}
+          variant="rect"
+          key={i}
+          animation="wave"
+        />
+      ))
+
+    return (
+      <Paper className={classes.paper}>
+        {/* <CircularProgress /> */}
+        <Skeleton
+          component="div"
+          className={classes.breadcrumbsSkeleton}
+          variant="rect"
+        />
+
+        {skeletonList}
+      </Paper>
+    )
   }
 
   const stationListData: RadioStation[] =
@@ -149,19 +175,12 @@ export default function CountryStations({
       ? (searchApi.current?.search(searchValue) as RadioStation[])
       : stations!
 
-  const row = function (index: number) {
-    // console.log('data ===== ', data)
+  const listRow = function (index: number) {
     const station = stationListData[index]
 
     return (
       <ListItem divider button key={station.uuid}>
         <ListItemText
-          classes={
-            {
-              // root: classes.root,
-              // secondary: classes.secondary
-            }
-          }
           primary={station.name}
           secondary={<TagList tags={station.tags} />}
         />
@@ -169,7 +188,6 @@ export default function CountryStations({
     )
   }
 
-  // app/browse/by-location/EU/country/AL
   const breadcrumbLinks = [
     {
       href: '/app/browse',
@@ -189,29 +207,34 @@ export default function CountryStations({
     }
   ]
 
-  const handleSearchData = (v: string) => {
-    console.log('search data parent ', v)
-    // console.log('search: ', searchApi.current!.search(v))
-    setSearchValue(v)
-  }
-
   return (
     <Paper className={classes.paper}>
       <PageTitle title={`Browse For Stations in ${countryName}`} />
       <LocationBreadCrumbs links={breadcrumbLinks} />
-      <FilterData
-        className={classes.search}
-        cb={handleSearchData}
-        delay={300}
-      />
-      <div className={classes.scrollWrap}>
-        <Virtuoso
-          totalCount={stationListData.length}
-          overscan={20}
-          item={row}
-          style={{ height: '100%', width: '100%' }}
-        />
-      </div>
+      {!stations.length ? (
+        <div className={classes.noData}>
+          <p>
+            Currently there is no data for {countryName}, sorry for the
+            inconvenience.
+          </p>
+        </div>
+      ) : (
+        <>
+          <FilterData
+            className={classes.search}
+            cb={handleSearchData}
+            delay={200}
+          />
+          <div className={classes.scrollWrap}>
+            <Virtuoso
+              totalCount={stationListData.length}
+              overscan={20}
+              item={listRow}
+              style={{ height: '100%', width: '100%' }}
+            />
+          </div>
+        </>
+      )}
     </Paper>
   )
 }
