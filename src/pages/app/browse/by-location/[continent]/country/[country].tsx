@@ -1,25 +1,20 @@
 import CircularProgress from '@material-ui/core/CircularProgress'
-import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Paper from '@material-ui/core/Paper'
-import { createStyles, makeStyles, fade } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { continents, countries } from 'countries-list'
+import * as JsSearch from 'js-search'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
-import { TagList } from '../../../../../../components/app/tagList'
-import { countries, continents } from 'countries-list'
-import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
-import { FixedSizeList } from 'react-window'
-import AutoSizer from 'react-virtualized-auto-sizer'
-import InputBase from '@material-ui/core/InputBase'
-import SearchIcon from '@material-ui/icons/Search'
-import TextField from '@material-ui/core/TextField'
-import { useEffect, useMemo, useRef, useState } from 'react'
-import * as JsSearch from 'js-search'
+import { useEffect, useRef, useState } from 'react'
+import { Virtuoso } from 'react-virtuoso'
 import { FilterData } from '../../../../../../components/app/filterData'
+import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
+import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
+import { TagList } from '../../../../../../components/app/tagList'
 
 export type RadioStation = {
   tags: string[]
@@ -123,17 +118,14 @@ export default function CountryStations({
   // list continents
   const classes = useStyles()
   const router = useRouter()
-  console.log('stations router ', router)
-
-  // index stations
-
+  const [searchValue, setSearchValue] = useState('')
   const searchApi = useRef<JsSearch.Search>()
-  const filteredData = []
+
   useEffect(() => {
     // console.log(`station ${stations[0]}`)
-    console.log('station effect is fallback:', router.isFallback)
-    console.log('window exists ', window)
-    console.log(`stations: ${stations}`)
+    // console.log('station effect is fallback:', router.isFallback)
+    // console.log('window exists ', window)
+    // console.log(`stations: ${stations}`)
     if (!router.isFallback) {
       if (!searchApi.current) {
         searchApi.current = new JsSearch.Search('uuid')
@@ -154,28 +146,17 @@ export default function CountryStations({
     return <h2>NO DATA for </h2>
   }
 
-  const stationsList = []
-  for (const station of stations) {
-    stationsList.push(
-      <ListItem divider button key={station.uuid}>
-        <ListItemText
-          classes={{
-            root: classes.root,
-            secondary: classes.secondary
-          }}
-          primary={station.name}
-          secondary={<TagList tags={station.tags} />}
-        />
-      </ListItem>
-    )
-  }
+  const stationListData: RadioStation[] =
+    searchValue.trim().length > 0
+      ? (searchApi.current?.search(searchValue) as RadioStation[])
+      : stations!
 
-  const row = function ({ data, style, index }) {
+  const row = function (index: number) {
     // console.log('data ===== ', data)
-    const station = data[index]
+    const station = stationListData[index]
 
     return (
-      <ListItem divider button style={style} key={station.uuid}>
+      <ListItem divider button key={station.uuid}>
         <ListItemText
           classes={
             {
@@ -213,26 +194,24 @@ export default function CountryStations({
   const handleSearchData = (v: string) => {
     console.log('search data parent ', v)
     // console.log('search: ', searchApi.current!.search(v))
+    setSearchValue(v)
   }
 
   return (
     <Paper className={classes.paper}>
       <LocationBreadCrumbs links={breadcrumbLinks} />
-      <FilterData cb={handleSearchData} />
+      <FilterData
+        className={classes.search}
+        cb={handleSearchData}
+        delay={300}
+      />
       <div className={classes.scrollWrap}>
-        <AutoSizer>
-          {({ height, width }) => (
-            <FixedSizeList
-              height={height}
-              itemSize={100}
-              itemData={stations}
-              itemCount={stations.length}
-              width={width}
-            >
-              {row}
-            </FixedSizeList>
-          )}
-        </AutoSizer>
+        <Virtuoso
+          totalCount={stationListData.length}
+          overscan={20}
+          item={row}
+          style={{ height: '100%', width: '100%' }}
+        />
       </div>
     </Paper>
   )

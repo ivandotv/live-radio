@@ -1,12 +1,13 @@
-import * as JsSearch from 'js-search'
 import TextField from '@material-ui/core/TextField'
 import { useState, useEffect } from 'react'
 export function FilterData({
   delay = 1000,
-  cb
+  cb,
+  className
 }: {
   cb: (v: string) => void
   delay?: number
+  className?: string
 }) {
   const [searchValue, setSearch] = useState('')
 
@@ -31,11 +32,7 @@ export function FilterData({
 
   return (
     <TextField
-      classes={
-        {
-          // root: classes.search
-        }
-      }
+      className={className}
       label="Filter"
       value={searchValue}
       onChange={handleSearch}
