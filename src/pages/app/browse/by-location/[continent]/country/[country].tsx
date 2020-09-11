@@ -15,6 +15,7 @@ import { FilterData } from '../../../../../../components/app/filterData'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
 import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
 import { TagList } from '../../../../../../components/app/tagList'
+import { PageTitle } from '../../../../../../components/pageTitle'
 
 export type RadioStation = {
   tags: string[]
@@ -111,7 +112,7 @@ export default function CountryStations({
 }: {
   stations: RadioStation[]
   countryName: string
-  countryCode: string
+  _countryCode: string
   continentName: string
   continentCode: string
 }) {
@@ -133,9 +134,6 @@ export default function CountryStations({
         searchApi.current.addIndex('name')
       }
       searchApi.current.addDocuments(stations)
-      if (window) {
-        window.searchTest = searchApi.current
-      }
     }
   }, [stations, router.isFallback])
 
@@ -199,6 +197,7 @@ export default function CountryStations({
 
   return (
     <Paper className={classes.paper}>
+      <PageTitle title={`Browse For Stations in ${countryName}`} />
       <LocationBreadCrumbs links={breadcrumbLinks} />
       <FilterData
         className={classes.search}

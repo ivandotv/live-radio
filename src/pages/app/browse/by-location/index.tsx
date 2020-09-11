@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import { continentsByCode } from '../../../../utils/continentsByode'
 import { LocationBreadCrumbs } from '../../../../components/app/locationBreadCrumbs'
+import { PageTitle } from '../../../../components/pageTitle'
 
 export default function ByLocation() {
   const continents = []
@@ -45,6 +46,7 @@ export default function ByLocation() {
 
   return (
     <Paper>
+      <PageTitle title="Browse By Location" />
       <LocationBreadCrumbs links={breadcrumbLinks} />
       <List>{continents}</List>
     </Paper>

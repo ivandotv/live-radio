@@ -6,6 +6,7 @@ import { AppMenuItem } from '../../../../../components/app/sidebars/AppMenuItem'
 import countriesJSON from '../../../../../generated/countries.json'
 import { LocationBreadCrumbs } from '../../../../../components/app/locationBreadCrumbs'
 import { continentsByCode } from '../../../../../utils/continentsByode'
+import { PageTitle } from '../../../../../components/pageTitle'
 export default function CountryList() {
   // list continents
 
@@ -27,14 +28,12 @@ export default function CountryList() {
           link={{
             href: {
               pathname: `${router.pathname}/country/[country]`
-              // query: { name: country.name }
             },
             as: {
               pathname: `${router.pathname.replace(
                 '[continent]',
                 router.query.continent as string
-              )}/country/${country.code}`,
-              query: { name: country.name, nameTwo: country.name }
+              )}/country/${country.code}`
             }
           }}
           primary={country.name}
@@ -46,12 +45,10 @@ export default function CountryList() {
   const breadcrumbLinks = [
     {
       href: '/app/browse',
-      // as: '/app/browse',
       text: 'Browse'
     },
     {
       href: '/app/browse/by-location',
-      // as: '/app/browse/by-location',
       text: 'By Location'
     },
     {
@@ -61,6 +58,9 @@ export default function CountryList() {
 
   return (
     <Paper>
+      <PageTitle
+        title={`Browse For Stations in ${continentsByCode[continent]}`}
+      />
       <LocationBreadCrumbs links={breadcrumbLinks} />
       <List>{countries}</List>
     </Paper>
