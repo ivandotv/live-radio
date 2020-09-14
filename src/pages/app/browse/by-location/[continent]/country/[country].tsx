@@ -9,13 +9,16 @@ import * as JsSearch from 'js-search'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { FilterData } from '../../../../../../components/app/filterData'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
 import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
 import { TagList } from '../../../../../../components/app/tagList'
 import { PageTitle } from '../../../../../../components/pageTitle'
+import { useMachine } from '@xstate/react'
+import { filterMachine } from '../../../../../../lib/machines/countryRadios'
+import { stat } from 'fs'
 
 export type RadioStation = {
   tags: string[]
@@ -27,6 +30,14 @@ export type RadioStation = {
   country: string
   language: string[]
   continent: string
+}
+
+export const getStaticPaths: GetStaticPaths = async function () {
+  return {
+    // todo - add major countries
+    paths: [{ params: { country: 'RS', continent: 'EU' } }],
+    fallback: true
+  }
 }
 
 export const getStaticProps: GetStaticProps = async function (ctx) {
@@ -68,14 +79,6 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       continentCode: continent
     },
     revalidate: 600 // 10 minutes
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = async function () {
-  return {
-    // todo - add major countries
-    paths: [{ params: { country: 'RS', continent: 'EU' } }],
-    fallback: true
   }
 }
 
@@ -131,6 +134,25 @@ export default function CountryStations({
     setSearchValue(v)
   }
 
+  // const machine = useMemo(() => createFilterRadioMachine(stations), [stations])
+  const [current, send, service] = useMachine(filterMachine)
+
+  // service.start()
+  // const active = current.matches("active");
+  // const { count } = current.context;
+  useEffect(() => {
+    console.log('populate stations', stations)
+    if (stations) {
+      console.log('stations ok')
+
+      send('POPULATE_STATIONS', { stations })
+    }
+  }, [send, stations])
+
+  // send('POPULATE_STATIONS', { stations })
+
+  const inputRef = useRef<(tag: string) => void>(null)
+
   useEffect(() => {
     if (!router.isFallback) {
       if (!searchApi.current) {
@@ -142,20 +164,13 @@ export default function CountryStations({
     }
   }, [stations, router.isFallback])
 
+  // if the page is in the process of being generated
+
+  // const stationListData = current.context.stations
+  // console.log('station list data ', stationListData)
+
   if (router.isFallback) {
     // const skeletonList = []
-    const skeletonList = new Array(5)
-      .fill(1)
-      .map((_, i) => (
-        <Skeleton
-          component="div"
-          className={classes.listSkeleton}
-          variant="rect"
-          key={i}
-          animation="wave"
-        />
-      ))
-
     return (
       <Paper className={classes.paper}>
         {/* <CircularProgress /> */}
@@ -164,30 +179,32 @@ export default function CountryStations({
           className={classes.breadcrumbsSkeleton}
           variant="rect"
         />
-
-        {skeletonList}
+        {new Array(5).fill(1).map((_, i) => (
+          <Skeleton
+            component="div"
+            className={classes.listSkeleton}
+            variant="rect"
+            key={i}
+            animation="wave"
+          />
+        ))}
+        {/* {skeletonList} */}
       </Paper>
     )
   }
 
-  const stationListData: RadioStation[] =
-    searchValue.trim().length > 0
-      ? (searchApi.current?.search(searchValue) as RadioStation[])
-      : stations!
-
-  const listRow = function (index: number) {
-    const station = stationListData[index]
-
-    return (
-      <ListItem divider button key={station.uuid}>
-        <ListItemText
-          primary={station.name}
-          secondary={<TagList tags={station.tags} />}
-        />
-      </ListItem>
-    )
+  const handleTagClick = (tag: string) => {
+    inputRef.current!(tag)
   }
 
+  // const stationListData: RadioStation[] =
+  //   searchValue.trim().length > 0
+  //     ? (searchApi.current?.search(searchValue) as RadioStation[])
+  //     : current.context.stations!
+  // todo - ovo treba da bude u sve u masini
+  const stationListData: RadioStation[] = current.context.stations
+
+  console.log('stationListData ', stationListData)
   const breadcrumbLinks = [
     {
       href: '/app/browse',
@@ -207,8 +224,29 @@ export default function CountryStations({
     }
   ]
 
+  // console.log('stations! ', stations.length)
+  // send('POPULATE_STATIONS', { stations })
+  // console.log('machine ', current.context.stations)
+
+  const listRow = function (index: number) {
+    const station = stationListData[index]
+
+    return (
+      <ListItem divider button key={station.uuid}>
+        <ListItemText
+          primary={station.name}
+          secondary={
+            <TagList tags={station.tags} onTagClick={handleTagClick} />
+          }
+        />
+      </ListItem>
+    )
+  }
+
   return (
     <Paper className={classes.paper}>
+      {console.log('render data', stationListData.length)}
+      <h1>current machine state {current.value}</h1>
       <PageTitle title={`Browse For Stations in ${countryName}`} />
       <LocationBreadCrumbs links={breadcrumbLinks} />
       {!stations.length ? (
@@ -224,6 +262,7 @@ export default function CountryStations({
             className={classes.search}
             cb={handleSearchData}
             delay={200}
+            ref={inputRef}
           />
           <div className={classes.scrollWrap}>
             <Virtuoso

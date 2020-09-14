@@ -9,7 +9,13 @@ const useStyles = makeStyles((theme) => {
     }
   }
 })
-export function TagList({ tags }: { tags: string[] }) {
+export function TagList({
+  tags,
+  onTagClick
+}: {
+  tags: string[]
+  onTagClick: (tag: string) => void
+}) {
   let tagList = null
 
   const classes = useStyles()
@@ -25,6 +31,10 @@ export function TagList({ tags }: { tags: string[] }) {
         variant="outlined"
         label={tag}
         className={classes.root}
+        onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
+          e.preventDefault()
+          onTagClick(tag)
+        }}
       />
     ))
   }

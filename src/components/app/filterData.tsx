@@ -1,41 +1,59 @@
 import TextField from '@material-ui/core/TextField'
-import { useState, useEffect } from 'react'
-export function FilterData({
-  delay = 1000,
-  cb,
-  className
-}: {
-  cb: (v: string) => void
-  delay?: number
-  className?: string
-}) {
-  const [searchValue, setSearch] = useState('')
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
+// eslint-disable-next-line
+export const FilterData = forwardRef(
+  (
+    {
+      delay = 1000,
+      cb,
+      className
+    }: {
+      cb: (v: string) => void
+      delay?: number
+      className?: string
+    },
+    ref
+  ) => {
+    const [searchValue, setSearch] = useState('')
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.currentTarget.value
-    setSearch(newValue)
-    // cb(newValue)
-  }
-  console.log('search value ', searchValue)
+    // let ignoreCb = false
+    const [ignoreCb, setIgnoreCb] = useState(false)
+    useImperativeHandle(ref, () => {
+      return (s: string) => {
+        // ignoreCb = true
+        setIgnoreCb(true)
+        setSearch(s)
+        cb(s)
+      }
+    })
 
-  useEffect(() => {
-    const id = setTimeout(() => {
-      console.log('update state child')
-      cb(searchValue)
-    }, delay)
-
-    // this will clear Timeout when component unmount like in willComponentUnmount
-    return () => {
-      clearTimeout(id)
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.currentTarget.value
+      setIgnoreCb(false)
+      setSearch(newValue)
+      // cb(newValue)
     }
-  }, [searchValue, cb, delay])
 
-  return (
-    <TextField
-      className={className}
-      label="Filter"
-      value={searchValue}
-      onChange={handleSearch}
-    />
-  )
-}
+    useEffect(() => {
+      const id = setTimeout(() => {
+        if (!ignoreCb) {
+          cb(searchValue)
+        }
+      }, delay)
+
+      return () => {
+        clearTimeout(id)
+      }
+    }, [searchValue, cb, delay, ignoreCb])
+
+    return (
+      <TextField
+        className={className}
+        label="Filter"
+        value={searchValue}
+        onChange={handleSearch}
+        // inputRef={ref}
+      />
+    )
+  }
+)
