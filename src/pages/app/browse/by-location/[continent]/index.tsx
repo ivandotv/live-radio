@@ -36,7 +36,7 @@ export default function CountryList() {
               )}/country/${country.code}`
             }
           }}
-          primary={country.name}
+          primary={`${country.flag} ${country.name}`}
         />
       </li>
     )

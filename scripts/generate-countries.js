@@ -1,5 +1,6 @@
 const fs = require('fs')
 const { countries } = require('countries-list')
+const flag = require('country-code-emoji')
 
 /* Optimize countries.json file from
     https://github.com/annexare/Countries/blob/master/data/countries.json
@@ -8,10 +9,10 @@ const { countries } = require('countries-list')
     e.g.
   {
     "EU": [
-      { "name": "Andorra", "code": "AD" },
-      { "name": "Albania", "code": "AL" },
-      { "name": "Austria", "code": "AT" },
-      { "name": "Åland", "code": "AX" },
+      { "name": "Andorra", "code": "AD", flag:"emoji" },
+      { "name": "Albania", "code": "AL", flag:"emoji"},
+      { "name": "Austria", "code": "AT", flag:"emoji"},
+      { "name": "Åland", "code": "AX", flag:"emoji" },
   ]
 }
 */
@@ -32,7 +33,8 @@ function countriesByContinent(countries) {
 
     result[country.continent].push({
       name: country.name,
-      code: countryCode
+      code: countryCode,
+      flag: flag(countryCode)
     })
   }
 
