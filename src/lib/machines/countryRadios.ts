@@ -35,8 +35,6 @@ export const filterMachine = Machine(
             actions: [
               send(
                 (ctx, e) => {
-                  console.log('SEARCH STATE - ', e)
-
                   return {
                     type: 'SEARCH',
                     query: e.query,
@@ -91,16 +89,9 @@ export const filterMachine = Machine(
 
         onReceive((e) => {
           if (e.type === 'SEARCH') {
-            console.log(
-              '================================================================'
-            )
             callback({ type: 'RESULT', result: searchAPI.search(e.query) })
           }
         })
-
-        return () => {
-          console.log('search api: cleanup function')
-        }
       }
     }
   }

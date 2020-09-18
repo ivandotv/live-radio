@@ -4,18 +4,18 @@ import Paper from '@material-ui/core/Paper'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import Skeleton from '@material-ui/lab/Skeleton'
+import { useMachine } from '@xstate/react'
 import { continents, countries } from 'countries-list'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { FilterData } from '../../../../../../components/app/filterData'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
 import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
 import { TagList } from '../../../../../../components/app/tagList'
 import { PageTitle } from '../../../../../../components/pageTitle'
-import { useMachine } from '@xstate/react'
 import { filterMachine } from '../../../../../../lib/machines/countryRadios'
 
 export type RadioStation = {
@@ -126,46 +126,15 @@ export default function CountryStations({
 }) {
   const classes = useStyles()
   const router = useRouter()
-  const [searchValue, setSearchValue] = useState('')
-  const searchApi = useRef<JsSearch.Search>()
-  const handleSearchData = (v: string) => {
-    setSearchValue(v)
-  }
 
-  // const machine = useMemo(() => createFilterRadioMachine(stations), [stations])
   const [current, send, service] = useMachine(filterMachine)
-
   service.start()
-  // const active = current.matches("active");
-  // const { count } = current.context;
-  useEffect(() => {
-    // console.log('populate stations', stations)
-    if (stations) {
-      // console.log('stations ok')
 
+  useEffect(() => {
+    if (stations) {
       send('POPULATE_STATIONS', { stations })
     }
   }, [send, stations])
-
-  // send('POPULATE_STATIONS', { stations })
-
-  // const inputRef = useRef<(tag: string) => void>(null)
-
-  // useEffect(() => {
-  //   if (!router.isFallback) {
-  //     if (!searchApi.current) {
-  //       searchApi.current = new JsSearch.Search('uuid')
-  //       searchApi.current.addIndex('tags')
-  //       searchApi.current.addIndex('name')
-  //     }
-  //     searchApi.current.addDocuments(stations)
-  //   }
-  // }, [stations, router.isFallback])
-
-  // if the page is in the process of being generated
-
-  // const stationListData = current.context.stations
-  // console.log('station list data ', stationListData)
 
   if (router.isFallback) {
     // const skeletonList = []
@@ -191,23 +160,12 @@ export default function CountryStations({
     )
   }
 
-  // todo - tag click
   const handleTagClick = (tag: string) => {
-    // inputRef.current!(tag)
-    // console.log('handle tag click ', tag)
-
     send({ type: 'SEARCH', query: `${current.context.query} ${tag}` })
-    // send({ type: 'SEARCH', query: `${tag}` })
   }
 
-  // const stationListData: RadioStation[] =
-  //   searchValue.trim().length > 0
-  //     ? (searchApi.current?.search(searchValue) as RadioStation[])
-  //     : current.context.stations!
-  // TODO - ovo treba da bude u sve u masini
   const stationListData: RadioStation[] = current.context.stations
 
-  // console.log('stationListData ', stationListData)
   const breadcrumbLinks = [
     {
       href: '/app/browse',
@@ -227,10 +185,6 @@ export default function CountryStations({
     }
   ]
 
-  // console.log('stations! ', stations.length)
-  // send('POPULATE_STATIONS', { stations })
-  // console.log('machine ', current.context.stations)
-
   const listRow = function (index: number) {
     const station = stationListData[index]
 
@@ -248,13 +202,12 @@ export default function CountryStations({
 
   return (
     <Paper className={classes.paper}>
-      {console.log('render data', stationListData.length)}
       <PageTitle title={`Browse For Stations in ${countryName}`} />
       <LocationBreadCrumbs links={breadcrumbLinks} />
-      {!stations.length ? (
+      {current.context.allStations.length === 0 ? (
         <div className={classes.noData}>
           <p>
-            Currently there is no data for {countryName}, sorry for the
+            Currently there is no data for {countryName}. Sorry for the
             inconvenience.
           </p>
         </div>
@@ -262,10 +215,8 @@ export default function CountryStations({
         <>
           <FilterData
             className={classes.search}
-            cb={handleSearchData}
-            delay={3000} // 200 original
-            // ref={inputRef}
-            searchService={service}
+            delay={200} // debounce typing
+            filterService={service}
           />
           <div className={classes.scrollWrap}>
             <Virtuoso
