@@ -1,5 +1,6 @@
 import { assign, send, Machine } from 'xstate'
 import { RadioStation } from '../../pages/app/browse/by-location/[continent]/country/[country]'
+import * as JsSearch from 'js-search'
 
 export function createFilterRadioMachine(stations: RadioStation[]) {
   console.log('create filter radio machine ', stations)
@@ -8,10 +9,12 @@ export function createFilterRadioMachine(stations: RadioStation[]) {
 export const filterMachine = Machine(
   {
     id: 'radio-stations',
+    strict: true,
     initial: 'idle',
     context: {
+      allStations: [],
       stations: [],
-      searchResult: null
+      query: ''
     },
     states: {
       idle: {
@@ -29,19 +32,29 @@ export const filterMachine = Machine(
         },
         on: {
           SEARCH: {
-            actions: send(
-              (ctx, e) => {
-                return { type: 'SEARCH', test: e.test }
-              },
-              { to: 'search-api' }
-            )
+            actions: [
+              send(
+                (ctx, e) => {
+                  console.log('SEARCH STATE - ', e)
+
+                  return {
+                    type: 'SEARCH',
+                    query: e.query
+                  }
+                },
+                { to: 'search-api' }
+              ),
+              assign((_, e) => {
+                return {
+                  query: e.query
+                }
+              })
+            ]
           },
           RESULT: {
-            actions: assign({
-              searchResult: (_, e) => {
-                // console.log('assign from result', e)
-
-                return e.result
+            actions: assign((ctx, e) => {
+              return {
+                stations: e.result.length === 0 ? ctx.allStations : e.result
               }
             })
           }
@@ -52,10 +65,11 @@ export const filterMachine = Machine(
   {
     actions: {
       populateStations: assign({
+        allStations: (_, event) => {
+          return [...event.stations]
+        },
         stations: (_, event) => {
-          // console.log('action - populate stations', event)
-
-          return event.stations
+          return [...event.stations]
         }
       })
     },
@@ -63,23 +77,26 @@ export const filterMachine = Machine(
       searchAPI: (context, event) => (callback, onReceive) => {
         // console.log('search api machine')
         // console.log('context ', context)
-        // console.log('event ', event)
+        console.log(' search api service : event ', event)
+        // init search
+
+        const searchAPI = new JsSearch.Search('uuid')
+        searchAPI.addIndex('tags')
+        searchAPI.addIndex('name')
+        searchAPI.addDocuments(context.allStations)
+
         onReceive((e) => {
+          console.log('search api onReceive ', e)
           if (e.type === 'SEARCH') {
-            // callback('PONG')
-            // console.log('do the search', e)
-            const haystack = e.haystack
-            if (e.test === 'even') {
-              // console.log('do the callback')
-              callback({ type: 'RESULT', result: 'hello' })
-            }
+            //     ? (searchApi.current?.search(searchValue) as RadioStation[])
+            const results = searchAPI.search(e.query)
+            console.log('search results ', results)
+            callback({ type: 'RESULT', result: results })
           }
         })
 
-        // // Perform cleanup
-        // return () => clearInterval(id);
         return () => {
-          // console.log('cleanup function')
+          console.log('search api: cleanup function')
         }
       }
     }
