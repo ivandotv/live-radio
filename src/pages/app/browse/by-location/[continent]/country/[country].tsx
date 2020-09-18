@@ -9,14 +9,14 @@ import { continents, countries } from 'countries-list'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { FilterData } from '../../../../../../components/app/filterData'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
 import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
 import { TagList } from '../../../../../../components/app/tagList'
 import { PageTitle } from '../../../../../../components/pageTitle'
-import { filterMachine } from '../../../../../../lib/machines/countryRadios'
+import { filterRadioMachine } from '../../../../../../lib/machines/filterRadioMachine'
 
 export type RadioStation = {
   tags: string[]
@@ -53,8 +53,6 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   const leanStations = []
   // strip properties that are not in use
   for (const station of stations) {
-    // console.log('--- ', station.name)
-
     leanStations.push({
       tags: [...new Set(station.tags.split(','))],
       name: station.name,
@@ -127,7 +125,7 @@ export default function CountryStations({
   const classes = useStyles()
   const router = useRouter()
 
-  const [current, send, service] = useMachine(filterMachine)
+  const [current, send, service] = useMachine(filterRadioMachine)
   service.start()
 
   useEffect(() => {
@@ -161,7 +159,7 @@ export default function CountryStations({
   }
 
   const handleTagClick = (tag: string) => {
-    send({ type: 'SEARCH', query: `${current.context.query} ${tag}` })
+    send({ type: 'SEARCH', query: `${current.context.query} ${tag}`, delay: 0 })
   }
 
   const stationListData: RadioStation[] = current.context.stations

@@ -1,12 +1,60 @@
-import { assign, send, actions, Machine } from 'xstate'
+import {
+  assign,
+  send,
+  actions,
+  Machine,
+  // EventObject,
+  AnyEventObject
+} from 'xstate'
 import { RadioStation } from '../../pages/app/browse/by-location/[continent]/country/[country]'
 import * as JsSearch from 'js-search'
 
-export function createFilterRadioMachine(stations: RadioStation[]) {
-  console.log('create filter radio machine ', stations)
+// export function createFilterRadioMachine(stations: RadioStation[]) {
+//   console.log('create filter radio machine ', stations)
+// }
+export interface FilterRadioContext {
+  allStations: RadioStation[]
+  stations: RadioStation[]
+  query: string
+}
+export interface FilterRadioSchema {
+  states: {
+    idle: {}
+    search: {}
+  }
+}
+type PopulateStationsEvent = {
+  type: 'POPULATE_STATIONS'
+  stations: RadioStation[]
 }
 
-export const filterMachine = Machine(
+type FilterRadioEvents = {
+  POPULATE_STATIONS: {
+    type: 'POPULATE_STATIONS'
+    stations: RadioStation[]
+  }
+  SEARCH: {
+    type: 'SEARCH'
+    query: string
+    delay: number
+  }
+  CANCEL: {
+    type: 'CANCEL'
+  }
+  RESULT: {
+    type: 'RESULT'
+    result: RadioStation[]
+  }
+}
+
+type GenerateEvents<T> = T[keyof T]
+export type FinalEvents = GenerateEvents<FilterRadioEvents>
+
+export const filterRadioMachine = Machine<
+  FilterRadioContext,
+  FilterRadioSchema,
+  FinalEvents
+>(
   {
     id: 'radio-stations',
     strict: true,
@@ -71,7 +119,7 @@ export const filterMachine = Machine(
   {
     actions: {
       populateStations: assign({
-        allStations: (_, event) => {
+        allStations: (_, event: FilterRadioEvents['POPULATE_STATIONS']) => {
           return [...event.stations]
         },
         stations: (_, event) => {
@@ -89,6 +137,7 @@ export const filterMachine = Machine(
 
         onReceive((e) => {
           if (e.type === 'SEARCH') {
+            // eslint-disable-next-line
             callback({ type: 'RESULT', result: searchAPI.search(e.query) })
           }
         })
