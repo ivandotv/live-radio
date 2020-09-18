@@ -139,9 +139,9 @@ export default function CountryStations({
   // const active = current.matches("active");
   // const { count } = current.context;
   useEffect(() => {
-    console.log('populate stations', stations)
+    // console.log('populate stations', stations)
     if (stations) {
-      console.log('stations ok')
+      // console.log('stations ok')
 
       send('POPULATE_STATIONS', { stations })
     }
@@ -194,7 +194,7 @@ export default function CountryStations({
   // todo - tag click
   const handleTagClick = (tag: string) => {
     // inputRef.current!(tag)
-    console.log('handle tag click ', tag)
+    // console.log('handle tag click ', tag)
 
     send({ type: 'SEARCH', query: `${current.context.query} ${tag}` })
     // send({ type: 'SEARCH', query: `${tag}` })
@@ -207,7 +207,7 @@ export default function CountryStations({
   // TODO - ovo treba da bude u sve u masini
   const stationListData: RadioStation[] = current.context.stations
 
-  console.log('stationListData ', stationListData)
+  // console.log('stationListData ', stationListData)
   const breadcrumbLinks = [
     {
       href: '/app/browse',
@@ -263,7 +263,7 @@ export default function CountryStations({
           <FilterData
             className={classes.search}
             cb={handleSearchData}
-            delay={200}
+            delay={3000} // 200 original
             // ref={inputRef}
             searchService={service}
           />

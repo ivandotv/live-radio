@@ -1,6 +1,12 @@
 import TextField from '@material-ui/core/TextField'
 import { useService } from '@xstate/react'
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
+import {
+  useState,
+  useEffect,
+  forwardRef,
+  useRef,
+  useImperativeHandle
+} from 'react'
 import { Interpreter } from 'xstate'
 // eslint-disable-next-line
 export const FilterData = forwardRef(
@@ -18,10 +24,11 @@ export const FilterData = forwardRef(
     },
     ref
   ) => {
-    // const [searchValue, setSearch] = useState('')
+    const [searchValue, setSearch] = useState('')
 
     const [state, send] = useService(searchService)
-    console.log('use service', state)
+    // console.log('use service', state)
+    const searchInput = useRef(null)
     // let ignoreCb = false
     // const [ignoreCb, setIgnoreCb] = useState(false)
     // useImperativeHandle(ref, () => {
@@ -37,38 +44,33 @@ export const FilterData = forwardRef(
       const newValue = e.currentTarget.value
       // setIgnoreCb(false)
       // setSearch(newValue)
-      // cb(newValue)
+      // // cb(newValue)
       console.log('filter: on change ', newValue)
-      console.log('state machine state', state.value)
+      // console.log('state machine state', state.value)
 
-      send({ type: 'SEARCH', query: newValue })
+      send({ type: 'CANCEL' })
+      send({ type: 'SEARCH', query: newValue, delay: 3000 })
     }
 
     // useEffect(() => {
     //   const id = setTimeout(() => {
-    //     if (!ignoreCb) {
-    //       cb(searchValue)
-    //     }
+    //     console.log('use effect ', searchInput.current.value)
+    //     send({ type: 'SEARCH', query: searchInput.current.value })
     //   }, delay)
 
     //   return () => {
     //     clearTimeout(id)
     //   }
-    // }, [searchValue, cb, delay, ignoreCb])
-
-    // console.log('====== ', searchService)
+    // }, [searchValue, delay, send])
 
     return (
-      <>
-        <p>interpreter {searchService.machine.context.testData}</p>
-        <TextField
-          className={className}
-          label="Filter"
-          value={state.context.query}
-          onChange={handleSearch}
-          // inputRef={ref}
-        />
-      </>
+      <TextField
+        className={className}
+        label="Filter"
+        value={state.context.query}
+        inputRef={searchInput}
+        onChange={handleSearch}
+      />
     )
   }
 )

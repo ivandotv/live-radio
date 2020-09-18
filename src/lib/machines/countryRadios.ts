@@ -1,4 +1,4 @@
-import { assign, send, Machine } from 'xstate'
+import { assign, send, actions, Machine } from 'xstate'
 import { RadioStation } from '../../pages/app/browse/by-location/[continent]/country/[country]'
 import * as JsSearch from 'js-search'
 
@@ -39,10 +39,15 @@ export const filterMachine = Machine(
 
                   return {
                     type: 'SEARCH',
-                    query: e.query
+                    query: e.query,
+                    delay: e.delay
                   }
                 },
-                { to: 'search-api' }
+                {
+                  to: 'search-api',
+                  delay: (context, event) => event.delay || 0,
+                  id: 'search-delay'
+                }
               ),
               assign((_, e) => {
                 return {
@@ -50,6 +55,9 @@ export const filterMachine = Machine(
                 }
               })
             ]
+          },
+          CANCEL: {
+            actions: [actions.cancel('search-delay')]
           },
           RESULT: {
             actions: assign((ctx, e) => {
@@ -74,24 +82,19 @@ export const filterMachine = Machine(
       })
     },
     services: {
-      searchAPI: (context, event) => (callback, onReceive) => {
-        // console.log('search api machine')
-        // console.log('context ', context)
-        console.log(' search api service : event ', event)
+      searchAPI: (context, _event) => (callback, onReceive) => {
         // init search
-
         const searchAPI = new JsSearch.Search('uuid')
         searchAPI.addIndex('tags')
         searchAPI.addIndex('name')
         searchAPI.addDocuments(context.allStations)
 
         onReceive((e) => {
-          console.log('search api onReceive ', e)
           if (e.type === 'SEARCH') {
-            //     ? (searchApi.current?.search(searchValue) as RadioStation[])
-            const results = searchAPI.search(e.query)
-            console.log('search results ', results)
-            callback({ type: 'RESULT', result: results })
+            console.log(
+              '================================================================'
+            )
+            callback({ type: 'RESULT', result: searchAPI.search(e.query) })
           }
         })
 
