@@ -1,6 +1,11 @@
 import TextField from '@material-ui/core/TextField'
 import { useService } from '@xstate/react'
 import { Interpreter } from 'xstate'
+import {
+  FilterRadioContext,
+  // FilterRadioSchema,
+  FilterRadioEvent
+} from '../../lib/machines/filterRadioMachine'
 
 export function FilterData({
   delay = 1000,
@@ -9,7 +14,7 @@ export function FilterData({
 }: {
   delay?: number
   className?: string
-  filterService: Interpreter
+  filterService: Interpreter<FilterRadioContext, any, FilterRadioEvent>
 }) {
   const [service, send] = useService(filterService)
 

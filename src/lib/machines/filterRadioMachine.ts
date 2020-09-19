@@ -1,8 +1,9 @@
 import {
   assign,
-  send,
+  // send,
   actions,
   Machine,
+  forwardTo,
   // EventObject,
   AnyEventObject
 } from 'xstate'
@@ -23,37 +24,32 @@ export interface FilterRadioSchema {
     search: {}
   }
 }
-type PopulateStationsEvent = {
-  type: 'POPULATE_STATIONS'
-  stations: RadioStation[]
-}
 
-type FilterRadioEvents = {
-  POPULATE_STATIONS: {
-    type: 'POPULATE_STATIONS'
-    stations: RadioStation[]
-  }
-  SEARCH: {
-    type: 'SEARCH'
-    query: string
-    delay: number
-  }
-  CANCEL: {
-    type: 'CANCEL'
-  }
-  RESULT: {
-    type: 'RESULT'
-    result: RadioStation[]
-  }
-}
+export type FilterRadioEvent =
+  | {
+      type: 'POPULATE_STATIONS'
+      stations: RadioStation[]
+    }
+  | {
+      type: 'SEARCH'
+      query: string
+      delay: number
+    }
+  | {
+      type: 'CANCEL'
+    }
+  | {
+      type: 'RESULT'
+      result: RadioStation[]
+    }
 
-type GenerateEvents<T> = T[keyof T]
-export type FinalEvents = GenerateEvents<FilterRadioEvents>
+// type GenerateEvents<T> = T[keyof T]
+// export type FinalEvents = GenerateEvents<FilterRadioEvents>
 
 export const filterRadioMachine = Machine<
   FilterRadioContext,
-  FilterRadioSchema,
-  FinalEvents
+  // FilterRadioSchema,
+  FilterRadioEvent
 >(
   {
     id: 'radio-stations',
@@ -81,20 +77,10 @@ export const filterRadioMachine = Machine<
         on: {
           SEARCH: {
             actions: [
-              send(
-                (ctx, e) => {
-                  return {
-                    type: 'SEARCH',
-                    query: e.query,
-                    delay: e.delay
-                  }
-                },
-                {
-                  to: 'search-api',
-                  delay: (context, event) => event.delay || 0,
-                  id: 'search-delay'
-                }
-              ),
+              forwardTo('search-api', {
+                delay: (context, event) => event.delay || 0,
+                id: 'search-delay'
+              }),
               assign((_, e) => {
                 return {
                   query: e.query
@@ -118,8 +104,16 @@ export const filterRadioMachine = Machine<
   },
   {
     actions: {
+      // @ts-ignore
       populateStations: assign({
-        allStations: (_, event: FilterRadioEvents['POPULATE_STATIONS']) => {
+        allStations: (
+          _,
+          event: { type: 'POPULATE_STATIONS'; stations: RadioStation[] }
+        ) => {
+          // if (event.type === 'POPULATE_STATIONS') {
+          //   return [...event.stations]
+          // }
+
           return [...event.stations]
         },
         stations: (_, event) => {
@@ -135,7 +129,7 @@ export const filterRadioMachine = Machine<
         searchAPI.addIndex('name')
         searchAPI.addDocuments(context.allStations)
 
-        onReceive((e) => {
+        onReceive((e: AnyEventObject) => {
           if (e.type === 'SEARCH') {
             // eslint-disable-next-line
             callback({ type: 'RESULT', result: searchAPI.search(e.query) })

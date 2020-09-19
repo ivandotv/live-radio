@@ -5,55 +5,40 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useMachine } from '@xstate/react'
-import { continents, countries } from 'countries-list'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { FilterData } from '../../../../../../components/app/filterData'
-import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
-import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
-import { TagList } from '../../../../../../components/app/tagList'
-import { PageTitle } from '../../../../../../components/pageTitle'
+import { FilterData } from '../../../../components/app/filterData'
+import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
+import { LocationBreadCrumbs } from '../../../../components/app/locationBreadCrumbs'
+import { TagList } from '../../../../components/app/tagList'
+import { PageTitle } from '../../../../components/pageTitle'
 import {
   FilterRadioContext,
   filterRadioMachine,
-  FilterRadioEvent
-  // FilterRadioSchema
-  // FinalEvents
-} from '../../../../../../lib/machines/filterRadioMachine'
-
-export type RadioStation = {
-  tags: string[]
-  name: string
-  uuid: string
-  url: string
-  favicon: string
-  homepage: string
-  country: string
-  language: string[]
-  continent: string
-}
+  FinalEvents
+} from '../../../../lib/machines/filterRadioMachine'
+import { RadioStation } from '../by-location/[continent]/country/[country]'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
-    // todo - add major countries
-    paths: [{ params: { country: 'RS', continent: 'EU' } }],
+    // todo - add most popular genres
+    paths: [{ params: { genre: 'pop' } }],
     fallback: true
   }
 }
 
 export const getStaticProps: GetStaticProps = async function (ctx) {
-  console.log('country get static props', ctx)
+  console.log('genre get static props', ctx)
 
-  const countryCode = ctx.params?.country as string
-  const continent = ctx.params?.continent as string
-  const country = countries[countryCode as keyof typeof countries]
+  const genre = (ctx.params?.genre as string).replace('-', ' ')
 
   const api = new RadioBrowserApi('radio-next', fetch)
   const stations = await api.searchStations({
-    countryCode: countryCode.toUpperCase()
+    tag: genre,
+    limit: 1000
   })
 
   const leanStations = []
@@ -67,18 +52,14 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       favicon: station.favicon,
       homepage: station.homepage,
       country: station.country,
-      language: station.language.split(','),
-      continent: country.continent
+      language: station.language.split(',')
     })
   }
 
   return {
     props: {
       stations: leanStations,
-      countryName: country.name,
-      countryCode,
-      continentName: continents[country.continent as keyof typeof continents],
-      continentCode: continent
+      genre: genre
     },
     revalidate: 600 // 10 minutes
   }
@@ -115,31 +96,26 @@ const useStyles = makeStyles((theme: Theme) => {
   })
 })
 
-export default function CountryStations({
+export default function GenreStations({
   stations,
-  countryName,
-  _countryCode,
-  continentName,
-  continentCode
+  genre
 }: {
   stations: RadioStation[]
-  countryName: string
-  _countryCode: string
-  continentName: string
-  continentCode: string
+  genre: string
 }) {
   const classes = useStyles()
   const router = useRouter()
 
   const [current, send, service] = useMachine<
     FilterRadioContext,
-    FilterRadioEvent
+    // FilterRadioSchema,
+    FinalEvents
   >(filterRadioMachine)
   service.start()
 
   useEffect(() => {
     if (stations) {
-      send('POPULATE_STATIONS', { stations, test: '' })
+      send('POPULATE_STATIONS', { stations })
     }
   }, [send, stations])
 
@@ -168,7 +144,6 @@ export default function CountryStations({
   }
 
   const handleTagClick = (tag: string) => {
-    send({ type: 'CANCEL' })
     send({ type: 'SEARCH', query: `${current.context.query} ${tag}`, delay: 0 })
   }
 
@@ -180,16 +155,11 @@ export default function CountryStations({
       text: 'Browse'
     },
     {
-      href: '/app/browse/by-location',
-      text: 'By Location'
+      href: '/app/browse/by-genre',
+      text: 'By Genre'
     },
     {
-      href: '/app/browse/by-location/[continent]',
-      as: `/app/browse/by-location/${continentCode}`,
-      text: `${continentName}`
-    },
-    {
-      text: `${countryName} ( ${stationListData.length} results )`
+      text: `${genre} ( ${stationListData.length} results )`
     }
   ]
 
@@ -199,7 +169,7 @@ export default function CountryStations({
     return (
       <ListItem divider button key={station.uuid}>
         <ListItemText
-          primary={station.name}
+          primary={`${station.name} | ${station.country}`}
           secondary={
             <TagList tags={station.tags} onTagClick={handleTagClick} />
           }
@@ -210,13 +180,12 @@ export default function CountryStations({
 
   return (
     <Paper className={classes.paper}>
-      <PageTitle title={`Browse For Stations in ${countryName}`} />
+      <PageTitle title={`Browse For Stations in ${genre}`} />
       <LocationBreadCrumbs links={breadcrumbLinks} />
       {current.context.allStations.length === 0 ? (
         <div className={classes.noData}>
           <p>
-            Currently there is no data for {countryName}. Sorry for the
-            inconvenience.
+            Currently there is no data for {genre}. Sorry for the inconvenience.
           </p>
         </div>
       ) : (
@@ -240,4 +209,4 @@ export default function CountryStations({
   )
 }
 
-CountryStations.layout = AppDefaultLayout
+GenreStations.layout = AppDefaultLayout

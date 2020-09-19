@@ -15,7 +15,10 @@ export default function Browse() {
           primary="By Location"
         />
         <AppMenuItem link={{ href: '/app/browse' }} primary="By Language" />
-        <AppMenuItem link={{ href: '/app/browse' }} primary="By Genre" />
+        <AppMenuItem
+          link={{ href: '/app/browse/by-genre' }}
+          primary="By Genre"
+        />
         <AppMenuItem link={{ href: '/app/browse' }} primary="Custom Search" />
       </List>
     </Paper>
