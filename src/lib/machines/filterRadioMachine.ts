@@ -7,8 +7,8 @@ import {
   // EventObject,
   AnyEventObject
 } from 'xstate'
-import { RadioStation } from '../../pages/app/browse/by-location/[continent]/country/[country]'
 import * as JsSearch from 'js-search'
+import { RadioStation } from '../../components/app/RadioList'
 
 // export function createFilterRadioMachine(stations: RadioStation[]) {
 //   console.log('create filter radio machine ', stations)

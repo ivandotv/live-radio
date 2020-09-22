@@ -14,6 +14,7 @@ import { Virtuoso } from 'react-virtuoso'
 import { FilterData } from '../../../../../../components/app/filterData'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
 import { LocationBreadCrumbs } from '../../../../../../components/app/locationBreadCrumbs'
+import { RadioStation } from '../../../../../../components/app/RadioList'
 import { TagList } from '../../../../../../components/app/tagList'
 import { PageTitle } from '../../../../../../components/pageTitle'
 import {
@@ -23,18 +24,6 @@ import {
   // FilterRadioSchema
   // FinalEvents
 } from '../../../../../../lib/machines/filterRadioMachine'
-
-export type RadioStation = {
-  tags: string[]
-  name: string
-  uuid: string
-  url: string
-  favicon: string
-  homepage: string
-  country: string
-  language: string[]
-  continent: string
-}
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {

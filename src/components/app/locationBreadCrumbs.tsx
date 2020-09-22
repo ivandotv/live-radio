@@ -1,10 +1,10 @@
-import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Breadcrumbs from '@material-ui/core/Breadcrumbs'
+import MaterialLink from '@material-ui/core/Link'
+import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 // import Link from '@material-ui/core/Link';
 // import NavigateNextIcon from '@material-ui/icons/NavigateNext';
-import Link, { LinkProps } from 'next/link'
-import MaterialLink from '@material-ui/core/Link'
+import Link from 'next/link'
 const useStyles = makeStyles((theme) => {
   return {
     root: {
