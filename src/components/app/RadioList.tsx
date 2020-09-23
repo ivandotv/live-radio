@@ -6,7 +6,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useMachine } from '@xstate/react'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState, useLayoutEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import {
   FilterRadioContext,
@@ -79,6 +79,7 @@ export function RadioList({
 }) {
   const classes = useStyles()
   const router = useRouter()
+  const [showIt, setShowIt] = useState(false)
 
   const [machine, send, service] = useMachine<
     FilterRadioContext,
@@ -91,6 +92,12 @@ export function RadioList({
       send('POPULATE_STATIONS', { stations, test: '' })
     }
   }, [send, stations])
+
+  useLayoutEffect(() => {
+    if (!router.isFallback) {
+      setShowIt(true)
+    }
+  }, [router])
 
   if (router.isFallback) {
     return (
@@ -159,7 +166,7 @@ export function RadioList({
             delay={200} // debounce typing
             filterService={service}
           />
-          <div className={classes.scrollWrap}>
+          <div style={{ opacity: showIt }} className={classes.scrollWrap}>
             <Virtuoso
               totalCount={stationListData.length}
               overscan={20}

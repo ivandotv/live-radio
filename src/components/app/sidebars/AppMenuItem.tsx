@@ -15,11 +15,11 @@ export function AppMenuItem({
 }: {
   link: LinkProps
   // trackingKey?: string | number
-  primary: string
+  primary?: string
   secondary?: string
   onClick?: (...args: any[]) => void
   selected?: (router: NextRouter) => boolean
-  // children?: ReactNode
+  children?: ReactNode
   icon?: ReactNode
 }) {
   // trackingKey = trackingKey || primary
@@ -47,6 +47,7 @@ export function AppMenuItem({
         selected={clientRender && selected && selected(router)}
       >
         {icon}
+        {/* {children} */}
         <ListItemText primary={primary} secondary={secondary} />
       </ListItem>
     </Link>
