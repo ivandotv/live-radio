@@ -36,13 +36,17 @@ export const getStaticPaths: GetStaticPaths = async function () {
 export const getStaticProps: GetStaticProps = async function (ctx) {
   console.log('country get static props', ctx)
 
-  const countryCode = ctx.params?.country as string
-  const continent = ctx.params?.continent as string
+  const countryCode = (ctx.params?.country as string).replace(/-/g, ' ')
+
+  const continent = (ctx.params?.continent as string).replace(/-/g, ' ')
+
   const country = countries[countryCode as keyof typeof countries]
 
   const api = new RadioBrowserApi('radio-next', fetch)
   const stations = await api.searchStations({
-    countryCode: countryCode.toUpperCase()
+    countryCode: countryCode.toUpperCase(),
+    limit: 2000,
+    hideBroken: true
   })
 
   const leanStations = []
@@ -161,7 +165,7 @@ export default function CountryStations({
     send({ type: 'SEARCH', query: `${current.context.query} ${tag}`, delay: 0 })
   }
 
-  const stationListData: RadioStation[] = current.context.stations
+  const stationListData: RadioStation[] = current.context.filteredStations
 
   const breadcrumbLinks = [
     {

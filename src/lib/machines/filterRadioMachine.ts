@@ -15,7 +15,7 @@ import { RadioStation } from '../../components/app/RadioList'
 // }
 export interface FilterRadioContext {
   allStations: RadioStation[]
-  stations: RadioStation[]
+  filteredStations: RadioStation[]
   query: string
 }
 export interface FilterRadioSchema {
@@ -57,7 +57,7 @@ export const filterRadioMachine = Machine<
     initial: 'idle',
     context: {
       allStations: [],
-      stations: [],
+      filteredStations: [],
       query: ''
     },
     states: {
@@ -77,24 +77,34 @@ export const filterRadioMachine = Machine<
         on: {
           SEARCH: {
             actions: [
-              forwardTo('search-api', {
-                delay: (context, event) => event.delay || 0,
-                id: 'search-delay'
-              }),
               assign((_, e) => {
                 return {
                   query: e.query
                 }
+              }),
+              actions.cancel('search-delay'),
+              forwardTo('search-api', {
+                delay: (context, event) => event.delay || 0,
+                id: 'search-delay'
               })
             ]
           },
-          CANCEL: {
-            actions: [actions.cancel('search-delay')]
-          },
+          // CANCEL: {
+          //   actions: [actions.cancel('search-delay')]
+          // },
           RESULT: {
             actions: assign((ctx, e) => {
+              let r
+              console.log('result called query: ', ctx.query)
+              if (ctx.query.length === 0) {
+                r = ctx.allStations
+              } else {
+                r = e.result
+              }
+
               return {
-                stations: e.result.length === 0 ? ctx.allStations : e.result
+                filteredStations: r
+                // e.result.length === 0 ? ctx.allStations : e.result
               }
             })
           }
@@ -116,13 +126,13 @@ export const filterRadioMachine = Machine<
 
           return [...event.stations]
         },
-        stations: (_, event) => {
+        filteredStations: (_, event) => {
           return [...event.stations]
         }
       })
     },
     services: {
-      searchAPI: (context, _event) => (callback, onReceive) => {
+      searchAPI: (context, _event) => (send, onReceive) => {
         // init search
         const searchAPI = new JsSearch.Search('uuid')
         searchAPI.addIndex('tags')
@@ -132,7 +142,16 @@ export const filterRadioMachine = Machine<
         onReceive((e: AnyEventObject) => {
           if (e.type === 'SEARCH') {
             // eslint-disable-next-line
-            callback({ type: 'RESULT', result: searchAPI.search(e.query) })
+            const result = e.query.length === 0 ? [] : searchAPI.search(e.query)
+
+            console.log('search ', e.query)
+            console.log('result ', result)
+
+            send({
+              type: 'RESULT',
+              result
+              // result.length === 0 ? null : result
+            })
           }
         })
       }

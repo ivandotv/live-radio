@@ -16,12 +16,12 @@ export function FilterData({
   delay?: number
   className?: string
   filterService: Interpreter<FilterRadioContext, any, FilterRadioEvent>
-  style: React.CSSProperties
-}): JSX.Element {
+  style?: React.CSSProperties
+}) {
   const [service, send] = useService(filterService)
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    send({ type: 'CANCEL' })
+    // send({ type: 'CANCEL' })
     send({ type: 'SEARCH', query: e.currentTarget.value, delay: delay })
   }
 

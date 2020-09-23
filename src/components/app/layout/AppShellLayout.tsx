@@ -8,7 +8,7 @@ import {
   useTheme
 } from '@material-ui/core/styles'
 import Head from 'next/head'
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { useDesktopDrawerPosition } from '../../../lib/utils'
 import { NextApplicationPage } from '../../../pages/_app'
 import { useAppShell } from '../AppShellProvider'
@@ -89,7 +89,7 @@ export const AppShellLayout = ({
           <div className={classes.contentSpacer} />
           <Container maxWidth="md" disableGutters>
             {/* https://github.com/mui-org/material-ui/issues/21711 */}
-            {children as JSX.Element}
+            {children as ReactElement}
           </Container>
         </main>
       </div>

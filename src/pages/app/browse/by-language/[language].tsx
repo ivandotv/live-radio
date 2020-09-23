@@ -5,20 +5,22 @@ import { RadioList, RadioStation } from '../../../../components/app/RadioList'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
-    // todo - add most popular genres
-    paths: [{ params: { genre: 'pop' } }],
+    paths: [
+      { params: { language: 'english' } },
+      { params: { language: 'spanish' } },
+      { params: { language: 'french' } },
+      { params: { language: 'german' } }
+    ],
     fallback: true
   }
 }
 
 export const getStaticProps: GetStaticProps = async function (ctx) {
-  console.log('genre get static props', ctx)
-
-  const genre = (ctx.params?.genre as string).replace(/-/g, ' ')
+  const language = (ctx.params?.language as string).replace(/-/g, ' ')
 
   const api = new RadioBrowserApi('radio-next', fetch)
   const stations = await api.searchStations({
-    tag: genre,
+    language,
     limit: 1500,
     hideBroken: true
   })
@@ -41,18 +43,18 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   return {
     props: {
       stations: leanStations,
-      genre
+      language
     },
     revalidate: 600 // 10 minutes
   }
 }
 
-export default function GenreStations({
+export default function LanguageStations({
   stations,
-  genre
+  language
 }: {
   stations: RadioStation[]
-  genre: string
+  language: string
 }) {
   const breadcrumbLinks = [
     {
@@ -60,17 +62,17 @@ export default function GenreStations({
       text: 'Browse'
     },
     {
-      href: '/app/browse/by-genre',
-      text: 'By Genre'
+      href: '/app/browse/by-language',
+      text: 'By Language'
     },
     {
-      text: `${genre}`
+      text: `${language}`
     }
   ]
 
   return (
     <RadioList
-      title={`Browse For Stations in ${genre}`}
+      title={`Browse For Stations in ${language}`}
       breadcrumbs={breadcrumbLinks}
       noResults={
         'Currently there is no data for {genre}. Sorry for the inconvenience.'
@@ -83,4 +85,4 @@ export default function GenreStations({
   )
 }
 
-GenreStations.layout = AppDefaultLayout
+LanguageStations.layout = AppDefaultLayout

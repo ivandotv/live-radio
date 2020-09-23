@@ -5,30 +5,32 @@ import { LocationBreadCrumbs } from '../../../../components/app/locationBreadCru
 import { PageTitle } from '../../../../components/pageTitle'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
-import { genres } from '../../../../lib/popularGenres'
+import ISO6391 from 'iso-639-1'
 
-export default function GenreList() {
+const languages = ISO6391.getAllNames()
+
+export default function LanguageList() {
   const router = useRouter()
 
-  const genreList = []
+  const languageList = []
 
   console.log('pathname ', router.pathname)
 
-  for (const genre of genres) {
-    genreList.push(
-      <li key={genre}>
+  for (const language of languages) {
+    languageList.push(
+      <li key={language}>
         <AppMenuItem
           link={{
             href: {
-              pathname: `${router.pathname}/[genre]`
+              pathname: `${router.pathname}/[language]`
             },
             as: {
-              pathname: `${router.pathname}/${genre
+              pathname: `${router.pathname}/${language
                 // .toLowerCase()
                 .replace(/\s/g, '-')}`
             }
           }}
-          primary={`${genre}`}
+          primary={`${language}`}
         />
       </li>
     )
@@ -40,18 +42,18 @@ export default function GenreList() {
       text: 'Browse'
     },
     {
-      href: '/app/browse/by-genre',
-      text: 'By Genre'
+      href: '/app/browse/by-language',
+      text: 'By Language'
     }
   ]
 
   return (
     <Paper>
-      <PageTitle title="Browse For Stations by Genre" />
+      <PageTitle title="Browse For Stations by Language" />
       <LocationBreadCrumbs links={breadcrumbLinks} />
-      <List>{genreList}</List>
+      <List>{languageList}</List>
     </Paper>
   )
 }
 
-GenreList.layout = AppDefaultLayout
+LanguageList.layout = AppDefaultLayout

@@ -128,11 +128,11 @@ export function RadioList({
   }
 
   const handleTagClick = (tag: string) => {
-    send({ type: 'CANCEL' })
+    // send({ type: 'CANCEL' })
     send({ type: 'SEARCH', query: `${machine.context.query} ${tag}`, delay: 0 })
   }
 
-  const stationListData: RadioStation[] = machine.context.stations
+  const stationListData: RadioStation[] = machine.context.filteredStations
 
   const listRow = function (index: number) {
     const station = stationListData[index]
@@ -174,17 +174,21 @@ export function RadioList({
             delay={200} // debounce typing
             filterService={service}
           />
-          <div
-            style={{ opacity: showIt ? 1 : 0 }}
-            className={classes.scrollWrap}
-          >
-            <Virtuoso
-              totalCount={stationListData.length}
-              overscan={20}
-              item={listRow}
-              style={{ height: '100%', width: '100%' }}
-            />
-          </div>
+          {machine.context.filteredStations.length === 0 ? (
+            <h1>no filter data</h1>
+          ) : (
+            <div
+              style={{ opacity: showIt ? 1 : 0 }}
+              className={classes.scrollWrap}
+            >
+              <Virtuoso
+                totalCount={stationListData.length}
+                overscan={60}
+                item={listRow}
+                style={{ height: '100%', width: '100%' }}
+              />
+            </div>
+          )}
         </>
       )}
     </Paper>

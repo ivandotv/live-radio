@@ -17,12 +17,10 @@ export default function ByLocation() {
         <AppMenuItem
           link={{
             href: {
-              pathname: `${router.pathname}/[continent]`,
-              query: { name: 'test' }
+              pathname: `${router.pathname}/[continent]`
             },
             as: {
-              pathname: `${router.pathname}/${key}`,
-              query: { name: 'test' }
+              pathname: `${router.pathname}/${key}`
             }
           }}
           primary={value}

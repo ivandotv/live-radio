@@ -14,7 +14,10 @@ export default function Browse() {
           link={{ href: '/app/browse/by-location' }}
           primary="By Location"
         />
-        <AppMenuItem link={{ href: '/app/browse' }} primary="By Language" />
+        <AppMenuItem
+          link={{ href: '/app/browse/by-language' }}
+          primary="By Language"
+        />
         <AppMenuItem
           link={{ href: '/app/browse/by-genre' }}
           primary="By Genre"
