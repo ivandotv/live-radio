@@ -87,17 +87,24 @@ export function RadioList({
   >(filterRadioMachine)
   service.start()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (stations) {
-      send('POPULATE_STATIONS', { stations, test: '' })
+      send({ type: 'POPULATE_STATIONS', stations })
     }
   }, [send, stations])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    // console.log('fallback ', router.isFallback)
+    // console.log('genre ', router.query.genre)
+    // console.log('filter ', router.query.filter)
+
     if (!router.isFallback) {
+      if (router.query.genre && router.query.filter) {
+        send({ type: 'SEARCH', query: router.query.filter as string, delay: 0 })
+      }
       setShowIt(true)
     }
-  }, [router])
+  }, [router, send])
 
   if (router.isFallback) {
     return (
@@ -162,11 +169,15 @@ export function RadioList({
       ) : (
         <>
           <FilterData
+            style={{ opacity: showIt ? 1 : 0 }}
             className={classes.search}
             delay={200} // debounce typing
             filterService={service}
           />
-          <div style={{ opacity: showIt }} className={classes.scrollWrap}>
+          <div
+            style={{ opacity: showIt ? 1 : 0 }}
+            className={classes.scrollWrap}
+          >
             <Virtuoso
               totalCount={stationListData.length}
               overscan={20}

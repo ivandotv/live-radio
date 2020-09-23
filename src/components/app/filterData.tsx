@@ -10,12 +10,14 @@ import {
 export function FilterData({
   delay = 1000,
   className,
-  filterService
+  filterService,
+  style
 }: {
   delay?: number
   className?: string
   filterService: Interpreter<FilterRadioContext, any, FilterRadioEvent>
-}) {
+  style: React.CSSProperties
+}): JSX.Element {
   const [service, send] = useService(filterService)
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +27,7 @@ export function FilterData({
 
   return (
     <TextField
+      style={style}
       className={className}
       label="Filter"
       value={service.context.query}

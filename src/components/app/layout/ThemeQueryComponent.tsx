@@ -21,7 +21,7 @@ export function ThemeQueryComponent() {
 
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
-  // monitor for system / browser changes to the theme
+  //  monitor for system / browser changes to the theme
   // todo - split in to two effects
   useLayoutEffect(() => {
     const theme = window.localStorage.getItem(storageKey)
