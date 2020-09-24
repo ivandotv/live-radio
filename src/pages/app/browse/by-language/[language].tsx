@@ -75,7 +75,7 @@ export default function LanguageStations({
       title={`Browse For Stations in ${language}`}
       breadcrumbs={breadcrumbLinks}
       noResults={
-        'Currently there is no data for {genre}. Sorry for the inconvenience.'
+        'Currently there is no data for {language}. Sorry for the inconvenience.'
       }
       rowPrimary={(station: RadioStation) =>
         `${station.name} | ${station.country}`

@@ -72,9 +72,7 @@ export default function GenreStations({
     <RadioList
       title={`Browse For Stations in ${genre}`}
       breadcrumbs={breadcrumbLinks}
-      noResults={
-        'Currently there is no data for {genre}. Sorry for the inconvenience.'
-      }
+      noResults={`Currently there is no data for ${genre}. Sorry for the inconvenience.`}
       rowPrimary={(station: RadioStation) =>
         `${station.name} | ${station.country}`
       }

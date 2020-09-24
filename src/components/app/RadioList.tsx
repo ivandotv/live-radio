@@ -98,17 +98,12 @@ export function RadioList({
       window.history.replaceState({}, '', `?filter=${machine.context.query}`)
     } else {
       const url = new URL(window.location.href)
-      console.log('url ', url)
       url.searchParams.delete('filter')
       history.replaceState({}, '', url.href)
     }
   }, [machine.context.query])
 
   useEffect(() => {
-    // console.log('fallback ', router.isFallback)
-    // console.log('genre ', router.query.genre)
-    // console.log('filter ', router.query.filter)
-
     if (!router.isFallback) {
       if (router.query.genre && router.query.filter) {
         send({ type: 'SEARCH', query: router.query.filter as string, delay: 0 })
