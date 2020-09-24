@@ -87,11 +87,22 @@ export function RadioList({
   >(filterRadioMachine)
   service.start()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (stations) {
       send({ type: 'POPULATE_STATIONS', stations })
     }
   }, [send, stations])
+
+  useEffect(() => {
+    if (machine.context.query.length > 0) {
+      window.history.replaceState({}, '', `?filter=${machine.context.query}`)
+    } else {
+      const url = new URL(window.location.href)
+      console.log('url ', url)
+      url.searchParams.delete('filter')
+      history.replaceState({}, '', url.href)
+    }
+  }, [machine.context.query])
 
   useEffect(() => {
     // console.log('fallback ', router.isFallback)
