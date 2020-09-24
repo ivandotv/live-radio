@@ -105,7 +105,7 @@ export function RadioList({
 
   useEffect(() => {
     if (!router.isFallback) {
-      if (router.query.genre && router.query.filter) {
+      if (router.query.filter) {
         send({ type: 'SEARCH', query: router.query.filter as string, delay: 0 })
       }
       setShowIt(true)
