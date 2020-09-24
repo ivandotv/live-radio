@@ -6,7 +6,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { useMachine } from '@xstate/react'
 import { useRouter } from 'next/router'
-import { useEffect, useState, useLayoutEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import {
   FilterRadioContext,

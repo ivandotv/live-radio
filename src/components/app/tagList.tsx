@@ -6,6 +6,12 @@ const useStyles = makeStyles((theme) => {
     root: {
       marginRight: theme.spacing(1),
       marginTop: theme.spacing(1)
+    },
+    clickable: {
+      '&:hover': {
+        backgroundColor: theme.palette.primary.main + '!important',
+        color: theme.palette.primary.contrastText
+      }
     }
   }
 })
@@ -30,7 +36,7 @@ export function TagList({
         size="small"
         variant="outlined"
         label={tag}
-        className={classes.root}
+        classes={classes}
         onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
           e.preventDefault()
           onTagClick(tag)

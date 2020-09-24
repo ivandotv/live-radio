@@ -10,7 +10,7 @@ import {
 import Head from 'next/head'
 import React, { ReactElement, ReactNode } from 'react'
 import { useDesktopDrawerPosition } from '../../../lib/utils'
-import { NextApplicationPage } from '../../../pages/_app'
+// import { NextApplicationPage } from '../../../pages/_app'
 import { useAppShell } from '../AppShellProvider'
 import { DesktopSidebar } from '../sidebars/DesktopSidebar'
 import { MobileSidebar } from '../sidebars/MobileSidebar'
@@ -43,12 +43,12 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const AppShellLayout = ({
-  desktopSidebar,
-  mobileSidebar,
+  // desktopSidebar,
+  // mobileSidebar,
   children
 }: {
-  mobileSidebar?: NextApplicationPage['mobileSidebar']
-  desktopSidebar?: NextApplicationPage['desktopSidebar']
+  // mobileSidebar?: NextApplicationPage['mobileSidebar']
+  // desktopSidebar?: NextApplicationPage['desktopSidebar']
   children: ReactNode
 }) => {
   const { state } = useAppShell()
