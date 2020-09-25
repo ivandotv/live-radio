@@ -19,6 +19,8 @@ export default function MyApp(props: AppProps) {
     pageProps
   }: { Component: NextApplicationPage; pageProps: any } = props
 
+  console.log('app')
+
   return (
     <>
       <Head>

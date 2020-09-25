@@ -1,7 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { observer } from 'mobx-react-lite'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { RadioList, RadioStation } from '../../../../components/app/RadioList'
+import {
+  ListStations,
+  RadioStation
+} from '../../../../components/app/ListStations'
+import { TagList } from '../../../../components/app/tagList'
+import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -47,7 +53,12 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   }
 }
 
-export default function GenreStations({
+// todo - test wrap in observer
+export default function GenreStationsWrap(props: any) {
+  return <GenreStations {...props} />
+}
+
+const GenreStations = observer(function GenreStations({
   stations,
   genre
 }: {
@@ -67,18 +78,39 @@ export default function GenreStations({
       text: `${genre}`
     }
   ]
+  console.log('genre')
 
   return (
-    <RadioList
-      title={`Browse For Stations in ${genre}`}
-      breadcrumbs={breadcrumbLinks}
-      noResults={`Currently there is no data for ${genre}. Sorry for the inconvenience.`}
-      rowPrimary={(station: RadioStation) =>
-        `${station.name} | ${station.country}`
-      }
-      stations={stations}
-    ></RadioList>
+    <FilterStoreProvider initialState={stations}>
+      <ListStations
+        title={`Browse For Stations in ${genre}`}
+        breadcrumbs={breadcrumbLinks}
+        noData={
+          <p>
+            Currently there is no data for <strong>${genre}</strong>. Sorry for
+            the inconvenience.
+          </p>
+        }
+        primary={(station: RadioStation) =>
+          `${station.name} | ${station.country}`
+        }
+        secondary={(
+          station: RadioStation,
+          query: string,
+          sendQuery: (query: string, delay: number) => void
+        ) => (
+          <TagList
+            tags={station.tags}
+            onTagClick={(tag) => {
+              console.log(`query ${query} tag ${tag}`)
+              sendQuery(query.length ? `${query} ${tag}` : `${tag}`, 0)
+            }}
+          />
+        )}
+        stations={stations}
+      ></ListStations>
+    </FilterStoreProvider>
   )
-}
+})
 
-GenreStations.layout = AppDefaultLayout
+GenreStationsWrap.layout = AppDefaultLayout

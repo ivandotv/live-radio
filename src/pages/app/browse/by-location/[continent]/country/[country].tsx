@@ -3,9 +3,9 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
 import {
-  RadioList,
+  ListStations,
   RadioStation
-} from '../../../../../../components/app/RadioList'
+} from '../../../../../../components/app/ListStations'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -93,13 +93,13 @@ export default function CountryStations({
   ]
 
   return (
-    <RadioList
+    <ListStations
       title={`Browse For Stations in ${countryName}`}
       breadcrumbs={breadcrumbLinks}
-      noResults={`Currently there is no data for ${countryName}. Sorry for the inconvenience.`}
+      noData={`Currently there is no data for ${countryName}. Sorry for the inconvenience.`}
       rowPrimary={(station: RadioStation) => `${station.name}`}
       stations={stations}
-    ></RadioList>
+    ></ListStations>
   )
 }
 

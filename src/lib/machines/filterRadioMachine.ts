@@ -8,7 +8,7 @@ import {
   AnyEventObject
 } from 'xstate'
 import * as JsSearch from 'js-search'
-import { RadioStation } from '../../components/app/RadioList'
+import { RadioStation } from '../../components/app/ListStations'
 
 // export function createFilterRadioMachine(stations: RadioStation[]) {
 //   console.log('create filter radio machine ', stations)
@@ -77,16 +77,18 @@ export const filterRadioMachine = Machine<
         on: {
           SEARCH: {
             actions: [
-              assign((_, e) => {
-                return {
-                  query: e.query
-                }
-              }),
-              actions.cancel('search-delay'),
-              forwardTo('search-api', {
-                delay: (context, event) => event.delay || 0,
-                id: 'search-delay'
-              })
+              () => {}
+
+              // assign((_, e) => {
+              //   return {
+              //     query: e.query
+              //   }
+              // }),
+              // actions.cancel('search-delay')
+              // forwardTo('search-api', {
+              //   delay: (context, event) => event.delay || 0,
+              //   id: 'search-delay'
+              // })
             ]
           },
           // CANCEL: {
@@ -95,15 +97,16 @@ export const filterRadioMachine = Machine<
           RESULT: {
             actions: assign((ctx, e) => {
               let r
-              console.log('result called query: ', ctx.query)
-              if (ctx.query.length === 0) {
+              console.log('result called query: ', e.query)
+              if (e.query.length === 0) {
                 r = ctx.allStations
               } else {
                 r = e.result
               }
 
               return {
-                filteredStations: r
+                filteredStations: r,
+                query: e.query
                 // e.result.length === 0 ? ctx.allStations : e.result
               }
             })
@@ -149,7 +152,8 @@ export const filterRadioMachine = Machine<
 
             send({
               type: 'RESULT',
-              result
+              result,
+              query: e.query
               // result.length === 0 ? null : result
             })
           }
