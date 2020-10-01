@@ -40,11 +40,17 @@ export const FilterList = observer(function FilterList({
         return store.query
       },
       (query: string) => {
-        window.history.replaceState(
-          {},
-          '',
-          `?filter=${query.replace(/\s/g, '+')}`
-        )
+        if (query.length) {
+          window.history.replaceState(
+            {},
+            '',
+            `?filter=${query.replace(/\s/g, '+')}`
+          )
+        } else {
+          const url = new URL(window.location.href)
+          url.searchParams.delete('filter')
+          history.replaceState({}, '', url.href)
+        }
       }
     )
   )
