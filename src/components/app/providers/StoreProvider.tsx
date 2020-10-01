@@ -1,5 +1,5 @@
 import { ReactNode, useContext, useEffect, createContext } from 'react'
-import { FilterDataStore } from '../../../stores/FilterDataStore'
+import { FilterDataStore } from '../../../lib/stores/FilterDataStore'
 import { RadioStation } from '../ListStations'
 import { enableStaticRendering } from 'mobx-react-lite'
 

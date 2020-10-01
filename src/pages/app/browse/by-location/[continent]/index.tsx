@@ -5,7 +5,7 @@ import { AppDefaultLayout } from '../../../../../components/app/layout/AppDefaul
 import { AppMenuItem } from '../../../../../components/app/sidebars/AppMenuItem'
 import countriesJSON from '../../../../../generated/countries.json'
 import { LocationBreadCrumbs } from '../../../../../components/app/locationBreadCrumbs'
-import { continentsByCode } from '../../../../../utils/continentsByode'
+import { continentsByCode } from '../../../../../lib/utils/continentsByode'
 import { PageTitle } from '../../../../../components/pageTitle'
 export default function CountryList() {
   // list continents

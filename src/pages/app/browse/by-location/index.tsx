@@ -3,7 +3,7 @@ import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLa
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
-import { continentsByCode } from '../../../../utils/continentsByode'
+import { continentsByCode } from '../../../../lib/utils/continentsByode'
 import { LocationBreadCrumbs } from '../../../../components/app/locationBreadCrumbs'
 import { PageTitle } from '../../../../components/pageTitle'
 

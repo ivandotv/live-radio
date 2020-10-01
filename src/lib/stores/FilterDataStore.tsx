@@ -8,7 +8,7 @@ import {
   runInAction
 } from 'mobx'
 // import { useStaticRendering } from 'mobx-react-lite'
-import { RadioStation } from '../components/app/ListStations'
+import { RadioStation } from '../../components/app/ListStations'
 
 export class FilterDataStore {
   allStations: RadioStation[] = []
