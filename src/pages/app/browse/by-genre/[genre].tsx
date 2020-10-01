@@ -6,7 +6,7 @@ import {
   ListStations,
   RadioStation
 } from '../../../../components/app/ListStations'
-import { TagList } from '../../../../components/app/tagList'
+import { TagList } from '../../../../components/app/TagList'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 
 export const getStaticPaths: GetStaticPaths = async function () {

@@ -1,6 +1,6 @@
 import { AppDefaultLayout } from '../../../components/app/layout/AppDefaultLayout'
 import { AppMenuItem } from '../../../components/app/sidebars/AppMenuItem'
-import { PageTitle } from '../../../components/pageTitle'
+import { PageTitle } from '../../../components/PageTitle'
 import List from '@material-ui/core/List'
 import Paper from '@material-ui/core/Paper'
 

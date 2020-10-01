@@ -4,7 +4,7 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { useFilterDataStore } from '../../components/app/providers/StoreProvider'
+import { useFilterDataStore } from './providers/StoreProvider'
 import { FilterInput } from './FilterInput'
 
 const useStyles = makeStyles((theme: Theme) => {
