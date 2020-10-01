@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => {
 export const FilterList = observer(function FilterList({
   itemRow,
   // store,
-  delay = 2000
+  delay = 300
 }: {
   itemRow: any
   // store: FilterDataStore
@@ -32,7 +32,7 @@ export const FilterList = observer(function FilterList({
 
   return (
     <>
-      <FilterInput className={classes.search} />
+      <FilterInput className={classes.search} delay={delay} />
       {store.stations.length === 0 ? (
         <p className={classes.noResults}>No results</p>
       ) : (

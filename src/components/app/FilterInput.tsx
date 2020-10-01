@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react'
 import { useFilterDataStore } from '../../components/app/providers/StoreProvider'
 
 export const FilterInput = observer(function FilterInput({
-  delay = 5000,
+  delay = 200,
   className
 }: // filterService
 {
@@ -19,7 +19,7 @@ export const FilterInput = observer(function FilterInput({
 
   const searchRef = useRef<HTMLInputElement>(null)
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    store.search(e.currentTarget.value)
+    store.search(e.currentTarget.value, delay)
   }
 
   // useEffect(() => {
