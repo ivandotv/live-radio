@@ -22,33 +22,6 @@ export const FilterInput = observer(function FilterInput({
     store.search(e.currentTarget.value, delay)
   }
 
-  // useEffect(() => {
-  //   const id = setInterval(() => {
-  //     console.log('interal')
-  //     // send({ type: 'SEARCH' })
-  //   }, 1000)
-
-  //   return () => {
-  //     clearInterval(id)
-  //   }
-  // })
-
-  // useEffect(() => {
-  //   if (service.context.query.length > 0) {
-  //     // set query to url
-  //     window.history.replaceState({}, '', `?filter=${service.context.query}`)
-  //   } else {
-  //     // remove query from url
-  //     const url = new URL(window.location.href)
-  //     url.searchParams.delete('filter')
-  //     history.replaceState({}, '', url.href)
-  //   }
-  //   if (searchRef.current) {
-  //     searchRef.current.value = store.query
-  //   }
-  // }, [store.query])
-  // store.query
-
   if (searchRef.current) {
     searchRef.current.value = store.query
   }

@@ -1,5 +1,8 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { useFilterDataStore } from '../../components/app/providers/StoreProvider'
 import { FilterInput } from './FilterInput'
@@ -20,15 +23,40 @@ const useStyles = makeStyles((theme: Theme) => {
 })
 export const FilterList = observer(function FilterList({
   itemRow,
-  // store,
   delay = 300
 }: {
   itemRow: any
-  // store: FilterDataStore
   delay?: number
 }) {
   const classes = useStyles()
   const store = useFilterDataStore()
+  const router = useRouter()
+
+  useEffect(() =>
+    reaction(
+      () => {
+        console.log('effect -> reaction')
+
+        return store.query
+      },
+      (query: string) => {
+        window.history.replaceState(
+          {},
+          '',
+          `?filter=${query.replace(/\s/g, '+')}`
+        )
+      }
+    )
+  )
+  useEffect(() => {
+    console.log('router query: ', router.query)
+    console.log(' window location: ', window.location.href)
+
+    if (router.query && router.query.filter && router.query.filter.length) {
+      const query = (router.query.filter as string).replace(/\+/g, ' ')
+      store.search(query)
+    }
+  }, [router, store])
 
   return (
     <>
