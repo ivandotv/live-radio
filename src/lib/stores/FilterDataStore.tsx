@@ -2,12 +2,10 @@ import * as JsSearch from 'js-search'
 import {
   action,
   IObservableArray,
-  isObservable,
   makeObservable,
   observable,
   runInAction
 } from 'mobx'
-// import { useStaticRendering } from 'mobx-react-lite'
 import { RadioStation } from '../../components/app/ListStations'
 
 export class FilterDataStore {

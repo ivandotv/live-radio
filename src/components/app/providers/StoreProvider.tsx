@@ -23,15 +23,8 @@ export function FilterStoreProvider({
 }: {
   children: ReactNode
   initialState: RadioStation[]
-}): JSX.Element {
+}) {
   const store = initMyStore(initialState)
-
-  // console.log('0000 is observable ', isObservable(store.query))
-
-  useEffect(() => {
-    window.store = store
-    // console.log('browser is observable ', isObservable(store.query))
-  }, [store])
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }

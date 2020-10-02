@@ -3,23 +3,14 @@ import ListItemText from '@material-ui/core/ListItemText'
 import Paper from '@material-ui/core/Paper'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
-import Typography from '@material-ui/core/Typography'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { useMachine } from '@xstate/react'
+import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { ReactNode, useEffect } from 'react'
-// import {
-//   FilterRadioContext,
-//   FilterRadioEvent,
-// //   filterRadioMachine
-// } from '../../lib/machines/filterRadioMachine'
+import React, { ReactNode } from 'react'
+import { useFilterDataStore } from '../../components/app/providers/StoreProvider'
 import { PageTitle } from '../PageTitle'
 import { FilterList } from './FilterList'
-import { FilterInput } from './FilterInput'
 import { LocationBreadCrumbs } from './LocationBreadCrumbs'
-import { observer } from 'mobx-react-lite'
-import { useFilterDataStore } from '../../components/app/providers/StoreProvider'
-import { isObservable } from 'mobx'
 
 export type RadioStation = {
   tags: string[]
@@ -55,7 +46,6 @@ export const ListStations = observer(function ListStations({
   title,
   breadcrumbs,
   noData,
-  stations,
   primary,
   secondary
 }: {
@@ -72,7 +62,7 @@ export const ListStations = observer(function ListStations({
     query: string,
     sendQuery: (query: string, delay: number) => void
   ) => React.ReactNode
-  stations: RadioStation[]
+  // stations: RadioStation[]
 }) {
   const classes = useStyles()
   const router = useRouter()
@@ -94,7 +84,7 @@ export const ListStations = observer(function ListStations({
     )
   }
 
-  const sendQuery = (query: string, delay = 0) => {
+  const sendQuery = (query: string) => {
     store.search(query)
   }
 

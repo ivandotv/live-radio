@@ -9,10 +9,8 @@ const flag = require('country-code-emoji')
     e.g.
   {
     "EU": [
-      { "name": "Andorra", "code": "AD", flag:"emoji" },
-      { "name": "Albania", "code": "AL", flag:"emoji"},
-      { "name": "Austria", "code": "AT", flag:"emoji"},
-      { "name": "Åland", "code": "AX", flag:"emoji" },
+      { "name": "Andorra", "code": "AD", flag:"emoji" cont:"EU" },
+      { "name": "Albania", "code": "AL", flag:"emoji" cont:"EU"},
   ]
 }
 */
@@ -34,7 +32,8 @@ function countriesByContinent(countries) {
     result[country.continent].push({
       name: country.name,
       code: countryCode,
-      flag: flag(countryCode)
+      flag: flag(countryCode),
+      cont: country.continent
     })
   }
 

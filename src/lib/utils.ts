@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Actions, useAppShell } from '../components/app/AppShellProvider'
+import countriesJSON from './../generated/countries.json'
 
 export function useDesktopDrawerPosition(
   context: typeof useAppShell,
@@ -22,4 +23,22 @@ export function useDesktopDrawerPosition(
       state.desktopDrawerIsOpen ? 'open' : 'closed'
     )
   }, [state.desktopDrawerIsOpen])
+}
+
+export function countryDataByKey(
+  key: 'code' | 'name' | 'flag',
+  value: string
+  // haystack: {
+  //   [key: string]: { name: string; cont: string; code: string; flag: string }[]
+  // }
+) {
+  console.log('countryDataByName needle ', value)
+
+  for (const [_i, continent] of Object.entries(countriesJSON)) {
+    for (const [_i, country] of Object.entries(continent)) {
+      if (country[key].toLowerCase() === value.toLowerCase()) {
+        return country
+      }
+    }
+  }
 }

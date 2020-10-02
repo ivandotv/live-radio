@@ -32,7 +32,8 @@
     "next-pwa": "^3.1.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-virtuoso": "^0.20.0"
+    "react-virtuoso": "^0.20.0",
+    "swr": "^0.3.5"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",

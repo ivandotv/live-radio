@@ -1,11 +1,13 @@
 import { continents, countries } from 'countries-list'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
+import { useMemo } from 'react'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
-import {
-  ListStations,
-  RadioStation
-} from '../../../../../../components/app/ListStations'
+import { RadioStation } from '../../../../../../components/app/ListStations'
+import { ListStationsWrap } from '../../../../../../components/app/ListStationsWrap'
+import { FilterStoreProvider } from '../../../../../../components/app/providers/StoreProvider'
+import { countryDataByKey } from '../../../../../../lib/utils'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -62,18 +64,27 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 export default function CountryStations({
   stations,
   countryName,
-  _countryCode,
+  countryCode: _countryCode,
   continentName,
   continentCode
 }: {
   stations: RadioStation[]
   countryName: string
-  _countryCode: string
+  countryCode: string
   continentName: string
   continentCode: string
 }) {
-  /// ////
-  const breadcrumbLinks = [
+  const router = useRouter()
+
+  const flag = useMemo(() => {
+    if (!router.isFallback) {
+      const data = countryDataByKey('code', _countryCode)
+
+      return data?.flag
+    }
+  }, [_countryCode, router])
+
+  const breadcrumbs = [
     {
       href: '/app/browse',
       text: 'Browse'
@@ -88,18 +99,17 @@ export default function CountryStations({
       text: `${continentName}`
     },
     {
-      text: `${countryName}`
+      text: `${flag || null} ${countryName}`
     }
   ]
 
   return (
-    <ListStations
-      title={`Browse For Stations in ${countryName}`}
-      breadcrumbs={breadcrumbLinks}
-      noData={`Currently there is no data for ${countryName}. Sorry for the inconvenience.`}
-      rowPrimary={(station: RadioStation) => `${station.name}`}
-      stations={stations}
-    ></ListStations>
+    <FilterStoreProvider initialState={stations}>
+      <ListStationsWrap
+        term={countryName}
+        breadcrumbs={breadcrumbs}
+      ></ListStationsWrap>
+    </FilterStoreProvider>
   )
 }
 

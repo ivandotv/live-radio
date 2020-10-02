@@ -1,10 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import {
-  ListStations,
-  RadioStation
-} from '../../../../components/app/ListStations'
+import { RadioStation } from '../../../../components/app/ListStations'
+import { ListStationsWrap } from '../../../../components/app/ListStationsWrap'
+import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -53,20 +52,20 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 }
 
 export default function LanguageStations({
-  stations,
-  language
+  language,
+  stations
 }: {
   stations: RadioStation[]
   language: string
 }) {
-  const breadcrumbLinks = [
+  const breadcrumbs = [
     {
       href: '/app/browse',
       text: 'Browse'
     },
     {
       href: '/app/browse/by-language',
-      text: 'By Language'
+      text: 'By Genre'
     },
     {
       text: `${language}`
@@ -74,15 +73,12 @@ export default function LanguageStations({
   ]
 
   return (
-    <ListStations
-      title={`Browse For Stations in ${language}`}
-      breadcrumbs={breadcrumbLinks}
-      noData={`Currently there is no data for ${language}. Sorry for the inconvenience.`}
-      rowPrimary={(station: RadioStation) =>
-        `${station.name} | ${station.country}`
-      }
-      stations={stations}
-    ></ListStations>
+    <FilterStoreProvider initialState={stations}>
+      <ListStationsWrap
+        term={language}
+        breadcrumbs={breadcrumbs}
+      ></ListStationsWrap>
+    </FilterStoreProvider>
   )
 }
 

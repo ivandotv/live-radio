@@ -2,7 +2,7 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Link, { LinkProps } from 'next/link'
 import { NextRouter, useRouter } from 'next/router'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState, MouseEvent } from 'react'
 
 export function AppMenuItem({
   onClick,
@@ -13,7 +13,7 @@ export function AppMenuItem({
   secondary = '',
   selected
 }: {
-  link: LinkProps
+  link?: LinkProps
   // trackingKey?: string | number
   primary?: string
   secondary?: string
@@ -32,24 +32,32 @@ export function AppMenuItem({
     setClientRender(true)
   }, [])
 
-  const handleClick = () => {
+  const handleClick = (e: MouseEvent) => {
     if (onClick) {
-      onClick()
+      onClick(e)
     }
   }
 
-  return (
-    <Link {...link} passHref>
-      <ListItem
-        button
-        component="a"
-        onClick={handleClick}
-        selected={clientRender && selected && selected(router)}
-      >
-        {icon}
-        {/* {children} */}
-        <ListItemText primary={primary} secondary={secondary} />
-      </ListItem>
-    </Link>
+  const Item = (
+    <ListItem
+      button
+      component="a"
+      onClick={handleClick}
+      selected={clientRender && selected && selected(router)}
+    >
+      {icon}
+      {/* {children} */}
+      <ListItemText primary={primary} secondary={secondary} />
+    </ListItem>
   )
+
+  const linkWrap = link ? (
+    <Link {...link} passHref>
+      {Item}
+    </Link>
+  ) : (
+    <>{Item}</>
+  )
+
+  return <>{linkWrap}</>
 }
