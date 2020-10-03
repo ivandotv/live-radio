@@ -1,6 +1,6 @@
 import List from '@material-ui/core/List'
 import { AppMenuItem } from './AppMenuItem'
-import { useAppShell, Actions } from '../AppShellProvider'
+import { useAppShell } from '../providers/AppShellProvider'
 
 export function Menu({ position }: { position: 'desktop' | 'mobile' }) {
   const { dispatch } = useAppShell()

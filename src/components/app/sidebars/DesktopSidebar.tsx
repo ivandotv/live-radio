@@ -10,7 +10,7 @@ import {
 import clsx from 'clsx'
 import { memo } from 'react'
 import { NextApplicationPage } from '../../../pages/_app'
-import { useAppShell } from '../AppShellProvider'
+import { useAppShell } from '../providers/AppShellProvider'
 import { DefaultMenuItems } from './DefaultMenuItems'
 import { Menu } from './Menu'
 
@@ -53,26 +53,26 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const DesktopSidebar = memo(function DesktopSidebar() {
-  const { state } = useAppShell()
-  const classes = useStyles({ drawerWidth: state.desktopDrawerWidth })
+  const store = useAppShell()
+  const classes = useStyles({ drawerWidth: store.desktopDrawerWidth })
   const theme = useTheme()
 
   return (
     <Box
       className={clsx(classes.drawer, {
-        [classes.box]: !state.desktopDrawerIsOpen,
-        [classes.boxAnim]: !state.desktopDrawerIsOpen && state.showApp,
-        [classes.boxShift]: state.desktopDrawerIsOpen,
-        [classes.boxShiftAnim]: state.desktopDrawerIsOpen && state.showApp
+        [classes.box]: !store.desktopDrawerIsOpen,
+        [classes.boxAnim]: !store.desktopDrawerIsOpen && store.showApp,
+        [classes.boxShift]: store.desktopDrawerIsOpen,
+        [classes.boxShiftAnim]: store.desktopDrawerIsOpen && store.showApp
       })}
     >
       <Drawer
         anchor="left"
         variant="persistent"
-        open={state.desktopDrawerIsOpen}
+        open={store.desktopDrawerIsOpen}
         /* eslint-disable */
         transitionDuration={
-          state.showApp
+          store.showApp
             ? {
                 appear: 0,
                 enter: theme.transitions.duration.enteringScreen,

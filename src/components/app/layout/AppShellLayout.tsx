@@ -11,7 +11,7 @@ import Head from 'next/head'
 import React, { ReactElement, ReactNode } from 'react'
 import { useDesktopDrawerPosition } from '../../../lib/utils'
 // import { NextApplicationPage } from '../../../pages/_app'
-import { useAppShell } from '../AppShellProvider'
+import { useAppShell } from '../providers/AppShellProvider'
 import { DesktopSidebar } from '../sidebars/DesktopSidebar'
 import { MobileSidebar } from '../sidebars/MobileSidebar'
 import { AppToolbar } from './AppToolbar'
@@ -51,17 +51,19 @@ export const AppShellLayout = ({
   // desktopSidebar?: NextApplicationPage['desktopSidebar']
   children: ReactNode
 }) => {
-  const { state } = useAppShell()
+  const store = useAppShell()
   const theme = useTheme()
   const classes = useStyles()
 
-  useDesktopDrawerPosition(useAppShell)
+  // useDesktopDrawerPosition(useAppShell)
+
+  console.log('app shell layout show? ', store.showApp)
 
   return (
     <>
       <Head>
         <title>Next.js PWA</title>
-        {state.showApp ? (
+        {store.showApp ? (
           <meta
             name="theme-color"
             key="theme-color"
@@ -74,7 +76,7 @@ export const AppShellLayout = ({
         ) : null}
       </Head>
       <CssBaseline />
-      <div style={{ opacity: state.showApp ? 1 : 0 }} className={classes.root}>
+      <div style={{ opacity: store.showApp ? 1 : 0 }} className={classes.root}>
         <AppToolbar />
         <nav className={classes.navWrapper}>
           <Hidden mdUp implementation="js">

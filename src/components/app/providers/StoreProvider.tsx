@@ -25,6 +25,9 @@ export function FilterStoreProvider({
   initialState: RadioStation[]
 }) {
   const store = initMyStore(initialState)
+  useEffect(() => {
+    window.storeTwo = store
+  }, [])
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }

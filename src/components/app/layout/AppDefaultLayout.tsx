@@ -1,5 +1,5 @@
 import { NextApplicationPage } from '../../../pages/_app'
-import { AppShellProvider } from '../AppShellProvider'
+import { AppShellProvider } from '../providers/AppShellProvider'
 import { AppShellLayout } from './AppShellLayout'
 
 export function AppDefaultLayout(Component: NextApplicationPage, props: any) {

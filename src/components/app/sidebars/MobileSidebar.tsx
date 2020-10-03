@@ -12,7 +12,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer'
 import { memo, useCallback, useEffect } from 'react'
 import { NextApplicationPage } from '../../../pages/_app'
-import { Actions, useAppShell } from '../AppShellProvider'
+import { useAppShell } from '../providers/AppShellProvider'
 import { DefaultMenuItems } from './DefaultMenuItems'
 import { Menu } from './Menu'
 

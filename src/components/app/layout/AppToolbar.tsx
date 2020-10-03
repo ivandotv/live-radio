@@ -13,7 +13,7 @@ import MenuCloseIcon from '@material-ui/icons/ArrowBack'
 import DarkIcon from '@material-ui/icons/Brightness6'
 import LightIcon from '@material-ui/icons/Brightness7'
 import MenuIcon from '@material-ui/icons/Menu'
-import { Actions, useAppShell } from '../AppShellProvider'
+import { useAppShell } from '../providers/AppShellProvider'
 import { useEffect, useState } from 'react'
 import Badge from '@material-ui/core/Badge'
 import { useRouter } from 'next/router'
@@ -71,29 +71,33 @@ export function AppToolbar() {
   const theme = useTheme()
   const classes = useStyles()
   const appTitle = useSetAppTitle(' / ', '')
-  const { state, dispatch } = useAppShell()
+  const store = useAppShell()
 
   const [counter, setCounter] = useState(0)
 
   const openMobileDrawer = () => {
-    dispatch({ type: Actions.MOBILE_DRAWER_IS_OPEN, payload: true })
+    // dispatch({ type: Actions.MOBILE_DRAWER_IS_OPEN, payload: true })
+    store.setMobileDrawer(true)
   }
 
   const toggleDesktopDrawer = () => {
-    dispatch({
-      type: Actions.DESKTOP_DRAWER_IS_OPEN,
-      payload: !state.desktopDrawerIsOpen
-    })
+    // dispatch({
+    //   type: Actions.DESKTOP_DRAWER_IS_OPEN,
+    //   payload: !store.desktopDrawerIsOpen
+    // })
+
+    store.setDesktopDrawer(!store.desktopDrawerIsOpen)
   }
 
   const toggleTheme = () => {
-    dispatch({
-      type: Actions.SET_THEME,
-      payload: state.theme === 'dark' ? 'light' : 'dark'
-    })
+    // dispatch({
+    //   type: Actions.SET_THEME,
+    //   payload: store.theme === 'dark' ? 'light' : 'dark'
+    // })
     setCounter((counter) => {
       return counter + 1
     })
+    store.setTheme(store.theme === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -119,14 +123,14 @@ export function AppToolbar() {
           onClick={toggleDesktopDrawer}
           className={classes.menuButtonDesktop}
         >
-          {state.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
+          {store.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
         </IconButton>
         <Typography variant="h6" noWrap>
           {appTitle}
         </Typography>
         <Tooltip
           title={
-            state.theme === 'dark'
+            store.theme === 'dark'
               ? 'Switch to Light Theme'
               : 'Switch to Dark Theme'
           }
@@ -139,7 +143,7 @@ export function AppToolbar() {
             edge="end"
           >
             <Badge badgeContent={counter} color="secondary" showZero>
-              {state.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
+              {store.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
             </Badge>
           </IconButton>
         </Tooltip>
