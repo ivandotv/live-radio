@@ -70,7 +70,7 @@ export const DesktopSidebar = observer(function DesktopSidebar() {
         /* eslint-disable */
         // transitionDuration={0}
         transitionDuration={
-          store.showApp && false
+          store.showApp && store.animateDesktopDrawer
             ? {
                 appear: 0,
                 enter: theme.transitions.duration.enteringScreen,

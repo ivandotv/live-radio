@@ -39,7 +39,7 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
     () =>
       autorun(() => {
         const isOpen = window.localStorage.getItem(desktopDrawerKey)
-        store.setDesktopDrawer(isOpen === 'open')
+        store.setDesktopDrawer(isOpen === 'open', false)
         store.readyToShow(true)
         // setTimeout(() => {
         //   store.readyToShow(true)

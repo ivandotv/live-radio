@@ -6,6 +6,8 @@ export class AppShellStore {
 
   persistTheme = false
 
+  animateDesktopDrawer = false
+
   showApp = false
 
   desktopDrawerIsOpen = true
@@ -45,8 +47,9 @@ export class AppShellStore {
     this.showApp = show
   }
 
-  setDesktopDrawer(isOpen: boolean) {
+  setDesktopDrawer(isOpen: boolean, animate = true) {
     this.desktopDrawerIsOpen = isOpen
+    this.animateDesktopDrawer = animate
   }
 
   setMobileDrawer(isOpen: boolean) {
