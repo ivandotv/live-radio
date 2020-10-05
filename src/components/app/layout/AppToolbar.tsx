@@ -17,6 +17,7 @@ import { useAppShell } from '../providers/AppShellProvider'
 import { useEffect, useState } from 'react'
 import Badge from '@material-ui/core/Badge'
 import { useRouter } from 'next/router'
+import { observer } from 'mobx-react-lite'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -67,7 +68,7 @@ function useSetAppTitle(separator: string, defaultTitle: string) {
   return title
 }
 
-export function AppToolbar() {
+export const AppToolbar = observer(function AppToolbar() {
   const theme = useTheme()
   const classes = useStyles()
   const appTitle = useSetAppTitle(' / ', '')
@@ -150,4 +151,4 @@ export function AppToolbar() {
       </Toolbar>
     </AppBar>
   )
-}
+})

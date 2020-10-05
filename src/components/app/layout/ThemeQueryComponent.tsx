@@ -2,45 +2,85 @@ import { useAppShell } from '../providers/AppShellProvider'
 import { useRef, useEffect, useLayoutEffect } from 'react'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { AppTheme } from '../../../lib/stores/AppShellStore'
+import { observer } from 'mobx-react-lite'
+import { autorun } from 'mobx'
 
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
-export function ThemeQueryComponent() {
+export const ThemeQueryComponent = observer(function ThemeQueryComponent({
+  themeKey,
+  desktopDrawerKey
+}: {
+  themeKey: string
+  desktopDrawerKey: string
+}) {
   const store = useAppShell()
-  const storageKey = 'theme'
-  const isInitialMount = useRef(true)
+  // const isInitialMount = useRef(true)
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
-  // write currently chosen theme to local storage
-  useEffect(() => {
-    // do not run on mount
-    if (isInitialMount.current) {
-      isInitialMount.current = false
-    } else {
-      window.localStorage.setItem(storageKey, store.theme)
-    }
-  }, [store.theme])
-
   //  monitor for system / browser changes to the theme
-  // todo - split in to two effects
-  useLayoutEffect(() => {
-    const theme = window.localStorage.getItem(storageKey)
+  useLayoutEffect(
+    () =>
+      autorun(() => {
+        const theme = window.localStorage.getItem(themeKey)
 
-    if (typeof theme === 'string') {
-      // we have explicitly set theme
-      store.setTheme(theme as AppTheme)
-    } else {
-      // system or browser set theme
-      // dispatch({
-      //   type: Actions.SET_THEME,
-      //   payload: prefersDarkMode ? 'dark' : 'light'
-      // })
-      store.setTheme(prefersDarkMode ? 'dark' : 'light')
-    }
-    // setShowApp(true)
-    // dispatch({ type: Actions.READY_TO_SHOW, payload: true })
-    console.log('theme query effect')
-    store.readyToShow(true)
-  }, [prefersDarkMode, store])
+        if (typeof theme === 'string') {
+          // we have explicitly set theme
+          store.setTheme(theme as AppTheme)
+        } else {
+          // system or browser set theme
+          store.setTheme(prefersDarkMode ? 'dark' : 'light', false)
+        }
+      }),
+    [prefersDarkMode, themeKey, store]
+  )
+
+  // setup desktop drawer position
+  useLayoutEffect(
+    () =>
+      autorun(() => {
+        const isOpen = window.localStorage.getItem(desktopDrawerKey)
+        store.setDesktopDrawer(isOpen === 'open')
+        store.readyToShow(true)
+        // setTimeout(() => {
+        //   store.readyToShow(true)
+        // }, 10)
+      }),
+    [store, desktopDrawerKey]
+  )
+
+  // write currently chosen theme to local storage
+  useEffect(
+    () =>
+      autorun(() => {
+        if (store.persistTheme) {
+          window.localStorage.setItem(themeKey, store.theme)
+        }
+      }),
+    [store, themeKey]
+  )
+  // useEffect(() => {
+  //   // do not run on mount
+  //   // if (isInitialMount.current) {
+  //   //   isInitialMount.current = false
+  //   // } else if
+  //   if (store.persistTheme) {
+  //     window.localStorage.setItem(themeKey, store.theme)
+  //   }
+  // }, [store.theme, themeKey, store.persistTheme])
+
+  // write desktop drawer state to local storage
+  useEffect(
+    () =>
+      autorun(() => {
+        console.log(`drawer effect: ${store.desktopDrawerIsOpen}`)
+
+        window.localStorage.setItem(
+          desktopDrawerKey,
+          store.desktopDrawerIsOpen ? 'open' : 'closed'
+        )
+      }),
+    [store.desktopDrawerIsOpen, desktopDrawerKey]
+  )
 
   return null
-}
+})

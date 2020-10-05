@@ -1,4 +1,4 @@
-import { enableStaticRendering } from 'mobx-react-lite'
+import { enableStaticRendering, Observer } from 'mobx-react-lite'
 import { AppShellStore } from '../../../lib/stores/AppShellStore'
 import {
   ReactNode,
@@ -41,34 +41,47 @@ export function AppShellProvider({ children }: { children: ReactNode }) {
       jssStyles.parentElement!.removeChild(jssStyles)
     }
     setShowQueryTheme(true)
-    window.store = store
-    window.isObservalbe = isObservable
   }, [])
 
-  const key = 'desktopDrawerState'
-  useEffect(() => {
-    const isOpen = window.localStorage.getItem(key)
+  // const key = 'desktopDrawerState'
+  // useEffect(() => {
+  //   const isOpen = window.localStorage.getItem(key)
 
-    // dispatch({
-    //   type: Actions.DESKTOP_DRAWER_IS_OPEN,
-    //   payload: isOpen ? isOpen === 'open' : true
-    // })
-    store.setDesktopDrawer(isOpen ? isOpen === 'open' : true)
-  }, [store])
+  //   // dispatch({
+  //   //   type: Actions.DESKTOP_DRAWER_IS_OPEN,
+  //   //   payload: isOpen ? isOpen === 'open' : true
+  //   // })
+  //   store.setDesktopDrawer(isOpen ? isOpen === 'open' : true)
+  // }, [store])
 
-  useEffect(() => {
-    window.localStorage.setItem(
-      key,
-      store.desktopDrawerIsOpen ? 'open' : 'closed'
-    )
-  }, [store.desktopDrawerIsOpen])
+  // useEffect(() => {
+  //   window.localStorage.setItem(
+  //     key,
+  //     store.desktopDrawerIsOpen ? 'open' : 'closed'
+  //   )
+  // }, [store.desktopDrawerIsOpen])
 
   return (
     <AppShellContext.Provider value={store}>
-      <ThemeProvider theme={store.theme === 'dark' ? DarkTheme : LightTheme}>
-        {showQueryTheme ? <ThemeQueryComponent /> : null}
-        {children}
-      </ThemeProvider>
+      <Observer>
+        {() => {
+          console.log('Observer component , ', store.theme)
+
+          return (
+            <ThemeProvider
+              theme={store.theme === 'dark' ? DarkTheme : LightTheme}
+            >
+              {showQueryTheme ? (
+                <ThemeQueryComponent
+                  themeKey="theme"
+                  desktopDrawerKey="desktopDrawerState"
+                />
+              ) : null}
+              {children}
+            </ThemeProvider>
+          )
+        }}
+      </Observer>
     </AppShellContext.Provider>
   )
 }

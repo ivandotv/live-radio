@@ -1,14 +1,16 @@
-import { action, makeAutoObservable, makeObservable, observable } from 'mobx'
+import { action, makeObservable, observable } from 'mobx'
 
 export type AppTheme = 'light' | 'dark'
 export class AppShellStore {
   theme: AppTheme = 'light'
 
-  showApp: boolean = true
+  persistTheme = false
 
-  desktopDrawerIsOpen: boolean = true
+  showApp = false
 
-  mobileDrawerIsOpen: boolean = false
+  desktopDrawerIsOpen = true
+
+  mobileDrawerIsOpen = false
 
   mobileDrawerWidth = 300
 
@@ -23,13 +25,19 @@ export class AppShellStore {
     // makeAutoObservable(this)
     makeObservable(this, {
       showApp: observable,
-      desktopDrawerIsOpen: observable
-      //   readyToShow: action
+      theme: observable,
+      desktopDrawerIsOpen: observable,
+      // persistTheme: observable,
+      readyToShow: action,
+      setDesktopDrawer: action,
+      setMobileDrawer: action,
+      setTheme: action
     })
   }
 
-  setTheme(value: AppTheme) {
+  setTheme(value: AppTheme, persist: boolean = true) {
     this.theme = value
+    this.persistTheme = persist
   }
 
   readyToShow(show: boolean) {

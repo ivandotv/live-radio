@@ -1,6 +1,5 @@
 import Box from '@material-ui/core/Box'
 import Drawer from '@material-ui/core/Drawer'
-import List from '@material-ui/core/List'
 import {
   createStyles,
   makeStyles,
@@ -8,10 +7,8 @@ import {
   useTheme
 } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { memo } from 'react'
-import { NextApplicationPage } from '../../../pages/_app'
+import { observer } from 'mobx-react-lite'
 import { useAppShell } from '../providers/AppShellProvider'
-import { DefaultMenuItems } from './DefaultMenuItems'
 import { Menu } from './Menu'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -52,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const DesktopSidebar = memo(function DesktopSidebar() {
+export const DesktopSidebar = observer(function DesktopSidebar() {
   const store = useAppShell()
   const classes = useStyles({ drawerWidth: store.desktopDrawerWidth })
   const theme = useTheme()
@@ -71,8 +68,9 @@ export const DesktopSidebar = memo(function DesktopSidebar() {
         variant="persistent"
         open={store.desktopDrawerIsOpen}
         /* eslint-disable */
+        // transitionDuration={0}
         transitionDuration={
-          store.showApp
+          store.showApp && false
             ? {
                 appear: 0,
                 enter: theme.transitions.duration.enteringScreen,
@@ -80,7 +78,7 @@ export const DesktopSidebar = memo(function DesktopSidebar() {
               }
             : 0
         }
-        /* eslint-enable */
+        // /* eslint-enable */
         classes={{
           paper: classes.drawerPaper
         }}

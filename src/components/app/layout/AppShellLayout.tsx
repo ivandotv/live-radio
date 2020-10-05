@@ -7,6 +7,7 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
+import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { ReactElement, ReactNode } from 'react'
 import { useDesktopDrawerPosition } from '../../../lib/utils'
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const AppShellLayout = ({
+export const AppShellLayout = observer(function AppShellLayout({
   // desktopSidebar,
   // mobileSidebar,
   children
@@ -50,7 +51,7 @@ export const AppShellLayout = ({
   // mobileSidebar?: NextApplicationPage['mobileSidebar']
   // desktopSidebar?: NextApplicationPage['desktopSidebar']
   children: ReactNode
-}) => {
+}) {
   const store = useAppShell()
   const theme = useTheme()
   const classes = useStyles()
@@ -97,4 +98,4 @@ export const AppShellLayout = ({
       </div>
     </>
   )
-}
+})

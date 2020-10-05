@@ -1,8 +1,13 @@
 import List from '@material-ui/core/List'
 import { AppMenuItem } from './AppMenuItem'
 import { useAppShell } from '../providers/AppShellProvider'
+import { observer } from 'mobx-react-lite'
 
-export function Menu({ position }: { position: 'desktop' | 'mobile' }) {
+export const Menu = observer(function Menu({
+  position
+}: {
+  position: 'desktop' | 'mobile'
+}) {
   const { dispatch } = useAppShell()
 
   const closeDrawer = () => {
@@ -53,4 +58,4 @@ export function Menu({ position }: { position: 'desktop' | 'mobile' }) {
       />
     </List>
   )
-}
+})
