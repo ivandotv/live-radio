@@ -22,6 +22,7 @@ export type RadioStation = {
   country: string
   language: string[]
   continent: string
+  codec: string
 }
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -93,7 +94,7 @@ export const ListStations = observer(function ListStations({
       const station = stations[index]
 
       return (
-        <ListItem divider button key={station.uuid}>
+        <ListItem divider key={station.uuid}>
           <ListItemText
             primary={primary(station, store.query, sendQuery)}
             secondary={secondary(station, store.query, sendQuery)}

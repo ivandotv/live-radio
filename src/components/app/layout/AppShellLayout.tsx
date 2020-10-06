@@ -82,9 +82,9 @@ export const AppShellLayout = observer(function AppShellLayout({
       <div style={{ opacity: store.showApp ? 1 : 0 }} className={classes.root}>
         <AppToolbar />
         <nav className={classes.navWrapper}>
-          <Hidden mdUp implementation="js">
+          {/* <Hidden mdUp implementation="js">
             <MobileSidebar />
-          </Hidden>
+          </Hidden> */}
           <Hidden smDown implementation="css">
             <DesktopSidebar />
           </Hidden>
@@ -97,7 +97,7 @@ export const AppShellLayout = observer(function AppShellLayout({
             {children as ReactElement}
           </Container>
           {/* todo show only if playing */}
-          <Zoom in={store.showApp} style={{ transitionDelay: '2000ms' }}>
+          <Zoom in={false} style={{ transitionDelay: '2000ms' }}>
             <MusicPlayer></MusicPlayer>
           </Zoom>
         </main>

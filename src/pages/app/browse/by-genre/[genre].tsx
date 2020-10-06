@@ -36,7 +36,8 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       favicon: station.favicon,
       homepage: station.homepage,
       country: station.country,
-      language: station.language.split(',')
+      language: station.language.split(','),
+      codec: station.codec
     })
   }
 

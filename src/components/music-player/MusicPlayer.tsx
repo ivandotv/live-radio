@@ -1,6 +1,7 @@
 import Paper from '@material-ui/core/Paper'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { observer } from 'mobx-react-lite'
+import { useMusicPlayerStore } from '../app/providers/MusicPlayerProvider'
 
 // todo show only if playing
 const useStyles = makeStyles((theme: Theme) =>
@@ -20,10 +21,11 @@ const useStyles = makeStyles((theme: Theme) =>
 // music player is a global component
 export const MusicPlayer = observer(function MusicPlayer() {
   const classes = useStyles()
+  const playerStore = useMusicPlayerStore()
 
   return (
     <Paper variant="outlined" square className={classes.root}>
-      <h1>Test</h1>
+      <h1>Status: {playerStore.status}</h1>
     </Paper>
   )
 })

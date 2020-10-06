@@ -45,7 +45,8 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       homepage: station.homepage,
       country: station.country,
       language: station.language.split(','),
-      continent: country.continent
+      continent: country.continent,
+      codec: station.codec
     })
   }
 

@@ -10,7 +10,6 @@ import {
 import { ThemeProvider } from '@material-ui/core/styles'
 import { ThemeQueryComponent } from './../layout/ThemeQueryComponent'
 import { DarkTheme, LightTheme } from './../../../lib/theme'
-import { isObservable } from 'mobx'
 
 enableStaticRendering(typeof window === 'undefined')
 
