@@ -1,6 +1,7 @@
 import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Hidden from '@material-ui/core/Hidden'
+import Zoom from '@material-ui/core/Zoom'
 import {
   createStyles,
   makeStyles,
@@ -11,6 +12,7 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import React, { ReactElement, ReactNode } from 'react'
 import { useDesktopDrawerPosition } from '../../../lib/utils'
+import { MusicPlayer } from '../../music-player/MusicPlayer'
 // import { NextApplicationPage } from '../../../pages/_app'
 import { useAppShell } from '../providers/AppShellProvider'
 import { DesktopSidebar } from '../sidebars/DesktopSidebar'
@@ -94,6 +96,10 @@ export const AppShellLayout = observer(function AppShellLayout({
             {/* https://github.com/mui-org/material-ui/issues/21711 */}
             {children as ReactElement}
           </Container>
+          {/* todo show only if playing */}
+          <Zoom in={store.showApp} style={{ transitionDelay: '2000ms' }}>
+            <MusicPlayer></MusicPlayer>
+          </Zoom>
         </main>
       </div>
     </>

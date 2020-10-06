@@ -30,7 +30,7 @@ export const FilterInput = observer(function FilterInput({
     <TextField
       inputRef={searchRef}
       className={className}
-      label="Filter"
+      label="Filter Stations"
       InputLabelProps={{ shrink: Boolean(store.query.length) }}
       onChange={handleSearch}
     />
