@@ -1,7 +1,7 @@
-import { ReactNode, useContext, useEffect, createContext } from 'react'
+import { enableStaticRendering } from 'mobx-react-lite'
+import { createContext, ReactNode, useContext } from 'react'
 import { FilterDataStore } from '../../../lib/stores/FilterDataStore'
 import { RadioStation } from '../ListStations'
-import { enableStaticRendering } from 'mobx-react-lite'
 
 enableStaticRendering(typeof window === 'undefined')
 // todo store provider u posebnu klasu
@@ -25,9 +25,6 @@ export function FilterStoreProvider({
   initialState: RadioStation[]
 }) {
   const store = initMyStore(initialState)
-  useEffect(() => {
-    window.storeTwo = store
-  }, [])
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }

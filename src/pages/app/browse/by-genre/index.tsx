@@ -5,6 +5,7 @@ import { LocationBreadCrumbs } from '../../../../components/app/LocationBreadCru
 import { PageTitle } from '../../../../components/PageTitle'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
+import { FilterList } from '../../../../components/app/FilterList'
 import { genres } from '../../../../lib/popularGenres'
 
 export default function GenreList() {
@@ -49,7 +50,8 @@ export default function GenreList() {
     <Paper>
       <PageTitle title="Browse For Stations by Genre" />
       <LocationBreadCrumbs links={breadcrumbLinks} />
-      <List>{genreList}</List>
+      {/* <List>{genreList}</List> */}
+      <FilterList store={store} itemRow={listRow}></FilterList>
     </Paper>
   )
 }

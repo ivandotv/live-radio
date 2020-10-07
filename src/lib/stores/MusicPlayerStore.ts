@@ -2,8 +2,15 @@ import { action, makeObservable, observable, runInAction } from 'mobx'
 import { Howl } from 'howler'
 import { RadioStation } from '../../components/app/ListStations'
 
+export const PlayerStatus = {
+  PLAYING: 'PLAYING',
+  BUFFERING: 'BUFFERING',
+  STOPPED: 'STOPPED',
+  PAUSED: 'PAUSED'
+} as const
+
 export class MusicPlayerStore {
-  status: 'playing' | 'buffering' | 'stopped' | 'paused' = 'stopped'
+  status: keyof typeof PlayerStatus = PlayerStatus.STOPPED
 
   playerError: {
     type: 'load' | 'play'
@@ -17,7 +24,7 @@ export class MusicPlayerStore {
   protected player: Howl | null = null
 
   constructor() {
-    makeObservable(this, {
+    makeObservable<MusicPlayerStore, 'disposePlayer' | 'initPlayer'>(this, {
       status: observable,
       stationUUID: observable,
       playerError: observable,
@@ -25,7 +32,6 @@ export class MusicPlayerStore {
       stop: action,
       pause: action,
       resume: action,
-      // @ts-ignore - protected methods
       disposePlayer: action,
       initPlayer: action
     })
@@ -47,7 +53,7 @@ export class MusicPlayerStore {
     this.player.on('play', () => {
       console.log('radio playing')
       runInAction(() => {
-        this.status = 'playing'
+        this.status = PlayerStatus.PLAYING
         this.playerError = null
       })
     })
@@ -55,7 +61,7 @@ export class MusicPlayerStore {
     this.player.on('pause', () => {
       console.log('>>> radio pause')
       runInAction(() => {
-        this.status = 'paused'
+        this.status = PlayerStatus.PAUSED
       })
       // alert('paused')
     })
@@ -77,6 +83,7 @@ export class MusicPlayerStore {
         type: 'load',
         data: errorData
       }
+      this.status = PlayerStatus.STOPPED
     })
     this.player.on('playerror', (_, errorData) => {
       console.log('radio playerror')
@@ -86,10 +93,11 @@ export class MusicPlayerStore {
         type: 'play',
         data: errorData
       }
+      this.status = PlayerStatus.STOPPED
     })
 
     this.player.play()
-    this.status = 'buffering'
+    this.status = PlayerStatus.BUFFERING
   }
 
   protected disposePlayer() {
@@ -119,7 +127,7 @@ export class MusicPlayerStore {
 
   stop() {
     this.disposePlayer()
-    this.status = 'stopped'
+    this.status = PlayerStatus.STOPPED
     this.stationUUID = ''
   }
 

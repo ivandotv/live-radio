@@ -122,7 +122,7 @@ export const ListStations = observer(function ListStations({
       ) : (
         <>
           {/* <FilterInput className={''} filterService={service} /> */}
-          <FilterList itemRow={listRow}></FilterList>
+          <FilterList store={store} itemRow={listRow}></FilterList>
         </>
       )}
     </Paper>

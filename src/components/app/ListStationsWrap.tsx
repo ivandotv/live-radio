@@ -1,10 +1,10 @@
 import Button from '@material-ui/core/Button'
-import PlayArrowIcon from '@material-ui/icons/PlayArrow'
-import { ListStations, RadioStation } from './ListStations'
-import { TagList } from './TagList'
 import { observer } from 'mobx-react-lite'
-import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
+import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
 import { PlayPauseBtn } from '../music-player/PlayPauseBtn'
+import { ListStations, RadioStation } from './ListStations'
+import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
+import { TagList } from './TagList'
 
 export const ListStationsWrap = observer(function ListStationsWrap({
   term,
@@ -30,14 +30,15 @@ export const ListStationsWrap = observer(function ListStationsWrap({
           // todo this should be toggle play button
           <Button
             onClick={() => {
+              console.log(station.url)
               if (player.stationUUID === station.uuid) {
                 // this station is already selected
-                if (player.status === 'playing') {
+                if (player.status === PlayerStatus.PLAYING) {
                   player.pause()
                   // check if its playing our station
-                } else if (player.status === 'stopped') {
+                } else if (player.status === PlayerStatus.STOPPED) {
                   player.play(station)
-                } else if (player.status === 'paused') {
+                } else if (player.status === PlayerStatus.PAUSED) {
                   player.resume()
                 }
               } else {

@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { useFilterDataStore } from './providers/StoreProvider'
 import { FilterInput } from './FilterInput'
+import { FilterDataStore } from '../../lib/stores/FilterDataStore'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -23,36 +24,40 @@ const useStyles = makeStyles((theme: Theme) => {
 })
 export const FilterList = observer(function FilterList({
   itemRow,
-  delay = 300
+  delay = 300,
+  store
 }: {
   itemRow: any
   delay?: number
+  store: FilterDataStore
 }) {
   const classes = useStyles()
-  const store = useFilterDataStore()
+  // const store = useFilterDataStore()
   const router = useRouter()
 
-  useEffect(() =>
-    reaction(
-      () => {
-        console.log('effect -> reaction')
+  useEffect(
+    () =>
+      reaction(
+        () => {
+          console.log('effect -> reaction')
 
-        return store.query
-      },
-      (query: string) => {
-        if (query.length) {
-          window.history.replaceState(
-            {},
-            '',
-            `?filter=${query.replace(/\s/g, '+')}`
-          )
-        } else {
-          const url = new URL(window.location.href)
-          url.searchParams.delete('filter')
-          history.replaceState({}, '', url.href)
+          return store.query
+        },
+        (query: string) => {
+          if (query.length) {
+            window.history.replaceState(
+              {},
+              '',
+              `?filter=${query.replace(/\s/g, '+')}`
+            )
+          } else {
+            const url = new URL(window.location.href)
+            url.searchParams.delete('filter')
+            history.replaceState({}, '', url.href)
+          }
         }
-      }
-    )
+      ),
+    [store]
   )
   useEffect(() => {
     console.log('router query: ', router.query)

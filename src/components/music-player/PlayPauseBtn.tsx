@@ -3,6 +3,7 @@ import { useMusicPlayerStore } from '../app/providers/MusicPlayerProvider'
 import Pause from '@material-ui/icons/PauseCircleFilled'
 import Play from '@material-ui/icons/PlayCircleFilledWhite'
 import Loading from '@material-ui/icons/RotateLeft'
+import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
 
 export const PlayPauseBtn = observer(function PlayPauseBtn({
   uuid
@@ -13,11 +14,14 @@ export const PlayPauseBtn = observer(function PlayPauseBtn({
 
   function getBtn() {
     if (player.stationUUID === uuid) {
-      if (player.status === 'playing') {
+      if (player.status === PlayerStatus.PLAYING) {
         return <Pause></Pause>
-      } else if (player.status === 'stopped' || player.status === 'paused') {
+      } else if (
+        player.status === PlayerStatus.STOPPED ||
+        player.status === PlayerStatus.PAUSED
+      ) {
         return <Play></Play>
-      } else if (player.status === 'buffering') {
+      } else if (player.status === PlayerStatus.BUFFERING) {
         return <Loading></Loading>
       }
     } else {
