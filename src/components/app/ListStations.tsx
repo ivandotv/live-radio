@@ -1,4 +1,7 @@
 import ListItem from '@material-ui/core/ListItem'
+import { TagList } from './TagList'
+import { PlayPauseBtn } from '../music-player/PlayPauseBtn'
+import Button from '@material-ui/core/Button'
 import ListItemText from '@material-ui/core/ListItemText'
 import Paper from '@material-ui/core/Paper'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
@@ -11,6 +14,8 @@ import { useFilterDataStore } from '../../components/app/providers/StoreProvider
 import { PageTitle } from '../PageTitle'
 import { FilterList } from './FilterList'
 import { LocationBreadCrumbs } from './LocationBreadCrumbs'
+import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
+import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
 
 export type RadioStation = {
   tags: string[]
@@ -46,22 +51,17 @@ const useStyles = makeStyles((theme: Theme) => {
 export const ListStations = observer(function ListStations({
   title,
   breadcrumbs,
-  noData,
-  itemRow
-}: {
+  noData
+}: // itemRow
+{
   title: string
   breadcrumbs: { href?: string; text: string }[]
   noData: ReactNode
-  itemRow: (
-    station: RadioStation,
-    query: string,
-    sendQuery: (query: string, delay: number) => void
-  ) => React.ReactNode
-  // stations: RadioStation[]
 }) {
   const classes = useStyles()
   const router = useRouter()
   const store = useFilterDataStore()
+  const player = useMusicPlayerStore()
 
   if (router.isFallback) {
     return (
@@ -79,8 +79,8 @@ export const ListStations = observer(function ListStations({
     )
   }
 
-  const sendQuery = (query: string) => {
-    store.search(query)
+  const sendQuery = (query: string, delay?: number) => {
+    store.search(query, delay)
   }
 
   const row = function (stations: RadioStation[]) {
@@ -90,7 +90,37 @@ export const ListStations = observer(function ListStations({
       return (
         <ListItem divider key={station.uuid}>
           <ListItemText>
-            {itemRow(station, store.query, sendQuery)}
+            <Button
+              onClick={() => {
+                console.log(station.url)
+                // todo - wrap in playerStore.togglePlay
+                if (player.stationUUID === station.uuid) {
+                  // this station is already selected
+                  if (player.status === PlayerStatus.PLAYING) {
+                    player.pause()
+                    // check if its playing our station
+                  } else if (player.status === PlayerStatus.STOPPED) {
+                    player.play(station)
+                  } else if (player.status === PlayerStatus.PAUSED) {
+                    player.resume()
+                  }
+                } else {
+                  player.play(station)
+                }
+              }}
+              startIcon={<PlayPauseBtn uuid={station.uuid} />}
+            >
+              {`${station.name} | ${station.country}`}
+            </Button>
+            <TagList
+              tags={station.tags}
+              onTagClick={(tag) => {
+                sendQuery(
+                  store.query.length ? `${store.query} ${tag}` : `${tag}`,
+                  0
+                )
+              }}
+            />
           </ListItemText>
         </ListItem>
       )
@@ -110,11 +140,11 @@ export const ListStations = observer(function ListStations({
     <Paper className={classes.paper}>
       <PageTitle title={title} />
       <LocationBreadCrumbs links={[...breadcrumbs]} />
+      {/* todo - special component just for the results */}
       {store.allData.length === 0 ? (
         <div className={classes.noData}>{noData}</div>
       ) : (
         <>
-          {/* <FilterInput className={''} filterService={service} /> */}
           <FilterList store={store} itemRow={row}></FilterList>
         </>
       )}

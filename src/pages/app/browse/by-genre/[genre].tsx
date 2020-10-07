@@ -1,7 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { RadioStation } from '../../../../components/app/ListStations'
+import {
+  ListStations,
+  RadioStation
+} from '../../../../components/app/ListStations'
 import { ListStationsWrap } from '../../../../components/app/ListStationsWrap'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 
@@ -77,10 +80,17 @@ export default function GenreStations({
       uuid="uuid"
       indexes={['tags', 'name']}
     >
-      <ListStationsWrap
-        term={genre}
+      {/* todo - pullout no data im to special component */}
+      <ListStations
+        title={`Browse For Stations in ${genre}`}
         breadcrumbs={breadcrumbs}
-      ></ListStationsWrap>
+        noData={
+          <p>
+            Currently there is no data for <strong>${genre}</strong>. Sorry for
+            the inconvenience.
+          </p>
+        }
+      />
     </FilterStoreProvider>
   )
 }
