@@ -72,7 +72,11 @@ export default function GenreStations({
   ]
 
   return (
-    <FilterStoreProvider initialState={stations}>
+    <FilterStoreProvider
+      initialState={stations}
+      uuid="uuid"
+      indexes={['tags', 'name']}
+    >
       <ListStationsWrap
         term={genre}
         breadcrumbs={breadcrumbs}

@@ -19,17 +19,21 @@ export function useFilterDataStore() {
 
 export function FilterStoreProvider({
   children,
-  initialState
+  initialState,
+  uuid,
+  indexes
 }: {
   children: ReactNode
   initialState: RadioStation[]
+  uuid: string
+  indexes: string[]
 }) {
-  const store = initMyStore(initialState)
+  const store = initMyStore(initialState, uuid, indexes)
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }
 
-function initMyStore(initialState: RadioStation[]) {
+function initMyStore(initialState: any[], uuid: string, indexes: string[]) {
   const _store = store ?? new FilterDataStore()
 
   console.log('init store')
@@ -37,7 +41,7 @@ function initMyStore(initialState: RadioStation[]) {
   // If your page has Next.js data fetching methods that use a Mobx store, it will
   // get hydrated here, check `pages/ssg.js` and `pages/ssr.js` for more details
   if (initialState) {
-    _store.hydrate(initialState)
+    _store.hydrate(initialState, uuid, indexes)
   }
   // For SSG and SSR always create a new store
   if (typeof window === 'undefined') return _store

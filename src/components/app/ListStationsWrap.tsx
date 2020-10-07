@@ -1,10 +1,11 @@
 import Button from '@material-ui/core/Button'
-import { observer } from 'mobx-react-lite'
-import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { PlayPauseBtn } from '../music-player/PlayPauseBtn'
+import PlayArrowIcon from '@material-ui/icons/PlayArrow'
 import { ListStations, RadioStation } from './ListStations'
-import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
 import { TagList } from './TagList'
+import { observer } from 'mobx-react-lite'
+import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
+import { PlayPauseBtn } from '../music-player/PlayPauseBtn'
+import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
 
 export const ListStationsWrap = observer(function ListStationsWrap({
   term,
@@ -15,19 +16,14 @@ export const ListStationsWrap = observer(function ListStationsWrap({
 }) {
   const player = useMusicPlayerStore()
 
-  return (
-    <ListStations
-      title={`Browse For Stations in ${term}`}
-      breadcrumbs={breadcrumbs}
-      noData={
-        <p>
-          Currently there is no data for <strong>${term}</strong>. Sorry for the
-          inconvenience.
-        </p>
-      }
-      primary={(station: RadioStation) => {
-        return (
-          // todo this should be toggle play button
+  const listRow = (
+    station: RadioStation,
+    query: string,
+    sendQuery: (query: string, delay: number) => void
+  ) => {
+    return (
+      <>
+        <div>
           <Button
             onClick={() => {
               console.log(station.url)
@@ -52,13 +48,7 @@ export const ListStationsWrap = observer(function ListStationsWrap({
           >
             {`${station.name} | ${station.country}`}
           </Button>
-        )
-      }}
-      secondary={(
-        station: RadioStation,
-        query: string,
-        sendQuery: (query: string, delay: number) => void
-      ) => (
+        </div>
         <TagList
           tags={station.tags}
           onTagClick={(tag) => {
@@ -66,7 +56,21 @@ export const ListStationsWrap = observer(function ListStationsWrap({
             sendQuery(query.length ? `${query} ${tag}` : `${tag}`, 0)
           }}
         />
-      )}
+      </>
+    )
+  }
+
+  return (
+    <ListStations
+      title={`Browse For Stations in ${term}`}
+      breadcrumbs={breadcrumbs}
+      itemRow={listRow}
+      noData={
+        <p>
+          Currently there is no data for <strong>${term}</strong>. Sorry for the
+          inconvenience.
+        </p>
+      }
     ></ListStations>
   )
 })

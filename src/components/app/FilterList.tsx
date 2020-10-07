@@ -72,14 +72,14 @@ export const FilterList = observer(function FilterList({
   return (
     <>
       <FilterInput className={classes.search} delay={delay} />
-      {store.stations.length === 0 ? (
+      {store.filtered.length === 0 ? (
         <p className={classes.noResults}>No results</p>
       ) : (
         <div className={classes.scrollWrap}>
           <Virtuoso
-            totalCount={store.stations.length}
+            totalCount={store.filtered.length}
             overscan={60}
-            item={itemRow(store.stations)}
+            item={itemRow(store.filtered)}
             style={{ height: '100%', width: '100%' }}
           />
         </div>

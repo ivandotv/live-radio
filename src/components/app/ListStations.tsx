@@ -47,18 +47,12 @@ export const ListStations = observer(function ListStations({
   title,
   breadcrumbs,
   noData,
-  primary,
-  secondary
+  itemRow
 }: {
   title: string
   breadcrumbs: { href?: string; text: string }[]
   noData: ReactNode
-  primary: (
-    station: RadioStation,
-    query: string,
-    sendQuery: (query: string, delay: number) => void
-  ) => React.ReactNode
-  secondary: (
+  itemRow: (
     station: RadioStation,
     query: string,
     sendQuery: (query: string, delay: number) => void
@@ -89,16 +83,15 @@ export const ListStations = observer(function ListStations({
     store.search(query)
   }
 
-  const listRow = function (stations: RadioStation[]) {
+  const row = function (stations: RadioStation[]) {
     return function ListRow(index: number) {
       const station = stations[index]
 
       return (
         <ListItem divider key={station.uuid}>
-          <ListItemText
-            primary={primary(station, store.query, sendQuery)}
-            secondary={secondary(station, store.query, sendQuery)}
-          />
+          <ListItemText>
+            {itemRow(station, store.query, sendQuery)}
+          </ListItemText>
         </ListItem>
       )
     }
@@ -108,8 +101,8 @@ export const ListStations = observer(function ListStations({
   const lastCrumb = breadcrumbs[breadcrumbs.length - 1]
 
   lastCrumb.text = lastCrumb.text = `${lastCrumb.text.replace(/\(.+\)/, '')} (${
-    store.stations.length
-  } ${store.stations.length === 1 ? 'result' : 'results'}) `
+    store.filtered.length
+  } ${store.filtered.length === 1 ? 'result' : 'results'}) `
 
   breadcrumbs[breadcrumbs.length - 1] = lastCrumb
 
@@ -117,12 +110,12 @@ export const ListStations = observer(function ListStations({
     <Paper className={classes.paper}>
       <PageTitle title={title} />
       <LocationBreadCrumbs links={[...breadcrumbs]} />
-      {store.allStations.length === 0 ? (
+      {store.allData.length === 0 ? (
         <div className={classes.noData}>{noData}</div>
       ) : (
         <>
           {/* <FilterInput className={''} filterService={service} /> */}
-          <FilterList store={store} itemRow={listRow}></FilterList>
+          <FilterList store={store} itemRow={row}></FilterList>
         </>
       )}
     </Paper>

@@ -9,9 +9,9 @@ import {
 import { RadioStation } from '../../components/app/ListStations'
 
 export class FilterDataStore {
-  allStations: RadioStation[] = []
+  allData: any[] = []
 
-  stations: RadioStation[] = []
+  filtered: any[] = []
 
   query: string = ''
 
@@ -21,21 +21,26 @@ export class FilterDataStore {
 
   constructor() {
     makeObservable(this, {
-      stations: observable.shallow,
-      allStations: observable.shallow,
+      allData: observable.shallow,
+      filtered: observable.shallow,
       query: observable,
       hydrate: action,
       search: action
     })
   }
 
-  hydrate(stations: RadioStation[]): void {
-    ;(this.allStations as IObservableArray).replace([...stations])
-    ;(this.stations as IObservableArray).replace(this.allStations)
-    this.searchApi = new JsSearch.Search('uuid')
-    this.searchApi.addIndex('tags')
-    this.searchApi.addIndex('name')
-    this.searchApi.addDocuments(this.allStations)
+  hydrate(data: any[], uuid: string, indexes: string[]): void {
+    ;(this.allData as IObservableArray).replace([...data])
+    ;(this.filtered as IObservableArray).replace(this.allData)
+    this.searchApi = new JsSearch.Search(uuid)
+    indexes.forEach((index) => {
+      this.searchApi!.addIndex(index)
+    })
+    this.searchApi.addDocuments(this.allData)
+    // this.searchApi = new JsSearch.Search('uuid')
+    // this.searchApi.addIndex('tags')
+    // this.searchApi.addIndex('name')
+    // this.searchApi.addDocuments(this.allStations)
     // this.delay = delay
   }
 
@@ -51,20 +56,20 @@ export class FilterDataStore {
     if (delay && query.length) {
       this.searchTimeoutId = window.setTimeout(() => {
         runInAction(() => {
-          this.searchStations(this.query)
+          this.searchData(this.query)
         })
       }, delay)
     } else {
-      this.searchStations(this.query)
+      this.searchData(this.query)
     }
   }
 
-  protected searchStations(query: string): void {
+  protected searchData(query: string): void {
     if (this.query.length === 0) {
-      ;(this.stations as IObservableArray).replace([...this.allStations])
+      ;(this.filtered as IObservableArray).replace([...this.allData])
     } else {
       const result = this.searchApi?.search(query) as []
-      ;(this.stations as IObservableArray).replace([...result])
+      ;(this.filtered as IObservableArray).replace([...result])
     }
   }
 }
