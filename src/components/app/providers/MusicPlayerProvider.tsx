@@ -1,6 +1,6 @@
 import { ReactNode, useContext, useEffect, createContext } from 'react'
 import { MusicPlayerStore } from '../../../lib/stores/MusicPlayerStore'
-import { RadioStation } from '../ListStations'
+import { RadioStation } from '../ListData'
 import { enableStaticRendering } from 'mobx-react-lite'
 
 enableStaticRendering(typeof window === 'undefined')

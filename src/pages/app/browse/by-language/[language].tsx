@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { RadioStation } from '../../../../components/app/ListStations'
+import { RadioStation } from '../../../../components/app/ListData'
 import { ListStationsWrap } from '../../../../components/app/ListStationsWrap'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 

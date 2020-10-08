@@ -4,7 +4,7 @@ import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import { continentsByCode } from '../../../../lib/utils/continentsByode'
-import { LocationBreadCrumbs } from '../../../../components/app/LocationBreadCrumbs'
+import { LocationbreadCrumbs } from '../../../../components/app/LocationBreadcrumbs'
 import { PageTitle } from '../../../../components/PageTitle'
 
 export default function ByLocation() {
@@ -45,7 +45,7 @@ export default function ByLocation() {
   return (
     <Paper>
       <PageTitle title="Browse By Location" />
-      <LocationBreadCrumbs links={breadcrumbLinks} />
+      <LocationbreadCrumbs links={breadcrumbLinks} />
       <List>{continents}</List>
     </Paper>
   )

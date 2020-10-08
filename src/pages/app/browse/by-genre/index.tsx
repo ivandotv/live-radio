@@ -1,23 +1,51 @@
 import Paper from '@material-ui/core/Paper'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
+import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import List from '@material-ui/core/List'
 import { useRouter } from 'next/router'
-import { LocationBreadCrumbs } from '../../../../components/app/LocationBreadCrumbs'
+import { LocationBreadcrumbs } from '../../../../components/app/LocationBreadcrumbs'
 import { PageTitle } from '../../../../components/PageTitle'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 import { FilterList } from '../../../../components/app/FilterList'
 import { genres } from '../../../../lib/popularGenres'
+import {
+  FilterStoreProvider,
+  useFilterDataStore
+} from '../../../../components/app/providers/StoreProvider'
+import { observer } from 'mobx-react-lite'
+import { BrowseBy } from '../../../../components/app/BrowseBy'
 
 export default function GenreList() {
   const router = useRouter()
+  const breadcrumbs = [
+    {
+      href: '/app/browse',
+      text: 'Browse'
+    },
+    {
+      href: '/app/browse/by-genre',
+      text: 'By Genre'
+    }
+  ]
 
-  const genreList = []
+  // remap genres so they can be searched
+  const genreSearch = genres.map((genre) => {
+    return {
+      genre
+    }
+  })
 
-  console.log('pathname ', router.pathname)
+  const genreDataRow = function (genres: { genre: string }[]) {
+    return function ListRow(index: number) {
+      /*
+      mixing mobx with react props, but there is no choice
+      other way  when working with virtuoso
+      */
+      if (genres.length <= index) return null
+      const genre = genres[index].genre
 
-  for (const genre of genres) {
-    genreList.push(
-      <li key={genre}>
+      return (
         <AppMenuItem
           link={{
             href: {
@@ -31,28 +59,22 @@ export default function GenreList() {
           }}
           primary={`${genre}`}
         />
-      </li>
-    )
+      )
+    }
   }
 
-  const breadcrumbLinks = [
-    {
-      href: '/app/browse',
-      text: 'Browse'
-    },
-    {
-      href: '/app/browse/by-genre',
-      text: 'By Genre'
-    }
-  ]
-
   return (
-    <Paper>
-      <PageTitle title="Browse For Stations by Genre" />
-      <LocationBreadCrumbs links={breadcrumbLinks} />
-      {/* <List>{genreList}</List> */}
-      <FilterList store={store} itemRow={listRow}></FilterList>
-    </Paper>
+    <FilterStoreProvider
+      initialState={genreSearch}
+      uuid="genre"
+      indexes={['genre']}
+    >
+      <BrowseBy
+        title="Browse For Stations by Genre"
+        breadcrumbs={breadcrumbs}
+        dataRow={genreDataRow}
+      ></BrowseBy>
+    </FilterStoreProvider>
   )
 }
 

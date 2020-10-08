@@ -9,12 +9,13 @@ const useStyles = makeStyles((theme) => {
   return {
     root: {
       marginLeft: theme.spacing(2),
-      paddingTop: theme.spacing(2)
+      paddingTop: theme.spacing(2),
+      display: 'inline'
     }
   }
 })
 
-export function LocationBreadCrumbs({
+export function LocationBreadcrumbs({
   links
 }: {
   links: { href?: string; as?: string; text: string }[]
@@ -53,8 +54,10 @@ export function LocationBreadCrumbs({
   }
 
   return (
+    // <div className={className}>
     <Breadcrumbs className={classes.root} separator="›" aria-label="breadcrumb">
       {renderedLinks}
     </Breadcrumbs>
+    // </div>
   )
 }

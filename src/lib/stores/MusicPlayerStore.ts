@@ -1,6 +1,6 @@
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { Howl } from 'howler'
-import { RadioStation } from '../../components/app/ListStations'
+import { RadioStation } from '../../components/app/ListData'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',

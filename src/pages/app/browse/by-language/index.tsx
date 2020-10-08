@@ -1,7 +1,7 @@
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import { useRouter } from 'next/router'
-import { LocationBreadCrumbs } from '../../../../components/app/LocationBreadCrumbs'
+import { LocationbreadCrumbs } from '../../../../components/app/LocationBreadcrumbs'
 import { PageTitle } from '../../../../components/PageTitle'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
@@ -50,7 +50,7 @@ export default function LanguageList() {
   return (
     <Paper>
       <PageTitle title="Browse For Stations by Language" />
-      <LocationBreadCrumbs links={breadcrumbLinks} />
+      <LocationbreadCrumbs links={breadcrumbLinks} />
       <List>{languageList}</List>
     </Paper>
   )

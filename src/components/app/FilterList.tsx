@@ -1,12 +1,14 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Skeleton from '@material-ui/lab/Skeleton'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { useFilterDataStore } from './providers/StoreProvider'
 import { FilterInput } from './FilterInput'
 import { FilterDataStore } from '../../lib/stores/FilterDataStore'
+import { StationRowItem } from './StationRowItem'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -23,24 +25,23 @@ const useStyles = makeStyles((theme: Theme) => {
   })
 })
 export const FilterList = observer(function FilterList({
-  itemRow,
-  delay = 300,
-  store
-}: {
-  itemRow: any
+  dataRow,
+  delay = 300
+}: // store
+{
+  dataRow: (data: any) => (index: number) => ReactElement
+  // dataRow: (index: number) => ReactElement
   delay?: number
-  store: FilterDataStore
+  // store: FilterDataStore
 }) {
   const classes = useStyles()
-  // const store = useFilterDataStore()
   const router = useRouter()
+  const store = useFilterDataStore()
 
   useEffect(
     () =>
       reaction(
         () => {
-          console.log('effect -> reaction')
-
           return store.query
         },
         (query: string) => {
@@ -60,13 +61,18 @@ export const FilterList = observer(function FilterList({
     [store]
   )
   useEffect(() => {
-    console.log('router query: ', router.query)
-    console.log(' window location: ', window.location.href)
-
     if (router.query && router.query.filter && router.query.filter.length) {
       const query = (router.query.filter as string).replace(/\+/g, ' ')
       store.search(query)
     }
+
+    window.addEventListener('popstate', (data) => {
+      console.log('pop state')
+      console.log(data)
+      // if (data.state?.data) {
+      //   setState(data.state.data)
+      // }
+    })
   }, [router, store])
 
   return (
@@ -78,8 +84,12 @@ export const FilterList = observer(function FilterList({
         <div className={classes.scrollWrap}>
           <Virtuoso
             totalCount={store.filtered.length}
-            overscan={60}
-            item={itemRow(store.filtered)}
+            overscan={40}
+            // computeItemKey={(index: number) => {
+            //   return store.filtered[index].uuid
+            // }}
+            item={dataRow(store.filtered)}
+            // item={dataRow}
             style={{ height: '100%', width: '100%' }}
           />
         </div>

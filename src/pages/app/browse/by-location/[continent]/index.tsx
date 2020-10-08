@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { AppDefaultLayout } from '../../../../../components/app/layout/AppDefaultLayout'
 import { AppMenuItem } from '../../../../../components/app/sidebars/AppMenuItem'
 import countriesJSON from '../../../../../generated/countries.json'
-import { LocationBreadCrumbs } from '../../../../../components/app/LocationBreadCrumbs'
+import { LocationbreadCrumbs } from '../../../../../components/app/LocationBreadcrumbs'
 import { continentsByCode } from '../../../../../lib/utils/continentsByode'
 import { PageTitle } from '../../../../../components/PageTitle'
 export default function CountryList() {
@@ -61,7 +61,7 @@ export default function CountryList() {
       <PageTitle
         title={`Browse For Stations in ${continentsByCode[continent]}`}
       />
-      <LocationBreadCrumbs links={breadcrumbLinks} />
+      <LocationbreadCrumbs links={breadcrumbLinks} />
       <List>{countries}</List>
     </Paper>
   )

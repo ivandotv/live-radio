@@ -1,12 +1,10 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
+import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import {
-  ListStations,
-  RadioStation
-} from '../../../../components/app/ListStations'
-import { ListStationsWrap } from '../../../../components/app/ListStationsWrap'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import { StationRowItem } from '../../../../components/app/StationRowItem'
+import { RadioStation } from '../../../../types'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -21,7 +19,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const genre = (ctx.params?.genre as string).replace(/-/g, ' ')
 
-  const api = new RadioBrowserApi('radio-next', fetch)
+  const api = new RadioBrowserApi('radio-next', fetch, true)
   const stations = await api.searchStations({
     tag: genre,
     limit: 1500,
@@ -60,6 +58,8 @@ export default function GenreStations({
   stations: RadioStation[]
   genre: string
 }) {
+  // const classes = useStyles()
+  console.log('GENRE STATIONS')
   const breadcrumbs = [
     {
       href: '/app/browse',
@@ -74,23 +74,31 @@ export default function GenreStations({
     }
   ]
 
+  const row = function (stations: RadioStation[]) {
+    return function DataRow(index: number) {
+      const station = stations[index]
+
+      return <StationRowItem station={station}></StationRowItem>
+    }
+  }
+
   return (
     <FilterStoreProvider
       initialState={stations}
       uuid="uuid"
       indexes={['tags', 'name']}
     >
-      {/* todo - pullout no data im to special component */}
-      <ListStations
+      <BrowseBy
         title={`Browse For Stations in ${genre}`}
         breadcrumbs={breadcrumbs}
+        dataRow={row}
         noData={
           <p>
             Currently there is no data for <strong>${genre}</strong>. Sorry for
             the inconvenience.
           </p>
         }
-      />
+      ></BrowseBy>
     </FilterStoreProvider>
   )
 }

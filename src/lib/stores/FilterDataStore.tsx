@@ -6,7 +6,6 @@ import {
   observable,
   runInAction
 } from 'mobx'
-import { RadioStation } from '../../components/app/ListStations'
 
 export class FilterDataStore {
   allData: any[] = []
