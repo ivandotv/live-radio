@@ -38,64 +38,6 @@ export const FilterList = observer(function FilterList({
   const router = useRouter()
   const store = useFilterDataStore()
 
-  /* Working with the history directly, it is a lot easier
-    then using router ( less rendering)
- */
-  useEffect(
-    () =>
-      reaction(
-        () => {
-          return store.query
-        },
-        (query: string) => {
-          if (query.length) {
-            /*
-            If there is something in the history, check
-             */
-            if (!store.fromHistory) {
-              const filter = query.replace(/\s/g, '+')
-              window.history.pushState({ filter }, '', `?filter=${filter}`)
-              console.log('historys stack: ', window.history)
-            } else {
-              console.log('store history NOT empty -do not PUSH')
-              store.fromHistory = false
-            }
-          } else {
-            // case when filter is empty ?filter=''
-            const url = new URL(window.location.href)
-            url.searchParams.delete('filter')
-            history.pushState({}, '', url.href)
-          }
-        }
-      ),
-    [store]
-  )
-  useEffect(() => {
-    // initial query comes from the router
-    if (router.query?.filter?.length) {
-      const query = (router.query.filter as string).replace(/\+/g, ' ')
-      store.search(query)
-    }
-
-    const onPopState = (e: PopStateEvent) => {
-      console.log('pop state')
-      console.log(e.state)
-      // if (data.state?.data) {
-      //   setState(data.state.data)
-      // }
-      // if (e.state.filter) {
-      store.fromHistory = true
-      store.search(e.state.filter ? e.state.filter : '')
-      // }
-    }
-    window.addEventListener('popstate', onPopState)
-
-    return () => {
-      store.fromHistory = false
-      window.removeEventListener('popstate', onPopState)
-    }
-  }, [router, store])
-
   return (
     <>
       <FilterInput className={classes.search} delay={delay} />

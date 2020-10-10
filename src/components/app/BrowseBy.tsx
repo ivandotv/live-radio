@@ -7,9 +7,10 @@ import { ListData } from './ListData'
 import { useFilterDataStore } from './providers/StoreProvider'
 import { PageTitle } from '../PageTitle'
 import { LocationBreadcrumbsWithResult } from './LocationBreadcrumbsWithResult'
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { FilterList } from './FilterList'
+import { reaction } from 'mobx'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -46,6 +47,75 @@ export const BrowseBy = observer(function BrowserBy({
   const classes = useStyles()
   const store = useFilterDataStore()
   const router = useRouter()
+
+  console.log('browse by')
+
+  /* Working with the history directly, it is a lot easier
+    then using router ( less rendering)
+ */
+  useEffect(
+    () =>
+      reaction(
+        () => {
+          return store.query
+        },
+        (query: string) => {
+          if (query.length) {
+            /*
+            If there is something in the history, check
+             */
+            if (!store.fromHistory) {
+              const filter = query.replace(/\s/g, '+')
+              // window.history.replaceState({ filter }, '', `?filter=${filter}`)
+              // router.push(
+              //   { pathname: router.pathname, query: { filter } },
+              //   undefined,
+              //   { shallow: true }
+              // )
+              console.log('router')
+              console.log(router)
+            } else {
+              store.fromHistory = false
+            }
+          } else {
+            // case when filter is empty ?filter=''
+            const url = new URL(window.location.href)
+            url.searchParams.delete('filter')
+            if (!store.fromHistory) {
+              history.replaceState({}, '', url.href)
+            } else {
+              store.fromHistory = false
+            }
+          }
+        }
+      ),
+    [store]
+  )
+  useEffect(() => {
+    // initial query comes from the router
+    if (router.query?.filter?.length) {
+      const query = (router.query.filter as string).replace(/\+/g, ' ')
+      store.search(query)
+    }
+
+    const onPopState = (e: PopStateEvent) => {
+      console.log('pop state')
+      console.log(e.state)
+      // if (data.state?.data) {
+      //   setState(data.state.data)
+      // }
+      // if (e.state.filter) {
+      store.fromHistory = true
+      store.search(e.state.filter ? e.state.filter : '')
+      // }
+    }
+    window.addEventListener('popstate', onPopState)
+
+    return () => {
+      store.fromHistory = false
+      window.removeEventListener('popstate', onPopState)
+    }
+  }, [router, store])
 
   if (router.isFallback) {
     return (

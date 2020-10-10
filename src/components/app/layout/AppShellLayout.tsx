@@ -2,6 +2,7 @@ import Container from '@material-ui/core/Container'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Hidden from '@material-ui/core/Hidden'
 import Zoom from '@material-ui/core/Zoom'
+import Fade from '@material-ui/core/Fade'
 import {
   createStyles,
   makeStyles,
@@ -18,6 +19,8 @@ import { useAppShell } from '../providers/AppShellProvider'
 import { DesktopSidebar } from '../sidebars/DesktopSidebar'
 import { MobileSidebar } from '../sidebars/MobileSidebar'
 import { AppToolbar } from './AppToolbar'
+import { useMusicPlayerStore } from '../providers/MusicPlayerProvider'
+import { PlayerStatus } from '../../../lib/stores/MusicPlayerStore'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -57,10 +60,7 @@ export const AppShellLayout = observer(function AppShellLayout({
   const store = useAppShell()
   const theme = useTheme()
   const classes = useStyles()
-
-  // useDesktopDrawerPosition(useAppShell)
-
-  console.log('app shell layout show? ', store.showApp)
+  const player = useMusicPlayerStore()
 
   return (
     <>
@@ -97,8 +97,13 @@ export const AppShellLayout = observer(function AppShellLayout({
             {children as ReactElement}
           </Container>
           {/* todo show only if playing */}
-          <Zoom in={false} style={{ transitionDelay: '2000ms' }}>
-            <MusicPlayer></MusicPlayer>
+          <Zoom
+            in={player.status !== 'STOPPED'}
+            // style={{ transitionDelay: '2000ms' }}
+          >
+            <div>
+              <MusicPlayer></MusicPlayer>
+            </div>
           </Zoom>
         </main>
       </div>

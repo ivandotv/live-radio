@@ -28,7 +28,7 @@ export function FilterStoreProvider({
   uuid: string
   indexes: string[]
 }) {
-  console.log('provider initial state')
+  // console.log('provider initial state')
   // console.log(initialState)
   const store = useMemo(() => {
     return initMyStore(initialState, uuid, indexes)
@@ -38,13 +38,13 @@ export function FilterStoreProvider({
 }
 
 function initMyStore(initialState: any[], uuid: string, indexes: string[]) {
-  console.log('********************************* ||||||||||')
+  // console.log('********************************* ||||||||||')
   // debugger
   // const _store = store ?? new FilterDataStore()
   const _store = new FilterDataStore()
 
-  console.log('init store')
-  console.log('is browser ', typeof window !== 'undefined')
+  // console.log('init store')
+  // console.log('is browser ', typeof window !== 'undefined')
   // If your page has Next.js data fetching methods that use a Mobx store, it will
   // get hydrated here, check `pages/ssg.js` and `pages/ssr.js` for more details
   if (initialState) {

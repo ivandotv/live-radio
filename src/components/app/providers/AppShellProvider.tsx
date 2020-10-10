@@ -32,7 +32,7 @@ export function AppShellProvider({ children }: { children: ReactNode }) {
   // leave if out of mobx because of suspense
   const [showQueryTheme, setShowQueryTheme] = useState(false)
 
-  console.log('new app shell provider')
+  // console.log('new app shell provider')
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
@@ -64,7 +64,7 @@ export function AppShellProvider({ children }: { children: ReactNode }) {
     <AppShellContext.Provider value={store}>
       <Observer>
         {() => {
-          console.log('Observer component , ', store.theme)
+          // console.log('Observer component , ', store.theme)
 
           return (
             <ThemeProvider
@@ -88,8 +88,8 @@ export function AppShellProvider({ children }: { children: ReactNode }) {
 function initMyStore() {
   const _store = store ?? new AppShellStore()
 
-  console.log('init store')
-  console.log('browser ', typeof window !== 'undefined')
+  // console.log('init store')
+  // console.log('browser ', typeof window !== 'undefined')
   // If your page has Next.js data fetching methods that use a Mobx store, it will
   // get hydrated here, check `pages/ssg.js` and `pages/ssr.js` for more details
   //   if (initialState) {
