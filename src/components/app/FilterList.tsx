@@ -1,6 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { reaction } from 'mobx'
+import { reaction, toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect } from 'react'
@@ -38,6 +38,9 @@ export const FilterList = observer(function FilterList({
   const router = useRouter()
   const store = useFilterDataStore()
 
+  /* Working with the history directly, it is a lot easier
+    then using router ( less rendering)
+ */
   useEffect(
     () =>
       reaction(
@@ -46,33 +49,51 @@ export const FilterList = observer(function FilterList({
         },
         (query: string) => {
           if (query.length) {
-            window.history.replaceState(
-              {},
-              '',
-              `?filter=${query.replace(/\s/g, '+')}`
-            )
+            /*
+            If there is something in the history, check
+             */
+            if (!store.fromHistory) {
+              const filter = query.replace(/\s/g, '+')
+              window.history.pushState({ filter }, '', `?filter=${filter}`)
+              console.log('historys stack: ', window.history)
+            } else {
+              console.log('store history NOT empty -do not PUSH')
+              store.fromHistory = false
+            }
           } else {
+            // case when filter is empty ?filter=''
             const url = new URL(window.location.href)
             url.searchParams.delete('filter')
-            history.replaceState({}, '', url.href)
+            history.pushState({}, '', url.href)
           }
         }
       ),
     [store]
   )
   useEffect(() => {
-    if (router.query && router.query.filter && router.query.filter.length) {
+    // initial query comes from the router
+    if (router.query?.filter?.length) {
       const query = (router.query.filter as string).replace(/\+/g, ' ')
       store.search(query)
     }
 
-    window.addEventListener('popstate', (data) => {
+    const onPopState = (e: PopStateEvent) => {
       console.log('pop state')
-      console.log(data)
+      console.log(e.state)
       // if (data.state?.data) {
       //   setState(data.state.data)
       // }
-    })
+      // if (e.state.filter) {
+      store.fromHistory = true
+      store.search(e.state.filter ? e.state.filter : '')
+      // }
+    }
+    window.addEventListener('popstate', onPopState)
+
+    return () => {
+      store.fromHistory = false
+      window.removeEventListener('popstate', onPopState)
+    }
   }, [router, store])
 
   return (
@@ -83,13 +104,9 @@ export const FilterList = observer(function FilterList({
       ) : (
         <div className={classes.scrollWrap}>
           <Virtuoso
-            totalCount={store.filtered.length}
+            totalCount={toJS(store.filtered.length)}
             overscan={40}
-            // computeItemKey={(index: number) => {
-            //   return store.filtered[index].uuid
-            // }}
-            item={dataRow(store.filtered)}
-            // item={dataRow}
+            item={dataRow(toJS(store.filtered))}
             style={{ height: '100%', width: '100%' }}
           />
         </div>

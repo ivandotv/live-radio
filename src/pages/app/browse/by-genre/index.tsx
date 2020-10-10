@@ -38,11 +38,6 @@ export default function GenreList() {
 
   const genreDataRow = function (genres: { genre: string }[]) {
     return function ListRow(index: number) {
-      /*
-      mixing mobx with react props, but there is no choice
-      other way  when working with virtuoso
-      */
-      if (genres.length <= index) return null
       const genre = genres[index].genre
 
       return (

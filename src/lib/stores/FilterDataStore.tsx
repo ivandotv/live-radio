@@ -18,6 +18,8 @@ export class FilterDataStore {
 
   protected searchTimeoutId: number | undefined
 
+  fromHistory = false
+
   constructor() {
     makeObservable(this, {
       allData: observable.shallow,
