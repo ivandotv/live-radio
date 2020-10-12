@@ -36,13 +36,15 @@ export const BrowseBy = observer(function BrowserBy({
   noData,
   dataRow,
   breadcrumbs,
-  title
+  title,
+  filterInputText
 }: {
   noData?: ReactNode
   dataRow: (data: any) => (index: number) => ReactElement
   // dataRow: (index: number) => ReactElement
   breadcrumbs: { href?: string; text: string }[]
   title: string
+  filterInputText: string
 }) {
   const classes = useStyles()
   const store = useFilterDataStore()
@@ -50,70 +52,11 @@ export const BrowseBy = observer(function BrowserBy({
 
   console.log('browse by')
 
-  /* Working with the history directly, it is a lot easier
-    then using router ( less rendering)
- */
-  useEffect(
-    () =>
-      reaction(
-        () => {
-          return store.query
-        },
-        (query: string) => {
-          if (query.length) {
-            /*
-            If there is something in the history, check
-             */
-            if (!store.fromHistory) {
-              const filter = query.replace(/\s/g, '+')
-              // window.history.replaceState({ filter }, '', `?filter=${filter}`)
-              // router.push(
-              //   { pathname: router.pathname, query: { filter } },
-              //   undefined,
-              //   { shallow: true }
-              // )
-              console.log('router')
-              console.log(router)
-            } else {
-              store.fromHistory = false
-            }
-          } else {
-            // case when filter is empty ?filter=''
-            const url = new URL(window.location.href)
-            url.searchParams.delete('filter')
-            if (!store.fromHistory) {
-              history.replaceState({}, '', url.href)
-            } else {
-              store.fromHistory = false
-            }
-          }
-        }
-      ),
-    [store]
-  )
   useEffect(() => {
-    // initial query comes from the router
+    // initial query can come from the router
     if (router.query?.filter?.length) {
       const query = (router.query.filter as string).replace(/\+/g, ' ')
       store.search(query)
-    }
-
-    const onPopState = (e: PopStateEvent) => {
-      console.log('pop state')
-      console.log(e.state)
-      // if (data.state?.data) {
-      //   setState(data.state.data)
-      // }
-      // if (e.state.filter) {
-      store.fromHistory = true
-      store.search(e.state.filter ? e.state.filter : '')
-      // }
-    }
-    window.addEventListener('popstate', onPopState)
-
-    return () => {
-      store.fromHistory = false
-      window.removeEventListener('popstate', onPopState)
     }
   }, [router, store])
 
@@ -138,7 +81,7 @@ export const BrowseBy = observer(function BrowserBy({
       <PageTitle title={title} />
       <LocationBreadcrumbsWithResult links={breadcrumbs} store={store} />
       {store.allData.length ? (
-        <FilterList dataRow={dataRow} />
+        <FilterList dataRow={dataRow} filterInputText={filterInputText} />
       ) : (
         <div className={classes.noData}>{noData || null}</div>
       )}

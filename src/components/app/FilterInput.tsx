@@ -6,11 +6,13 @@ import { useFilterDataStore } from '../../components/app/providers/StoreProvider
 
 export const FilterInput = observer(function FilterInput({
   delay = 200,
-  className
+  className,
+  textPlaceHolder
 }: // filterService
 {
   delay?: number
   className?: string
+  textPlaceHolder: string
   // filterService: Interpreter<FilterRadioContext, any, FilterRadioEvent>
   //   style?: React.CSSProperties
 }) {
@@ -26,11 +28,13 @@ export const FilterInput = observer(function FilterInput({
     searchRef.current.value = store.query
   }
 
+  console.log('label ', textPlaceHolder)
+
   return (
     <TextField
       inputRef={searchRef}
       className={className}
-      label="Filter Stations"
+      label={textPlaceHolder}
       InputLabelProps={{ shrink: Boolean(store.query.length) }}
       onChange={handleSearch}
     />

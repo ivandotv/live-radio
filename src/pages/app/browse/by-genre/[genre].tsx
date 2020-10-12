@@ -92,6 +92,7 @@ export default function GenreStations({
         title={`Browse For Stations in ${genre}`}
         breadcrumbs={breadcrumbs}
         dataRow={row}
+        filterInputText="Filter stations"
         noData={
           <p>
             Currently there is no data for <strong>${genre}</strong>. Sorry for

@@ -26,11 +26,13 @@ const useStyles = makeStyles((theme: Theme) => {
 })
 export const FilterList = observer(function FilterList({
   dataRow,
-  delay = 300
+  delay = 300,
+  filterInputText
 }: // store
 {
   dataRow: (data: any) => (index: number) => ReactElement
   // dataRow: (index: number) => ReactElement
+  filterInputText: string
   delay?: number
   // store: FilterDataStore
 }) {
@@ -40,7 +42,11 @@ export const FilterList = observer(function FilterList({
 
   return (
     <>
-      <FilterInput className={classes.search} delay={delay} />
+      <FilterInput
+        textPlaceHolder={filterInputText}
+        className={classes.search}
+        delay={delay}
+      />
       {store.filtered.length === 0 ? (
         <p className={classes.noResults}>No results</p>
       ) : (

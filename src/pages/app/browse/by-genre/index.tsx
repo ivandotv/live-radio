@@ -1,20 +1,9 @@
-import Paper from '@material-ui/core/Paper'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
-import List from '@material-ui/core/List'
 import { useRouter } from 'next/router'
-import { LocationBreadcrumbs } from '../../../../components/app/LocationBreadcrumbs'
-import { PageTitle } from '../../../../components/PageTitle'
-import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
-import { FilterList } from '../../../../components/app/FilterList'
-import { genres } from '../../../../lib/popularGenres'
-import {
-  FilterStoreProvider,
-  useFilterDataStore
-} from '../../../../components/app/providers/StoreProvider'
-import { observer } from 'mobx-react-lite'
 import { BrowseBy } from '../../../../components/app/BrowseBy'
+import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
+import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
+import { genres } from '../../../../lib/popularGenres'
 
 export default function GenreList() {
   const router = useRouter()
@@ -65,6 +54,7 @@ export default function GenreList() {
       indexes={['genre']}
     >
       <BrowseBy
+        filterInputText="Filter Genres"
         title="Browse For Stations by Genre"
         breadcrumbs={breadcrumbs}
         dataRow={genreDataRow}
