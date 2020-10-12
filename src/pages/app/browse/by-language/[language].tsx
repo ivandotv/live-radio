@@ -1,9 +1,13 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
+import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { RadioStation } from '../../../../components/app/ListData'
-import { ListStationsWrap } from '../../../../components/app/ListStationsWrap'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import {
+  stationDataRow,
+  stationsToRadioStations
+} from '../../../../lib/stationUtils'
+import { RadioStation } from '../../../../types'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -27,25 +31,9 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
     hideBroken: true
   })
 
-  const leanStations = []
-  // strip properties that are not in use
-  for (const station of stations) {
-    leanStations.push({
-      tags: [...new Set(station.tags.split(','))],
-      name: station.name,
-      url: station.url_resolved,
-      uuid: station.stationuuid,
-      favicon: station.favicon,
-      homepage: station.homepage,
-      country: station.country,
-      language: station.language.split(','),
-      codec: station.codec
-    })
-  }
-
   return {
     props: {
-      stations: leanStations,
+      stations: stationsToRadioStations(stations),
       language
     },
     revalidate: 600 // 10 minutes
@@ -66,7 +54,7 @@ export default function LanguageStations({
     },
     {
       href: '/app/browse/by-language',
-      text: 'By Genre'
+      text: 'By Language'
     },
     {
       text: `${language}`
@@ -74,11 +62,23 @@ export default function LanguageStations({
   ]
 
   return (
-    <FilterStoreProvider initialState={stations}>
-      <ListStationsWrap
-        term={language}
+    <FilterStoreProvider
+      initialState={stations}
+      uuid="id"
+      indexes={['language', 'country', 'tags', 'continent', 'name']}
+    >
+      <BrowseBy
+        filterInputText="Filter Stations"
+        title="Browse For Stations"
         breadcrumbs={breadcrumbs}
-      ></ListStationsWrap>
+        dataRow={stationDataRow}
+        noData={
+          <p>
+            Currently there is no data for <strong>${language}</strong>. Sorry
+            for the inconvenience.
+          </p>
+        }
+      ></BrowseBy>
     </FilterStoreProvider>
   )
 }

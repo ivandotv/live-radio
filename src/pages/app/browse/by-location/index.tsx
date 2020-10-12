@@ -4,12 +4,11 @@ import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
 import { continentsByCode } from '../../../../lib/utils/continentsByode'
-import { LocationbreadCrumbs } from '../../../../components/app/LocationBreadcrumbs'
+import { LocationBreadcrumbs } from '../../../../components/app/LocationBreadcrumbs'
 import { PageTitle } from '../../../../components/PageTitle'
 
 export default function ByLocation() {
   const continents = []
-  const router = useRouter()
 
   for (const [key, value] of Object.entries(continentsByCode)) {
     continents.push(
@@ -17,10 +16,10 @@ export default function ByLocation() {
         <AppMenuItem
           link={{
             href: {
-              pathname: `${router.pathname}/[continent]`
+              pathname: '/app/browse/by-location/[continent]'
             },
             as: {
-              pathname: `${router.pathname}/${key}`
+              pathname: `/app/browse/by-location/${key}`
             }
           }}
           primary={value}
@@ -29,7 +28,7 @@ export default function ByLocation() {
     )
   }
 
-  const breadcrumbLinks = [
+  const breadcrumbs = [
     {
       href: '/app/browse',
       as: '/app/browse',
@@ -45,7 +44,7 @@ export default function ByLocation() {
   return (
     <Paper>
       <PageTitle title="Browse By Location" />
-      <LocationbreadCrumbs links={breadcrumbLinks} />
+      <LocationBreadcrumbs links={breadcrumbs} />
       <List>{continents}</List>
     </Paper>
   )

@@ -17,7 +17,7 @@ export class MusicPlayerStore {
     data: any
   } | null = null
 
-  stationUUID = ''
+  stationID = ''
 
   station: RadioStation | null = null
 
@@ -26,7 +26,7 @@ export class MusicPlayerStore {
   constructor() {
     makeObservable<MusicPlayerStore, 'disposePlayer' | 'initPlayer'>(this, {
       status: observable,
-      stationUUID: observable,
+      stationID: observable,
       playerError: observable,
       play: action,
       stop: action,
@@ -48,7 +48,7 @@ export class MusicPlayerStore {
       format: [station.codec]
     })
 
-    this.stationUUID = station.uuid
+    this.stationID = station.uuid
 
     this.player.on('play', () => {
       console.log('radio playing')
@@ -128,7 +128,7 @@ export class MusicPlayerStore {
   stop() {
     this.disposePlayer()
     this.status = PlayerStatus.STOPPED
-    this.stationUUID = ''
+    this.stationID = ''
   }
 
   resume() {

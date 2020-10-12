@@ -34,10 +34,10 @@ export const StationRowItem = observer(function StationRowItem({
         <Button
           onClick={() => {
             console.log(station.url)
-            console.log(station.uuid)
+            console.log(station.id)
             console.log('-----')
             // todo - wrap in playerStore.togglePlay
-            if (player.stationUUID === station.uuid) {
+            if (player.stationID === station.id) {
               // this station is already selected
               if (player.status === PlayerStatus.PLAYING) {
                 player.pause()
@@ -51,14 +51,14 @@ export const StationRowItem = observer(function StationRowItem({
               player.play(station)
             }
           }}
-          startIcon={<PlayPauseBtn uuid={station.uuid} />}
+          startIcon={<PlayPauseBtn uuid={station.id} />}
         >
-          {`${station.name} | ${station.country}`}
+          {`${station.name} | ${station.country} ${station.flag}`}
         </Button>
         <br />
         {/* <p>{index}</p> */}
         <p>{station.url}</p>
-        <h6>{station.uuid}</h6>
+        <h6>{station.id}</h6>
         <TagList
           tags={station.tags}
           onTagClick={(tag) => {

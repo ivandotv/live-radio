@@ -1,42 +1,42 @@
-import Paper from '@material-ui/core/Paper'
-import List from '@material-ui/core/List'
-import { useRouter } from 'next/router'
-import { LocationbreadCrumbs } from '../../../../components/app/LocationBreadcrumbs'
-import { PageTitle } from '../../../../components/PageTitle'
-import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 import ISO6391 from 'iso-639-1'
+import { useRouter } from 'next/router'
+import { BrowseBy } from '../../../../components/app/BrowseBy'
+import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
+import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 
 const languages = ISO6391.getAllNames()
 
 export default function LanguageList() {
   const router = useRouter()
 
-  const languageList = []
+  const languageSearch = languages.map((language) => {
+    return {
+      language
+    }
+  })
 
-  console.log('pathname ', router.pathname)
+  const languageDataRow = function (languages: { language: string }[]) {
+    return function LanguageRow(index: number) {
+      const language = languages[index].language
 
-  for (const language of languages) {
-    languageList.push(
-      <li key={language}>
+      return (
         <AppMenuItem
           link={{
             href: {
               pathname: `${router.pathname}/[language]`
             },
             as: {
-              pathname: `${router.pathname}/${language
-                // .toLowerCase()
-                .replace(/\s/g, '-')}`
+              pathname: `${router.pathname}/${language.replace(/\s/g, '-')}`
             }
           }}
           primary={`${language}`}
         />
-      </li>
-    )
+      )
+    }
   }
 
-  const breadcrumbLinks = [
+  const breadcrumbs = [
     {
       href: '/app/browse',
       text: 'Browse'
@@ -48,11 +48,18 @@ export default function LanguageList() {
   ]
 
   return (
-    <Paper>
-      <PageTitle title="Browse For Stations by Language" />
-      <LocationbreadCrumbs links={breadcrumbLinks} />
-      <List>{languageList}</List>
-    </Paper>
+    <FilterStoreProvider
+      initialState={languageSearch}
+      uuid="language"
+      indexes={['language']}
+    >
+      <BrowseBy
+        filterInputText="Filter Languages"
+        title="Browse For Stations by Language"
+        breadcrumbs={breadcrumbs}
+        dataRow={languageDataRow}
+      ></BrowseBy>
+    </FilterStoreProvider>
   )
 }
 

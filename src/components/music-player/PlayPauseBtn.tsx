@@ -13,7 +13,7 @@ export const PlayPauseBtn = observer(function PlayPauseBtn({
   const player = useMusicPlayerStore()
 
   function getBtn() {
-    if (player.stationUUID === uuid) {
+    if (player.stationID === uuid) {
       if (player.status === PlayerStatus.PLAYING) {
         return <Pause></Pause>
       } else if (

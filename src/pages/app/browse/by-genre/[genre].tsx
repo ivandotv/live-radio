@@ -4,6 +4,10 @@ import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 import { StationRowItem } from '../../../../components/app/StationRowItem'
+import {
+  stationDataRow,
+  stationsToRadioStations
+} from '../../../../lib/stationUtils'
 import { RadioStation } from '../../../../types'
 
 export const getStaticPaths: GetStaticPaths = async function () {
@@ -26,25 +30,25 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
     hideBroken: true
   })
 
-  const leanStations = []
-  // strip properties that are not in use
-  for (const station of stations) {
-    leanStations.push({
-      tags: [...new Set(station.tags.split(','))],
-      name: station.name,
-      url: station.url_resolved,
-      uuid: station.stationuuid,
-      favicon: station.favicon,
-      homepage: station.homepage,
-      country: station.country,
-      language: station.language.split(','),
-      codec: station.codec
-    })
-  }
+  // const leanStations = []
+  // // strip properties that are not in use
+  // for (const station of stations) {
+  //   leanStations.push({
+  //     tags: [...new Set(station.tags.split(','))],
+  //     name: station.name,
+  //     url: station.url_resolved,
+  //     uuid: station.stationuuid,
+  //     favicon: station.favicon,
+  //     homepage: station.homepage,
+  //     country: station.country,
+  //     language: station.language.split(','),
+  //     codec: station.codec
+  //   })
+  // }
 
   return {
     props: {
-      stations: leanStations,
+      stations: stationsToRadioStations(stations),
       genre
     },
     revalidate: 600 // 10 minutes
@@ -74,24 +78,24 @@ export default function GenreStations({
     }
   ]
 
-  const row = function (stations: RadioStation[]) {
-    return function DataRow(index: number) {
-      const station = stations[index]
+  // const row = function (stations: RadioStation[]) {
+  //   return function DataRow(index: number) {
+  //     const station = stations[index]
 
-      return <StationRowItem station={station}></StationRowItem>
-    }
-  }
+  //     return <StationRowItem station={station}></StationRowItem>
+  //   }
+  // }
 
   return (
     <FilterStoreProvider
       initialState={stations}
-      uuid="uuid"
-      indexes={['tags', 'name']}
+      uuid="id"
+      indexes={['tags', 'name', 'country', 'continent']}
     >
       <BrowseBy
         title={`Browse For Stations in ${genre}`}
         breadcrumbs={breadcrumbs}
-        dataRow={row}
+        dataRow={stationDataRow}
         filterInputText="Filter stations"
         noData={
           <p>

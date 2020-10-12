@@ -37,7 +37,8 @@ export const BrowseBy = observer(function BrowserBy({
   dataRow,
   breadcrumbs,
   title,
-  filterInputText
+  filterInputText,
+  showFallback = () => false
 }: {
   noData?: ReactNode
   dataRow: (data: any) => (index: number) => ReactElement
@@ -45,6 +46,7 @@ export const BrowseBy = observer(function BrowserBy({
   breadcrumbs: { href?: string; text: string }[]
   title: string
   filterInputText: string
+  showFallback?: () => boolean
 }) {
   const classes = useStyles()
   const store = useFilterDataStore()
@@ -60,7 +62,7 @@ export const BrowseBy = observer(function BrowserBy({
     }
   }, [router, store])
 
-  if (router.isFallback) {
+  if (router.isFallback || showFallback()) {
     return (
       <Paper className={classes.paper}>
         {new Array(5).fill(1).map((_, i) => (

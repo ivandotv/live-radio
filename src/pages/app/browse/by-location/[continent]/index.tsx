@@ -1,29 +1,35 @@
-import List from '@material-ui/core/List'
-import Paper from '@material-ui/core/Paper'
 import { useRouter } from 'next/router'
+import { BrowseBy } from '../../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../../components/app/layout/AppDefaultLayout'
+import { FilterStoreProvider } from '../../../../../components/app/providers/StoreProvider'
 import { AppMenuItem } from '../../../../../components/app/sidebars/AppMenuItem'
 import countriesJSON from '../../../../../generated/countries.json'
-import { LocationbreadCrumbs } from '../../../../../components/app/LocationBreadcrumbs'
 import { continentsByCode } from '../../../../../lib/utils/continentsByode'
-import { PageTitle } from '../../../../../components/PageTitle'
+
+// list countries for the continent
 export default function CountryList() {
   // list continents
 
   const router = useRouter()
 
   console.log('continent router ', router)
-  if (!router.query.continent) {
-    return null
-  }
+
   const continent = router.query.continent as keyof typeof countriesJSON
 
   // const continentCode = continent
-  const countries = []
+  // const countrySearch = countriesJSON[continent].map((country) => {
+  //   return {
+  //     name: country.name
+  //   }
+  // })
 
-  for (const country of countriesJSON[continent]) {
-    countries.push(
-      <li key={country.code}>
+  const countryDataRow = function (
+    countries: { name: string; code: string; flag: string; cont: string }[]
+  ) {
+    return function CountryRow(index: number) {
+      const country = countries[index]
+
+      return (
         <AppMenuItem
           link={{
             href: {
@@ -32,17 +38,17 @@ export default function CountryList() {
             as: {
               pathname: `${router.pathname.replace(
                 '[continent]',
-                router.query.continent as string
+                continent
               )}/country/${country.code}`
             }
           }}
-          primary={`${country.flag} ${country.name}`}
+          primary={`${country.name} ${country.flag}`}
         />
-      </li>
-    )
+      )
+    }
   }
 
-  const breadcrumbLinks = [
+  const breadcrumbs = [
     {
       href: '/app/browse',
       text: 'Browse'
@@ -56,14 +62,27 @@ export default function CountryList() {
     }
   ]
 
+  const showFallback = () => {
+    return !continent
+  }
+
+  console.log('show fallback ', showFallback())
+  console.log('router query ', router.query.continent)
+
   return (
-    <Paper>
-      <PageTitle
-        title={`Browse For Stations in ${continentsByCode[continent]}`}
-      />
-      <LocationbreadCrumbs links={breadcrumbLinks} />
-      <List>{countries}</List>
-    </Paper>
+    <FilterStoreProvider
+      initialState={countriesJSON[continent]}
+      uuid="name"
+      indexes={['name']}
+    >
+      <BrowseBy
+        filterInputText="Filter Countries"
+        title="Browse For Stations by Country"
+        breadcrumbs={breadcrumbs}
+        dataRow={countryDataRow}
+        showFallback={showFallback}
+      ></BrowseBy>
+    </FilterStoreProvider>
   )
 }
 

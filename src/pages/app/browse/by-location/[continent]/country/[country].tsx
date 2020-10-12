@@ -1,13 +1,16 @@
-import { continents, countries } from 'countries-list'
+import { countries, continents } from 'countries-list'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { useMemo } from 'react'
+import { BrowseBy } from '../../../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
-import { RadioStation } from '../../../../../../components/app/ListData'
-import { ListStationsWrap } from '../../../../../../components/app/ListStationsWrap'
 import { FilterStoreProvider } from '../../../../../../components/app/providers/StoreProvider'
-import { countryDataByKey } from '../../../../../../lib/utils'
+import {
+  stationDataRow,
+  stationsToRadioStations
+} from '../../../../../../lib/stationUtils'
+import { RadioStation } from '../../../../../../types'
+// @ts-ignore
+import getFlag from 'country-code-emoji'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -18,45 +21,28 @@ export const getStaticPaths: GetStaticPaths = async function () {
 }
 
 export const getStaticProps: GetStaticProps = async function (ctx) {
-  console.log('country get static props', ctx)
-
   const countryCode = (ctx.params?.country as string).replace(/-/g, ' ')
-
   const continent = (ctx.params?.continent as string).replace(/-/g, ' ')
-
   const country = countries[countryCode as keyof typeof countries]
+  const flag = getFlag(countryCode)
 
   const api = new RadioBrowserApi('radio-next', fetch)
   const stations = await api.searchStations({
     countryCode: countryCode.toUpperCase(),
-    limit: 2000,
+    limit: 3000,
     hideBroken: true
   })
 
-  const leanStations = []
-  // strip properties that are not in use
-  for (const station of stations) {
-    leanStations.push({
-      tags: [...new Set(station.tags.split(','))],
-      name: station.name,
-      url: station.url_resolved,
-      uuid: station.stationuuid,
-      favicon: station.favicon,
-      homepage: station.homepage,
-      country: station.country,
-      language: station.language.split(','),
-      continent: country.continent,
-      codec: station.codec
-    })
-  }
+  const radioStations = stationsToRadioStations(stations)
 
   return {
     props: {
-      stations: leanStations,
+      stations: radioStations,
       countryName: country.name,
       countryCode,
       continentName: continents[country.continent as keyof typeof continents],
-      continentCode: continent
+      continentCode: continent,
+      flag
     },
     revalidate: 600 // 10 minutes
   }
@@ -65,26 +51,18 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 export default function CountryStations({
   stations,
   countryName,
-  countryCode: _countryCode,
+  countryCode,
   continentName,
-  continentCode
+  continentCode,
+  flag
 }: {
   stations: RadioStation[]
   countryName: string
   countryCode: string
   continentName: string
   continentCode: string
+  flag: string
 }) {
-  const router = useRouter()
-
-  const flag = useMemo(() => {
-    if (!router.isFallback) {
-      const data = countryDataByKey('code', _countryCode)
-
-      return data?.flag
-    }
-  }, [_countryCode, router])
-
   const breadcrumbs = [
     {
       href: '/app/browse',
@@ -100,16 +78,28 @@ export default function CountryStations({
       text: `${continentName}`
     },
     {
-      text: `${flag || null} ${countryName}`
+      text: `${countryName} ${flag} `
     }
   ]
 
   return (
-    <FilterStoreProvider initialState={stations}>
-      <ListStationsWrap
-        term={countryName}
+    <FilterStoreProvider
+      initialState={stations}
+      uuid="id"
+      indexes={['language', 'country', 'tags', 'continent', 'name']}
+    >
+      <BrowseBy
+        filterInputText="Filter Stations"
+        title={`Browse For Stations in ${countryName}`}
         breadcrumbs={breadcrumbs}
-      ></ListStationsWrap>
+        dataRow={stationDataRow}
+        noData={
+          <p>
+            Currently there is no data for <strong>${countryName}</strong>.
+            Sorry for the inconvenience.
+          </p>
+        }
+      ></BrowseBy>
     </FilterStoreProvider>
   )
 }
