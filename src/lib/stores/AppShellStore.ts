@@ -18,6 +18,8 @@ export class AppShellStore {
 
   desktopDrawerWidth = 270
 
+  playerInFullScreen = false
+
   constructor() {
     // this.theme = 'light'
     // this.showApp = false
@@ -29,11 +31,13 @@ export class AppShellStore {
       showApp: observable,
       theme: observable,
       desktopDrawerIsOpen: observable,
+      playerInFullScreen: observable,
       // persistTheme: observable,
       readyToShow: action,
       setDesktopDrawer: action,
       setMobileDrawer: action,
-      setTheme: action
+      setTheme: action,
+      setPlayerFullScreen: action
     })
   }
 
@@ -54,5 +58,9 @@ export class AppShellStore {
 
   setMobileDrawer(isOpen: boolean) {
     this.mobileDrawerIsOpen = isOpen
+  }
+
+  setPlayerFullScreen(isFullScreen: boolean) {
+    this.playerInFullScreen = isFullScreen
   }
 }

@@ -96,15 +96,7 @@ export const AppShellLayout = observer(function AppShellLayout({
             {/* https://github.com/mui-org/material-ui/issues/21711 */}
             {children as ReactElement}
           </Container>
-          {/* todo show only if playing */}
-          <Zoom
-            in={player.status !== 'STOPPED'}
-            // style={{ transitionDelay: '2000ms' }}
-          >
-            <div>
-              <MusicPlayer></MusicPlayer>
-            </div>
-          </Zoom>
+          <MusicPlayer></MusicPlayer>
         </main>
       </div>
     </>

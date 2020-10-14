@@ -21,12 +21,6 @@ export const StationRowItem = observer(function StationRowItem({
   const sendQuery = (query: string, delay?: number) => {
     store.search(query, delay)
   }
-  // const station = store.filtered[index]
-  if (__DEV__) {
-    if (!station) {
-      debugger
-    }
-  }
 
   return (
     <ListItem component="div">
@@ -51,14 +45,15 @@ export const StationRowItem = observer(function StationRowItem({
               player.play(station)
             }
           }}
-          startIcon={<PlayPauseBtn uuid={station.id} />}
+          startIcon={<PlayPauseBtn id={station.id} />}
         >
           {`${station.name} | ${station.country} ${station.flag}`}
         </Button>
         <br />
         {/* <p>{index}</p> */}
         <p>{station.url}</p>
-        <h6>{station.id}</h6>
+        <p>{station.id}</p>
+        <p>{station.homepage}</p>
         <TagList
           tags={station.tags}
           onTagClick={(tag) => {

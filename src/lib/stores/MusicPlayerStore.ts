@@ -1,6 +1,6 @@
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { Howl } from 'howler'
-import { RadioStation } from '../../components/app/ListData'
+import { RadioStation } from '../../types'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -48,7 +48,7 @@ export class MusicPlayerStore {
       format: [station.codec]
     })
 
-    this.stationID = station.uuid
+    this.stationID = station.id
 
     this.player.on('play', () => {
       console.log('radio playing')
@@ -108,7 +108,7 @@ export class MusicPlayerStore {
   play(station: RadioStation) {
     /*
      if status.paused.
-      check if uuid is the same as paused id
+      check if id is the same as paused id
       if true:
         resume playing
       else:
