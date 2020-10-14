@@ -2,15 +2,14 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 import MaterialLink from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-// import Link from '@material-ui/core/Link';
-// import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import Link from 'next/link'
 const useStyles = makeStyles((theme) => {
   return {
     root: {
+      display: 'flex',
+      alignItems: 'baseline',
       marginLeft: theme.spacing(2),
-      paddingTop: theme.spacing(2),
-      display: 'inline'
+      paddingTop: theme.spacing(2)
     }
   }
 })
@@ -55,7 +54,12 @@ export function LocationBreadcrumbs({
 
   return (
     // <div className={className}>
-    <Breadcrumbs className={classes.root} separator="›" aria-label="breadcrumb">
+    <Breadcrumbs
+      component="div"
+      className={classes.root}
+      separator="›"
+      aria-label="breadcrumb"
+    >
       {renderedLinks}
     </Breadcrumbs>
     // </div>

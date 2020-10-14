@@ -33,7 +33,7 @@ export const LocationBreadcrumbsWithResult = observer(
     return (
       <div className={classes.root}>
         <LocationBreadcrumbs links={links} />
-        <div className={classes.count}>{count}</div>
+        <span className={classes.count}>{count}</span>
       </div>
     )
   }
