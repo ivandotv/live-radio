@@ -95,7 +95,7 @@ export default function GenreStations({
       <BrowseBy
         title={`Browse For Stations in ${genre}`}
         breadcrumbs={breadcrumbs}
-        dataRow={stationDataRow}
+        dataRow={stationDataRow()}
         filterInputText="Filter stations"
         noData={
           <p>

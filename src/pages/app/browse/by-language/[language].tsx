@@ -71,7 +71,7 @@ export default function LanguageStations({
         filterInputText="Filter Stations"
         title="Browse For Stations"
         breadcrumbs={breadcrumbs}
-        dataRow={stationDataRow}
+        dataRow={stationDataRow()}
         noData={
           <p>
             Currently there is no data for <strong>${language}</strong>. Sorry

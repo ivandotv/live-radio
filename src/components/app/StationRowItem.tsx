@@ -11,9 +11,13 @@ import { useFilterDataStore } from './providers/StoreProvider'
 import { TagList } from './TagList'
 
 export const StationRowItem = observer(function StationRowItem({
-  station
+  station,
+  showCountry = true,
+  showFlag = true
 }: {
   station: RadioStation
+  showCountry?: boolean
+  showFlag?: boolean
 }) {
   const player = useMusicPlayerStore()
   const store = useFilterDataStore()
@@ -47,13 +51,11 @@ export const StationRowItem = observer(function StationRowItem({
           }}
           startIcon={<PlayPauseBtn id={station.id} />}
         >
-          {`${station.name} | ${station.country} ${station.flag}`}
+          {`${station.name}`}
+          {showCountry ? ` | ${station.country}` : null}
+          {showFlag ? ` ${station.flag}` : null}
         </Button>
         <br />
-        {/* <p>{index}</p> */}
-        <p>{station.url}</p>
-        <p>{station.id}</p>
-        <p>{station.homepage}</p>
         <TagList
           tags={station.tags}
           onTagClick={(tag) => {

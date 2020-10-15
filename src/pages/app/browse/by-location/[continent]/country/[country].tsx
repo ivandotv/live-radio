@@ -51,7 +51,6 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 export default function CountryStations({
   stations,
   countryName,
-  countryCode,
   continentName,
   continentCode,
   flag
@@ -92,7 +91,7 @@ export default function CountryStations({
         filterInputText="Filter Stations"
         title={`Browse For Stations in ${countryName}`}
         breadcrumbs={breadcrumbs}
-        dataRow={stationDataRow}
+        dataRow={stationDataRow(false, false)}
         noData={
           <p>
             Currently there is no data for <strong>${countryName}</strong>.

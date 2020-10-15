@@ -43,10 +43,18 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   return result
 }
 
-export function stationDataRow(stations: RadioStation[]) {
-  return function DataRow(index: number) {
-    const station = stations[index]
+export function stationDataRow(showCountry = true, showFlag = true) {
+  return (stations: RadioStation[]) => {
+    return function DataRow(index: number) {
+      const station = stations[index]
 
-    return <StationRowItem station={station}></StationRowItem>
+      return (
+        <StationRowItem
+          showCountry={showCountry}
+          showFlag={showFlag}
+          station={station}
+        ></StationRowItem>
+      )
+    }
   }
 }
