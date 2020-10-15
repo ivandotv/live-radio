@@ -7,6 +7,7 @@ import {
   MusicPlayerStore,
   PlayerStatus
 } from '../../lib/stores/MusicPlayerStore'
+import { PlayerStateIcon } from './PlayerStateIcon'
 
 function getBtn(player: MusicPlayerStore, id: string) {
   if (player.stationID === id) {
@@ -32,5 +33,6 @@ export const PlayPauseBtn = observer(function PlayPauseBtn({
 }) {
   const player = useMusicPlayerStore()
 
-  return <> {getBtn(player, id)}</>
+  // return <> {getBtn(player, id)}</>
+  return <PlayerStateIcon></PlayerStateIcon>
 })

@@ -1,15 +1,35 @@
 import Button from '@material-ui/core/Button'
+import Divider from '@material-ui/core/Divider'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { observer } from 'mobx-react-lite'
-import React from 'react'
-import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
+import React, { useCallback } from 'react'
 import { RadioStation } from '../../types'
-import { PlayPauseBtn } from '../music-player/PlayPauseBtn'
+import { PlayerStateIcon } from '../music-player/PlayerStateIcon'
 import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
 import { useFilterDataStore } from './providers/StoreProvider'
 import { TagList } from './TagList'
 
+const useStyles = makeStyles((theme: Theme) => {
+  return createStyles({
+    root: {
+      paddingTop: 0,
+      paddingBottom: 0
+    },
+    button: {
+      paddingLeft: 0,
+      display: 'flex',
+      alignItems: 'initial'
+    },
+    playStopBtn: {
+      marginRight: theme.spacing(1)
+    },
+    divider: {
+      marginTop: theme.spacing(2)
+    }
+  })
+})
 export const StationRowItem = observer(function StationRowItem({
   station,
   showCountry = true,
@@ -19,52 +39,37 @@ export const StationRowItem = observer(function StationRowItem({
   showCountry?: boolean
   showFlag?: boolean
 }) {
-  const player = useMusicPlayerStore()
   const store = useFilterDataStore()
+  const classes = useStyles()
+  const player = useMusicPlayerStore()
 
-  const sendQuery = (query: string, delay?: number) => {
-    store.search(query, delay)
-  }
+  const togglePlay = useCallback(() => {
+    player.togglePlay(station)
+  }, [player, station])
+
+  const tagClick = useCallback(
+    (tag: string) => {
+      store.search(store.query.length ? `${store.query} ${tag}` : `${tag}`, 0)
+    },
+    [store]
+  )
 
   return (
-    <ListItem component="div">
+    <ListItem className={classes.root} component="div">
       <ListItemText>
         <Button
-          onClick={() => {
-            console.log(station.url)
-            console.log(station.id)
-            console.log('-----')
-            // todo - wrap in playerStore.togglePlay
-            if (player.stationID === station.id) {
-              // this station is already selected
-              if (player.status === PlayerStatus.PLAYING) {
-                player.pause()
-                // check if its playing our station
-              } else if (player.status === PlayerStatus.STOPPED) {
-                player.play(station)
-              } else if (player.status === PlayerStatus.PAUSED) {
-                player.resume()
-              }
-            } else {
-              player.play(station)
-            }
-          }}
-          startIcon={<PlayPauseBtn id={station.id} />}
+          onClick={togglePlay}
+          startIcon={
+            <PlayerStateIcon stationId={station.id} fontSize="1.3rem" />
+          }
+          className={classes.button}
         >
           {`${station.name}`}
           {showCountry ? ` | ${station.country}` : null}
           {showFlag ? ` ${station.flag}` : null}
         </Button>
-        <br />
-        <TagList
-          tags={station.tags}
-          onTagClick={(tag) => {
-            sendQuery(
-              store.query.length ? `${store.query} ${tag}` : `${tag}`,
-              0
-            )
-          }}
-        />
+        <TagList tags={station.tags} onTagClick={tagClick} />
+        <Divider component="div" className={classes.divider} />
       </ListItemText>
     </ListItem>
   )

@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) => {
     }
   })
 })
+
 export const FilterList = observer(function FilterList({
   dataRow,
   delay = 300,

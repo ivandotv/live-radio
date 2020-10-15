@@ -11,7 +11,7 @@ import {
   MusicPlayerStore,
   PlayerStatus
 } from '../../lib/stores/MusicPlayerStore'
-import { PlayStopBtn } from './PlayStopBtn'
+import { PlayerStateIcon } from './PlayerStateIcon'
 import { AddToFavouritesBtn } from './AddToFavouritesBtn'
 import { ShareStationBtn } from './ShareStationBtn'
 import { FullScreenBtn } from './FullScrenBtn'
@@ -142,7 +142,10 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <FullScreenBtn fontSize={iconSize} />
         </div>
         <div className={classes.column}>
-          <PlayStopBtn onClick={testclick} fontSize="55px"></PlayStopBtn>
+          <PlayerStateIcon
+            onClick={testclick}
+            fontSize="55px"
+          ></PlayerStateIcon>
           <div className={classes.infoWrap}>
             <div className={classes.artistInfo}>
               <Avatar

@@ -17,16 +17,17 @@ export class MusicPlayerStore {
     data: any
   } | null = null
 
-  stationID = ''
+  // stationID = ''
 
-  station: RadioStation | null = null
+  station: RadioStation | undefined = undefined
 
-  protected player: Howl | null = null
+  protected player: Howl | undefined = undefined
 
   constructor() {
     makeObservable<MusicPlayerStore, 'disposePlayer' | 'initPlayer'>(this, {
       status: observable,
-      stationID: observable,
+      // stationID: observable,
+      station: observable.ref,
       playerError: observable,
       play: action,
       stop: action,
@@ -48,7 +49,8 @@ export class MusicPlayerStore {
       format: [station.codec]
     })
 
-    this.stationID = station.id
+    this.station = station
+    // this.stationID = station.id
 
     this.player.on('play', () => {
       console.log('radio playing')
@@ -128,7 +130,25 @@ export class MusicPlayerStore {
   stop() {
     this.disposePlayer()
     this.status = PlayerStatus.STOPPED
-    this.stationID = ''
+    // this.stationID = ''
+  }
+
+  togglePlay(station?: RadioStation) {
+    station = station || this.station
+
+    if (!station) {
+      throw new Error('Player has no station to play')
+    }
+
+    if (
+      this.station &&
+      this.station.id === station.id &&
+      this.status !== PlayerStatus.STOPPED
+    ) {
+      this.stop()
+    } else {
+      this.play(station)
+    }
   }
 
   resume() {
