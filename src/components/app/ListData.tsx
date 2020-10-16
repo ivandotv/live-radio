@@ -15,7 +15,7 @@ import { PageTitle } from '../PageTitle'
 import { FilterList } from './FilterList'
 import { LocationBreadcrumbsWithResult } from './LocationBreadcrumbsWithResult'
 import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
+import { useMusicPlayer } from './providers/MusicPlayerProvider'
 import { StationRowItem } from './StationRowItem'
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -46,7 +46,7 @@ export const ListData = observer(function ListData({}: // title,
   const classes = useStyles()
   const router = useRouter()
   const store = useFilterDataStore()
-  const player = useMusicPlayerStore()
+  const player = useMusicPlayer()
 
   if (router.isFallback) {
     return (

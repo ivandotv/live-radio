@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { observer } from 'mobx-react-lite'
 import Avatar from '@material-ui/core/Avatar'
 import { deepOrange, deepPurple } from '@material-ui/core/colors'
-import { useMusicPlayerStore } from '../app/providers/MusicPlayerProvider'
+import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
 import clsx from 'clsx'
 import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
@@ -16,6 +16,8 @@ import { AddToFavouritesBtn } from './AddToFavouritesBtn'
 import { ShareStationBtn } from './ShareStationBtn'
 import { FullScreenBtn } from './FullScrenBtn'
 import { useAppShell } from '../app/providers/AppShellProvider'
+import { useEffect, useCallback } from 'react'
+import { SongInfo } from './SongInfo'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,14 +43,15 @@ const useStyles = makeStyles((theme: Theme) =>
       // transition: 'all 1s ease-in'
     },
     boxAnim: {
-      transition: theme.transitions.create(
-        ['width', 'top', 'height', 'background-color', 'bottom', 'left'],
-        {
-          easing: theme.transitions.easing.easeIn,
-          // duration: theme.transitions.duration.leavingScreen
-          duration: 400
-        }
-      )
+      transition: 'all 0.4s ease-in-out'
+      // transition: theme.transitions.create(
+      //   ['width', 'top', 'height', 'background-color', 'bottom', 'left'],
+      //   {
+      //     easing: theme.transitions.easing.easeIn,
+      //     // duration: theme.transitions.duration.leavingScreen
+      //     duration: 400
+      //   }
+      // )
     },
     heightFull: {
       // height: '100%',
@@ -104,7 +107,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 // music player is a global component
 export const MusicPlayer = observer(function MusicPlayer() {
-  const player = useMusicPlayerStore()
+  const player = useMusicPlayer()
   const appShell = useAppShell()
   console.log('player is full screen ', appShell.playerInFullScreen)
   const classes = useStyles({
@@ -122,6 +125,14 @@ export const MusicPlayer = observer(function MusicPlayer() {
       appShell.setPlayerFullScreen(true)
     }
   }
+  const togglePlay = useCallback(() => {
+    player.togglePlay()
+  }, [player])
+
+  // const songInfo = () => {
+  //   player.testSong()
+  //   console.log('share click')
+  // }
 
   return (
     <Paper
@@ -136,16 +147,15 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <div className={classes.appBarSpacer}></div>
         ) : null} */}
         <div className={classes.column}>
-          <p className={classes.stationName}>BBC RADIO ONE</p>
+          <p className={classes.stationName}>{player.station.name}</p>
           <AddToFavouritesBtn fontSize={iconSize} />
-          <ShareStationBtn onClick={testclick} url="" fontSize={iconSize} />
+          <ShareStationBtn fontSize={iconSize} />
           <FullScreenBtn fontSize={iconSize} />
         </div>
         <div className={classes.column}>
-          <PlayerStateIcon
-            onClick={testclick}
-            fontSize="55px"
-          ></PlayerStateIcon>
+          <span onClick={togglePlay}>
+            <PlayerStateIcon fontSize="55px"></PlayerStateIcon>
+          </span>
           <div className={classes.infoWrap}>
             <div className={classes.artistInfo}>
               <Avatar
@@ -156,8 +166,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
                 N
               </Avatar>
               <div className={classes.songInfo}>
-                <p>Rolling Stones </p>
-                <p>Make Love Not War</p>
+                <SongInfo />
               </div>
             </div>
           </div>

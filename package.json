@@ -33,6 +33,7 @@
     "next-pwa": "^3.1.5",
     "react": "17.0.0",
     "react-dom": "17.0.0",
+    "node-internet-radio": "^0.2.1",
     "react-virtuoso": "^0.20.0",
     "swr": "^0.3.5"
   },

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useAppShell } from '../components/app/providers/AppShellProvider'
+import { RadioStation } from '../types'
 import countriesJSON from './../generated/countries.json'
 
 // todo - remove
@@ -42,4 +43,20 @@ export function countryDataByKey(
       }
     }
   }
+}
+
+export const defaultStation: RadioStation = {
+  id: 'ae503431-073b-499d-81e9-c32dfa1e32c',
+  name: 'Soma FM',
+  url: 'http://ice1.somafm.com/groovesalad-256-mp3',
+  homepage: 'http://www.somafm.com/',
+  favicon: 'https://somafm.com/',
+  country: 'Internet',
+  countryCode: '',
+  tags: [],
+  language: [],
+  codec: 'MP3',
+  flag: '',
+  continent: '',
+  continentCode: ''
 }

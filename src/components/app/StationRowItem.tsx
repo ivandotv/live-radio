@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite'
 import React, { useCallback } from 'react'
 import { RadioStation } from '../../types'
 import { PlayerStateIcon } from '../music-player/PlayerStateIcon'
-import { useMusicPlayerStore } from './providers/MusicPlayerProvider'
+import { useMusicPlayer } from './providers/MusicPlayerProvider'
 import { useFilterDataStore } from './providers/StoreProvider'
 import { TagList } from './TagList'
 
@@ -41,7 +41,7 @@ export const StationRowItem = observer(function StationRowItem({
 }) {
   const store = useFilterDataStore()
   const classes = useStyles()
-  const player = useMusicPlayerStore()
+  const player = useMusicPlayer()
 
   const togglePlay = useCallback(() => {
     player.togglePlay(station)

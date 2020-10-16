@@ -1,6 +1,8 @@
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { Howl } from 'howler'
 import { RadioStation } from '../../types'
+import { AppStorage } from '../Storage'
+import { SongInfoService } from '../SongInfoService'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -8,22 +10,6 @@ export const PlayerStatus = {
   STOPPED: 'STOPPED',
   PAUSED: 'PAUSED'
 } as const
-
-const defaultStation: RadioStation = {
-  id: 'ae503431-073b-499d-81e9-c32dfa1e32c',
-  name: 'Soma FM',
-  url: 'http://ice1.somafm.com/groovesalad-256-mp3',
-  homepage: 'http://www.somafm.com/',
-  favicon: 'https://somafm.com/',
-  country: 'Internet',
-  countryCode: '',
-  tags: [],
-  language: [],
-  codec: 'MP3',
-  flag: '',
-  continent: '',
-  continentCode: ''
-}
 
 export class MusicPlayerStore {
   status: keyof typeof PlayerStatus = PlayerStatus.STOPPED
@@ -37,14 +23,27 @@ export class MusicPlayerStore {
 
   station: RadioStation | undefined = undefined
 
+  songInfo: { artist: string; title: string } | undefined = undefined
+
+  prevSongInfo: { artist: string; title: string } | undefined = undefined
+
   protected player: Howl | undefined = undefined
 
-  constructor() {
-    makeObservable<MusicPlayerStore, 'disposePlayer' | 'initPlayer'>(this, {
+  constructor(
+    protected storage: AppStorage,
+    protected songInfoService: SongInfoService
+  ) {
+    makeObservable<
+      MusicPlayerStore,
+      'disposePlayer' | 'initPlayer' | 'songServiceCb'
+    >(this, {
       status: observable,
       // stationID: observable,
       station: observable.ref,
       playerError: observable,
+      songInfo: observable,
+      prevSongInfo: observable,
+      songServiceCb: action,
       play: action,
       stop: action,
       pause: action,
@@ -52,10 +51,34 @@ export class MusicPlayerStore {
       disposePlayer: action,
       initPlayer: action
     })
+    this.station = this.storage.getLastUsedStation()
   }
 
-  getStation() {
-    return this.station
+  protected songServiceCb(
+    error: Error | null,
+    data?: { artist: string; title: string }
+  ) {
+    if (error) {
+      console.log('player - error')
+      console.log(error)
+    } else {
+      console.log('player success')
+      console.log(data)
+      if (data) {
+        if (
+          data.title !== this.songInfo?.title &&
+          data.artist !== this.songInfo?.artist
+        ) {
+          // song info has changed
+          // fetch artwork
+          console.log('we have new song data')
+          console.log(`new ${data.title} | ${data.artist}`)
+          console.log(`old ${this.songInfo?.title} | ${this.songInfo?.artist}`)
+        }
+      }
+    }
+    this.prevSongInfo = this.songInfo
+    this.songInfo = data
   }
 
   protected initPlayer(station: RadioStation) {
@@ -70,6 +93,7 @@ export class MusicPlayerStore {
 
     this.player.on('play', () => {
       console.log('radio playing')
+      this.songInfoService.start(station.url, this.songServiceCb.bind(this))
       runInAction(() => {
         this.status = PlayerStatus.PLAYING
         this.playerError = null
@@ -144,14 +168,15 @@ export class MusicPlayerStore {
   }
 
   stop() {
-    this.disposePlayer()
     this.status = PlayerStatus.STOPPED
+    this.songInfoService.stop()
+    this.songInfo = undefined
+    this.disposePlayer()
     // this.stationID = ''
   }
 
   togglePlay(station?: RadioStation) {
     station = station || this.station
-
     if (!station) {
       throw new Error('Player has no station to play')
     }
@@ -163,6 +188,9 @@ export class MusicPlayerStore {
     ) {
       this.stop()
     } else {
+      if (this.status !== PlayerStatus.STOPPED) {
+        this.stop()
+      }
       this.play(station)
     }
   }

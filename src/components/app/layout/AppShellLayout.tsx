@@ -19,7 +19,7 @@ import { useAppShell } from '../providers/AppShellProvider'
 import { DesktopSidebar } from '../sidebars/DesktopSidebar'
 import { MobileSidebar } from '../sidebars/MobileSidebar'
 import { AppToolbar } from './AppToolbar'
-import { useMusicPlayerStore } from '../providers/MusicPlayerProvider'
+import { useMusicPlayer } from '../providers/MusicPlayerProvider'
 import { PlayerStatus } from '../../../lib/stores/MusicPlayerStore'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -60,7 +60,7 @@ export const AppShellLayout = observer(function AppShellLayout({
   const store = useAppShell()
   const theme = useTheme()
   const classes = useStyles()
-  const player = useMusicPlayerStore()
+  const player = useMusicPlayer()
 
   return (
     <>

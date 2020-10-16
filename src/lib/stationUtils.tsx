@@ -21,9 +21,11 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
       duplicateNames[station.name.toLowerCase()] = true
 
       result.push({
-        tags: [...new Set(station.tags.split(','))].slice(0, 10).filter(
-          (tag) => tag.length < 10 // there are tags that are complete sentences
-        ),
+        tags: [...new Set(station.tags.split(','))]
+          // .map((tag) => tag.trim())
+          .filter(
+            (tag) => tag.length > 0 && tag.length < 10 // there are tags that are complete sentences
+          ),
         name: station.name,
         url: station.url_resolved,
         id: station.stationuuid,

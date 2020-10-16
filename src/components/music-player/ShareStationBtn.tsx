@@ -1,6 +1,7 @@
 import ShareIcon from '@material-ui/icons/ShareOutlined'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
+import { observer } from 'mobx-react-lite'
 
 const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
@@ -10,7 +11,7 @@ const useStyles = makeStyles((_theme: Theme) =>
     }
   })
 )
-export function ShareStationBtn({
+export const ShareStationBtn = observer(function ShareStationBtn({
   url,
   fontSize,
   onClick
@@ -25,4 +26,4 @@ export function ShareStationBtn({
       <ShareIcon onClick={onClick} className={classes.button} />
     </Tooltip>
   )
-}
+})

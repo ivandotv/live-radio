@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { useMusicPlayerStore } from '../app/providers/MusicPlayerProvider'
+import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
 import Pause from '@material-ui/icons/PauseCircleFilled'
 import Play from '@material-ui/icons/PlayCircleFilledWhite'
 import Loading from '@material-ui/icons/RotateLeft'
@@ -31,7 +31,7 @@ export const PlayPauseBtn = observer(function PlayPauseBtn({
 }: {
   id: string
 }) {
-  const player = useMusicPlayerStore()
+  const player = useMusicPlayer()
 
   // return <> {getBtn(player, id)}</>
   return <PlayerStateIcon></PlayerStateIcon>

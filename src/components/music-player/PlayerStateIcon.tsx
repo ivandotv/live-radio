@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { useMusicPlayerStore } from '../app/providers/MusicPlayerProvider'
+import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 // import Pause from '@material-ui/icons/PauseCircleFilled'
 import Play from '@material-ui/icons/PlayCircleFilledWhite'
@@ -39,7 +39,7 @@ export const PlayerStateIcon = observer(function PlayerStateIcon({
   className?: string
   stationId?: string
 }) {
-  const player = useMusicPlayerStore()
+  const player = useMusicPlayer()
   const classes = useStyles({ fontSize })
   let btn: ReactNode | null = null
 
