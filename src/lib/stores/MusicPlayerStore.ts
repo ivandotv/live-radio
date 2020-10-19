@@ -29,6 +29,8 @@ export class MusicPlayerStore {
 
   protected player: Howl | undefined = undefined
 
+  stationChecked = false
+
   constructor(
     protected storage: AppStorage,
     protected songInfoService: SongInfoService
@@ -40,6 +42,7 @@ export class MusicPlayerStore {
       status: observable,
       // stationID: observable,
       station: observable.ref,
+      stationChecked: observable,
       playerError: observable,
       songInfo: observable,
       prevSongInfo: observable,
@@ -77,6 +80,7 @@ export class MusicPlayerStore {
         }
       }
     }
+    this.stationChecked = true
     this.prevSongInfo = this.songInfo
     this.songInfo = data
   }
@@ -94,6 +98,7 @@ export class MusicPlayerStore {
     this.player.on('play', () => {
       console.log('radio playing')
       this.songInfoService.start(station.url, this.songServiceCb.bind(this))
+      this.stationChecked = false
       runInAction(() => {
         this.status = PlayerStatus.PLAYING
         this.playerError = null
@@ -170,7 +175,10 @@ export class MusicPlayerStore {
   stop() {
     this.status = PlayerStatus.STOPPED
     this.songInfoService.stop()
+
+    this.prevSongInfo = this.songInfo
     this.songInfo = undefined
+    this.stationChecked = false
     this.disposePlayer()
     // this.stationID = ''
   }
