@@ -1,6 +1,8 @@
 export class SongInfoService {
   protected timeoutId: number | undefined
 
+  protected static FETCH_TIMEOUT = 20000
+
   protected stopped = true
 
   constructor(protected transport: typeof fetch) {}
@@ -16,7 +18,7 @@ export class SongInfoService {
         cb(null, data)
         this.timeoutId = window.setTimeout(() => {
           this.start(stationUrl, cb)
-        }, 1000)
+        }, SongInfoService.FETCH_TIMEOUT)
       }
     } catch (err) {
       cb(err)

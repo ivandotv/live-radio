@@ -60,7 +60,7 @@ export class MusicPlayerStore {
   ) {
     if (error) {
       console.log('player - error')
-      console.log(error)
+      // console.log(error)
     } else {
       console.log('player success')
       console.log(data)
