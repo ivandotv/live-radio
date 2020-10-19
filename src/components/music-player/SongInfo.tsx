@@ -6,8 +6,8 @@ import clsx from 'clsx'
 const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
     root: {
-      position: 'relative',
       transition: 'all 0.3s ease-in-out',
+      position: 'relative',
       left: -30,
       opacity: 0
     },
@@ -17,6 +17,9 @@ const useStyles = makeStyles((_theme: Theme) =>
     },
     animOut: {
       left: -30
+    },
+    animWithDelay: {
+      transitionDelay: '0.1s'
     }
   })
 )
@@ -25,17 +28,19 @@ export const SongInfo = observer(function SongInfo() {
   const player = useMusicPlayer()
   const classes = useStyles()
 
+  const calcClasses = clsx(classes.root, {
+    [classes.animIn]: player.songInfo,
+    [classes.animOut]: !player.songInfo
+  })
+
   return (
-    <div
-      className={clsx(classes.root, {
-        [classes.animIn]: player.songInfo,
-        [classes.animOut]: !player.songInfo
-      })}
-    >
-      <p>
+    <div>
+      <p className={calcClasses}>
         <strong>{player.songInfo?.title || player.prevSongInfo?.title} </strong>
       </p>
-      <p>{player.songInfo?.artist || player.prevSongInfo?.artist}</p>
+      <p className={`${calcClasses} ${classes.animWithDelay}`}>
+        {player.songInfo?.artist || player.prevSongInfo?.artist}
+      </p>
     </div>
   )
 })

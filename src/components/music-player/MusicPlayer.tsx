@@ -18,6 +18,7 @@ import { FullScreenBtn } from './FullScrenBtn'
 import { useAppShell } from '../app/providers/AppShellProvider'
 import { useEffect, useCallback } from 'react'
 import { SongInfo } from './SongInfo'
+import { ArtistArtwork } from './ArtistArtwork'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       flexDirection: 'column'
     },
-    artistInfo: {
+    artistWrap: {
       display: 'flex',
       alignItems: 'center'
     },
@@ -90,13 +91,15 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: 0
       }
     },
-    avatar: {
+    artistArtwork: {
       color: theme.palette.getContrastText(deepPurple[500]),
       backgroundColor: deepPurple[500],
       marginLeft: theme.spacing(0.5),
       marginRight: theme.spacing(1),
       width: 48,
-      height: 48
+      height: 48,
+      postition: 'relative',
+      zIndex: 2
     },
     stationName: {
       marginRight: theme.spacing(1),
@@ -147,7 +150,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <div className={classes.appBarSpacer}></div>
         ) : null} */}
         <div className={classes.column}>
-          <p className={classes.stationName}>{player.station.name}</p>
+          <p className={classes.stationName}>{player.station?.name}</p>
           <AddToFavouritesBtn fontSize={iconSize} />
           <ShareStationBtn fontSize={iconSize} />
           <FullScreenBtn fontSize={iconSize} />
@@ -157,14 +160,8 @@ export const MusicPlayer = observer(function MusicPlayer() {
             <PlayerStateIcon fontSize="55px"></PlayerStateIcon>
           </span>
           <div className={classes.infoWrap}>
-            <div className={classes.artistInfo}>
-              <Avatar
-                onClick={testclick}
-                variant="rounded"
-                className={classes.avatar}
-              >
-                N
-              </Avatar>
+            <div className={classes.artistWrap}>
+              <ArtistArtwork className={classes.artistArtwork}></ArtistArtwork>
               <div className={classes.songInfo}>
                 <SongInfo />
               </div>
