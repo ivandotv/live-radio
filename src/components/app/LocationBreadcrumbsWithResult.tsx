@@ -1,8 +1,7 @@
-import { observer } from 'mobx-react-lite'
-import { FilterDataStore } from '../../lib/stores/FilterDataStore'
-import { LocationBreadcrumbs } from './LocationBreadcrumbs'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { observer } from 'mobx-react-lite'
+import { LocationBreadcrumbs } from './LocationBreadcrumbs'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -19,21 +18,25 @@ const useStyles = makeStyles((theme: Theme) => {
 export const LocationBreadcrumbsWithResult = observer(
   function LocationBreadcrumbsWithResult({
     links,
-    store
+    results
   }: {
     links: { href?: string; as?: string; text: string }[]
-    store: FilterDataStore
+    results?: any[]
   }) {
     const classes = useStyles()
 
-    const count = `( ${store.filtered.length} ${
-      store.filtered.length === 1 ? 'result' : 'results'
-    } )`
+    // const count = `( ${store.filtered.length} ${
+    //   store.filtered.length === 1 ? 'result' : 'results'
+    // } )`
+
+    const count = results
+      ? `( ${results.length} ${results.length === 1 ? 'result' : 'results'} )`
+      : ''
 
     return (
       <div className={classes.root}>
         <LocationBreadcrumbs links={links} />
-        <span className={classes.count}>{count}</span>
+        {results ? <span className={classes.count}>{count}</span> : null}
       </div>
     )
   }

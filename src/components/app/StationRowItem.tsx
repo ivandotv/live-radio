@@ -9,8 +9,8 @@ import { RadioStation } from '../../types'
 import { PlayerStateIcon } from '../music-player/PlayerStateIcon'
 import { useMusicPlayer } from './providers/MusicPlayerProvider'
 import { useFilterDataStore } from './providers/StoreProvider'
+import { StationRowTags } from './StationRowTags'
 import { TagList } from './TagList'
-
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     root: {
@@ -33,26 +33,20 @@ const useStyles = makeStyles((theme: Theme) => {
 export const StationRowItem = observer(function StationRowItem({
   station,
   showCountry = true,
-  showFlag = true
+  showFlag = true,
+  showTags = true
 }: {
   station: RadioStation
   showCountry?: boolean
   showFlag?: boolean
+  showTags?: boolean
 }) {
-  const store = useFilterDataStore()
   const classes = useStyles()
   const player = useMusicPlayer()
 
   const togglePlay = useCallback(() => {
     player.togglePlay(station)
   }, [player, station])
-
-  const tagClick = useCallback(
-    (tag: string) => {
-      store.search(store.query.length ? `${store.query} ${tag}` : `${tag}`, 0)
-    },
-    [store]
-  )
 
   return (
     <ListItem className={classes.root} component="div">
@@ -68,7 +62,7 @@ export const StationRowItem = observer(function StationRowItem({
           {showCountry ? ` | ${station.country}` : null}
           {showFlag ? ` ${station.flag}` : null}
         </Button>
-        <TagList tags={station.tags} onTagClick={tagClick} />
+        {showTags ? <StationRowTags station={station} /> : null}
         <Divider component="div" className={classes.divider} />
       </ListItemText>
     </ListItem>

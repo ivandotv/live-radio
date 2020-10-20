@@ -3,7 +3,7 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { reaction, toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import React, { ReactElement, ReactNode, useEffect } from 'react'
+import { ReactElement, useEffect } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 import { useFilterDataStore } from './providers/StoreProvider'
 import { FilterInput } from './FilterInput'
@@ -16,9 +16,9 @@ const useStyles = makeStyles((theme: Theme) => {
       position: 'relative',
       height: '99%'
     },
-    // search: {
-    //   margin: theme.spacing(2)
-    // },
+    search: {
+      margin: theme.spacing(2)
+    },
     noResults: {
       margin: theme.spacing(2)
     }
@@ -27,37 +27,30 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export const FilterList = observer(function FilterList({
   dataRow,
-  data,
-  noData
-}: // delay = 300,
-// filterInputText
-// store
+  delay = 300,
+  filterInputText
+}: // store
 {
   dataRow: (data: any) => (index: number) => ReactElement
-  data: any[]
-  noData?: ReactNode
-
   // dataRow: (index: number) => ReactElement
-  // filterInputText: string
-  // delay?: number
+  filterInputText: string
+  delay?: number
   // store: FilterDataStore
 }) {
   const classes = useStyles()
-  // const router = useRouter()
-  // const store = useFilterDataStore()
-
-  const noResults = noData || <p className={classes.noResults}>No results</p>
+  const router = useRouter()
+  const store = useFilterDataStore()
 
   return (
     <>
-      {data.length === 0 ? (
-        noResults
+      {store.filtered.length === 0 ? (
+        <p className={classes.noResults}>No results</p>
       ) : (
         <div className={classes.scrollWrap}>
           <Virtuoso
-            totalCount={toJS(data.length)}
+            totalCount={toJS(store.filtered.length)}
             overscan={40}
-            item={dataRow(toJS(data))}
+            item={dataRow(toJS(store.filtered))}
             style={{ height: '100%', width: '100%' }}
           />
         </div>

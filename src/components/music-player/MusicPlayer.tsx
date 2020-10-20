@@ -86,6 +86,7 @@ const useStyles = makeStyles((theme: Theme) =>
     songInfo: {
       display: 'flex',
       flexDirection: 'column',
+      zIndex: -1,
       '& p': {
         // fontSize: '1.1rem',
         margin: 0
@@ -161,7 +162,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
           </span>
           <div className={classes.infoWrap}>
             <div className={classes.artistWrap}>
-              <ArtistArtwork className={classes.artistArtwork}></ArtistArtwork>
+              {/* <ArtistArtwork className={classes.artistArtwork}></ArtistArtwork> */}
               <div className={classes.songInfo}>
                 <SongInfo />
               </div>

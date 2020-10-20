@@ -17,7 +17,8 @@ const useStyles = makeStyles((_theme: Theme) =>
       opacity: 1
     },
     animOut: {
-      left: -30
+      left: -30,
+      userSelect: 'none'
     },
     animWithDelay: {
       transitionDelay: '0.1s'
