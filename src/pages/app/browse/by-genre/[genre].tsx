@@ -23,7 +23,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const genre = (ctx.params?.genre as string).replace(/-/g, ' ')
 
-  const api = new RadioBrowserApi('radio-next', fetch, true)
+  const api = new RadioBrowserApi(fetch)
   const stations = await api.searchStations({
     tag: genre,
     limit: 1500,

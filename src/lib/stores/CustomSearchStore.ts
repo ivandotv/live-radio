@@ -26,7 +26,7 @@ export class CustomSearchStore {
 
   constructor(transport: typeof fetch) {
     console.log('CUSTOM SEARCH STORE CONSTRUCTOR')
-    this.api = new RadioBrowserApi('radio-next', transport)
+    this.api = new RadioBrowserApi(transport)
     makeObservable<CustomSearchStore, 'searchData'>(this, {
       search: action,
       searchData: action,

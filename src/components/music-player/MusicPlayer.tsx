@@ -23,13 +23,16 @@ import { ArtistArtwork } from './ArtistArtwork'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      position: 'fixed',
-      width: '100%',
+      // position: 'absolute',
+      // backgroundColor: theme.palette.primary.dark,
+      // color: theme.palette.primary.contrastText,
+      // width: '100%',
       display: 'flex',
+      overflow: 'hidden',
       bottom: 0,
       height: '110px',
-      zIndex: 10000,
-      left: ({ drawerWidth }: { drawerWidth: number }) => drawerWidth,
+      // zIndex: 10000,
+      // left: ({ drawerWidth }: { drawerWidth: number }) => drawerWidth,
 
       // maxHeight: 200,
       // height: 200,
@@ -43,26 +46,26 @@ const useStyles = makeStyles((theme: Theme) =>
       // backgroundColor: '#123133'
       // transition: 'all 1s ease-in'
     },
-    boxAnim: {
-      transition: 'all 0.4s ease-in-out'
-      // transition: theme.transitions.create(
-      //   ['width', 'top', 'height', 'background-color', 'bottom', 'left'],
-      //   {
-      //     easing: theme.transitions.easing.easeIn,
-      //     // duration: theme.transitions.duration.leavingScreen
-      //     duration: 400
-      //   }
-      // )
-    },
-    heightFull: {
-      // height: '100%',
-      left: '0px!important',
-      // width: '50%',
-      height: '100%'
-      // backgroundColor: '#ff99f2'
-      // top: 100
-      // left: '100px'
-    },
+    // boxAnim: {
+    //   transition: 'all 0.4s ease-in-out'
+    //   // transition: theme.transitions.create(
+    //   //   ['width', 'top', 'height', 'background-color', 'bottom', 'left'],
+    //   //   {
+    //   //     easing: theme.transitions.easing.easeIn,
+    //   //     // duration: theme.transitions.duration.leavingScreen
+    //   //     duration: 400
+    //   //   }
+    //   // )
+    // },
+    // heightFull: {
+    //   // height: '100%',
+    //   left: '0px!important',
+    //   // width: '50%',
+    //   height: '100%'
+    //   // backgroundColor: '#ff99f2'
+    //   // top: 100
+    //   // left: '100px'
+    // },
     appBarSpacer: {
       ...theme.mixins.toolbar
     },
@@ -121,14 +124,17 @@ export const MusicPlayer = observer(function MusicPlayer() {
   // const classes = useStyles()
   const iconSize = '2rem'
 
-  const testclick = function () {
-    console.log('test click')
-    if (appShell.playerInFullScreen) {
-      appShell.setPlayerFullScreen(false)
-    } else {
-      appShell.setPlayerFullScreen(true)
-    }
-  }
+  // const testclick = function () {
+  //   console.log('test click')
+  //   if (appShell.playerInFullScreen) {
+  //     appShell.setPlayerFullScreen(false)
+  //   } else {
+  //     appShell.setPlayerFullScreen(true)
+  //   }
+  // }
+  useEffect(() => {
+    window.player = player
+  }, [])
   const togglePlay = useCallback(() => {
     player.togglePlay()
   }, [player])
@@ -139,13 +145,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   // }
 
   return (
-    <Paper
-      variant="outlined"
-      square
-      className={clsx(classes.root, classes.boxAnim, {
-        [classes.heightFull]: appShell.playerInFullScreen
-      })}
-    >
+    <div className={classes.root}>
       <div className={classes.uiWrap}>
         {/* {appShell.playerInFullScreen ? (
           <div className={classes.appBarSpacer}></div>
@@ -170,6 +170,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
           </div>
         </div>
       </div>
-    </Paper>
+    </div>
   )
 })

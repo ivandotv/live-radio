@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => {
     // paper: {
     //   display: 'flex',
     //   flexDirection: 'column',
-    //   height: 'calc( 100vh - 72px )' // todo calculate the value dinamically
+    //   height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
     // },
     listSkeleton: {
       marginTop: theme.spacing(2),

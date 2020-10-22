@@ -24,11 +24,10 @@ export const getStaticPaths: GetStaticPaths = async function () {
 export const getStaticProps: GetStaticProps = async function (ctx) {
   const language = (ctx.params?.language as string).replace(/-/g, ' ')
 
-  const api = new RadioBrowserApi('radio-next', fetch)
+  const api = new RadioBrowserApi(fetch)
   const stations = await api.searchStations({
     language,
-    limit: 1500,
-    hideBroken: true
+    limit: 1500
   })
 
   return {

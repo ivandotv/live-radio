@@ -1,4 +1,5 @@
 import Container from '@material-ui/core/Container'
+import Paper from '@material-ui/core/Paper'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Hidden from '@material-ui/core/Hidden'
 import Zoom from '@material-ui/core/Zoom'
@@ -30,6 +31,11 @@ const useStyles = makeStyles((theme: Theme) =>
     navWrapper: {
       zIndex: theme.zIndex.appBar - 1
     },
+    paper: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
+    },
     // appBarSpacer: {
     //   ...theme.mixins.toolbar
     // },
@@ -41,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       width: '100%',
+      position: 'relative',
       [theme.breakpoints.down('md')]: {
         padding: 0
       }
@@ -94,9 +101,11 @@ export const AppShellLayout = observer(function AppShellLayout({
           <div className={classes.contentSpacer} />
           <Container maxWidth="md" disableGutters>
             {/* https://github.com/mui-org/material-ui/issues/21711 */}
-            {children as ReactElement}
+            <Paper>
+              <div className={classes.paper}>{children as ReactElement}</div>
+              <MusicPlayer></MusicPlayer>
+            </Paper>
           </Container>
-          <MusicPlayer></MusicPlayer>
         </main>
       </div>
     </>

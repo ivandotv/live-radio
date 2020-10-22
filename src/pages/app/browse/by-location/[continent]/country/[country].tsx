@@ -2,8 +2,11 @@ import { countries, continents } from 'countries-list'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { BrowseBy } from '../../../../../../components/app/BrowseBy'
+
+import { PageTitle } from '../../../../../../components/PageTitle'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
 import { FilterStoreProvider } from '../../../../../../components/app/providers/StoreProvider'
+
 import {
   stationDataRow,
   stationsToRadioStations
@@ -26,11 +29,10 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   const country = countries[countryCode as keyof typeof countries]
   const flag = getFlag(countryCode)
 
-  const api = new RadioBrowserApi('radio-next', fetch)
+  const api = new RadioBrowserApi(fetch)
   const stations = await api.searchStations({
     countryCode: countryCode.toUpperCase(),
-    limit: 3000,
-    hideBroken: true
+    limit: 3000
   })
 
   const radioStations = stationsToRadioStations(stations)
@@ -87,9 +89,9 @@ export default function CountryStations({
       uuid="id"
       indexes={['language', 'country', 'tags', 'continent', 'name']}
     >
+      <PageTitle title={`Browse For Stations in ${countryName}`} />
       <BrowseBy
         filterInputText="Filter Stations"
-        title={`Browse For Stations in ${countryName}`}
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow(false, false)}
         noData={

@@ -13,11 +13,11 @@ import { useFilterDataStore } from './providers/StoreProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    paper: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: 'calc( 100vh - 72px )' // todo calculate the value dinamically
-    },
+    // paper: {
+    //   display: 'flex',
+    //   flexDirection: 'column',
+    //   height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
+    // },
     noData: {
       margin: theme.spacing(2)
     },
@@ -86,8 +86,7 @@ export const BrowseBy = observer(function BrowserBy({
   }
 
   return (
-    <Paper className={classes.paper}>
-      <PageTitle title={title} />
+    <>
       <LocationBreadcrumbsWithResult
         links={breadcrumbs}
         results={store.filtered}
@@ -106,6 +105,6 @@ export const BrowseBy = observer(function BrowserBy({
       ) : (
         <div className={classes.noData}>{noData || null}</div>
       )}
-    </Paper>
+    </>
   )
 })

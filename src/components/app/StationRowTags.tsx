@@ -5,9 +5,11 @@ import { useFilterDataStore } from './providers/StoreProvider'
 import { TagList } from './TagList'
 
 export const StationRowTags = observer(function StationRowTags({
-  station
+  station,
+  className
 }: {
   station: RadioStation
+  className?: string
 }) {
   const store = useFilterDataStore()
 
@@ -18,5 +20,9 @@ export const StationRowTags = observer(function StationRowTags({
     [store]
   )
 
-  return <TagList tags={station.tags} onTagClick={tagClick} />
+  return (
+    <span className={className}>
+      <TagList tags={station.tags} onTagClick={tagClick} />
+    </span>
+  )
 })

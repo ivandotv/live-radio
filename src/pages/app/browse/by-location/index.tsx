@@ -13,7 +13,7 @@ const useStyles = makeStyles((_theme: Theme) => {
     paper: {
       display: 'flex',
       flexDirection: 'column',
-      height: 'calc( 100vh - 72px )'
+      height: 'calc( 100vh - 182px )'
     }
   })
 })
@@ -53,11 +53,11 @@ export default function ByLocation() {
   ]
 
   return (
-    <Paper className={classes.paper}>
+    <>
       <PageTitle title="Browse By Location" />
       <LocationBreadcrumbs links={breadcrumbs} />
       <List>{continents}</List>
-    </Paper>
+    </>
   )
 }
 

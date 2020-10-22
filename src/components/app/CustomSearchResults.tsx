@@ -7,6 +7,7 @@ import { FilterInput } from './FilterInput'
 import { FilterList } from './FilterList'
 import { LocationBreadcrumbsWithResult } from './LocationBreadcrumbsWithResult'
 import { useCustomSearch } from './providers/CustomSearchProvider'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 // todo -refactor styles to be merged with BrowseBy component
 const useStyles = makeStyles((theme: Theme) => {
@@ -14,7 +15,7 @@ const useStyles = makeStyles((theme: Theme) => {
     paper: {
       display: 'flex',
       flexDirection: 'column',
-      height: 'calc( 100vh - 72px )' // todo calculate the value dinamically
+      height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
     },
     noData: {
       margin: theme.spacing(2)
@@ -28,17 +29,22 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     search: {
       margin: theme.spacing(2)
+    },
+    loading: {
+      alignSelf: 'center',
+      marginTop: theme.spacing(3)
+    },
+    error: {
+      margin: theme.spacing(2)
     }
   })
 })
 export const CustomSearchResults = observer(function CustomSearchResults({
-  noData,
   dataRow,
   breadcrumbs,
   filterInputText,
   delay = 500
 }: {
-  noData?: ReactNode
   dataRow: (data: any) => (index: number) => ReactElement
   breadcrumbs: { href?: string; text: string }[]
   filterInputText: string
@@ -58,6 +64,14 @@ export const CustomSearchResults = observer(function CustomSearchResults({
     firstRender.current = false
   }, [])
 
+  const noData = (
+    <div className={classes.noData}>
+      <p>
+        Currently there is no data for your query. Sorry for the inconvenience.
+      </p>
+    </div>
+  )
+
   return (
     <Paper className={classes.paper}>
       <LocationBreadcrumbsWithResult
@@ -72,7 +86,7 @@ export const CustomSearchResults = observer(function CustomSearchResults({
       />
 
       {searchStore.searchInProgress ? (
-        <h1>search in progresss</h1>
+        <CircularProgress className={classes.loading} size={60} thickness={5} />
       ) : searchStore.data?.result ? (
         <FilterList
           dataRow={dataRow}
@@ -80,7 +94,12 @@ export const CustomSearchResults = observer(function CustomSearchResults({
           noData={noData}
         />
       ) : searchStore.data?.error ? (
-        <h1>show errror</h1>
+        <div className={classes.error}>
+          <p>
+            Search service is not available at the moment. Sorry for the
+            inconvenience.
+          </p>
+        </div>
       ) : null}
     </Paper>
   )

@@ -8,7 +8,8 @@ export const PlayerStatus = {
   PLAYING: 'PLAYING',
   BUFFERING: 'BUFFERING',
   STOPPED: 'STOPPED',
-  PAUSED: 'PAUSED'
+  PAUSED: 'PAUSED',
+  ERROR: 'ERROR'
 } as const
 
 export class MusicPlayerStore {
@@ -31,6 +32,8 @@ export class MusicPlayerStore {
 
   stationChecked = false
 
+  errorStations: { [key: string]: boolean } = {}
+
   constructor(
     protected storage: AppStorage,
     protected songInfoService: SongInfoService
@@ -46,6 +49,7 @@ export class MusicPlayerStore {
       playerError: observable,
       songInfo: observable,
       prevSongInfo: observable,
+      errorStations: observable.shallow,
       songServiceCb: action,
       play: action,
       stop: action,
@@ -98,10 +102,11 @@ export class MusicPlayerStore {
     this.player.on('play', () => {
       console.log('radio playing')
       this.songInfoService.start(station.url, this.songServiceCb.bind(this))
-      this.stationChecked = false
       runInAction(() => {
+        this.stationChecked = false
         this.status = PlayerStatus.PLAYING
         this.playerError = null
+        this.errorStations[station.id] = undefined
       })
     })
 
@@ -125,22 +130,28 @@ export class MusicPlayerStore {
 
     this.player.on('loaderror', (_, errorData) => {
       console.log('radio loaderror')
-      console.log(this.playerError)
-      this.playerError = {
-        type: 'load',
-        data: errorData
-      }
-      this.status = PlayerStatus.STOPPED
+      runInAction(() => {
+        this.playerError = {
+          type: 'load',
+          data: errorData
+        }
+        this.status = PlayerStatus.ERROR
+        this.errorStations[station.id] = true
+        console.log(this.playerError)
+      })
     })
     this.player.on('playerror', (_, errorData) => {
       console.log('radio playerror')
-      console.log(this.playerError)
+      runInAction(() => {
+        this.playerError = {
+          type: 'play',
+          data: errorData
+        }
+        this.status = PlayerStatus.ERROR
 
-      this.playerError = {
-        type: 'play',
-        data: errorData
-      }
-      this.status = PlayerStatus.STOPPED
+        this.errorStations[station.id] = true
+        console.log(this.playerError)
+      })
     })
 
     this.player.play()
@@ -189,16 +200,36 @@ export class MusicPlayerStore {
       throw new Error('Player has no station to play')
     }
 
-    if (
-      this.station &&
-      this.station.id === station.id &&
-      this.status !== PlayerStatus.STOPPED
-    ) {
-      this.stop()
-    } else {
-      if (this.status !== PlayerStatus.STOPPED) {
+    // if (
+    //   (this.station &&
+    //     this.station.id === station.id &&
+    //     this.status !== PlayerStatus.STOPPED) ||
+    //   this.status !== PlayerStatus.ERROR
+    // ) {
+    //   this.stop()
+    // } else {
+    //   if (
+    //     this.status === PlayerStatus.PLAYING ||
+    //     this.status === PlayerStatus.BUFFERING
+    //   ) {
+    //     this.stop()
+    //   }
+    //   this.play(station)
+    // }
+
+    if (this.station && this.station.id === station.id) {
+      // same station
+      if (
+        this.status === PlayerStatus.STOPPED ||
+        this.status === PlayerStatus.ERROR
+      ) {
+        this.play(station)
+      } else {
+        // buffering or playing
         this.stop()
       }
+    } else {
+      // new station
       this.play(station)
     }
   }
