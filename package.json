@@ -31,8 +31,8 @@
     "mobx-react-lite": "^3.0.0",
     "next": "9.5.5",
     "next-pwa": "^3.1.5",
-    "react": "17.0.0",
-    "react-dom": "17.0.0",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
     "react-virtuoso": "^0.20.0",
     "swr": "^0.3.5"
   },
