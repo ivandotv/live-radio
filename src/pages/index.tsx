@@ -2,6 +2,7 @@ import Link from 'next/link'
 // @ts-ignore
 import Banner from '../svg/landing-page.svg'
 import Head from 'next/head'
+import { PageTitle } from '../components/PageTitle'
 
 export default function Index() {
   return (
@@ -13,6 +14,7 @@ export default function Index() {
         ></link>
       </Head>
       <div className="page-wrap">
+        <PageTitle title="Welcome to Next Radio App" />
         <h1>NEXT.JS PWA</h1>
         <div className="banner-wrapper">
           <Banner />

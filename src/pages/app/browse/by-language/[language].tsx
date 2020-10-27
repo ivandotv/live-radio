@@ -3,6 +3,7 @@ import { RadioBrowserApi } from 'radio-browser-api'
 import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import { PageTitle } from '../../../../components/PageTitle'
 import {
   stationDataRow,
   stationsToRadioStations
@@ -66,9 +67,9 @@ export default function LanguageStations({
       uuid="id"
       indexes={['language', 'country', 'tags', 'continent', 'name']}
     >
+      <PageTitle title="Browse For Stations" />
       <BrowseBy
         filterInputText="Filter Stations"
-        title="Browse For Stations"
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow()}
         noData={

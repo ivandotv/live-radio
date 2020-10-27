@@ -5,7 +5,6 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { ReactElement, ReactNode, useEffect } from 'react'
-import { PageTitle } from '../PageTitle'
 import { FilterInput } from './FilterInput'
 import { FilterList } from './FilterList'
 import { LocationBreadcrumbsWithResult } from './LocationBreadcrumbsWithResult'
@@ -13,11 +12,6 @@ import { useFilterDataStore } from './providers/StoreProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    // paper: {
-    //   display: 'flex',
-    //   flexDirection: 'column',
-    //   height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
-    // },
     noData: {
       margin: theme.spacing(2)
     },

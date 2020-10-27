@@ -5,24 +5,15 @@ import { FilterStoreProvider } from '../../../../../components/app/providers/Sto
 import { AppMenuItem } from '../../../../../components/app/sidebars/AppMenuItem'
 import countriesJSON from '../../../../../generated/countries.json'
 import { continentsByCode } from '../../../../../lib/utils/continentsByode'
+import { PageTitle } from '../../../../../components/PageTitle'
 
 // list countries for the continent
 export default function CountryList() {
-  // list continents
-
   const router = useRouter()
 
   console.log('continent router ', router)
 
   const continent = router.query.continent as keyof typeof countriesJSON
-
-  // const continentCode = continent
-  // const countrySearch = countriesJSON[continent].map((country) => {
-  //   return {
-  //     name: country.name
-  //   }
-  // })
-
   const countryDataRow = function (
     countries: { name: string; code: string; flag: string; cont: string }[]
   ) {
@@ -66,18 +57,15 @@ export default function CountryList() {
     return !continent
   }
 
-  console.log('show fallback ', showFallback())
-  console.log('router query ', router.query.continent)
-
   return (
     <FilterStoreProvider
       initialState={countriesJSON[continent]}
       uuid="name"
       indexes={['name']}
     >
+      <PageTitle title="Browse for stations by country" />
       <BrowseBy
         filterInputText="Filter Countries"
-        title="Browse For Stations by Country"
         breadcrumbs={breadcrumbs}
         dataRow={countryDataRow}
         showFallback={showFallback}

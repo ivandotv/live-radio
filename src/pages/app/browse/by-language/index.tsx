@@ -4,6 +4,7 @@ import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
+import { PageTitle } from '../../../../components/PageTitle'
 
 const languages = ISO6391.getAllNames()
 
@@ -53,9 +54,9 @@ export default function LanguageList() {
       uuid="language"
       indexes={['language']}
     >
+      <PageTitle title="Browse For Stations by Language" />
       <BrowseBy
         filterInputText="Filter Languages"
-        title="Browse For Stations by Language"
         breadcrumbs={breadcrumbs}
         dataRow={languageDataRow}
       ></BrowseBy>

@@ -3,7 +3,7 @@ import { RadioBrowserApi } from 'radio-browser-api'
 import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
-import { StationRowItem } from '../../../../components/app/StationRowItem'
+import { PageTitle } from '../../../../components/PageTitle'
 import {
   stationDataRow,
   stationsToRadioStations
@@ -29,22 +29,6 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
     limit: 1500,
     hideBroken: true
   })
-
-  // const leanStations = []
-  // // strip properties that are not in use
-  // for (const station of stations) {
-  //   leanStations.push({
-  //     tags: [...new Set(station.tags.split(','))],
-  //     name: station.name,
-  //     url: station.url_resolved,
-  //     uuid: station.stationuuid,
-  //     favicon: station.favicon,
-  //     homepage: station.homepage,
-  //     country: station.country,
-  //     language: station.language.split(','),
-  //     codec: station.codec
-  //   })
-  // }
 
   return {
     props: {
@@ -78,22 +62,14 @@ export default function GenreStations({
     }
   ]
 
-  // const row = function (stations: RadioStation[]) {
-  //   return function DataRow(index: number) {
-  //     const station = stations[index]
-
-  //     return <StationRowItem station={station}></StationRowItem>
-  //   }
-  // }
-
   return (
     <FilterStoreProvider
       initialState={stations}
       uuid="id"
       indexes={['tags', 'name', 'country', 'continent']}
     >
+      <PageTitle title={`Browse For Stations in ${genre}`} />
       <BrowseBy
-        title={`Browse For Stations in ${genre}`}
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow()}
         filterInputText="Filter stations"

@@ -3,6 +3,7 @@ import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
 import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
+import { PageTitle } from '../../../../components/PageTitle'
 import { genres } from '../../../../lib/popularGenres'
 
 export default function GenreList() {
@@ -36,9 +37,7 @@ export default function GenreList() {
               pathname: `${router.pathname}/[genre]`
             },
             as: {
-              pathname: `${router.pathname}/${genre
-                // .toLowerCase()
-                .replace(/\s/g, '-')}`
+              pathname: `${router.pathname}/${genre.replace(/\s/g, '-')}`
             }
           }}
           primary={`${genre}`}
@@ -53,9 +52,9 @@ export default function GenreList() {
       uuid="genre"
       indexes={['genre']}
     >
+      <PageTitle title="Browse For Stations by Genre" />
       <BrowseBy
         filterInputText="Filter Genres"
-        title="Browse For Stations by Genre"
         breadcrumbs={breadcrumbs}
         dataRow={genreDataRow}
       ></BrowseBy>
