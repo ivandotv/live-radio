@@ -1,71 +1,33 @@
-import Paper from '@material-ui/core/Paper'
+import { deepPurple } from '@material-ui/core/colors'
+import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import MuiAlert from '@material-ui/lab/Alert'
 import { observer } from 'mobx-react-lite'
-import Avatar from '@material-ui/core/Avatar'
-import { deepOrange, deepPurple } from '@material-ui/core/colors'
-import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
-import clsx from 'clsx'
-import Link from '@material-ui/core/Link'
-import Typography from '@material-ui/core/Typography'
-import {
-  MusicPlayerStore,
-  PlayerStatus
-} from '../../lib/stores/MusicPlayerStore'
-import { PlayerStateIcon } from './PlayerStateIcon'
-import { AddToFavouritesBtn } from './AddToFavouritesBtn'
-import { ShareStationBtn } from './ShareStationBtn'
-import { FullScreenBtn } from './FullScrenBtn'
+import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
 import { useAppShell } from '../app/providers/AppShellProvider'
-import { useEffect, useCallback } from 'react'
+import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
+import { AddToFavouritesBtn } from './AddToFavouritesBtn'
+import { FullScreenBtn } from './FullScrenBtn'
+import { PlayerStateIcon } from './PlayerStateIcon'
+import { ShareStationBtn } from './ShareStationBtn'
 import { SongInfo } from './SongInfo'
-import { ArtistArtwork } from './ArtistArtwork'
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />
+}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      // position: 'absolute',
-      // backgroundColor: theme.palette.primary.dark,
-      // color: theme.palette.primary.contrastText,
-      // width: '100%',
       display: 'flex',
       overflow: 'hidden',
       bottom: 0,
       height: '110px',
-      // zIndex: 10000,
-      // left: ({ drawerWidth }: { drawerWidth: number }) => drawerWidth,
-
-      // maxHeight: 200,
-      // height: 200,
-      // height: ({ isFullScreen }: { isFullScreen: boolean }) =>
-      //   isFullScreen ? '100%' : 'auto',
       borderLeft: 0,
       borderRight: 0,
       borderBottom: 'none',
-      // alignItems: 'center',
       padding: theme.spacing(1)
-      // backgroundColor: '#123133'
-      // transition: 'all 1s ease-in'
     },
-    // boxAnim: {
-    //   transition: 'all 0.4s ease-in-out'
-    //   // transition: theme.transitions.create(
-    //   //   ['width', 'top', 'height', 'background-color', 'bottom', 'left'],
-    //   //   {
-    //   //     easing: theme.transitions.easing.easeIn,
-    //   //     // duration: theme.transitions.duration.leavingScreen
-    //   //     duration: 400
-    //   //   }
-    //   // )
-    // },
-    // heightFull: {
-    //   // height: '100%',
-    //   left: '0px!important',
-    //   // width: '50%',
-    //   height: '100%'
-    //   // backgroundColor: '#ff99f2'
-    //   // top: 100
-    //   // left: '100px'
-    // },
     appBarSpacer: {
       ...theme.mixins.toolbar
     },
@@ -112,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
     }
   })
 )
-// music player is a global component
+
 export const MusicPlayer = observer(function MusicPlayer() {
   const player = useMusicPlayer()
   const appShell = useAppShell()
@@ -121,35 +83,51 @@ export const MusicPlayer = observer(function MusicPlayer() {
     isFullScreen: appShell.playerInFullScreen,
     drawerWidth: appShell.desktopDrawerWidth
   })
-  // const classes = useStyles()
   const iconSize = '2rem'
 
-  // const testclick = function () {
-  //   console.log('test click')
-  //   if (appShell.playerInFullScreen) {
-  //     appShell.setPlayerFullScreen(false)
-  //   } else {
-  //     appShell.setPlayerFullScreen(true)
-  //   }
-  // }
-  useEffect(() => {
-    window.player = player
-  }, [])
+  if (__DEV__) {
+    // eslint-disable-next-line
+    useEffect(() => {
+      // @ts-ignore
+      window.player = player
+    }, [player])
+  }
   const togglePlay = useCallback(() => {
     player.togglePlay()
   }, [player])
 
-  // const songInfo = () => {
-  //   player.testSong()
-  //   console.log('share click')
-  // }
+  const [snackOpen, setSnackOpen] = useState(false)
+
+  const handleClose = (_: SyntheticEvent, reason: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setSnackOpen(false)
+  }
+
+  useEffect(() => {
+    if (player.playerError) {
+      setSnackOpen(true)
+    }
+  }, [player.playerError])
 
   return (
     <div className={classes.root}>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center'
+        }}
+        open={snackOpen}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error">
+          Error playing radio station
+        </Alert>
+      </Snackbar>
+
       <div className={classes.uiWrap}>
-        {/* {appShell.playerInFullScreen ? (
-          <div className={classes.appBarSpacer}></div>
-        ) : null} */}
         <div className={classes.column}>
           <p className={classes.stationName}>{player.station?.name}</p>
           <AddToFavouritesBtn fontSize={iconSize} />
@@ -162,7 +140,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
           </span>
           <div className={classes.infoWrap}>
             <div className={classes.artistWrap}>
-              {/* <ArtistArtwork className={classes.artistArtwork}></ArtistArtwork> */}
               <div className={classes.songInfo}>
                 <SongInfo />
               </div>

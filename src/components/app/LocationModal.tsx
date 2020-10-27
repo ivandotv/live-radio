@@ -90,7 +90,7 @@ export function LocationModal({
       <DialogContent className={classes.modal}>
         <DialogContentText component="div" id="alert-dialog-description">
           {dataSuccess && countryData ? (
-            <Typography component="h2" variant="h2" color="textPrimary">
+            <Typography component="h3" variant="h3" color="textPrimary">
               <span className={classes.flag}>{countryData.flag}</span>
               {data!.country}
             </Typography>
