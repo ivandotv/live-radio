@@ -21,12 +21,17 @@ const useStyles = makeStyles((theme: Theme) => {
     noData: {
       margin: theme.spacing(2)
     },
-    listSkeleton: {
+    skeletonItem: {
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(1),
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
+      height: '4.5rem',
       flex: 1
+    },
+    skeleton: {
+      height: '100%',
+      overflow: 'hidden'
     },
     search: {
       margin: theme.spacing(2)
@@ -38,7 +43,6 @@ export const BrowseBy = observer(function BrowserBy({
   noData,
   dataRow,
   breadcrumbs,
-  title,
   filterInputText,
   showFallback = () => false
 }: {
@@ -46,7 +50,6 @@ export const BrowseBy = observer(function BrowserBy({
   dataRow: (data: any) => (index: number) => ReactElement
   // dataRow: (index: number) => ReactElement
   breadcrumbs: { href?: string; text: string }[]
-  title: string
   filterInputText: string
   showFallback?: () => boolean
 }) {
@@ -67,11 +70,11 @@ export const BrowseBy = observer(function BrowserBy({
 
   if (router.isFallback || showFallback()) {
     return (
-      <Paper className={classes.paper}>
-        {new Array(5).fill(1).map((_, i) => (
+      <Paper className={classes.skeleton}>
+        {new Array(10).fill(1).map((_, i) => (
           <Skeleton
             component="div"
-            className={classes.listSkeleton}
+            className={classes.skeletonItem}
             variant="rect"
             key={i}
             animation="wave"
