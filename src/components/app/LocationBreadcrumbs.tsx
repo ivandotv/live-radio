@@ -3,6 +3,7 @@ import MaterialLink from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Link from 'next/link'
+import { ReactNode } from 'react'
 const useStyles = makeStyles((theme) => {
   return {
     root: {
@@ -15,14 +16,19 @@ const useStyles = makeStyles((theme) => {
 })
 
 export function LocationBreadcrumbs({
-  links
+  links,
+  tail
 }: {
   links: { href?: string; as?: string; text: string }[]
+  tail: ReactNode
 }) {
   const renderedLinks = []
   const classes = useStyles()
 
-  for (const link of links) {
+  for (let i = 0; i < links.length; i++) {
+    const link = links[i]
+    const renderTail = links.length - 1 === i ? tail : null
+
     let linkToClick = null
     if (link.href) {
       // it should be a link
@@ -35,6 +41,7 @@ export function LocationBreadcrumbs({
         >
           <MaterialLink color="inherit" href={link.href}>
             {link.text}
+            {renderTail}
           </MaterialLink>
         </Link>
       )
@@ -43,6 +50,7 @@ export function LocationBreadcrumbs({
       linkToClick = (
         <Typography key={link.text} color="textPrimary">
           {link.text}
+          {renderTail}
         </Typography>
       )
     }

@@ -20,7 +20,7 @@ export class CustomSearchStore {
 
   protected requestToken: number | undefined
 
-  data: { result?: RadioStation[]; error?: Error } | undefined = undefined
+  data: { result?: RadioStation[]; error?: Error } = {}
 
   searchInProgress = false
 

@@ -44,8 +44,8 @@ export function LocationModal({
     'http://ip-api.com/json/',
     fetcher
   )
-  const dataSuccess = data && data.status === 'success'
 
+  const dataSuccess = data && data.status === 'success'
   const countryData = useMemo(() => {
     if (data?.country) {
       const countryData = countryDataByKey('name', data.country)
@@ -94,7 +94,7 @@ export function LocationModal({
               <span className={classes.flag}>{countryData.flag}</span>
               {data!.country}
             </Typography>
-          ) : !data ? (
+          ) : !data && !error ? (
             <CircularProgress />
           ) : null}
         </DialogContentText>

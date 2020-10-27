@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { ReactElement, ReactNode, useEffect } from 'react'
 import { FilterInput } from './FilterInput'
 import { FilterList } from './FilterList'
-import { LocationBreadcrumbsWithResult } from './LocationBreadcrumbsWithResult'
+import { LocationBreadcrumbs } from './LocationBreadcrumbs'
 import { useFilterDataStore } from './providers/StoreProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -81,12 +81,15 @@ export const BrowseBy = observer(function BrowserBy({
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     store.search(e.currentTarget.value, delay)
   }
+  const resultPlural = `( ${store.filtered.length} ${
+    store.filtered.length === 1 ? 'result' : 'results'
+  } )`
 
   return (
     <>
-      <LocationBreadcrumbsWithResult
+      <LocationBreadcrumbs
         links={breadcrumbs}
-        results={store.filtered}
+        tail={<span>{resultPlural}</span>}
       />
       {store.allData.length ? (
         <>

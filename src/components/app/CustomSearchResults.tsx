@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import React, { ReactElement, ReactNode, useEffect, useRef } from 'react'
 import { FilterInput } from './FilterInput'
 import { FilterList } from './FilterList'
-import { LocationBreadcrumbsWithResult } from './LocationBreadcrumbsWithResult'
+import { LocationBreadcrumbs } from './LocationBreadcrumbs'
 import { useCustomSearch } from './providers/CustomSearchProvider'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
@@ -72,11 +72,17 @@ export const CustomSearchResults = observer(function CustomSearchResults({
     </div>
   )
 
+  const resultPlural = searchStore.data.result
+    ? `( ${searchStore.data.result?.length} ${
+        searchStore.data.result?.length === 1 ? 'result' : 'results'
+      } )`
+    : null
+
   return (
     <Paper className={classes.paper}>
-      <LocationBreadcrumbsWithResult
+      <LocationBreadcrumbs
         links={breadcrumbs}
-        results={searchStore.data?.result}
+        tail={<span>{resultPlural}</span>}
       />
       <FilterInput
         textPlaceHolder={filterInputText}
@@ -87,13 +93,13 @@ export const CustomSearchResults = observer(function CustomSearchResults({
 
       {searchStore.searchInProgress ? (
         <CircularProgress className={classes.loading} size={60} thickness={5} />
-      ) : searchStore.data?.result ? (
+      ) : searchStore.data.result ? (
         <FilterList
           dataRow={dataRow}
           data={searchStore.data.result}
           noData={noData}
         />
-      ) : searchStore.data?.error ? (
+      ) : searchStore.data.error ? (
         <div className={classes.error}>
           <p>
             Search service is not available at the moment. Sorry for the
