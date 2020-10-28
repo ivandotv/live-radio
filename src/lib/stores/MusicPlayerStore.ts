@@ -66,10 +66,10 @@ export class MusicPlayerStore {
     data?: { artist: string; title: string }
   ) {
     if (error) {
-      console.log('player - error')
-      // console.log(error)
+      console.log('player - song service error')
+      console.log(error)
     } else {
-      console.log('player success')
+      console.log('player - song service success')
       console.log(data)
       if (data) {
         if (
@@ -80,7 +80,9 @@ export class MusicPlayerStore {
           // fetch artwork
           console.log('we have new song data')
           console.log(`new ${data.title} | ${data.artist}`)
-          console.log(`old ${this.songInfo?.title} | ${this.songInfo?.artist}`)
+          console.log(
+            `old ${this.prevSongInfo?.title} | ${this.prevSongInfo?.artist}`
+          )
         }
       }
     }
@@ -115,14 +117,7 @@ export class MusicPlayerStore {
       runInAction(() => {
         this.status = PlayerStatus.PAUSED
       })
-      // alert('paused')
     })
-
-    // this is handled in the stop method
-    // this.player.on('stop', () => {
-    //   console.log('radio stop')
-    //   this.status = 'stopped'
-    // })
 
     this.player.on('load', () => {
       console.log('radio load')
@@ -173,8 +168,8 @@ export class MusicPlayerStore {
        new player
     */
     if (this.player) {
-      // this.player.stop()
-      this.disposePlayer()
+      this.stop()
+      // this.disposePlayer()
       // this.player.unload()
     }
     this.initPlayer(station)
@@ -187,7 +182,7 @@ export class MusicPlayerStore {
     this.status = PlayerStatus.STOPPED
     this.songInfoService.stop()
 
-    this.prevSongInfo = this.songInfo
+    this.prevSongInfo = undefined
     this.songInfo = undefined
     this.stationChecked = false
     this.disposePlayer()

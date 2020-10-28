@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column'
     },
     stationName: {
-      // fontSize: '1.1rem'
+      fontWeight: 'bold'
     },
     snackbar: {
       bottom: `${AppConstants.layout.playerHeight + theme.spacing(2)}px`

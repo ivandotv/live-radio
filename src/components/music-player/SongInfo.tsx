@@ -1,40 +1,21 @@
-import { observer } from 'mobx-react-lite'
-import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
+import Collapse from '@material-ui/core/Collapse'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import clsx from 'clsx'
+import { observer } from 'mobx-react-lite'
 import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
+import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
 
 const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
-    root: {
-      transition: 'all 0.3s ease-in-out',
-      position: 'relative'
-      // left: -30
-      // opacity: 0
+    artist: {
+      // fontWeight: 'bold'
     },
-    animIn: {
-      left: 0,
-      opacity: 1
-    },
-    animOut: {
-      left: -30,
-      userSelect: 'none'
-    },
-    animWithDelay: {
-      transitionDelay: '0.1s'
-    }
+    songTitle: {}
   })
 )
 
 export const SongInfo = observer(function SongInfo() {
   const player = useMusicPlayer()
   const classes = useStyles()
-
-  const calcClasses = clsx(classes.root, {
-    [classes.animIn]: true
-    // player.status !== PlayerStatus.STOPPED && player.stationChecked,
-    // [classes.animOut]: player.status === PlayerStatus.STOPPED
-  })
 
   let artist, songTitle
 
@@ -46,16 +27,18 @@ export const SongInfo = observer(function SongInfo() {
     songTitle = player.songInfo?.title || 'No Data'
   }
 
-  artist = 'Madonna'
-  songTitle = 'Like a virgin'
+  const showInfo =
+    player.status !== PlayerStatus.STOPPED &&
+    player.status !== PlayerStatus.BUFFERING &&
+    player.stationChecked
 
   return (
-    <div>
-      <span className={`${calcClasses} ${classes.animWithDelay}`}>
-        {artist}
-      </span>
-      <span> / </span>
-      <span className={calcClasses}>{songTitle}</span>
-    </div>
+    <Collapse in={showInfo}>
+      <div>
+        <span className={classes.artist}>{artist}</span>
+        <span> / </span>
+        <span className={classes.songTitle}>{songTitle}</span>
+      </div>
+    </Collapse>
   )
 })

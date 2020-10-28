@@ -46,8 +46,12 @@ export class SongInfoService {
 
   stop() {
     this.stopped = true
+    console.log('song service stop')
     if (this.timeoutId) {
+      console.log('song service kill tiemout')
+
       clearTimeout(this.timeoutId)
+      this.timeoutId = undefined
     }
   }
 }
