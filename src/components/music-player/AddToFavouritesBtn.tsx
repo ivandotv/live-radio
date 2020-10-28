@@ -3,15 +3,16 @@ import FullHeart from '@material-ui/icons/Favorite'
 import EmptyHeart from '@material-ui/icons/FavoriteBorder'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
+import IconButton from '@material-ui/core/IconButton'
 
-const useStyles = makeStyles((_theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
-      cursor: 'pointer',
-      fontSize: ({ fontSize }: { fontSize: string | number }) => fontSize
+      padding: 0
     },
-    heartColor: {
-      color: '#ff0000'
+    icon: {
+      fontSize: ({ fontSize }: { fontSize: string | number }) => fontSize,
+      color: theme.palette.primary.contrastText
     }
   })
 )
@@ -21,8 +22,7 @@ export const AddToFavouritesBtn = observer(function AddToFavouritesBtn({
 }: {
   fontSize: string | number
 }) {
-  // tood - show
-  const stationInFavourites = false
+  const stationInFavourites = true
   const classes = useStyles({ fontSize })
 
   return stationInFavourites ? (
@@ -31,7 +31,9 @@ export const AddToFavouritesBtn = observer(function AddToFavouritesBtn({
       title="Remove from favourites"
       aria-label="Remove from favourites"
     >
-      <FullHeart className={`${classes.heartColor} ${classes.button}`} />
+      <IconButton className={classes.button} size="medium">
+        <FullHeart classes={{ root: classes.icon }} />
+      </IconButton>
     </Tooltip>
   ) : (
     <Tooltip
@@ -39,7 +41,9 @@ export const AddToFavouritesBtn = observer(function AddToFavouritesBtn({
       title="Add to favourites"
       aria-label="Add to favourites"
     >
-      <EmptyHeart className={`${classes.heartColor} ${classes.button}`} />
+      <IconButton className={classes.button} size="medium">
+        <EmptyHeart classes={{ root: classes.icon }} />
+      </IconButton>
     </Tooltip>
   )
 })

@@ -22,7 +22,10 @@ import { MobileSidebar } from '../sidebars/MobileSidebar'
 import { AppToolbar } from './AppToolbar'
 import { useMusicPlayer } from '../providers/MusicPlayerProvider'
 import { PlayerStatus } from '../../../lib/stores/MusicPlayerStore'
+import { AppConstants } from '../../../lib/constants'
 
+// todo - make the value dynamic for responsive layout
+const playerAndTopBarOffset = AppConstants.layout.playerHeight + 72
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -34,7 +37,8 @@ const useStyles = makeStyles((theme: Theme) =>
     paper: {
       display: 'flex',
       flexDirection: 'column',
-      height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
+      // height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
+      height: `calc( 100vh - ${playerAndTopBarOffset}px )`
     },
     // appBarSpacer: {
     //   ...theme.mixins.toolbar

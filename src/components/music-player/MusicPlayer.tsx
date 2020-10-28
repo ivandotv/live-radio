@@ -1,18 +1,17 @@
-import { deepPurple } from '@material-ui/core/colors'
 import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import MuiAlert from '@material-ui/lab/Alert'
 import { observer } from 'mobx-react-lite'
-import { SyntheticEvent, useCallback, useEffect, useState } from 'react'
+import { SyntheticEvent, useEffect, useState } from 'react'
+import { AppConstants } from '../../lib/constants'
 import { useAppShell } from '../app/providers/AppShellProvider'
 import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
 import { AddToFavouritesBtn } from './AddToFavouritesBtn'
-import { FullScreenBtn } from './FullScrenBtn'
-import { PlayerStateIcon } from './PlayerStateIcon'
+import { PlayerToggleBtn } from './PlayerToggleBtn'
 import { ShareStationBtn } from './ShareStationBtn'
 import { SongInfo } from './SongInfo'
 
-function Alert(props) {
+function Alert(props: any) {
   return <MuiAlert elevation={6} variant="filled" {...props} />
 }
 
@@ -22,14 +21,16 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       overflow: 'hidden',
       bottom: 0,
-      height: '110px',
+      height: `${AppConstants.layout.playerHeight}px`,
       borderLeft: 0,
       borderRight: 0,
       borderBottom: 'none',
-      padding: theme.spacing(1)
-    },
-    appBarSpacer: {
-      ...theme.mixins.toolbar
+      padding: theme.spacing(1),
+      backgroundColor:
+        theme.palette.type === 'light'
+          ? theme.palette.primary.dark
+          : theme.palette.background.default,
+      alignItems: 'center'
     },
     uiWrap: {
       display: 'flex',
@@ -38,39 +39,18 @@ const useStyles = makeStyles((theme: Theme) =>
     column: {
       display: 'flex',
       alignItems: 'center'
-      // marginLeft: theme.spacing(1)
     },
     infoWrap: {
       display: 'flex',
-      flexDirection: 'column'
-    },
-    artistWrap: {
-      display: 'flex',
-      alignItems: 'center'
+      flexDirection: 'column',
+      color: theme.palette.primary.contrastText
     },
     songInfo: {
       display: 'flex',
-      flexDirection: 'column',
-      zIndex: -1,
-      '& p': {
-        // fontSize: '1.1rem',
-        margin: 0
-      }
-    },
-    artistArtwork: {
-      color: theme.palette.getContrastText(deepPurple[500]),
-      backgroundColor: deepPurple[500],
-      marginLeft: theme.spacing(0.5),
-      marginRight: theme.spacing(1),
-      width: 48,
-      height: 48,
-      postition: 'relative',
-      zIndex: 2
+      flexDirection: 'column'
     },
     stationName: {
-      marginRight: theme.spacing(1),
-      fontSize: '1.7rem',
-      margin: 0
+      fontSize: '1.2rem'
     }
   })
 )
@@ -83,8 +63,10 @@ export const MusicPlayer = observer(function MusicPlayer() {
     isFullScreen: appShell.playerInFullScreen,
     drawerWidth: appShell.desktopDrawerWidth
   })
-  const iconSize = '2rem'
 
+  /* This is safe beacause the value changes only on production build
+     The code dissapears in the production build
+  */
   if (__DEV__) {
     // eslint-disable-next-line
     useEffect(() => {
@@ -92,9 +74,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
       window.player = player
     }, [player])
   }
-  const togglePlay = useCallback(() => {
-    player.togglePlay()
-  }, [player])
 
   const [snackOpen, setSnackOpen] = useState(false)
 
@@ -129,20 +108,13 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
       <div className={classes.uiWrap}>
         <div className={classes.column}>
-          <p className={classes.stationName}>{player.station?.name}</p>
-          <AddToFavouritesBtn fontSize={iconSize} />
-          <ShareStationBtn fontSize={iconSize} />
-          <FullScreenBtn fontSize={iconSize} />
-        </div>
-        <div className={classes.column}>
-          <span onClick={togglePlay}>
-            <PlayerStateIcon fontSize="55px"></PlayerStateIcon>
-          </span>
+          <PlayerToggleBtn fontSize="3.3rem" />
+          <AddToFavouritesBtn fontSize="2.6rem" />
+          <ShareStationBtn fontSize="2.3rem" />
           <div className={classes.infoWrap}>
-            <div className={classes.artistWrap}>
-              <div className={classes.songInfo}>
-                <SongInfo />
-              </div>
+            <span className={classes.stationName}>{player.station?.name}</span>
+            <div className={classes.songInfo}>
+              <SongInfo />
             </div>
           </div>
         </div>

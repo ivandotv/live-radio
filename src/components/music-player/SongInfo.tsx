@@ -8,9 +8,9 @@ const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
     root: {
       transition: 'all 0.3s ease-in-out',
-      position: 'relative',
-      left: -30,
-      opacity: 0
+      position: 'relative'
+      // left: -30
+      // opacity: 0
     },
     animIn: {
       left: 0,
@@ -31,9 +31,9 @@ export const SongInfo = observer(function SongInfo() {
   const classes = useStyles()
 
   const calcClasses = clsx(classes.root, {
-    [classes.animIn]:
-      player.status !== PlayerStatus.STOPPED && player.stationChecked,
-    [classes.animOut]: player.status === PlayerStatus.STOPPED
+    [classes.animIn]: true
+    // player.status !== PlayerStatus.STOPPED && player.stationChecked,
+    // [classes.animOut]: player.status === PlayerStatus.STOPPED
   })
 
   let artist, songTitle
@@ -46,12 +46,16 @@ export const SongInfo = observer(function SongInfo() {
     songTitle = player.songInfo?.title || 'No Data'
   }
 
+  artist = 'Madonna'
+  songTitle = 'Like a virgin'
+
   return (
     <div>
-      <p className={calcClasses}>
-        <strong>{songTitle} </strong>
-      </p>
-      <p className={`${calcClasses} ${classes.animWithDelay}`}>{artist}</p>
+      <span className={`${calcClasses} ${classes.animWithDelay}`}>
+        {artist}
+      </span>
+      <span> / </span>
+      <span className={calcClasses}>{songTitle}</span>
     </div>
   )
 })
