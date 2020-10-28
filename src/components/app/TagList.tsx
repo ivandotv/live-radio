@@ -39,7 +39,7 @@ export function TagList({
         label={tag}
         classes={classes}
         onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
-          e.preventDefault()
+          e.stopPropagation()
           onTagClick(tag)
         }}
       />

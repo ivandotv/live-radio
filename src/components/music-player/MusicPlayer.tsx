@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column'
     },
     stationName: {
-      fontSize: '1.2rem'
+      // fontSize: '1.1rem'
     },
     snackbar: {
       bottom: `${AppConstants.layout.playerHeight + theme.spacing(2)}px`
@@ -113,8 +113,8 @@ export const MusicPlayer = observer(function MusicPlayer() {
       <div className={classes.uiWrap}>
         <div className={classes.column}>
           <PlayerToggleBtn fontSize="3.3rem" />
-          <AddToFavouritesBtn fontSize="2.6rem" />
-          <ShareStationBtn fontSize="2.3rem" />
+          <AddToFavouritesBtn fontSize="2.5rem" />
+          <ShareStationBtn fontSize="2.2rem" />
           <div className={classes.infoWrap}>
             <span className={classes.stationName}>{player.station?.name}</span>
             <div className={classes.songInfo}>
