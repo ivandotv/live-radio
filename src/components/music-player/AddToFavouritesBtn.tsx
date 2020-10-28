@@ -25,22 +25,17 @@ export const AddToFavouritesBtn = observer(function AddToFavouritesBtn({
   const stationInFavourites = true
   const classes = useStyles({ fontSize })
 
+  const titleRemove = 'Remove station from favourites'
+  const titleAdd = 'Add station to favourites'
+
   return stationInFavourites ? (
-    <Tooltip
-      placement="top"
-      title="Remove from favourites"
-      aria-label="Remove from favourites"
-    >
+    <Tooltip placement="top" title={titleRemove} aria-label={titleRemove}>
       <IconButton className={classes.button} size="medium">
         <FullHeart classes={{ root: classes.icon }} />
       </IconButton>
     </Tooltip>
   ) : (
-    <Tooltip
-      placement="top"
-      title="Add to favourites"
-      aria-label="Add to favourites"
-    >
+    <Tooltip placement="top" title={titleAdd} aria-label={titleAdd}>
       <IconButton className={classes.button} size="medium">
         <EmptyHeart classes={{ root: classes.icon }} />
       </IconButton>
