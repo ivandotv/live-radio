@@ -14,7 +14,7 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
         station.countrycode as keyof typeof countries
       ]
       result.push({
-        tags: station.tags,
+        tags: station.tags.slice(0, 10),
         name: station.name,
         url: station.url_resolved,
         id: station.stationuuid,
