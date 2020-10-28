@@ -51,6 +51,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     stationName: {
       fontSize: '1.2rem'
+    },
+    snackbar: {
+      bottom: `${AppConstants.layout.playerHeight + theme.spacing(2)}px`
     }
   })
 )
@@ -98,8 +101,9 @@ export const MusicPlayer = observer(function MusicPlayer() {
           horizontal: 'center'
         }}
         open={snackOpen}
-        autoHideDuration={3000}
+        autoHideDuration={2500}
         onClose={handleClose}
+        className={classes.snackbar}
       >
         <Alert onClose={handleClose} severity="error">
           Error playing radio station
