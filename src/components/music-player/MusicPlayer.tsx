@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor:
         theme.palette.type === 'light'
           ? theme.palette.primary.dark
-          : theme.palette.background.default,
+          : theme.palette.grey[900],
       alignItems: 'center'
     },
     uiWrap: {
