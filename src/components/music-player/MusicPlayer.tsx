@@ -1,6 +1,6 @@
 import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import MuiAlert from '@material-ui/lab/Alert'
+import Alert from '@material-ui/lab/Alert'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { AppConstants } from '../../lib/constants'
@@ -10,10 +10,6 @@ import { AddToFavouritesBtn } from './AddToFavouritesBtn'
 import { PlayerToggleBtn } from './PlayerToggleBtn'
 import { ShareStationBtn } from './ShareStationBtn'
 import { SongInfo } from './SongInfo'
-
-function Alert(props: any) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />
-}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,7 +76,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   const [snackOpen, setSnackOpen] = useState(false)
 
-  const handleClose = (_: SyntheticEvent, reason: string) => {
+  const onSnackClose = (_: SyntheticEvent, reason: string) => {
     if (reason === 'clickaway') {
       return
     }
@@ -102,12 +98,10 @@ export const MusicPlayer = observer(function MusicPlayer() {
         }}
         open={snackOpen}
         autoHideDuration={2500}
-        onClose={handleClose}
+        onClose={onSnackClose}
         className={classes.snackbar}
       >
-        <Alert onClose={handleClose} severity="error">
-          Error playing radio station
-        </Alert>
+        <Alert severity="error">Error playing radio station</Alert>
       </Snackbar>
 
       <div className={classes.uiWrap}>
