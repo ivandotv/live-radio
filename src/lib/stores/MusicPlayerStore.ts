@@ -22,7 +22,7 @@ export class MusicPlayerStore {
 
   // stationID = ''
 
-  station: RadioStation | undefined = undefined
+  station: RadioStation
 
   songInfo: { artist: string; title: string } | undefined = undefined
 
