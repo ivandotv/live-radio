@@ -14,6 +14,7 @@ module.exports = {
         __VERSION__: pkgVersion,
         __DEV__: process.env.NODE_ENV !== 'production'
       }
-    ]
+    ],
+    ['transform-remove-console', { exclude: ['error', 'warn'] }]
   ]
 }
