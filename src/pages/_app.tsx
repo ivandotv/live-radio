@@ -1,13 +1,13 @@
 import { NextPage } from 'next'
-import Head from 'next/head'
 import { AppProps } from 'next/app'
-import React, { ReactElement } from 'react'
+import Head from 'next/head'
+import { ReactElement } from 'react'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
-  desktopSidebar?: <T>(
+  desktopSidebar?: (
     defaultMenuItems: ReactElement | ReactElement[]
   ) => ReactElement
-  mobileSidebar?: <T>(
+  mobileSidebar?: (
     defaultMenuItems: ReactElement | ReactElement[]
   ) => ReactElement
   layout?: (page: NextApplicationPage, props: any) => ReactElement

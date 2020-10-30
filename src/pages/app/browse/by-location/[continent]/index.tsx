@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { BrowseBy } from '../../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../../components/app/layout/AppDefaultLayout'
-import { FilterStoreProvider } from '../../../../../components/app/providers/StoreProvider'
+import { FilterDataStoreProvider } from '../../../../../components/app/providers/FilterDataStoreProvider'
 import { AppMenuItem } from '../../../../../components/app/sidebars/AppMenuItem'
 import countriesJSON from '../../../../../generated/countries.json'
 import { continentsByCode } from '../../../../../lib/utils/continentsByode'
@@ -58,7 +58,7 @@ export default function CountryList() {
   }
 
   return (
-    <FilterStoreProvider
+    <FilterDataStoreProvider
       initialState={countriesJSON[continent]}
       uuid="name"
       indexes={['name']}
@@ -70,7 +70,7 @@ export default function CountryList() {
         dataRow={countryDataRow}
         showFallback={showFallback}
       ></BrowseBy>
-    </FilterStoreProvider>
+    </FilterDataStoreProvider>
   )
 }
 

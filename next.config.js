@@ -10,13 +10,13 @@ const nextConfig = {
     runtimeCaching,
     scope: '/app',
     disable: process.env.NODE_ENV === 'development'
-  },
-
-  typescript: {
-    // !! WARN !!
-    // TEMP: Remove for production
-    ignoreBuildErrors: true
   }
+
+  // typescript: {
+  //   // !! WARN !!
+  //   // TEMP: Remove for production
+  //   ignoreBuildErrors: true
+  // }
 }
 
 module.exports = withBundleAnalyzer(withPWA(nextConfig))

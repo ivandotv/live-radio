@@ -1,22 +1,15 @@
-import Paper from '@material-ui/core/Paper'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { observer } from 'mobx-react-lite'
-import React, { ReactElement, ReactNode, useEffect, useRef } from 'react'
+import React, { ReactElement, useEffect, useRef } from 'react'
 import { FilterInput } from './FilterInput'
 import { FilterList } from './FilterList'
 import { LocationBreadcrumbs } from './LocationBreadcrumbs'
 import { useCustomSearch } from './providers/CustomSearchProvider'
-import CircularProgress from '@material-ui/core/CircularProgress'
 
-// todo -refactor styles to be merged with BrowseBy component
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
-    paper: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
-    },
     noData: {
       margin: theme.spacing(2)
     },
@@ -52,9 +45,7 @@ export const CustomSearchResults = observer(function CustomSearchResults({
 }) {
   const classes = useStyles()
   const searchStore = useCustomSearch()
-  //   const router = useRouter()
 
-  console.log('custom search results ', searchStore.query)
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     searchStore.search(e.currentTarget.value, delay)
   }
@@ -79,7 +70,7 @@ export const CustomSearchResults = observer(function CustomSearchResults({
     : null
 
   return (
-    <Paper className={classes.paper}>
+    <>
       <LocationBreadcrumbs
         links={breadcrumbs}
         tail={<span>{resultPlural}</span>}
@@ -107,6 +98,6 @@ export const CustomSearchResults = observer(function CustomSearchResults({
           </p>
         </div>
       ) : null}
-    </Paper>
+    </>
   )
 })

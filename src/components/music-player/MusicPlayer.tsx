@@ -4,8 +4,8 @@ import Alert from '@material-ui/lab/Alert'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { AppConstants } from '../../lib/constants'
-import { useAppShell } from '../app/providers/AppShellProvider'
-import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
+import { useAppShell, useMusicPlayer } from '../app/providers/RootStoreProvider'
+// import { useMusicPlayer } from '../app/providers/RootStoreProvider'
 import { AddToFavouritesBtn } from './AddToFavouritesBtn'
 import { PlayerToggleBtn } from './PlayerToggleBtn'
 import { ShareStationBtn } from './ShareStationBtn'
@@ -57,7 +57,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export const MusicPlayer = observer(function MusicPlayer() {
   const player = useMusicPlayer()
   const appShell = useAppShell()
-  console.log('player is full screen ', appShell.playerInFullScreen)
   const classes = useStyles({
     isFullScreen: appShell.playerInFullScreen,
     drawerWidth: appShell.desktopDrawerWidth

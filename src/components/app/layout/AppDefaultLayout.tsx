@@ -1,16 +1,16 @@
 import { NextApplicationPage } from '../../../pages/_app'
-import { AppShellProvider } from '../providers/AppShellProvider'
-import { MainProvider } from '../providers/MusicPlayerProvider'
+import { AppThemeSetup } from './AppThemeSetup'
+import { RootStoreProvider } from '../providers/RootStoreProvider'
 import { AppShellLayout } from './AppShellLayout'
 
 export function AppDefaultLayout(Component: NextApplicationPage, props: any) {
   return (
-    <AppShellProvider>
-      <MainProvider>
+    <RootStoreProvider>
+      <AppThemeSetup>
         <AppShellLayout>
           <Component {...props} />
         </AppShellLayout>
-      </MainProvider>
-    </AppShellProvider>
+      </AppThemeSetup>
+    </RootStoreProvider>
   )
 }

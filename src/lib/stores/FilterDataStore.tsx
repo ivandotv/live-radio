@@ -36,11 +36,6 @@ export class FilterDataStore {
       this.searchApi!.addIndex(index)
     })
     this.searchApi.addDocuments(this.allData)
-    // this.searchApi = new JsSearch.Search('uuid')
-    // this.searchApi.addIndex('tags')
-    // this.searchApi.addIndex('name')
-    // this.searchApi.addDocuments(this.allStations)
-    // this.delay = delay
   }
 
   search(query: string, delay?: number): void {

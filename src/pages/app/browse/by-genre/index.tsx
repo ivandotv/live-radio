@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import { FilterDataStoreProvider } from '../../../../components/app/providers/FilterDataStoreProvider'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 import { PageTitle } from '../../../../components/PageTitle'
 import { genres } from '../../../../lib/popularGenres'
@@ -47,7 +47,7 @@ export default function GenreList() {
   }
 
   return (
-    <FilterStoreProvider
+    <FilterDataStoreProvider
       initialState={genreSearch}
       uuid="genre"
       indexes={['genre']}
@@ -58,7 +58,7 @@ export default function GenreList() {
         breadcrumbs={breadcrumbs}
         dataRow={genreDataRow}
       ></BrowseBy>
-    </FilterStoreProvider>
+    </FilterDataStoreProvider>
   )
 }
 

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react-lite'
 import { useCallback } from 'react'
 import { RadioStation } from '../../types'
-import { useFilterDataStore } from './providers/StoreProvider'
+import { useFilterDataStore } from './providers/FilterDataStoreProvider'
 import { TagList } from './TagList'
 
 export const StationRowTags = observer(function StationRowTags({

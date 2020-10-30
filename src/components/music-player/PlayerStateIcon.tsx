@@ -12,7 +12,7 @@ import Error from '@material-ui/icons/Warning'
 import { observer } from 'mobx-react-lite'
 import { ReactNode } from 'react'
 import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
+import { useMusicPlayer } from '../app/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,10 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const PlayerStateIcon = observer(function PlayerStateIcon({
-  fontSize,
-  stationId
+  stationId,
+  fontSize = '1rem'
 }: {
-  fontSize: string
+  fontSize?: string
   stationId?: string
 }) {
   const player = useMusicPlayer()

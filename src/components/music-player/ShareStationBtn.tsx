@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite'
 import IconButton from '@material-ui/core/IconButton'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { ShareStationDesktop } from './ShareStationDesktop'
-import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
+import { useMusicPlayer } from '../app/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

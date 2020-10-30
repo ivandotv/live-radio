@@ -1,4 +1,5 @@
 import { action, makeObservable, observable } from 'mobx'
+import { RootStore } from './RootStore'
 
 export type AppTheme = 'light' | 'dark'
 export class AppShellStore {
@@ -20,13 +21,7 @@ export class AppShellStore {
 
   playerInFullScreen = false
 
-  constructor() {
-    // this.theme = 'light'
-    // this.showApp = false
-    // this.desktopDrawerIsOpen = true
-    // this.mobileDrawerIsOpen = false
-    // todo - videti da pomeri inicijalizaciju gore
-    // makeAutoObservable(this)
+  constructor(protected rootStore: RootStore) {
     makeObservable(this, {
       showApp: observable,
       theme: observable,

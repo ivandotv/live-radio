@@ -1,10 +1,4 @@
-import {
-  action,
-  IObservableArray,
-  makeObservable,
-  observable,
-  runInAction
-} from 'mobx'
+import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { RadioStation } from '../../types'
 import { stationsToRadioStations } from '../stationUtils'
@@ -25,8 +19,8 @@ export class CustomSearchStore {
   searchInProgress = false
 
   constructor(transport: typeof fetch) {
-    console.log('CUSTOM SEARCH STORE CONSTRUCTOR')
     this.api = new RadioBrowserApi(transport)
+
     makeObservable<CustomSearchStore, 'searchData'>(this, {
       search: action,
       searchData: action,

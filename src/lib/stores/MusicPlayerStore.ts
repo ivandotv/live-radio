@@ -3,6 +3,7 @@ import { Howl } from 'howler'
 import { RadioStation } from '../../types'
 import { AppStorage } from '../Storage'
 import { SongInfoService } from '../SongInfoService'
+import { RootStore } from './RootStore'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -35,6 +36,7 @@ export class MusicPlayerStore {
   errorStations: { [key: string]: boolean } = {}
 
   constructor(
+    protected rootStore: RootStore,
     protected storage: AppStorage,
     protected songInfoService: SongInfoService
   ) {
@@ -108,7 +110,7 @@ export class MusicPlayerStore {
         this.stationChecked = false
         this.status = PlayerStatus.PLAYING
         this.playerError = null
-        this.errorStations[station.id] = undefined
+        this.errorStations[station.id] = false
       })
     })
 

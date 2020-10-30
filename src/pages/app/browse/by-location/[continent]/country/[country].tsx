@@ -5,7 +5,7 @@ import { BrowseBy } from '../../../../../../components/app/BrowseBy'
 
 import { PageTitle } from '../../../../../../components/PageTitle'
 import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
-import { FilterStoreProvider } from '../../../../../../components/app/providers/StoreProvider'
+import { FilterDataStoreProvider } from '../../../../../../components/app/providers/FilterDataStoreProvider'
 
 import {
   stationDataRow,
@@ -84,7 +84,7 @@ export default function CountryStations({
   ]
 
   return (
-    <FilterStoreProvider
+    <FilterDataStoreProvider
       initialState={stations}
       uuid="id"
       indexes={['language', 'country', 'tags', 'continent', 'name']}
@@ -101,7 +101,7 @@ export default function CountryStations({
           </p>
         }
       ></BrowseBy>
-    </FilterStoreProvider>
+    </FilterDataStoreProvider>
   )
 }
 

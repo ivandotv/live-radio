@@ -2,7 +2,7 @@ import ISO6391 from 'iso-639-1'
 import { useRouter } from 'next/router'
 import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import { FilterDataStoreProvider } from '../../../../components/app/providers/FilterDataStoreProvider'
 import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
 import { PageTitle } from '../../../../components/PageTitle'
 
@@ -49,7 +49,7 @@ export default function LanguageList() {
   ]
 
   return (
-    <FilterStoreProvider
+    <FilterDataStoreProvider
       initialState={languageSearch}
       uuid="language"
       indexes={['language']}
@@ -60,7 +60,7 @@ export default function LanguageList() {
         breadcrumbs={breadcrumbs}
         dataRow={languageDataRow}
       ></BrowseBy>
-    </FilterStoreProvider>
+    </FilterDataStoreProvider>
   )
 }
 

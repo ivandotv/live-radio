@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { BrowseBy } from '../../../../components/app/BrowseBy'
 import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { FilterStoreProvider } from '../../../../components/app/providers/StoreProvider'
+import { FilterDataStoreProvider } from '../../../../components/app/providers/FilterDataStoreProvider'
 import { PageTitle } from '../../../../components/PageTitle'
 import {
   stationDataRow,
@@ -63,7 +63,7 @@ export default function GenreStations({
   ]
 
   return (
-    <FilterStoreProvider
+    <FilterDataStoreProvider
       initialState={stations}
       uuid="id"
       indexes={['tags', 'name', 'country', 'continent']}
@@ -80,7 +80,7 @@ export default function GenreStations({
           </p>
         }
       ></BrowseBy>
-    </FilterStoreProvider>
+    </FilterDataStoreProvider>
   )
 }
 

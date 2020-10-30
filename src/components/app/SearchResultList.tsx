@@ -1,14 +1,9 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import Skeleton from '@material-ui/lab/Skeleton'
-import { reaction, toJS } from 'mobx'
+import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
-import { ReactElement, useEffect } from 'react'
+import { ReactElement } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { useFilterDataStore } from './providers/StoreProvider'
-import { FilterInput } from './FilterInput'
-import { FilterDataStore } from '../../lib/stores/FilterDataStore'
-import { StationRowItem } from './StationRowItem'
+import { useFilterDataStore } from './providers/FilterDataStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -26,19 +21,11 @@ const useStyles = makeStyles((theme: Theme) => {
 })
 
 export const FilterList = observer(function FilterList({
-  dataRow,
-  delay = 300,
-  filterInputText
-}: // store
-{
+  dataRow
+}: {
   dataRow: (data: any) => (index: number) => ReactElement
-  // dataRow: (index: number) => ReactElement
-  filterInputText: string
-  delay?: number
-  // store: FilterDataStore
 }) {
   const classes = useStyles()
-  const router = useRouter()
   const store = useFilterDataStore()
 
   return (

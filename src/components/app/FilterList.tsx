@@ -1,14 +1,8 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import Skeleton from '@material-ui/lab/Skeleton'
-import { reaction, toJS } from 'mobx'
+import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import { useRouter } from 'next/router'
-import React, { ReactElement, ReactNode, useEffect } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { useFilterDataStore } from './providers/StoreProvider'
-import { FilterInput } from './FilterInput'
-import { FilterDataStore } from '../../lib/stores/FilterDataStore'
-import { StationRowItem } from './StationRowItem'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

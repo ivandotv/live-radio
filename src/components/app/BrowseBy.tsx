@@ -8,7 +8,7 @@ import { ReactElement, ReactNode, useEffect } from 'react'
 import { FilterInput } from './FilterInput'
 import { FilterList } from './FilterList'
 import { LocationBreadcrumbs } from './LocationBreadcrumbs'
-import { useFilterDataStore } from './providers/StoreProvider'
+import { useFilterDataStore } from './providers/FilterDataStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

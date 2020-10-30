@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => {
 
 export function LocationBreadcrumbs({
   links,
-  tail
+  tail = null
 }: {
   links: { href?: string; as?: string; text: string }[]
-  tail: ReactNode
+  tail?: ReactNode
 }) {
   const renderedLinks = []
   const classes = useStyles()

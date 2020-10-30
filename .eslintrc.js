@@ -9,16 +9,16 @@ module.exports = {
     __DEV__: true,
     __VERSION__: true
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'prettier', 'standard'],
+  plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
-    'prettier/standard',
-    'standard',
+    // 'prettier/standard',
+    'prettier',
+    // 'standard',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    // project: './tsconfig.eslint.json',
     sourceType: 'module'
   },
   settings: {
@@ -41,13 +41,6 @@ module.exports = {
       'error',
       { blankLine: 'always', prev: '*', next: 'return' }
     ],
-    // '@typescript-eslint/explicit-function-return-type': [
-    //   'error',
-    //   {
-    //     allowExpressions: true,
-    //     allowTypedFunctionExpressions: true
-    //   }
-    // ],
     '@typescript-eslint/explicit-member-accessibility': [
       'error',
       {

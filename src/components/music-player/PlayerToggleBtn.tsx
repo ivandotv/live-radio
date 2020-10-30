@@ -8,7 +8,7 @@ import Error from '@material-ui/icons/Warning'
 import { observer } from 'mobx-react-lite'
 import { ReactNode, useCallback } from 'react'
 import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { useMusicPlayer } from '../app/providers/MusicPlayerProvider'
+import { useMusicPlayer } from '../app/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

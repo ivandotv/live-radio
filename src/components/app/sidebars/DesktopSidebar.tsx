@@ -8,7 +8,7 @@ import {
 } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { observer } from 'mobx-react-lite'
-import { useAppShell } from '../providers/AppShellProvider'
+import { useAppShell } from '../providers/RootStoreProvider'
 import { Menu } from './Menu'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -84,7 +84,7 @@ export const DesktopSidebar = observer(function DesktopSidebar() {
         }}
       >
         <div className={classes.appBarSpacer}></div>
-        <Menu position="desktop" />
+        <Menu />
       </Drawer>
     </Box>
   )

@@ -1,8 +1,6 @@
 import TextField from '@material-ui/core/TextField'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect, useRef } from 'react'
-// import { useFilterDataStore } from '../../stores/FilterDataStore'
-import { useFilterDataStore } from '../../components/app/providers/StoreProvider'
+import React, { useRef } from 'react'
 
 export const FilterInput = observer(function FilterInput({
   // delay = 200,
