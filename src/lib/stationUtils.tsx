@@ -1,4 +1,4 @@
-import { Station } from 'radio-browser-api/dist/types'
+import { Station } from 'radio-browser-api'
 import { RadioStation } from '../types'
 import { countries, continents } from 'countries-list'
 import { StationRowItem } from './../components/app/StationRowItem'
@@ -9,24 +9,23 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   const result = []
 
   for (const station of stations) {
-    if (station.countrycode && station.country) {
+    if (station.countryCode && station.country) {
       const { continent: continentCode } = countries[
-        station.countrycode as keyof typeof countries
+        station.countryCode as keyof typeof countries
       ]
       result.push({
         tags: station.tags.slice(0, 10),
         name: station.name,
-        url: station.url_resolved,
-        id: station.stationuuid,
-        favicon: station.favicon,
+        url: station.urlResolved,
+        id: station.id,
         homepage: station.homepage,
         country: station.country,
-        countryCode: station.countrycode,
+        countryCode: station.countryCode,
         language: station.language,
         codec: station.codec,
         continentCode: continentCode,
         continent: continents[continentCode as keyof typeof continents],
-        flag: flag(station.countrycode)
+        flag: flag(station.countryCode)
       })
     }
   }

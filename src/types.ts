@@ -3,7 +3,7 @@ export type RadioStation = {
   name: string
   url: string
   id: string
-  favicon: string
+  // favicon: string
   homepage: string
   country: string // country code?
   countryCode: string
