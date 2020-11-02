@@ -3,7 +3,7 @@ import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
 import { AppMenuItem } from 'components/sidebars/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
-import { continentsByCode } from 'lib/utils/continentsByode'
+import { continentsByCode } from 'lib/utils'
 
 export default function ByLocation() {
   const continents = []
