@@ -27,7 +27,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const player = useMusicPlayer()
 
   // dev - hardcoded for now
-  const shareUrl = `http://localhost:3000/app?play=${player.station.id}`
+  const shareUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/app?play=${player.station.id}`
   const shareTitle = 'Share Title'
   const shareText = 'Check this out'
 
