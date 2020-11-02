@@ -7,13 +7,12 @@ import Stop from '@material-ui/icons/Stop'
 import Error from '@material-ui/icons/Warning'
 import { observer } from 'mobx-react-lite'
 import { ReactNode, useCallback } from 'react'
-import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { useMusicPlayer } from '../app/providers/RootStoreProvider'
+import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     button: {
-      //   padding: theme.spacing(0.5)
       padding: 2
     },
     loading: {
@@ -93,10 +92,7 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
           </IconButton>
         </Tooltip>
       )
-    } else if (
-      player.status === PlayerStatus.ERROR
-      // player.errorStations[stationId || '']
-    ) {
+    } else if (player.status === PlayerStatus.ERROR) {
       btn = errorBtn
     }
   } else if (player.errorStations[stationId]) {

@@ -1,9 +1,9 @@
 import List from '@material-ui/core/List'
-import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { LocationBreadcrumbs } from '../../../../components/app/LocationBreadcrumbs'
-import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
-import { PageTitle } from '../../../../components/PageTitle'
-import { continentsByCode } from '../../../../lib/utils/continentsByode'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
+import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { PageTitle } from 'components/PageTitle'
+import { continentsByCode } from 'lib/utils/continentsByode'
 
 export default function ByLocation() {
   const continents = []

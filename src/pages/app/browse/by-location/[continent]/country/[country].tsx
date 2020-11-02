@@ -1,17 +1,14 @@
 import { countries, continents } from 'countries-list'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { BrowseBy } from '../../../../../../components/app/BrowseBy'
+import { BrowseBy } from 'components/BrowseBy'
 
-import { PageTitle } from '../../../../../../components/PageTitle'
-import { AppDefaultLayout } from '../../../../../../components/app/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from '../../../../../../components/app/providers/FilterDataStoreProvider'
+import { PageTitle } from 'components/PageTitle'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 
-import {
-  stationDataRow,
-  stationsToRadioStations
-} from '../../../../../../lib/stationUtils'
-import { RadioStation } from '../../../../../../types'
+import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
+import { RadioStation } from 'types'
 // @ts-ignore
 import getFlag from 'country-code-emoji'
 

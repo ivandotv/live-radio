@@ -1,7 +1,7 @@
-import { LocalStorage, LocalStorageSSR } from '../../Storage'
-import { SongInfoService } from '../../SongInfoService'
-import { MusicPlayerStore } from '../MusicPlayerStore'
-import { RootStore } from '../RootStore'
+import { LocalStorage, LocalStorageSSR } from 'lib/Storage'
+import { SongInfoService } from 'lib/SongInfoService'
+import { MusicPlayerStore } from 'lib/stores/MusicPlayerStore'
+import { RootStore } from 'lib/stores/RootStore'
 
 let store: MusicPlayerStore
 

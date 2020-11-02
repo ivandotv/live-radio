@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
-import { BrowseBy } from '../../../../../components/app/BrowseBy'
-import { AppDefaultLayout } from '../../../../../components/app/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from '../../../../../components/app/providers/FilterDataStoreProvider'
-import { AppMenuItem } from '../../../../../components/app/sidebars/AppMenuItem'
-import countriesJSON from '../../../../../generated/countries.json'
-import { continentsByCode } from '../../../../../lib/utils/continentsByode'
-import { PageTitle } from '../../../../../components/PageTitle'
+import { BrowseBy } from 'components/BrowseBy'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import countriesJSON from 'generated/countries.json'
+import { continentsByCode } from 'lib/utils/continentsByode'
+import { PageTitle } from 'components/PageTitle'
 
 // list countries for the continent
 export default function CountryList() {

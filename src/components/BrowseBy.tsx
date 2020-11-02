@@ -5,10 +5,10 @@ import Skeleton from '@material-ui/lab/Skeleton'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { ReactElement, ReactNode, useEffect } from 'react'
-import { FilterInput } from './FilterInput'
-import { FilterList } from './FilterList'
-import { LocationBreadcrumbs } from './LocationBreadcrumbs'
-import { useFilterDataStore } from './providers/FilterDataStoreProvider'
+import { FilterInput } from 'components/FilterInput'
+import { FilterList } from 'components/FilterList'
+import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
+import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

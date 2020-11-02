@@ -4,8 +4,8 @@ import Tooltip from '@material-ui/core/Tooltip'
 import { observer } from 'mobx-react-lite'
 import IconButton from '@material-ui/core/IconButton'
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { ShareStationDesktop } from './ShareStationDesktop'
-import { useMusicPlayer } from '../app/providers/RootStoreProvider'
+import { ShareStationDesktop } from 'components/music-player/ShareStationDesktop'
+import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

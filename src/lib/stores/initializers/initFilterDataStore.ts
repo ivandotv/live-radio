@@ -1,4 +1,4 @@
-import { FilterDataStore } from '../FilterDataStore'
+import { FilterDataStore } from 'lib/stores/FilterDataStore'
 
 let store: FilterDataStore
 

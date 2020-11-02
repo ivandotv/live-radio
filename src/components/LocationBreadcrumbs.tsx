@@ -56,12 +56,9 @@ export function LocationBreadcrumbs({
     }
 
     renderedLinks.push(linkToClick)
-
-    //   <Typography color="textPrimary">Breadcrumb</Typography>
   }
 
   return (
-    // <div className={className}>
     <Breadcrumbs
       component="div"
       className={classes.root}
@@ -70,6 +67,5 @@ export function LocationBreadcrumbs({
     >
       {renderedLinks}
     </Breadcrumbs>
-    // </div>
   )
 }

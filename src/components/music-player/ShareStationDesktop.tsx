@@ -1,13 +1,13 @@
-import { observer } from 'mobx-react-lite'
+import Fade from '@material-ui/core/Fade'
+import Link from '@material-ui/core/Link'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import Fade from '@material-ui/core/Fade'
-import { SyntheticEvent, useState } from 'react'
-import Link from '@material-ui/core/Link'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Snackbar from '@material-ui/core/Snackbar'
-import { AppConstants } from '../../lib/constants'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
+import { AppConstants } from 'lib/constants'
+import { observer } from 'mobx-react-lite'
+import { SyntheticEvent, useState } from 'react'
 
 const twitterLink = (url: string, text: string) =>
   `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(text)}`

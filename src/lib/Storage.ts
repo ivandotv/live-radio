@@ -1,6 +1,6 @@
-import { RadioStation } from '../types'
-import { defaultStation } from './utils'
-// todo interface
+import { RadioStation } from 'types'
+import { defaultStation } from 'lib/utils'
+// todo make interface
 
 export interface AppStorage {
   getLastUsedStation: () => RadioStation

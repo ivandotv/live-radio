@@ -11,11 +11,11 @@ import {
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { ReactElement, ReactNode } from 'react'
-import { AppConstants } from '../../../lib/constants'
-import { MusicPlayer } from '../../music-player/MusicPlayer'
-import { useAppShell } from '../providers/RootStoreProvider'
-import { DesktopSidebar } from '../sidebars/DesktopSidebar'
-import { AppToolbar } from './AppToolbar'
+import { AppConstants } from 'lib/constants'
+import { MusicPlayer } from 'components/music-player/MusicPlayer'
+import { useAppShell } from 'components/providers/RootStoreProvider'
+import { DesktopSidebar } from 'components/sidebars/DesktopSidebar'
+import { AppToolbar } from 'components/layout/AppToolbar'
 
 // todo - make the value dynamic for responsive layout
 const playerAndTopBarOffset = AppConstants.layout.playerHeight + 72

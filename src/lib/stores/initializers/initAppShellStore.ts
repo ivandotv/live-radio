@@ -1,5 +1,5 @@
-import { AppShellStore } from '../AppShellStore'
-import { RootStore } from '../RootStore'
+import { AppShellStore } from 'lib/stores/AppShellStore'
+import { RootStore } from 'lib/stores/RootStore'
 
 let store: AppShellStore
 

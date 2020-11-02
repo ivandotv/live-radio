@@ -1,7 +1,7 @@
 import { Station } from 'radio-browser-api'
-import { RadioStation } from '../types'
+import { RadioStation } from 'types'
 import { countries, continents } from 'countries-list'
-import { StationRowItem } from './../components/app/StationRowItem'
+import { StationRowItem } from 'components/StationRowItem'
 // @ts-ignore
 import flag from 'country-code-emoji'
 

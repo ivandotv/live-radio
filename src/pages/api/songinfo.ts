@@ -26,12 +26,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const response: { title: string } = await getStationInfoAsync(
       req.body.url,
-      // url,
       StreamSource.STREAM
     )
     const songData = response.title.split('-')
-    // res.status(500).json({ messae: 'error parsing title data' })
-    // } //   title:data.title //   stat // const response = { // const tite
     if (songData.length > 1) {
       res.status(200).json({
         artist: songData[0].trim(),
@@ -43,5 +40,4 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   } catch (err) {
     res.status(503).json({ message: err.message ?? 'server error' })
   }
-  // console.log(req.body)
 }

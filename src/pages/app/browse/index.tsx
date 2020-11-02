@@ -1,30 +1,11 @@
 import List from '@material-ui/core/List'
-import Paper from '@material-ui/core/Paper'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { LocationModal } from 'components/LocationModal'
+import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { PageTitle } from 'components/PageTitle'
 import { useState } from 'react'
-import { AppDefaultLayout } from '../../../components/app/layout/AppDefaultLayout'
-import { LocationModal } from '../../../components/app/LocationModal'
-import { AppMenuItem } from '../../../components/app/sidebars/AppMenuItem'
-import { PageTitle } from '../../../components/PageTitle'
-
-const useStyles = makeStyles((theme: Theme) => {
-  return createStyles({
-    paper: {
-      display: 'flex',
-      flexDirection: 'column',
-      height: 'calc( 100vh - 182px )' // todo calculate the value dinamically
-    }
-  })
-})
 
 export default function Browse() {
-  // dataSuccess = true
-  // data = {}
-  // data.country = 'Serrrbia  '
-  // error = false
-
-  const classes = useStyles()
   const [dialogOpen, setOpenDialog] = useState(false)
 
   const handleClickOpen = () => {

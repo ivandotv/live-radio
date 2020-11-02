@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
 import useSWR from 'swr'
-import { countryDataByKey } from './../../lib/utils'
+import { countryDataByKey } from 'lib/utils'
 
 const useStyles = makeStyles((_theme: Theme) => {
   return createStyles({

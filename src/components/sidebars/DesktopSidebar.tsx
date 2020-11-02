@@ -8,8 +8,8 @@ import {
 } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import { observer } from 'mobx-react-lite'
-import { useAppShell } from '../providers/RootStoreProvider'
-import { Menu } from './Menu'
+import { useAppShell } from 'components/providers/RootStoreProvider'
+import { Menu } from 'components/sidebars/Menu'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

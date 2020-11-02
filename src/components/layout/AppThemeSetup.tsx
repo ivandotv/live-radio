@@ -1,24 +1,9 @@
 import { ThemeProvider } from '@material-ui/core/styles'
 import { observer, Observer } from 'mobx-react-lite'
 import { ReactNode, useEffect, useState } from 'react'
-import { DarkTheme, LightTheme } from '../../../lib/theme'
+import { DarkTheme, LightTheme } from 'lib/theme'
 import { ThemeQueryComponent } from './ThemeQueryComponent'
-import { useRootStore } from '../providers/RootStoreProvider'
-
-// enableStaticRendering(typeof window === 'undefined')
-
-// let store: AppShellStore
-
-// const AppShellContext = createContext<AppShellStore | undefined>(undefined)
-
-// export function useAppShell() {
-//   const context = useContext(AppShellContext)
-//   if (context === undefined) {
-//     throw new Error('useAppShell must be used within AppShellProvider')
-//   }
-
-//   return context
-// }
+import { useRootStore } from 'components/providers/RootStoreProvider'
 
 export const AppThemeSetup = observer(function AppLayoutSetup({
   children

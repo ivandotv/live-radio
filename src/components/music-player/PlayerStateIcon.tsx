@@ -1,18 +1,12 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-// import Pause from '@material-ui/icons/PauseCircleFilled'
-// import Play from '@material-ui/icons/PlayCircleFilledWhite'
 import Play from '@material-ui/icons/PlayArrow'
 import Loading from '@material-ui/icons/RotateLeft'
-// import Stop from '@material-ui/icons/StopOutlined'
-// import Stop from '@material-ui/icons/StopRounded'
-// import Stop from '@material-ui/icons/AlbumRounded'
 import Stop from '@material-ui/icons/Stop'
-// import Error from '@material-ui/icons/ErrorOutline'
 import Error from '@material-ui/icons/Warning'
 import { observer } from 'mobx-react-lite'
 import { ReactNode } from 'react'
-import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { useMusicPlayer } from '../app/providers/RootStoreProvider'
+import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -53,7 +47,6 @@ export const PlayerStateIcon = observer(function PlayerStateIcon({
 
   if (!stationId || (player.station && stationId === player.station.id)) {
     if (player.status === PlayerStatus.PLAYING) {
-      // btn = <Pause className={classes.button}></Pause>
       btn = <Stop className={classes.button}></Stop>
     } else if (
       player.status === PlayerStatus.STOPPED ||
@@ -67,10 +60,7 @@ export const PlayerStateIcon = observer(function PlayerStateIcon({
           style={{ fontSize }}
         ></Loading>
       )
-    } else if (
-      player.status === PlayerStatus.ERROR
-      // player.errorStations[stationId || '']
-    ) {
+    } else if (player.status === PlayerStatus.ERROR) {
       btn = error
     }
   } else if (player.errorStations[stationId]) {

@@ -1,15 +1,15 @@
+import ButtonBase from '@material-ui/core/ButtonBase'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import { useMusicPlayer } from 'components/providers/RootStoreProvider'
+import { StationRowTags } from 'components/StationRowTags'
+import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
+import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useCallback } from 'react'
-import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { RadioStation } from '../../types'
-import { PlayerStateIcon } from '../music-player/PlayerStateIcon'
-import { useMusicPlayer } from './providers/RootStoreProvider'
-import { StationRowTags } from './StationRowTags'
-import ButtonBase from '@material-ui/core/ButtonBase'
+import { RadioStation } from 'types'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

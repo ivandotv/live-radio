@@ -2,8 +2,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { autorun } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useLayoutEffect } from 'react'
-import { AppTheme } from '../../../lib/stores/AppShellStore'
-import { useAppShell } from '../providers/RootStoreProvider'
+import { AppTheme } from 'lib/stores/AppShellStore'
+import { useAppShell } from 'components/providers/RootStoreProvider'
 
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
 export const ThemeQueryComponent = observer(function ThemeQueryComponent({

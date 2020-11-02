@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router'
-import { BrowseBy } from '../../../../components/app/BrowseBy'
-import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from '../../../../components/app/providers/FilterDataStoreProvider'
-import { AppMenuItem } from '../../../../components/app/sidebars/AppMenuItem'
-import { PageTitle } from '../../../../components/PageTitle'
-import { genres } from '../../../../lib/popularGenres'
+import { BrowseBy } from 'components/BrowseBy'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { PageTitle } from 'components/PageTitle'
+import { genres } from 'lib/popularGenres'
 
 export default function GenreList() {
   const router = useRouter()

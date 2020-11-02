@@ -3,10 +3,10 @@ import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { observer } from 'mobx-react-lite'
 import React, { ReactElement, useEffect, useRef } from 'react'
-import { FilterInput } from './FilterInput'
-import { FilterList } from './FilterList'
-import { LocationBreadcrumbs } from './LocationBreadcrumbs'
-import { useCustomSearch } from './providers/CustomSearchProvider'
+import { FilterInput } from 'components/FilterInput'
+import { FilterList } from 'components/FilterList'
+import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
+import { useCustomSearch } from 'components/providers/CustomSearchProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

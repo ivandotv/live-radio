@@ -1,9 +1,9 @@
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { Howl } from 'howler'
-import { RadioStation } from '../../types'
-import { AppStorage } from '../Storage'
-import { SongInfoService } from '../SongInfoService'
-import { RootStore } from './RootStore'
+import { RadioStation } from 'types'
+import { AppStorage } from 'lib/Storage'
+import { SongInfoService } from 'lib/SongInfoService'
+import { RootStore } from 'lib/stores/RootStore'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -101,7 +101,6 @@ export class MusicPlayerStore {
     })
 
     this.station = station
-    // this.stationID = station.id
 
     this.player.on('play', () => {
       console.log('radio playing')
@@ -161,23 +160,10 @@ export class MusicPlayerStore {
   }
 
   play(station: RadioStation) {
-    /*
-     if status.paused.
-      check if id is the same as paused id
-      if true:
-        resume playing
-      else:
-       new player
-    */
     if (this.player) {
       this.stop()
-      // this.disposePlayer()
-      // this.player.unload()
     }
     this.initPlayer(station)
-    // window.setInterval(() => {
-    //   console.log('check state', this.player?.state())
-    // }, 500)
   }
 
   stop() {
@@ -188,7 +174,6 @@ export class MusicPlayerStore {
     this.songInfo = undefined
     this.stationChecked = false
     this.disposePlayer()
-    // this.stationID = ''
   }
 
   togglePlay(station?: RadioStation) {
@@ -196,23 +181,6 @@ export class MusicPlayerStore {
     if (!station) {
       throw new Error('Player has no station to play')
     }
-
-    // if (
-    //   (this.station &&
-    //     this.station.id === station.id &&
-    //     this.status !== PlayerStatus.STOPPED) ||
-    //   this.status !== PlayerStatus.ERROR
-    // ) {
-    //   this.stop()
-    // } else {
-    //   if (
-    //     this.status === PlayerStatus.PLAYING ||
-    //     this.status === PlayerStatus.BUFFERING
-    //   ) {
-    //     this.stop()
-    //   }
-    //   this.play(station)
-    // }
 
     if (this.station && this.station.id === station.id) {
       // same station

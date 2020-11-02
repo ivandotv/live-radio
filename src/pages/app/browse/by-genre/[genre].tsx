@@ -1,14 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { BrowseBy } from '../../../../components/app/BrowseBy'
-import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from '../../../../components/app/providers/FilterDataStoreProvider'
-import { PageTitle } from '../../../../components/PageTitle'
-import {
-  stationDataRow,
-  stationsToRadioStations
-} from '../../../../lib/stationUtils'
-import { RadioStation } from '../../../../types'
+import { BrowseBy } from 'components/BrowseBy'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { PageTitle } from 'components/PageTitle'
+import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
+import { RadioStation } from 'types'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {

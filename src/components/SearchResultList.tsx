@@ -3,7 +3,7 @@ import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { ReactElement } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { useFilterDataStore } from './providers/FilterDataStoreProvider'
+import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

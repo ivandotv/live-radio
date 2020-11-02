@@ -1,14 +1,12 @@
 import Collapse from '@material-ui/core/Collapse'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { observer } from 'mobx-react-lite'
-import { PlayerStatus } from '../../lib/stores/MusicPlayerStore'
-import { useMusicPlayer } from '../app/providers/RootStoreProvider'
+import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 
 const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
-    artist: {
-      // fontWeight: 'bold'
-    },
+    artist: {},
     songTitle: {}
   })
 )

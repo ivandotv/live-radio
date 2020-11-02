@@ -1,8 +1,8 @@
-import { CustomSearchResults } from '../../../../components/app/CustomSearchResults'
-import { AppDefaultLayout } from '../../../../components/app/layout/AppDefaultLayout'
-import { CustomSearchProvider } from '../../../../components/app/providers/CustomSearchProvider'
-import { PageTitle } from '../../../../components/PageTitle'
-import { stationDataRow } from '../../../../lib/stationUtils'
+import { CustomSearchResults } from 'components/CustomSearchResults'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { CustomSearchProvider } from 'components/providers/CustomSearchProvider'
+import { PageTitle } from 'components/PageTitle'
+import { stationDataRow } from 'lib/stationUtils'
 
 export default function CustomSearch() {
   const breadcrumbs = [

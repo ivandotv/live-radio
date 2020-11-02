@@ -3,13 +3,15 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { AppConstants } from '../../lib/constants'
-import { useAppShell, useMusicPlayer } from '../app/providers/RootStoreProvider'
-// import { useMusicPlayer } from '../app/providers/RootStoreProvider'
-import { AddToFavouritesBtn } from './AddToFavouritesBtn'
-import { PlayerToggleBtn } from './PlayerToggleBtn'
-import { ShareStationBtn } from './ShareStationBtn'
-import { SongInfo } from './SongInfo'
+import { AppConstants } from 'lib/constants'
+import {
+  useAppShell,
+  useMusicPlayer
+} from 'components/providers/RootStoreProvider'
+import { AddToFavouritesBtn } from 'components/music-player/AddToFavouritesBtn'
+import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
+import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
+import { SongInfo } from 'components/music-player/SongInfo'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

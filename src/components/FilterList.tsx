@@ -10,9 +10,6 @@ const useStyles = makeStyles((theme: Theme) => {
       position: 'relative',
       height: '99%'
     },
-    // search: {
-    //   margin: theme.spacing(2)
-    // },
     noResults: {
       margin: theme.spacing(2)
     }
@@ -23,23 +20,12 @@ export const FilterList = observer(function FilterList({
   dataRow,
   data,
   noData
-}: // delay = 300,
-// filterInputText
-// store
-{
+}: {
   dataRow: (data: any) => (index: number) => ReactElement
   data: any[]
   noData?: ReactNode
-
-  // dataRow: (index: number) => ReactElement
-  // filterInputText: string
-  // delay?: number
-  // store: FilterDataStore
 }) {
   const classes = useStyles()
-  // const router = useRouter()
-  // const store = useFilterDataStore()
-
   const noResults = noData || <p className={classes.noResults}>No results</p>
 
   return (

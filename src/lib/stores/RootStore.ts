@@ -1,6 +1,6 @@
-import { AppShellStore } from './AppShellStore'
-import { initMusicPlayer } from './initializers/initMusicPlayerStore'
-import { MusicPlayerStore } from './MusicPlayerStore'
+import { AppShellStore } from 'lib/stores/AppShellStore'
+import { initMusicPlayer } from 'lib/stores/initializers/initMusicPlayerStore'
+import { MusicPlayerStore } from 'lib/stores/MusicPlayerStore'
 
 export class RootStore {
   appShell: AppShellStore

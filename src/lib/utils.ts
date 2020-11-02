@@ -1,5 +1,5 @@
-import { RadioStation } from '../types'
-import countriesJSON from './../generated/countries.json'
+import { RadioStation } from 'types'
+import countriesJSON from 'generated/countries.json'
 
 export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
   console.log('countryDataByName needle ', value)
@@ -18,7 +18,6 @@ export const defaultStation: RadioStation = {
   name: 'Soma FM',
   url: 'http://ice1.somafm.com/groovesalad-256-mp3',
   homepage: 'http://www.somafm.com/',
-  favicon: 'https://somafm.com/',
   country: 'Internet',
   countryCode: '',
   tags: [],

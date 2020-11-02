@@ -1,7 +1,7 @@
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { RadioStation } from '../../types'
-import { stationsToRadioStations } from '../stationUtils'
+import { RadioStation } from 'types'
+import { stationsToRadioStations } from 'lib/stationUtils'
 
 export class CustomSearchStore {
   query = ''
