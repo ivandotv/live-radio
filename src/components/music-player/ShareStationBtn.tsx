@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { ShareStationDesktop } from 'components/music-player/ShareStationDesktop'
 import { useMusicPlayer } from 'components/providers/RootStoreProvider'
+import { AppSettings } from 'lib/appSettings'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,7 +28,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const player = useMusicPlayer()
 
   // dev - hardcoded for now
-  const shareUrl = `${process.env.NEXT_PUBLIC_VERCEL_URL}/app?play=${player.station.id}`
+  const shareUrl = `${AppSettings.url}/app?play=${player.station.id}`
   const shareTitle = 'Share Title'
   const shareText = 'Check this out'
 

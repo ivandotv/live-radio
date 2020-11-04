@@ -3,7 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useEffect, useState } from 'react'
-import { AppConstants } from 'lib/constants'
+import { AppSettings } from 'lib/appSettings'
 import {
   useAppShell,
   useMusicPlayer
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       overflow: 'hidden',
       bottom: 0,
-      height: `${AppConstants.layout.playerHeight}px`,
+      height: `${AppSettings.layout.playerHeight}px`,
       borderLeft: 0,
       borderRight: 0,
       borderBottom: 'none',
@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 'bold'
     },
     snackbar: {
-      bottom: `${AppConstants.layout.playerHeight + theme.spacing(2)}px`
+      bottom: `${AppSettings.layout.playerHeight + theme.spacing(2)}px`
     }
   })
 )
