@@ -7,10 +7,10 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { useRouter } from 'next/router'
-import { useMemo } from 'react'
-import useSWR from 'swr'
+import { useFetch } from 'lib/useFetch'
 import { countryDataByKey } from 'lib/utils'
+import { useRouter } from 'next/router'
+import { useCallback, useMemo } from 'react'
 
 const useStyles = makeStyles((_theme: Theme) => {
   return createStyles({
@@ -28,7 +28,9 @@ const useStyles = makeStyles((_theme: Theme) => {
   })
 })
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json())
+const queryProgressText = 'Determinig your location'
+const queryErrorText = "Sorry, couldn't get your location"
+const querySuccessText = 'Your location is '
 
 export function LocationModal({
   open,
@@ -40,12 +42,10 @@ export function LocationModal({
   const classes = useStyles()
   const router = useRouter()
 
-  const { data, error } = useSWR<{ country: string; status: string }>(
-    'http://ip-api.com/json/',
-    fetcher
+  const { data, error } = useFetch<{ country: string; status: string }>(
+    'http://ip-api.com/json/'
   )
 
-  const dataSuccess = data && data.status === 'success'
   const countryData = useMemo(() => {
     if (data?.country) {
       const countryData = countryDataByKey('name', data.country)
@@ -56,11 +56,13 @@ export function LocationModal({
             href: 'browse/by-location/[continent]/country/[country]',
             as: `browse/by-location/${countryData.cont}/country/${countryData.code}`
           },
-          flag: countryData.flag
+          flag: countryData.flag,
+          country: data.country
         }
       }
     }
   }, [data])
+
   const goToBrowseByLocation = () => {
     router.push('browse/by-location')
   }
@@ -69,9 +71,9 @@ export function LocationModal({
     router.push(countryData!.link.href, countryData!.link.as)
   }
 
-  const queryProgressText = 'Determinig your location'
-  const queryErrorText = "Sorry, couldn't get your location"
-  const querySuccessText = 'Your location is '
+  const handleClose = useCallback(() => {
+    onClose()
+  }, [onClose])
 
   return (
     <Dialog
@@ -81,33 +83,40 @@ export function LocationModal({
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle className={classes.modalTitle} id="alert-dialog-title">
-        {dataSuccess && countryData
+        {countryData
           ? querySuccessText
-          : error || !dataSuccess || !countryData
+          : error
           ? queryErrorText
           : queryProgressText}
       </DialogTitle>
       <DialogContent className={classes.modal}>
         <DialogContentText component="div" id="alert-dialog-description">
-          {dataSuccess && countryData ? (
+          {countryData ? (
             <Typography component="h3" variant="h3" color="textPrimary">
               <span className={classes.flag}>{countryData.flag}</span>
-              {data!.country}
+              {countryData.country}
             </Typography>
-          ) : !data && !error ? (
+          ) : !error ? (
             <CircularProgress />
           ) : null}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        {data || error ? (
-          <Button onClick={goToBrowseByLocation} color="primary">
-            {dataSuccess && countryData
-              ? 'Let me choose different location'
-              : 'Let me choose the location'}
+        {error ? (
+          <Button onClick={handleClose} color="primary">
+            close
           </Button>
         ) : null}
-        {dataSuccess && countryData ? (
+        {countryData || error ? (
+          <>
+            <Button onClick={goToBrowseByLocation} color="primary">
+              {countryData
+                ? 'Let me choose different location'
+                : 'Let me choose the location'}
+            </Button>
+          </>
+        ) : null}
+        {countryData ? (
           <Button onClick={goToCountryStations} color="primary" autoFocus>
             {"Okay, let's go"}
           </Button>

@@ -35,8 +35,7 @@
     "radio-browser-api": "^1.0.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-virtuoso": "^0.20.0",
-    "swr": "^0.3.7"
+    "react-virtuoso": "^0.20.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.12.1",
