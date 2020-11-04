@@ -9,7 +9,7 @@ import {
 import clsx from 'clsx'
 import { observer } from 'mobx-react-lite'
 import { useAppShell } from 'components/providers/RootStoreProvider'
-import { Menu } from 'components/sidebars/Menu'
+import { Menu } from 'components/navigation/desktop/Menu'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const DesktopSidebar = observer(function DesktopSidebar() {
+export const DesktopNavigation = observer(function DesktopNavigation() {
   const store = useAppShell()
   const classes = useStyles({ drawerWidth: store.desktopDrawerWidth })
   const theme = useTheme()

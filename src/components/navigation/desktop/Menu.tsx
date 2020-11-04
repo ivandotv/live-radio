@@ -1,21 +1,23 @@
 import List from '@material-ui/core/List'
 import { observer } from 'mobx-react-lite'
-import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { NextRouter } from 'next/router'
 
 export const Menu = observer(function Menu() {
   return (
     <List>
       <AppMenuItem
-        link={{ href: '/app/browse' }}
+        link={{ href: '/app/search' }}
         primary="Browse"
         selected={(router: NextRouter) =>
-          router.asPath.indexOf('/app/browse') === 0
+          router.asPath.indexOf('/app/search') === 0
         }
       />
       <AppMenuItem
         link={{ href: '/app/favourites' }}
-        selected={(router) => router.asPath.indexOf('/app/favourites') === 0}
+        selected={(router: NextRouter) =>
+          router.asPath.indexOf('/app/favourites') === 0
+        }
         primary="Favourites"
       />
       <AppMenuItem
@@ -24,13 +26,6 @@ export const Menu = observer(function Menu() {
           router.asPath.indexOf('/app/recent-stations') === 0
         }
         primary="Recent Stations"
-      />
-      <AppMenuItem
-        link={{ href: '/app/recent-songs' }}
-        selected={(router: NextRouter) =>
-          router.asPath.indexOf('/app/recent-songs') === 0
-        }
-        primary="Recent Songs"
       />
       <AppMenuItem
         link={{ href: '/app/settings' }}

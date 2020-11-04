@@ -46,11 +46,11 @@ export default function LanguageStations({
 }) {
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
-      href: '/app/browse/by-language',
+      href: '/app/search/by-language',
       text: 'By Language'
     },
     {
@@ -64,7 +64,7 @@ export default function LanguageStations({
       uuid="id"
       indexes={['language', 'country', 'tags', 'continent', 'name']}
     >
-      <PageTitle title="Browse For Stations" />
+      <PageTitle title="Search For Stations" />
       <BrowseBy
         filterInputText="Filter Stations"
         breadcrumbs={breadcrumbs}

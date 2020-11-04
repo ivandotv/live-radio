@@ -43,15 +43,13 @@ export default function GenreStations({
   stations: RadioStation[]
   genre: string
 }) {
-  // const classes = useStyles()
-  console.log('GENRE STATIONS')
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
-      href: '/app/browse/by-genre',
+      href: '/app/search/by-genre',
       text: 'By Genre'
     },
     {
@@ -65,7 +63,7 @@ export default function GenreStations({
       uuid="id"
       indexes={['tags', 'name', 'country', 'continent']}
     >
-      <PageTitle title={`Browse For Stations in ${genre}`} />
+      <PageTitle title={`Search For Stations in ${genre}`} />
       <BrowseBy
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow()}

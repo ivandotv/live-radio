@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { BrowseBy } from 'components/BrowseBy'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 
 const languages = ISO6391.getAllNames()
@@ -39,11 +39,11 @@ export default function LanguageList() {
 
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
-      href: '/app/browse/by-language',
+      href: '/app/search/by-language',
       text: 'By Language'
     }
   ]
@@ -54,7 +54,7 @@ export default function LanguageList() {
       uuid="language"
       indexes={['language']}
     >
-      <PageTitle title="Browse For Stations by Language" />
+      <PageTitle title="Search For Stations by Language" />
       <BrowseBy
         filterInputText="Filter Languages"
         breadcrumbs={breadcrumbs}

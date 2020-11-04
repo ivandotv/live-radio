@@ -8,13 +8,11 @@ export function AppMenuItem({
   onClick,
   link,
   icon,
-  // trackingKey,
   primary,
   secondary = '',
   selected
 }: {
   link?: LinkProps
-  // trackingKey?: string | number
   primary?: string
   secondary?: string
   onClick?: (...args: any[]) => void
@@ -22,8 +20,6 @@ export function AppMenuItem({
   children?: ReactNode
   icon?: ReactNode
 }) {
-  // trackingKey = trackingKey || primary
-  // console.log('tracking key', trackingKey)
   const router = useRouter()
   const [clientRender, setClientRender] = useState(false)
 
@@ -46,7 +42,6 @@ export function AppMenuItem({
       selected={clientRender && selected && selected(router)}
     >
       {icon}
-      {/* {children} */}
       <ListItemText primary={primary} secondary={secondary} />
     </ListItem>
   )

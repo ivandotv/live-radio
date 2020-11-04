@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { BrowseBy } from 'components/BrowseBy'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { genres } from 'lib/popularGenres'
 
@@ -10,11 +10,11 @@ export default function GenreList() {
   const router = useRouter()
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
-      href: '/app/browse/by-genre',
+      href: '/app/search/by-genre',
       text: 'By Genre'
     }
   ]
@@ -52,7 +52,7 @@ export default function GenreList() {
       uuid="genre"
       indexes={['genre']}
     >
-      <PageTitle title="Browse For Stations by Genre" />
+      <PageTitle title="Search For Stations by Genre" />
       <BrowseBy
         filterInputText="Filter Genres"
         breadcrumbs={breadcrumbs}

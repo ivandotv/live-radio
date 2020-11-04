@@ -53,8 +53,8 @@ export function LocationModal({
       if (countryData) {
         return {
           link: {
-            href: 'browse/by-location/[continent]/country/[country]',
-            as: `browse/by-location/${countryData.cont}/country/${countryData.code}`
+            href: 'search/by-location/[continent]/country/[country]',
+            as: `search/by-location/${countryData.cont}/country/${countryData.code}`
           },
           flag: countryData.flag,
           country: data.country

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { BrowseBy } from 'components/BrowseBy'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import countriesJSON from 'generated/countries.json'
 import { continentsByCode } from 'lib/utils'
 import { PageTitle } from 'components/PageTitle'
@@ -10,8 +10,6 @@ import { PageTitle } from 'components/PageTitle'
 // list countries for the continent
 export default function CountryList() {
   const router = useRouter()
-
-  console.log('continent router ', router)
 
   const continent = router.query.continent as keyof typeof countriesJSON
   const countryDataRow = function (
@@ -41,11 +39,11 @@ export default function CountryList() {
 
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
-      href: '/app/browse/by-location',
+      href: '/app/search/by-location',
       text: 'By Location'
     },
     {
@@ -63,7 +61,7 @@ export default function CountryList() {
       uuid="name"
       indexes={['name']}
     >
-      <PageTitle title="Browse for stations by country" />
+      <PageTitle title="Search for stations by country" />
       <BrowseBy
         filterInputText="Filter Countries"
         breadcrumbs={breadcrumbs}

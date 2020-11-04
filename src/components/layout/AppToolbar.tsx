@@ -24,12 +24,6 @@ const useStyles = makeStyles((theme: Theme) =>
     switchThemeButton: {
       marginLeft: 'auto'
     },
-    menuButtonMobile: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up('md')]: {
-        display: 'none'
-      }
-    },
     menuButtonDesktop: {
       marginRight: theme.spacing(2),
       [theme.breakpoints.down('sm')]: {
@@ -76,25 +70,11 @@ export const AppToolbar = observer(function AppToolbar() {
 
   const [counter, setCounter] = useState(0)
 
-  const openMobileDrawer = () => {
-    // dispatch({ type: Actions.MOBILE_DRAWER_IS_OPEN, payload: true })
-    store.setMobileDrawer(true)
-  }
-
   const toggleDesktopDrawer = () => {
-    // dispatch({
-    //   type: Actions.DESKTOP_DRAWER_IS_OPEN,
-    //   payload: !store.desktopDrawerIsOpen
-    // })
-
     store.setDesktopDrawer(!store.desktopDrawerIsOpen)
   }
 
   const toggleTheme = () => {
-    // dispatch({
-    //   type: Actions.SET_THEME,
-    //   payload: store.theme === 'dark' ? 'light' : 'dark'
-    // })
     setCounter((counter) => {
       return counter + 1
     })
@@ -108,15 +88,6 @@ export const AppToolbar = observer(function AppToolbar() {
       elevation={0}
     >
       <Toolbar variant="dense">
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={openMobileDrawer}
-          className={classes.menuButtonMobile}
-        >
-          <MenuIcon />
-        </IconButton>
         <IconButton
           color="inherit"
           aria-label="open drawer"

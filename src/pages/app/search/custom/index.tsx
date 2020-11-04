@@ -7,8 +7,8 @@ import { stationDataRow } from 'lib/stationUtils'
 export default function CustomSearch() {
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
       text: 'Custom Search'

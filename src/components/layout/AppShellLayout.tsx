@@ -14,34 +14,55 @@ import { ReactElement, ReactNode } from 'react'
 import { AppSettings } from 'lib/appSettings'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
 import { useAppShell } from 'components/providers/RootStoreProvider'
-import { DesktopSidebar } from 'components/sidebars/DesktopSidebar'
+import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigation'
+import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
 import { AppToolbar } from 'components/layout/AppToolbar'
 
-// todo - make the value dynamic for responsive layout
-const playerAndTopBarOffset = AppSettings.layout.playerHeight + 72
+// todo - make the values dynamic
+const mainContentSpacer = 24
+const { playerHeight, mobileMenuHeight, topBarHeight } = AppSettings.layout
+
+const desktopContentHeight = playerHeight + topBarHeight + mainContentSpacer
+const mobileContentHeight = playerHeight + topBarHeight + mobileMenuHeight
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex'
     },
-    navWrapper: {
-      zIndex: theme.zIndex.appBar - 1
-    },
     pageWrap: {
       display: 'flex',
       flexDirection: 'column',
-      height: `calc( 100vh - ${playerAndTopBarOffset}px )`
-    },
-    contentSpacer: {
-      paddingTop: theme.spacing(4),
-      marginBottom: theme.spacing(5)
+      height: `calc( 100vh - ${desktopContentHeight}px )`,
+
+      [theme.breakpoints.down('sm')]: {
+        padding: 0,
+        height: `calc( 100vh - ${mobileContentHeight}px )`
+      }
     },
     content: {
       width: '100%',
       position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
       [theme.breakpoints.down('md')]: {
         padding: 0
       }
+    },
+    navWrapper: {
+      zIndex: theme.zIndex.appBar - 1
+    },
+    bottomUiWrap: {
+      width: '100%',
+      bottom: 0,
+      zIndex: 1
+    },
+    contentSpacer: {
+      [theme.breakpoints.up('md')]: {
+        marginTop: theme.spacing(3)
+      },
+      minHeight: topBarHeight
     }
   })
 )
@@ -75,17 +96,21 @@ export const AppShellLayout = observer(function AppShellLayout({
         <AppToolbar />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">
-            <DesktopSidebar />
+            <DesktopNavigation />
           </Hidden>
         </nav>
-
         <main className={classes.content}>
           <div className={classes.contentSpacer} />
           <Container maxWidth="md" disableGutters>
             {/* https://github.com/mui-org/material-ui/issues/21711 */}
             <Paper>
               <div className={classes.pageWrap}>{children as ReactElement}</div>
-              <MusicPlayer></MusicPlayer>
+              <div className={classes.bottomUiWrap}>
+                <MusicPlayer></MusicPlayer>
+                <Hidden mdUp implementation="css">
+                  <MobileNavigation />
+                </Hidden>
+              </div>
             </Paper>
           </Container>
         </main>

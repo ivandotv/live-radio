@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       overflow: 'hidden',
-      bottom: 0,
+      // bottom: 100,
       height: `${AppSettings.layout.playerHeight}px`,
       borderLeft: 0,
       borderRight: 0,

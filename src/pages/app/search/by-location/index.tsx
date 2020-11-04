@@ -1,7 +1,7 @@
 import List from '@material-ui/core/List'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
-import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { continentsByCode } from 'lib/utils'
 
@@ -14,10 +14,10 @@ export default function ByLocation() {
         <AppMenuItem
           link={{
             href: {
-              pathname: '/app/browse/by-location/[continent]'
+              pathname: '/app/search/by-location/[continent]'
             },
             as: {
-              pathname: `/app/browse/by-location/${key}`
+              pathname: `/app/search/by-location/${key}`
             }
           }}
           primary={value}
@@ -28,20 +28,18 @@ export default function ByLocation() {
 
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      as: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
-      href: '/app/browse/by-location',
-      as: '/app/browse/by-location',
+      href: '/app/search/by-location',
       text: 'By Location'
     }
   ]
 
   return (
     <>
-      <PageTitle title="Browse By Location" />
+      <PageTitle title="Search By Location" />
       <LocationBreadcrumbs links={breadcrumbs} />
       <List>{continents}</List>
     </>

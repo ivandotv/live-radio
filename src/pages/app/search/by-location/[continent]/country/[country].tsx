@@ -63,16 +63,16 @@ export default function CountryStations({
 }) {
   const breadcrumbs = [
     {
-      href: '/app/browse',
-      text: 'Browse'
+      href: '/app/search',
+      text: 'Search'
     },
     {
-      href: '/app/browse/by-location',
+      href: '/app/search/by-location',
       text: 'By Location'
     },
     {
-      href: '/app/browse/by-location/[continent]',
-      as: `/app/browse/by-location/${continentCode}`,
+      href: '/app/search/by-location/[continent]',
+      as: `/app/search/by-location/${continentCode}`,
       text: `${continentName}`
     },
     {
@@ -86,7 +86,7 @@ export default function CountryStations({
       uuid="id"
       indexes={['language', 'country', 'tags', 'continent', 'name']}
     >
-      <PageTitle title={`Browse For Stations in ${countryName}`} />
+      <PageTitle title={`Search For Stations in ${countryName}`} />
       <BrowseBy
         filterInputText="Filter Stations"
         breadcrumbs={breadcrumbs}

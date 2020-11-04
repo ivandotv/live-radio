@@ -1,11 +1,11 @@
 import List from '@material-ui/core/List'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationModal } from 'components/LocationModal'
-import { AppMenuItem } from 'components/sidebars/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
-import { useState } from 'react'
+import { SyntheticEvent, useState } from 'react'
 
-export default function Browse() {
+export default function Search() {
   const [dialogOpen, setOpenDialog] = useState(false)
 
   const handleClickOpen = () => {
@@ -18,30 +18,30 @@ export default function Browse() {
 
   return (
     <>
-      <PageTitle title="Browse For Radio Stations" />
+      <PageTitle title="Search For Radio Stations" />
       <LocationModal open={dialogOpen} onClose={handleCloseDialog} />
       <List>
         <AppMenuItem
-          onClick={(e) => {
+          onClick={(e: SyntheticEvent) => {
             e.preventDefault()
             handleClickOpen()
           }}
           primary="Local Radio"
         />
         <AppMenuItem
-          link={{ href: '/app/browse/by-location' }}
+          link={{ href: '/app/search/by-location' }}
           primary="By Location"
         />
         <AppMenuItem
-          link={{ href: '/app/browse/by-language' }}
+          link={{ href: '/app/search/by-language' }}
           primary="By Language"
         />
         <AppMenuItem
-          link={{ href: '/app/browse/by-genre' }}
+          link={{ href: '/app/search/by-genre' }}
           primary="By Genre"
         />
         <AppMenuItem
-          link={{ href: '/app/browse/custom' }}
+          link={{ href: '/app/search/custom' }}
           primary="Custom Search"
         />
       </List>
@@ -49,4 +49,4 @@ export default function Browse() {
   )
 }
 
-Browse.layout = AppDefaultLayout
+Search.layout = AppDefaultLayout
