@@ -36,7 +36,8 @@ export class AppMediaSession {
         songInfo: MusicPlayerStore['songInfo']
         stationName: string
       }) => {
-        let artist, song
+        let artist = 'No Artist Data',
+          song
         if (songInfo?.artist) {
           //set meta data
           artist = songInfo.artist
