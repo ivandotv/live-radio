@@ -1,9 +1,9 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { autorun } from 'mobx'
+import { useAppShell } from 'components/providers/RootStoreProvider'
+import { AppTheme } from 'lib/stores/AppShellStore'
+import { autorun, reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useLayoutEffect } from 'react'
-import { AppTheme } from 'lib/stores/AppShellStore'
-import { useAppShell } from 'components/providers/RootStoreProvider'
 
 // https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
 export const ThemeQueryComponent = observer(function ThemeQueryComponent({
@@ -41,9 +41,6 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
         const isOpen = window.localStorage.getItem(desktopDrawerKey)
         store.setDesktopDrawer(isOpen === 'open', false)
         store.readyToShow(true)
-        // setTimeout(() => {
-        //   store.readyToShow(true)
-        // }, 10)
       }),
     [store, desktopDrawerKey]
   )
@@ -51,34 +48,27 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
   // write currently chosen theme to local storage
   useEffect(
     () =>
-      autorun(() => {
-        if (store.persistTheme) {
-          window.localStorage.setItem(themeKey, store.theme)
+      reaction(
+        () => store.theme,
+        () => {
+          if (store.persistTheme) {
+            window.localStorage.setItem(themeKey, store.theme)
+          }
         }
-      }),
+      ),
     [store, themeKey]
   )
-  // useEffect(() => {
-  //   // do not run on mount
-  //   // if (isInitialMount.current) {
-  //   //   isInitialMount.current = false
-  //   // } else if
-  //   if (store.persistTheme) {
-  //     window.localStorage.setItem(themeKey, store.theme)
-  //   }
-  // }, [store.theme, themeKey, store.persistTheme])
-
-  // write desktop drawer state to local storage
   useEffect(
     () =>
-      autorun(() => {
-        console.log(`drawer effect: ${store.desktopDrawerIsOpen}`)
-
-        window.localStorage.setItem(
-          desktopDrawerKey,
-          store.desktopDrawerIsOpen ? 'open' : 'closed'
-        )
-      }),
+      reaction(
+        () => store.desktopDrawerIsOpen,
+        () => {
+          window.localStorage.setItem(
+            desktopDrawerKey,
+            store.desktopDrawerIsOpen ? 'open' : 'closed'
+          )
+        }
+      ),
     [store.desktopDrawerIsOpen, desktopDrawerKey]
   )
 
