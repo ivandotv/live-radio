@@ -3,42 +3,37 @@ import { observer } from 'mobx-react-lite'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { NextRouter } from 'next/router'
 
+function isSelected(path: string) {
+  return (router: NextRouter) => {
+    return router.asPath.indexOf(path) === 0
+  }
+}
 export const Menu = observer(function Menu() {
   return (
     <List>
       <AppMenuItem
         link={{ href: '/app/search' }}
         primary="Browse"
-        selected={(router: NextRouter) =>
-          router.asPath.indexOf('/app/search') === 0
-        }
+        selected={isSelected('/app/search')}
       />
       <AppMenuItem
         link={{ href: '/app/favourites' }}
-        selected={(router: NextRouter) =>
-          router.asPath.indexOf('/app/favourites') === 0
-        }
+        selected={isSelected('/app/favourites')}
         primary="Favourites"
       />
       <AppMenuItem
         link={{ href: '/app/recent-stations' }}
-        selected={(router: NextRouter) =>
-          router.asPath.indexOf('/app/recent-stations') === 0
-        }
+        selected={isSelected('/app/recent-station')}
         primary="Recent Stations"
       />
       <AppMenuItem
         link={{ href: '/app/settings' }}
-        selected={(router: NextRouter) =>
-          router.asPath.indexOf('/app/settings') === 0
-        }
+        selected={isSelected('/app/settings')}
         primary="Settings"
       />
       <AppMenuItem
         link={{ href: '/app/about' }}
-        selected={(router: NextRouter) =>
-          router.asPath.indexOf('/app/about') === 0
-        }
+        selected={isSelected('/app/about')}
         primary="About"
       />
     </List>
