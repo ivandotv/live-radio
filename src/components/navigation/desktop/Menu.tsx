@@ -3,6 +3,29 @@ import { observer } from 'mobx-react-lite'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { NextRouter } from 'next/router'
 
+const menuItems = [
+  {
+    link: '/app/search',
+    text: 'Search'
+  },
+  {
+    link: '/app/favourites',
+    text: 'Favourites'
+  },
+  {
+    link: '/app-recent-stations',
+    text: 'Recent Stations'
+  },
+  {
+    link: '/app-settings',
+    text: 'Settings'
+  },
+  {
+    link: '/app/about',
+    text: 'About'
+  }
+]
+
 function isSelected(path: string) {
   return (router: NextRouter) => {
     return router.asPath.indexOf(path) === 0
@@ -11,31 +34,14 @@ function isSelected(path: string) {
 export const Menu = observer(function Menu() {
   return (
     <List>
-      <AppMenuItem
-        link={{ href: '/app/search' }}
-        primary="Search"
-        selected={isSelected('/app/search')}
-      />
-      <AppMenuItem
-        link={{ href: '/app/favourites' }}
-        selected={isSelected('/app/favourites')}
-        primary="Favourites"
-      />
-      <AppMenuItem
-        link={{ href: '/app/recent-stations' }}
-        selected={isSelected('/app/recent-station')}
-        primary="Recent Stations"
-      />
-      <AppMenuItem
-        link={{ href: '/app/settings' }}
-        selected={isSelected('/app/settings')}
-        primary="Settings"
-      />
-      <AppMenuItem
-        link={{ href: '/app/about' }}
-        selected={isSelected('/app/about')}
-        primary="About"
-      />
+      {menuItems.map((item) => (
+        <AppMenuItem
+          key={item.link}
+          link={{ href: `${item.link}` }}
+          primary={item.text}
+          selected={isSelected(`${item.link}`)}
+        />
+      ))}
     </List>
   )
 })
