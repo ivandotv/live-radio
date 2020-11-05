@@ -2,8 +2,6 @@ import { RadioStation } from 'types'
 import countriesJSON from 'generated/countries.json'
 
 export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
-  console.log('countryDataByName needle ', value)
-
   for (const [_i, continent] of Object.entries(countriesJSON)) {
     for (const [_i, country] of Object.entries(continent)) {
       if (country[key].toLowerCase() === value.toLowerCase()) {

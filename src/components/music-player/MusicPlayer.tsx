@@ -10,6 +10,7 @@ import {
   useMusicPlayer
 } from 'components/providers/RootStoreProvider'
 import { AppSettings } from 'lib/appSettings'
+import { AppMediaSession } from 'lib/MediaSession'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useEffect, useState } from 'react'
 
@@ -88,6 +89,10 @@ export const MusicPlayer = observer(function MusicPlayer() {
       setSnackOpen(true)
     }
   }, [player.playerError])
+
+  useEffect(() => {
+    new AppMediaSession(player, navigator)
+  }, [player])
 
   return (
     <div className={classes.root}>

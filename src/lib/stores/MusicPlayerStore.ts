@@ -176,6 +176,11 @@ export class MusicPlayerStore {
     this.disposePlayer()
   }
 
+  pause() {
+    console.log('try to pause')
+    this.player!.pause()
+  }
+
   togglePlay(station?: RadioStation) {
     station = station || this.station
     if (!station) {
@@ -202,12 +207,8 @@ export class MusicPlayerStore {
   resume() {
     // todo cannot resume after stopping
     console.log('player-> resume')
-
+    // if (this.status === PlayerStatus.PAUSED) {
     this.player!.play()
-  }
-
-  pause() {
-    console.log('try to pause')
-    this.player!.pause()
+    // }
   }
 }

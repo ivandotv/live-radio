@@ -47,6 +47,7 @@
     "@types/react": "^16.9.55",
     "@types/react-virtualized-auto-sizer": "^1.0.0",
     "@types/react-window": "^1.8.2",
+    "@types/wicg-mediasession": "^1.1.0",
     "@typescript-eslint/eslint-plugin": "^4.6.0",
     "@typescript-eslint/parser": "^4.6.0",
     "babel-plugin-inline-react-svg": "^1.1.1",
