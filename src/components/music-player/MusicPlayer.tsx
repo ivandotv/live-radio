@@ -1,24 +1,23 @@
 import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
-import { observer } from 'mobx-react-lite'
-import { SyntheticEvent, useEffect, useState } from 'react'
-import { AppSettings } from 'lib/appSettings'
-import {
-  useAppShell,
-  useMusicPlayer
-} from 'components/providers/RootStoreProvider'
 import { AddToFavouritesBtn } from 'components/music-player/AddToFavouritesBtn'
 import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
 import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
 import { SongInfo } from 'components/music-player/SongInfo'
+import {
+  useAppShell,
+  useMusicPlayer
+} from 'components/providers/RootStoreProvider'
+import { AppSettings } from 'lib/appSettings'
+import { observer } from 'mobx-react-lite'
+import { SyntheticEvent, useEffect, useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
       overflow: 'hidden',
-      // bottom: 100,
       height: `${AppSettings.layout.playerHeight}px`,
       borderLeft: 0,
       borderRight: 0,
@@ -111,7 +110,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <AddToFavouritesBtn fontSize="2.5rem" />
           <ShareStationBtn fontSize="2.2rem" />
           <div className={classes.infoWrap}>
-            <span className={classes.stationName}>{player.station?.name}</span>
+            <span className={classes.stationName}>{player.station.name}</span>
             <div className={classes.songInfo}>
               <SongInfo />
             </div>

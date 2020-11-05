@@ -13,7 +13,7 @@ export const Menu = observer(function Menu() {
     <List>
       <AppMenuItem
         link={{ href: '/app/search' }}
-        primary="Browse"
+        primary="Search"
         selected={isSelected('/app/search')}
       />
       <AppMenuItem
