@@ -60,7 +60,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
   const player = useMusicPlayer()
   const appShell = useAppShell()
   const classes = useStyles({
-    isFullScreen: appShell.playerInFullScreen,
     drawerWidth: appShell.desktopDrawerWidth
   })
 
