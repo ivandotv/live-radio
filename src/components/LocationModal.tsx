@@ -7,10 +7,10 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { useFetch } from 'lib/useFetch'
 import { countryDataByKey } from 'lib/utils'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
+import useSWR from 'swr'
 
 const useStyles = makeStyles((_theme: Theme) => {
   return createStyles({
@@ -32,6 +32,15 @@ const queryProgressText = 'Determinig your location'
 const queryErrorText = "Sorry, couldn't get your location"
 const querySuccessText = 'Your location is '
 
+const fetcher = (url: string) =>
+  fetch(url).then((res) => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      throw new Error()
+    }
+  })
+
 export function LocationModal({
   open,
   onClose
@@ -42,8 +51,10 @@ export function LocationModal({
   const classes = useStyles()
   const router = useRouter()
 
-  const { data, error } = useFetch<{ country: string; status: string }>(
-    'http://ip-api.com/json/'
+  const { data, error } = useSWR<{ country: string; status: string }>(
+    open ? '/api/locationinfo' : null,
+    fetcher,
+    { shouldRetryOnError: false }
   )
 
   const countryData = useMemo(() => {
