@@ -3,6 +3,7 @@
 # service workers
 /public/precache.*.js
 /public/workbox*.js
+/public/workbox*.js.map
 /public/sw.js
 /public/sw.js.map
 
