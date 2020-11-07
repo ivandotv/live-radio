@@ -41,7 +41,8 @@ const useStyles = makeStyles((theme: Theme) =>
     infoWrap: {
       display: 'flex',
       flexDirection: 'column',
-      color: theme.palette.primary.contrastText
+      color: theme.palette.primary.contrastText,
+      marginLeft: theme.spacing(0.5)
     },
     songInfo: {
       display: 'flex',
