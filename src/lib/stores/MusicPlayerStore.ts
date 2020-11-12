@@ -21,8 +21,6 @@ export class MusicPlayerStore {
     data: any
   } | null = null
 
-  // stationID = ''
-
   station: RadioStation
 
   songInfo: { artist: string; title: string } | undefined = undefined
@@ -78,9 +76,7 @@ export class MusicPlayerStore {
           data.title !== this.songInfo?.title &&
           data.artist !== this.songInfo?.artist
         ) {
-          // song info has changed
-          // fetch artwork
-          console.log('we have new song data')
+          console.log('new song data')
           console.log(`new ${data.title} | ${data.artist}`)
           console.log(
             `old ${this.prevSongInfo?.title} | ${this.prevSongInfo?.artist}`
@@ -114,7 +110,7 @@ export class MusicPlayerStore {
     })
 
     this.player.on('pause', () => {
-      console.log('>>> radio pause')
+      console.log('radio paused')
       runInAction(() => {
         this.status = PlayerStatus.PAUSED
       })
@@ -177,7 +173,7 @@ export class MusicPlayerStore {
   }
 
   pause() {
-    console.log('try to pause')
+    console.log('player-> pause')
     this.player!.pause()
   }
 
@@ -205,10 +201,7 @@ export class MusicPlayerStore {
   }
 
   resume() {
-    // todo cannot resume after stopping
     console.log('player-> resume')
-    // if (this.status === PlayerStatus.PAUSED) {
     this.player!.play()
-    // }
   }
 }
