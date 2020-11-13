@@ -27,10 +27,22 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const classes = useStyles({ fontSize })
   const player = useMusicPlayer()
 
-  // dev - hardcoded for now
-  const shareUrl = `${AppSettings.url}/app?play=${player.station.id}`
-  const shareTitle = 'Share Title'
-  const shareText = 'Check this out'
+  const { url, name, id } = player.station
+
+  const queryParams = `?play=${encodeURI(url)}&name=${encodeURIComponent(
+    name
+  )}&id=${encodeURIComponent(id)}`
+
+  // twitter needs additional keys to also be encoded
+  const twitterQueryParams = `?play=${encodeURI(url)}${encodeURIComponent(
+    `&name=${name}&id=${id}`
+  )}`
+
+  const shareUrl = `${AppSettings.url}/app${queryParams}`
+  const twitterShareUrl = `${AppSettings.url}/app${twitterQueryParams}`
+
+  const shareTitle = 'Share Station'
+  const shareText = 'Check out this groovy station'
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const [showDesktopShare, setShowDesktopShare] = useState(false)
@@ -64,6 +76,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
           anchorEl={anchorEl}
           handleClose={handleClose}
           url={shareUrl}
+          twitterUrl={twitterShareUrl}
           text="check this out"
         />
       ) : null}
