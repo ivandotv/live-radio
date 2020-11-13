@@ -32,10 +32,27 @@ export default function Browse() {
     }
   }, [router, player])
 
+  const vars = []
+
+  const test = {
+    a: 'a',
+    b: 'b',
+    c: 'c'
+  }
+
+  // let env = process.env
+
+  console.log('===================')
+  console.log(process.env)
+  for (let prop in test) {
+    vars.push(<li key={prop}>{prop}</li>)
+  }
+
   return (
     <Paper>
       <PageTitle title=" Next Radio App" />
       <h1>App Root = ovde staviti recent i tako to</h1>
+      <ul>{vars}</ul>
     </Paper>
   )
 }
