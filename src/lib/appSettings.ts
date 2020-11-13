@@ -4,5 +4,5 @@ export const AppSettings = {
     mobileMenuHeight: 56,
     topBarHeight: 48
   },
-  url: process.env.NEXT_PUBLIC_VERCEL_URL?.replace(/\/$/, '')
+  url: process.env.VERCEL_URL?.replace(/\/$/, '')
 }
