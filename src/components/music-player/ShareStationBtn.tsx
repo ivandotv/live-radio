@@ -27,10 +27,17 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const classes = useStyles({ fontSize })
   const player = useMusicPlayer()
 
-  // dev - hardcoded for now
-  const shareUrl = `${AppSettings.url}/app?play=${player.station.id}`
-  const shareTitle = 'Share Title'
-  const shareText = 'Check this out'
+  const playParam = encodeURIComponent(player.station.url)
+  const nameParam = encodeURIComponent(player.station.name)
+  const idParam = encodeURIComponent(player.station.id)
+
+  const shareUrl = `${AppSettings.url}/app?play=${playParam}&name=${nameParam}&id=${idParam}`
+  // const shareUrl = encodeURIComponent(
+  //   `${AppSettings.url}/app?play=${player.station.url}&name=${player.station.name}&id=${player.station.id}`
+  // )
+
+  const shareTitle = 'Share Station'
+  const shareText = 'Check out this groovy station'
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const [showDesktopShare, setShowDesktopShare] = useState(false)

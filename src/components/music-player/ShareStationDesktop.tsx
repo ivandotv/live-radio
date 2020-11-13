@@ -10,7 +10,8 @@ import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useState } from 'react'
 
 const twitterLink = (url: string, text: string) =>
-  `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(text)}`
+  `https://twitter.com/intent/tweet?url=${url}`
+// `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(text)}`
 
 const fbLink = (url: string) =>
   `https://www.facebook.com/sharer/sharer.php?u=${url}`
@@ -19,6 +20,8 @@ const linkedInLink = (url: string, text: string) => `
 http://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${encodeURIComponent(
   text
 )}`
+
+const stationSnackSuccess = 'Station link copied to clipboard'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -124,7 +127,7 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
         onClose={onSnackClose}
         className={classes.snackbar}
       >
-        <Alert severity="success">Station url copied to clipboard</Alert>
+        <Alert severity="success">{stationSnackSuccess}</Alert>
       </Snackbar>
     </>
   )
