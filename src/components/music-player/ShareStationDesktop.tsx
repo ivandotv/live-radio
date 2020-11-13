@@ -10,8 +10,10 @@ import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useState } from 'react'
 
 const twitterLink = (url: string, text: string) =>
-  `https://twitter.com/intent/tweet?url=${url}`
-// `https://twitter.com/intent/tweet?url=${url}&text=${encodeURIComponent(text)}`
+  // `https://twitter.com/intent/tweet?url=${url}`
+  `https://twitter.com/intent/tweet?url=${url}${encodeURIComponent(
+    `&text=${text}`
+  )}`
 
 const fbLink = (url: string) =>
   `https://www.facebook.com/sharer/sharer.php?u=${url}`
@@ -41,11 +43,13 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
   anchorEl,
   handleClose,
   url,
+  twitterUrl,
   text
 }: {
   anchorEl: Element | null
   handleClose: () => void
   url: string
+  twitterUrl: string
   text: string
 }) {
   const classes = useStyles()
@@ -87,7 +91,7 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
         <MenuItem onClick={handleClick}>
           <Link
             className={classes.link}
-            href={twitterLink(url, text)}
+            href={twitterLink(twitterUrl, text)}
             target="_blank"
             rel="noreferrer"
           >
