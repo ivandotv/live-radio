@@ -29,10 +29,6 @@ export const ShareStationBtn = observer(function ShareStationBtn({
 
   const { url, name, id } = player.station
 
-  const playParam = encodeURI(url)
-  const nameParam = encodeURIComponent(name)
-  const idParam = encodeURIComponent(id)
-
   const queryParams = `?play=${encodeURI(url)}&name=${encodeURIComponent(
     name
   )}&id=${encodeURIComponent(id)}`
@@ -42,10 +38,8 @@ export const ShareStationBtn = observer(function ShareStationBtn({
     `&name=${name}&id=${id}`
   )}`
 
-  // const shareUrl = `${AppSettings.url}/app?play=${playParam}&name=${nameParam}&id=${idParam}`
-  const shareUrl = `${AppSettings.url}/${queryParams}`
-  //todo share url twitter
-  const twitterShareUrl = `${AppSettings.url}/${twitterQueryParams}`
+  const shareUrl = `${AppSettings.url}/app${queryParams}`
+  const twitterShareUrl = `${AppSettings.url}/app${twitterQueryParams}`
 
   const shareTitle = 'Share Station'
   const shareText = 'Check out this groovy station'
