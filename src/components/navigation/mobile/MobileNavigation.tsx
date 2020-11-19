@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 const menuPaths = [
   '/app/search',
-  '/app/favourites',
+  '/app/favorites',
   '/app/recent-stations',
   '/app/settings'
 ]
