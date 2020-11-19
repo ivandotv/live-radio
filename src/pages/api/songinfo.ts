@@ -22,7 +22,6 @@ getStationInfo[promisify.custom] = (url: string, stream: string) => {
 const getStationInfoAsync = promisify(getStationInfo)
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  // const url = 'http://ice1.somafm.com/groovesalad-256-mp3dad'
   try {
     const response: { title: string } = await getStationInfoAsync(
       req.body.url,
@@ -35,7 +34,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         title: songData[1].trim()
       })
     } else {
-      res.status(501).json({ message: 'error parsing song data' })
+      res.status(200).json({})
     }
   } catch (err) {
     res.status(503).json({ message: err.message ?? 'server error' })

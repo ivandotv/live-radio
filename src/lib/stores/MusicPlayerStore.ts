@@ -73,7 +73,9 @@ export class MusicPlayerStore {
       console.log(data)
       if (data) {
         if (
+          data.title &&
           data.title !== this.songInfo?.title &&
+          data.artist &&
           data.artist !== this.songInfo?.artist
         ) {
           console.log('new song data')

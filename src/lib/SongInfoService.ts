@@ -35,8 +35,6 @@ export class SongInfoService {
       },
       body: JSON.stringify({ url: stationUrl })
     })
-    console.log('RRR')
-    console.log(response)
     if (!response.ok) {
       throw new Error()
     }
