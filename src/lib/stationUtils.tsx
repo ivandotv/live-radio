@@ -11,8 +11,8 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   for (const station of stations) {
     let continentCode
     if (station.countryCode && station.country) {
-      continentCode =
-        countries[station.countryCode as keyof typeof countries].continent
+      const country = countries[station.countryCode as keyof typeof countries]
+      continentCode = country ? country.continent : ''
     }
     result.push({
       tags: station.tags.slice(0, 10),
