@@ -14,7 +14,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     console.log('data')
     console.log(data)
-    res.status(200).json({ country: data.country })
+
+    res.status(200).json(data.status == 'fail' ? {} : { country: data.country })
   } catch (e) {
     console.log('error data')
     res.status(503).json({ message: 'Error locating IP' })
