@@ -55,24 +55,3 @@ export function stationDataRow(
     }
   }
 }
-
-export function stationPlaceholder(
-  url: string,
-  name: string,
-  id: string
-): RadioStation {
-  return {
-    name,
-    id,
-    url,
-    tags: [],
-    homepage: '',
-    country: '',
-    countryCode: '',
-    language: [],
-    codec: '',
-    continentCode: '',
-    continent: '',
-    flag: ''
-  }
-}
