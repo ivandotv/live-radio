@@ -15,6 +15,11 @@ const twitterLink = (url: string, _text: string) =>
 const fbLink = (url: string) =>
   `https://www.facebook.com/sharer/sharer.php?u=${url}`
 
+const linkedInLink = (url: string, text: string) => `
+http://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${encodeURIComponent(
+  text
+)}`
+
 const stationSnackSuccess = 'Station link copied to clipboard'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -35,13 +40,11 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
   anchorEl,
   handleClose,
   url,
-  twitterUrl,
   text
 }: {
   anchorEl: Element | null
   handleClose: () => void
   url: string
-  twitterUrl: string
   text: string
 }) {
   const classes = useStyles()
@@ -83,7 +86,7 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
         <MenuItem onClick={handleClick}>
           <Link
             className={classes.link}
-            href={twitterLink(twitterUrl, text)}
+            href={twitterLink(url, text)}
             target="_blank"
             rel="noreferrer"
           >
@@ -98,6 +101,16 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
             rel="noreferrer"
           >
             Facebook
+          </Link>
+        </MenuItem>
+        <MenuItem onClick={handleClick}>
+          <Link
+            className={classes.link}
+            href={linkedInLink(url, text)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            LinkedIn
           </Link>
         </MenuItem>
         {copyLinkItem}
