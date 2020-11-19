@@ -67,7 +67,7 @@ export class MusicPlayerStore {
   ) {
     if (error) {
       console.log('player - song service error')
-      console.log(error)
+      console.error(error)
     } else {
       console.log('player - song service success')
       console.log(data)

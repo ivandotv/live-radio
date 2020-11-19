@@ -81,8 +81,10 @@ export const StationRowItem = observer(function StationRowItem({
           <div className={classes.title}>
             <PlayerStateIcon stationId={station.id} fontSize="1.3rem" />
             {`${station.name}`}
-            {showCountry ? ` | ${station.country}` : null}
-            {showFlag ? ` ${station.flag}` : null}
+            {showCountry && station.country.length
+              ? ` | ${station.country}`
+              : null}
+            {showFlag && station.flag.length ? ` ${station.flag}` : null}
           </div>
           {showTags ? (
             <StationRowTags className={classes.tags} station={station} />

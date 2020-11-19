@@ -12,7 +12,7 @@ export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
 }
 
 export const defaultStation: RadioStation = {
-  id: 'ae503431-073b-499d-81e9-c32dfa1e32c',
+  id: 'ae503431-073b-499d-81e9-c32dfa1e32c2',
   name: 'Soma FM',
   url: 'http://ice1.somafm.com/groovesalad-256-mp3',
   homepage: 'http://www.somafm.com/',

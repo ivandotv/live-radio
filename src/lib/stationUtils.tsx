@@ -9,25 +9,27 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   const result = []
 
   for (const station of stations) {
+    let continentCode
     if (station.countryCode && station.country) {
-      const { continent: continentCode } = countries[
-        station.countryCode as keyof typeof countries
-      ]
-      result.push({
-        tags: station.tags.slice(0, 10),
-        name: station.name,
-        url: station.urlResolved,
-        id: station.id,
-        homepage: station.homepage,
-        country: station.country,
-        countryCode: station.countryCode,
-        language: station.language,
-        codec: station.codec,
-        continentCode: continentCode,
-        continent: continents[continentCode as keyof typeof continents],
-        flag: flag(station.countryCode)
-      })
+      continentCode =
+        countries[station.countryCode as keyof typeof countries].continent
     }
+    result.push({
+      tags: station.tags.slice(0, 10),
+      name: station.name,
+      url: station.urlResolved,
+      id: station.id,
+      homepage: station.homepage,
+      country: station.country,
+      countryCode: station.countryCode,
+      language: station.language,
+      codec: station.codec,
+      continentCode: continentCode || '',
+      continent: continentCode
+        ? continents[continentCode as keyof typeof continents]
+        : '',
+      flag: continentCode ? flag(station.countryCode) : ''
+    })
   }
 
   return result

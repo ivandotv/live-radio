@@ -8,7 +8,7 @@ import { SyntheticEvent, useState } from 'react'
 export default function Search() {
   const [dialogOpen, setOpenDialog] = useState(false)
 
-  const handleClickOpen = () => {
+  const handleOpenDialog = () => {
     setOpenDialog(true)
   }
 
@@ -24,7 +24,7 @@ export default function Search() {
         <AppMenuItem
           onClick={(e: SyntheticEvent) => {
             e.preventDefault()
-            handleClickOpen()
+            handleOpenDialog()
           }}
           primary="Local Radio"
         />
