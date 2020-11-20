@@ -5,7 +5,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Alert from '@material-ui/lab/Alert'
-import { AppSettings } from 'lib/appSettings'
+import { settings } from 'lib/appSettings'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useState } from 'react'
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     snackbar: {
-      bottom: `${AppSettings.layout.playerHeight + theme.spacing(2)}px`
+      bottom: `${settings.layout.playerHeight + theme.spacing(2)}px`
     }
   })
 )

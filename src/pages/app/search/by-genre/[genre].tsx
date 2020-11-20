@@ -6,6 +6,7 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { PageTitle } from 'components/PageTitle'
 import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
 import { RadioStation } from 'types'
+import { userAgentName } from 'lib/appSettings'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -20,7 +21,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const genre = (ctx.params?.genre as string).replace(/-/g, ' ')
 
-  const api = new RadioBrowserApi(fetch)
+  const api = new RadioBrowserApi(fetch, userAgentName)
   const stations = await api.searchStations({
     tag: genre,
     limit: 1500,

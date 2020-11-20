@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { ShareStationDesktop } from 'components/music-player/ShareStationDesktop'
 import { useMusicPlayer } from 'components/providers/RootStoreProvider'
-import { AppSettings } from 'lib/appSettings'
+import { url } from 'lib/appSettings'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +31,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
 
   const queryParams = `?play=${encodeURIComponent(id)}`
 
-  const shareUrl = `${encodeURI(AppSettings.url)}/app${queryParams}`
+  const shareUrl = `${encodeURI(url)}/app${queryParams}`
 
   const shareTitle = 'Share Station'
   const shareText = 'Check out this groovy station'

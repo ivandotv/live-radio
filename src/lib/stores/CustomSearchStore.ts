@@ -2,6 +2,7 @@ import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { RadioStation } from 'types'
 import { stationsToRadioStations } from 'lib/stationUtils'
+import { userAgentName } from 'lib/appSettings'
 
 export class CustomSearchStore {
   query = ''
@@ -19,7 +20,7 @@ export class CustomSearchStore {
   searchInProgress = false
 
   constructor(transport: typeof fetch) {
-    this.api = new RadioBrowserApi(transport)
+    this.api = new RadioBrowserApi(transport, userAgentName)
 
     makeObservable<CustomSearchStore, 'searchData'>(this, {
       search: action,

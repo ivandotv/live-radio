@@ -6,6 +6,7 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { PageTitle } from 'components/PageTitle'
 import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
 import { RadioStation } from 'types'
+import { userAgentName } from 'lib/appSettings'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -22,7 +23,7 @@ export const getStaticPaths: GetStaticPaths = async function () {
 export const getStaticProps: GetStaticProps = async function (ctx) {
   const language = (ctx.params?.language as string).replace(/-/g, ' ')
 
-  const api = new RadioBrowserApi(fetch)
+  const api = new RadioBrowserApi(fetch, userAgentName)
   const stations = await api.searchStations({
     language,
     limit: 1500

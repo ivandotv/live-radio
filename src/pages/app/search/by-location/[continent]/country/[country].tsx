@@ -11,6 +11,7 @@ import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
 import { RadioStation } from 'types'
 // @ts-ignore
 import getFlag from 'country-code-emoji'
+import { userAgentName } from 'lib/appSettings'
 
 export const getStaticPaths: GetStaticPaths = async function () {
   return {
@@ -26,7 +27,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   const country = countries[countryCode as keyof typeof countries]
   const flag = getFlag(countryCode)
 
-  const api = new RadioBrowserApi(fetch)
+  const api = new RadioBrowserApi(fetch, userAgentName)
   const stations = await api.searchStations({
     countryCode: countryCode.toUpperCase(),
     limit: 3000

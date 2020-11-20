@@ -11,7 +11,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { ReactElement, ReactNode } from 'react'
-import { AppSettings } from 'lib/appSettings'
+import { settings } from 'lib/appSettings'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
 import { useAppShell } from 'components/providers/RootStoreProvider'
 import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigation'
@@ -20,7 +20,7 @@ import { AppToolbar } from 'components/layout/AppToolbar'
 
 // todo - make the values dynamic
 const mainContentSpacer = 24
-const { playerHeight, mobileMenuHeight, topBarHeight } = AppSettings.layout
+const { playerHeight, mobileMenuHeight, topBarHeight } = settings.layout
 
 const desktopContentHeight = playerHeight + topBarHeight + mainContentSpacer
 const mobileContentHeight = playerHeight + topBarHeight + mobileMenuHeight
