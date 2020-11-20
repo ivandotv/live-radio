@@ -1,9 +1,9 @@
-import { action, makeObservable, observable, runInAction } from 'mobx'
 import { Howl } from 'howler'
-import { RadioStation } from 'types'
-import { AppStorage } from 'lib/Storage'
 import { SongInfoService } from 'lib/SongInfoService'
+import { AppStorage } from 'lib/Storage'
 import { RootStore } from 'lib/stores/RootStore'
+import { action, makeObservable, observable, runInAction } from 'mobx'
+import { RadioStation } from 'types'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -27,12 +27,15 @@ export class MusicPlayerStore {
 
   prevSongInfo: { artist: string; title: string } | undefined = undefined
 
-  protected player: Howl | undefined = undefined
-
   stationChecked = false
 
   errorStations: { [key: string]: boolean } = {}
 
+  protected player: Howl | undefined = undefined
+
+  protected firstTryLoad = true
+
+  // TODO - switch to robot3 state library for player state
   constructor(
     protected rootStore: RootStore,
     protected storage: AppStorage,
@@ -91,18 +94,21 @@ export class MusicPlayerStore {
     this.songInfo = data
   }
 
-  protected initPlayer(station: RadioStation) {
+  protected initPlayer(station: RadioStation, url?: string) {
     this.player = new Howl({
       html5: true,
-      src: [station.url],
+      src: [url ?? station.url],
       format: [station.codec]
     })
 
     this.station = station
 
+    console.log('trying ', url ?? station.url)
+
     this.player.on('play', () => {
       console.log('radio playing')
       this.songInfoService.start(station.url, this.songServiceCb.bind(this))
+      this.firstTryLoad = true
       runInAction(() => {
         this.stationChecked = false
         this.status = PlayerStatus.PLAYING
@@ -124,6 +130,24 @@ export class MusicPlayerStore {
 
     this.player.on('loaderror', (_, errorData) => {
       console.log('radio loaderror')
+      console.log('error data')
+      console.log(errorData)
+      console.log(_)
+      if (this.firstTryLoad) {
+        this.firstTryLoad = false
+        this.disposePlayer()
+        //try to fix station url
+        const url = `${this.station.url}${
+          this.station.url.lastIndexOf('/') === this.station.url.length
+            ? ';'
+            : '/;' //shoutcast stream fix
+        }`
+
+        console.log('trying new url ', url)
+        this.initPlayer(this.station, url)
+
+        return
+      }
       runInAction(() => {
         this.playerError = {
           type: 'load',
@@ -142,7 +166,6 @@ export class MusicPlayerStore {
           data: errorData
         }
         this.status = PlayerStatus.ERROR
-
         this.errorStations[station.id] = true
         console.log(this.playerError)
       })
@@ -167,6 +190,7 @@ export class MusicPlayerStore {
   stop() {
     this.status = PlayerStatus.STOPPED
     this.songInfoService.stop()
+    this.firstTryLoad = true
 
     this.prevSongInfo = undefined
     this.songInfo = undefined

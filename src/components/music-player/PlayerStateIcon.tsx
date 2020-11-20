@@ -34,10 +34,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const PlayerStateIcon = observer(function PlayerStateIcon({
   stationId,
-  fontSize = '1rem'
+  fontSize = '1rem',
+  className = ''
 }: {
   fontSize?: string
   stationId?: string
+  className?: string
 }) {
   const player = useMusicPlayer()
   const classes = useStyles({ fontSize })
@@ -69,5 +71,5 @@ export const PlayerStateIcon = observer(function PlayerStateIcon({
     btn = <Play className={classes.button}></Play>
   }
 
-  return <>{btn}</>
+  return <span className={className}>{btn}</span>
 })

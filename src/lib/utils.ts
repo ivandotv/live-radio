@@ -11,6 +11,10 @@ export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
   }
 }
 
+export function httpsSwitch(url: string) {
+  return url.replace(/http:/, 'https:')
+}
+
 export const defaultStation: RadioStation = {
   id: 'ae503431-073b-499d-81e9-c32dfa1e32c2',
   name: 'Soma FM',

@@ -3,13 +3,15 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import clsx from 'clsx'
+import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
 import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
-import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
 import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useCallback } from 'react'
 import { RadioStation } from 'types'
+import HttpIcon from '@material-ui/icons/ErrorOutline'
+import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -37,9 +39,23 @@ const useStyles = makeStyles((theme: Theme) => {
       display: 'block',
       marginLeft: theme.spacing(1),
       marginBottom: theme.spacing(1)
+    },
+    playerStateIcon: {
+      margin: `0 ${theme.spacing(0.5)}px`,
+      // display: 'inline'
+      lineHeight: 1
+      // marginRight: theme.spacing(0.5)
+    },
+    httpIcon: {
+      color: theme.palette.text.disabled,
+      margin: `0 ${theme.spacing(0.5)}px`,
+      fontSize: '1.2rem'
     }
   })
 })
+
+const httpIconTitle =
+  'This station might not load beacuse it is not served over secure connection'
 export const StationRowItem = observer(function StationRowItem({
   station,
   showCountry = true,
@@ -79,13 +95,23 @@ export const StationRowItem = observer(function StationRowItem({
       >
         <ListItemText>
           <div className={classes.title}>
-            <PlayerStateIcon stationId={station.id} fontSize="1.3rem" />
+            <PlayerStateIcon
+              className={classes.playerStateIcon}
+              stationId={station.id}
+              fontSize="1.3rem"
+            />
             {`${station.name}`}
             {showCountry && station.country.length
               ? ` | ${station.country}`
               : null}
             {showFlag && station.flag.length ? ` ${station.flag}` : null}
+            {station.url.indexOf('https') === -1 ? (
+              <Tooltip title={httpIconTitle}>
+                <HttpIcon className={classes.httpIcon} />
+              </Tooltip>
+            ) : null}
           </div>
+
           {showTags ? (
             <StationRowTags className={classes.tags} station={station} />
           ) : null}
