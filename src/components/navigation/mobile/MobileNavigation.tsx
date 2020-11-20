@@ -27,7 +27,7 @@ function getSelected(router: NextRouter) {
 export const MobileNavigation = observer(function MobileNavigation() {
   const classes = useStyles()
   const router = useRouter()
-  const [value, setSelected] = useState(0)
+  const [value, setSelected] = useState(-1)
 
   useEffect(() => {
     const currSelected = getSelected(router)
