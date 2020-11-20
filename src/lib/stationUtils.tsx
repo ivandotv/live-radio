@@ -8,7 +8,16 @@ import flag from 'country-code-emoji'
 export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   const result = []
 
+  const duplicates: { [key: string]: boolean } = {}
+
+  const regex = new RegExp(/\.[a-zA-A0-9]+$/)
   for (const station of stations) {
+    const urlTest = station.urlResolved.replace(regex, '')
+
+    if (duplicates[urlTest]) continue
+
+    duplicates[urlTest] = true
+
     let continentCode
     if (station.countryCode && station.country) {
       const country = countries[station.countryCode as keyof typeof countries]
