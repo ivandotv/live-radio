@@ -1,5 +1,6 @@
 import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
 import Alert from '@material-ui/lab/Alert'
 import { AddToFavouritesBtn } from 'components/music-player/AddToFavouritesBtn'
 import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
@@ -9,7 +10,7 @@ import {
   useAppShell,
   useMusicPlayer
 } from 'components/providers/RootStoreProvider'
-import { AppSettings } from 'lib/appSettings'
+import { settings } from 'lib/appSettings'
 import { AppMediaSession } from 'lib/MediaSession'
 import { observer } from 'mobx-react-lite'
 import { SyntheticEvent, useEffect, useState } from 'react'
@@ -19,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       overflow: 'hidden',
-      height: `${AppSettings.layout.playerHeight}px`,
+      height: `${settings.layout.playerHeight}px`,
       borderLeft: 0,
       borderRight: 0,
       borderBottom: 'none',
@@ -51,8 +52,12 @@ const useStyles = makeStyles((theme: Theme) =>
     stationName: {
       fontWeight: 'bold'
     },
+    stationLink: {
+      textDecoration: 'none',
+      color: 'inherit'
+    },
     snackbar: {
-      bottom: `${AppSettings.layout.playerHeight + theme.spacing(2)}px`
+      bottom: `${settings.layout.playerHeight + theme.spacing(2)}px`
     }
   })
 )
@@ -115,7 +120,18 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <AddToFavouritesBtn fontSize="2.5rem" />
           <ShareStationBtn fontSize="2.2rem" />
           <div className={classes.infoWrap}>
-            <span className={classes.stationName}>{player.station.name}</span>
+            <Tooltip title="Go to station website">
+              <a
+                href={player.station.homepage}
+                target="_blank"
+                rel="noreferrer"
+                className={classes.stationLink}
+              >
+                <span className={classes.stationName}>
+                  {player.station.name}
+                </span>
+              </a>
+            </Tooltip>
             <div className={classes.songInfo}>
               <SongInfo />
             </div>
