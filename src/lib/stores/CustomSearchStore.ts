@@ -59,10 +59,14 @@ export class CustomSearchStore {
     this.searchInProgress = true
     console.log('start search ', query)
     try {
-      const result = await this.api.searchStations({
-        name: query,
-        limit: 3000
-      })
+      const result = await this.api.searchStations(
+        {
+          name: query,
+          limit: 3000
+        },
+        undefined,
+        true
+      )
       if (this.requestToken === localToken) {
         // process stations
         runInAction(() => {

@@ -24,10 +24,14 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   const language = (ctx.params?.language as string).replace(/-/g, ' ')
 
   const api = new RadioBrowserApi(fetch, userAgentName)
-  const stations = await api.searchStations({
-    language,
-    limit: 1500
-  })
+  const stations = await api.searchStations(
+    {
+      language,
+      limit: 1500
+    },
+    undefined,
+    true
+  )
 
   return {
     props: {

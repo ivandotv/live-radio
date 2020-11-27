@@ -22,11 +22,15 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   const genre = (ctx.params?.genre as string).replace(/-/g, ' ')
 
   const api = new RadioBrowserApi(fetch, userAgentName)
-  const stations = await api.searchStations({
-    tag: genre,
-    limit: 1500,
-    hideBroken: true
-  })
+  const stations = await api.searchStations(
+    {
+      tag: genre,
+      limit: 1500,
+      hideBroken: true
+    },
+    undefined,
+    true
+  )
 
   return {
     props: {

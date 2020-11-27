@@ -28,10 +28,14 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   const flag = getFlag(countryCode)
 
   const api = new RadioBrowserApi(fetch, userAgentName)
-  const stations = await api.searchStations({
-    countryCode: countryCode.toUpperCase(),
-    limit: 3000
-  })
+  const stations = await api.searchStations(
+    {
+      countryCode: countryCode.toUpperCase(),
+      limit: 3000
+    },
+    undefined,
+    true
+  )
 
   const radioStations = stationsToRadioStations(stations)
 
