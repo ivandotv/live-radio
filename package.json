@@ -23,7 +23,7 @@
     "@types/request-ip": "0.0.35",
     "@xstate/react": "^1.0.3",
     "clsx": "^1.1.1",
-    "country-code-emoji": "^1.0.0",
+    "country-code-emoji": "^2.0.0",
     "csso": "^4.2.0",
     "howler": "^2.2.1",
     "iso-639-1": "^2.1.4",
