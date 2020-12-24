@@ -67,8 +67,6 @@ export const DesktopNavigation = observer(function DesktopNavigation() {
         anchor="left"
         variant="persistent"
         open={store.desktopDrawerIsOpen}
-        /* eslint-disable */
-        // transitionDuration={0}
         transitionDuration={
           store.showApp && store.animateDesktopDrawer
             ? {
@@ -78,7 +76,6 @@ export const DesktopNavigation = observer(function DesktopNavigation() {
               }
             : 0
         }
-        // /* eslint-enable */
         classes={{
           paper: classes.drawerPaper
         }}

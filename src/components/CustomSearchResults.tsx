@@ -1,12 +1,13 @@
+import { plural, Trans } from '@lingui/macro'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import { Theme } from '@material-ui/core/styles/createMuiTheme'
-import { observer } from 'mobx-react-lite'
-import React, { ReactElement, useEffect, useRef } from 'react'
 import { FilterInput } from 'components/FilterInput'
 import { FilterList } from 'components/FilterList'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
 import { useCustomSearch } from 'components/providers/CustomSearchProvider'
+import { observer } from 'mobx-react-lite'
+import React, { ReactElement, useEffect, useRef } from 'react'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) => {
     }
   })
 })
+
 export const CustomSearchResults = observer(function CustomSearchResults({
   dataRow,
   breadcrumbs,
@@ -57,16 +59,22 @@ export const CustomSearchResults = observer(function CustomSearchResults({
 
   const noData = (
     <div className={classes.noData}>
-      <p>
-        Currently there is no data for your query. Sorry for the inconvenience.
-      </p>
+      <Trans>
+        <p>
+          Currently there is no data for your query. Sorry for the
+          inconvenience.
+        </p>
+      </Trans>
     </div>
   )
 
   const resultPlural = searchStore.data.result
-    ? `( ${searchStore.data.result?.length} ${
-        searchStore.data.result?.length === 1 ? 'result' : 'results'
-      } )`
+    ? `( ${searchStore.data.result.length}
+      ${plural(searchStore.data.result.length, {
+        one: 'result',
+        other: 'results'
+      })}
+      )`
     : null
 
   return (
@@ -92,10 +100,12 @@ export const CustomSearchResults = observer(function CustomSearchResults({
         />
       ) : searchStore.data.error ? (
         <div className={classes.error}>
-          <p>
-            Search service is not available at the moment. Sorry for the
-            inconvenience.
-          </p>
+          <Trans>
+            <p>
+              Search service is not available at the moment. Sorry for the
+              inconvenience.
+            </p>
+          </Trans>
         </div>
       ) : null}
     </>

@@ -1,4 +1,5 @@
 import IconButton from '@material-ui/core/IconButton'
+import { t } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import Play from '@material-ui/icons/PlayArrow'
@@ -52,7 +53,7 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
   }, [player])
 
   const errorBtn = (
-    <Tooltip placement="top" title="Try playing this station again">
+    <Tooltip placement="top" title={t`Try playing this station again`}>
       <IconButton className={classes.button} size="medium" color="secondary">
         <Error classes={{ root: classes.icon }} />
       </IconButton>
@@ -60,7 +61,7 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
   )
 
   const playBtn = (
-    <Tooltip placement="top" title="Play">
+    <Tooltip placement="top" title={t`Play`}>
       <IconButton className={classes.button} size="medium">
         <Play classes={{ root: classes.icon }} />
       </IconButton>
@@ -70,7 +71,7 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
   if (!stationId || (player.station && stationId === player.station.id)) {
     if (player.status === PlayerStatus.PLAYING) {
       btn = (
-        <Tooltip placement="top" title="Stop">
+        <Tooltip placement="top" title={t`Stop`}>
           <IconButton className={classes.button} size="medium">
             <Stop classes={{ root: classes.icon }} />
           </IconButton>
@@ -83,7 +84,7 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
       btn = playBtn
     } else if (player.status === PlayerStatus.BUFFERING) {
       btn = (
-        <Tooltip placement="top" title="Station is loading">
+        <Tooltip placement="top" title={t`Station is loading`}>
           <IconButton className={classes.button} size="medium">
             <Loading
               className={`${classes.loading}`}

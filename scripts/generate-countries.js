@@ -1,6 +1,7 @@
+const { inspect } = require('util')
 const fs = require('fs')
 const { countries } = require('countries-list')
-const flag = require('country-code-emoji')
+const { default: flag } = require('country-code-emoji')
 
 /* Optimize countries.json file from
     https://github.com/annexare/Countries/blob/master/data/countries.json
@@ -14,6 +15,7 @@ const flag = require('country-code-emoji')
   ]
 }
 */
+
 function countriesByContinent(countries) {
   const result = {}
 
@@ -24,13 +26,13 @@ function countriesByContinent(countries) {
       result[country.continent] = []
     }
 
-    // kosovo is not a country
+    // kosovo is not internationally recognized country
     if (countryCode === 'XK') {
       continue
     }
 
     result[country.continent].push({
-      name: country.name,
+      name: `t\`${country.name}\``,
       code: countryCode,
       flag: flag(countryCode),
       cont: country.continent
@@ -46,4 +48,15 @@ const dir = `${__dirname}/../src/generated`
 
 fs.mkdirSync(dir, { recursive: true })
 
-fs.writeFileSync(`${dir}/countries.json`, JSON.stringify(result))
+const file = fs.createWriteStream(`${dir}/countries.js`)
+
+file.write(`
+import { t } from '@lingui/macro'
+
+export function countries(){
+  const data = ${inspect(result).replace(/'(?<name>t`.+?`)'/g, '$<name>')}
+
+  return data
+}`)
+
+file.end()

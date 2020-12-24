@@ -1,4 +1,5 @@
 import BottomNavigation from '@material-ui/core/BottomNavigation'
+import { t } from '@lingui/macro'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
 import { makeStyles } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
@@ -47,10 +48,10 @@ export const MobileNavigation = observer(function MobileNavigation() {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="Search" icon={<SearchIcon />} />
-      <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-      <BottomNavigationAction label="Recent" icon={<RestoreIcon />} />
-      <BottomNavigationAction label="Settings" icon={<SettingsIcon />} />
+      <BottomNavigationAction label={t`Search`} icon={<SearchIcon />} />
+      <BottomNavigationAction label={t`Favorites`} icon={<FavoriteIcon />} />
+      <BottomNavigationAction label={t`Recent`} icon={<RestoreIcon />} />
+      <BottomNavigationAction label={t`Settings`} icon={<SettingsIcon />} />
     </BottomNavigation>
   )
 })

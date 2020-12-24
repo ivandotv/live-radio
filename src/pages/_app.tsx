@@ -1,17 +1,23 @@
 import { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
-import { ReactElement } from 'react'
+import { useRouter } from 'next/router'
+import { ReactElement, useEffect } from 'react'
+import { I18nProvider } from '@lingui/react'
+import { i18n } from '@lingui/core'
+import { t } from '@lingui/macro'
+import { url } from 'lib/appSettings'
+import { initTranslations } from 'initTranslations'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
     defaultMenuItems: ReactElement | ReactElement[]
   ) => ReactElement
-  mobileSidebar?: (
-    defaultMenuItems: ReactElement | ReactElement[]
-  ) => ReactElement
   layout?: (page: NextApplicationPage, props: any) => ReactElement
 }
+
+let firstRender = true
+initTranslations(i18n)
 
 export default function MyApp(props: AppProps) {
   const {
@@ -19,7 +25,25 @@ export default function MyApp(props: AppProps) {
     pageProps
   }: { Component: NextApplicationPage; pageProps: any } = props
 
-  console.log('app')
+  const router = useRouter()
+  const locale = router.locale || router.defaultLocale!
+
+  if (firstRender) {
+    if (pageProps.translation) {
+      i18n.load(locale, pageProps.translation)
+      i18n.activate(locale)
+    }
+  }
+
+  useEffect(() => {
+    console.log('use effect ', locale)
+    if (pageProps.translation && !firstRender) {
+      console.log('load ', locale)
+      i18n.load(locale, pageProps.translation)
+      i18n.activate(locale)
+    }
+    firstRender = false
+  }, [locale, pageProps.translation])
 
   return (
     <>
@@ -35,12 +59,12 @@ export default function MyApp(props: AppProps) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="description"
-          content="Next.js PWA application made with metrial-ui"
+          content={t`Next.js PWA application made with metrial-ui`}
           key="description"
         />
         <meta
           name="keywords"
-          content="pwa,nextjs,material,design"
+          content={t`pwa,nextjs,material,design`}
           key="keywords"
         />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -50,12 +74,23 @@ export default function MyApp(props: AppProps) {
           type="image/png"
           sizes="32x32"
         />
+        {router.locales!.concat('x-default').map((locale) => {
+          const localePath = locale === 'x-default' ? '' : `/${locale}`
+          const href = `${url}${localePath}${router.asPath}`
+
+          return (
+            <link key={locale} rel="alternate" hrefLang={locale} href={href} />
+          )
+        })}
       </Head>
-      {Component.layout ? (
-        Component.layout(Component, pageProps)
-      ) : (
-        <Component {...pageProps} />
-      )}
+
+      <I18nProvider i18n={i18n}>
+        {Component.layout ? (
+          Component.layout(Component, pageProps)
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </I18nProvider>
     </>
   )
 }

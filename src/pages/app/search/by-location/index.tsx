@@ -4,11 +4,15 @@ import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { continentsByCode } from 'lib/utils'
+import { t } from '@lingui/macro'
+import { getStaticTranslations } from 'initTranslations'
+
+export { getStaticTranslations as getStaticProps }
 
 export default function ByLocation() {
   const continents = []
 
-  for (const [key, value] of Object.entries(continentsByCode)) {
+  for (const [key, value] of Object.entries(continentsByCode())) {
     continents.push(
       <li key={key}>
         <AppMenuItem
@@ -20,7 +24,7 @@ export default function ByLocation() {
               pathname: `/app/search/by-location/${key}`
             }
           }}
-          primary={value}
+          primary={value.t}
         />
       </li>
     )
@@ -29,20 +33,20 @@ export default function ByLocation() {
   const breadcrumbs = [
     {
       href: '/app/search',
-      text: 'Search'
+      text: t`Search`
     },
     {
       href: '/app/search/by-location',
-      text: 'By Location'
+      text: t`By Location`
     }
   ]
 
   return (
-    <>
-      <PageTitle title="Search By Location" />
+    <div style={{ overflowY: 'scroll' }}>
+      <PageTitle title={t`Search By Location`} />
       <LocationBreadcrumbs links={breadcrumbs} />
       <List>{continents}</List>
-    </>
+    </div>
   )
 }
 

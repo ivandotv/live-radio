@@ -1,0 +1,2235 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2020-12-24 21:48+0100\n"
+"Mime-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: en\n"
+
+#: src/pages/app/index.tsx:30
+msgid "<0>App Root = ovde staviti recent i ostale varijante</0>"
+msgstr "<0>App Root = ovde staviti recent i ostale varijante</0>"
+
+#: src/pages/app/search/by-language/[language].tsx:79
+msgid "<0>Currently there is no data for <1>{0}</1>. Sorry for the inconvenience.</0>"
+msgstr "<0>Currently there is no data for <1>{0}</1>. Sorry for the inconvenience.</0>"
+
+#: src/components/CustomSearchResults.tsx:45
+msgid "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
+msgstr "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
+
+#: src/pages/app/search/by-location/[continent]/[country].tsx:87
+msgid "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
+msgstr "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
+
+#: src/components/FavoritesList.tsx:34
+msgid "<0>No favorites</0>"
+msgstr "<0>No favorites</0>"
+
+#: src/components/FilterList.tsx:21
+msgid "<0>No results</0>"
+msgstr "<0>No results</0>"
+
+#: src/components/CustomSearchResults.tsx:65
+msgid "<0>Search service is not available at the moment. Sorry for the inconvenience.</0>"
+msgstr "<0>Search service is not available at the moment. Sorry for the inconvenience.</0>"
+
+#: src/generated/languages.js:8
+msgid "Abkhaz"
+msgstr "Abkhaz"
+
+#: src/components/navigation/desktop/Menu.tsx:30
+#: src/lib/appSettings.ts:17
+msgid "About"
+msgstr "About"
+
+#: src/components/music-player/AddToFavoritesBtn.tsx:20
+msgid "Add station to favorites"
+msgstr "Add station to favorites"
+
+#: src/generated/languages.js:7
+msgid "Afar"
+msgstr "Afar"
+
+#: src/generated/countries.js:82
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: src/lib/utils.ts:34
+msgid "Africa"
+msgstr "Africa"
+
+#: src/generated/languages.js:10
+msgid "Afrikaans"
+msgstr "Afrikaans"
+
+#: src/generated/languages.js:11
+msgid "Akan"
+msgstr "Akan"
+
+#: src/generated/countries.js:8
+msgid "Albania"
+msgstr "Albania"
+
+#: src/generated/languages.js:155
+msgid "Albanian"
+msgstr "Albanian"
+
+#: src/generated/countries.js:275
+msgid "Algeria"
+msgstr "Algeria"
+
+#: src/generated/genres.js:7
+msgid "Alternative Rock"
+msgstr "Alternative Rock"
+
+#: src/generated/genres.js:8
+msgid "Ambient"
+msgstr "Ambient"
+
+#: src/generated/countries.js:376
+msgid "American Samoa"
+msgstr "American Samoa"
+
+#: src/generated/languages.js:12
+msgid "Amharic"
+msgstr "Amharic"
+
+#: src/generated/countries.js:7
+msgid "Andorra"
+msgstr "Andorra"
+
+#: src/generated/countries.js:248
+msgid "Angola"
+msgstr "Angola"
+
+#: src/generated/countries.js:161
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: src/generated/countries.js:333
+#: src/lib/utils.ts:38
+msgid "Antarctica"
+msgstr "Antarctica"
+
+#: src/generated/countries.js:156
+msgid "Antigua and Barbuda"
+msgstr "Antigua and Barbuda"
+
+#: src/pages/app/settings.tsx:9
+msgid "Application Settings"
+msgstr "Application Settings"
+
+#: src/generated/languages.js:14
+msgid "Arabic"
+msgstr "Arabic"
+
+#: src/generated/languages.js:13
+msgid "Aragonese"
+msgstr "Aragonese"
+
+#: src/generated/countries.js:355
+msgid "Argentina"
+msgstr "Argentina"
+
+#: src/generated/countries.js:83
+msgid "Armenia"
+msgstr "Armenia"
+
+#: src/generated/languages.js:69
+msgid "Armenian"
+msgstr "Armenian"
+
+#: src/generated/countries.js:162
+msgid "Aruba"
+msgstr "Aruba"
+
+#: src/lib/utils.ts:42
+msgid "Asia"
+msgstr "Asia"
+
+#: src/generated/languages.js:15
+msgid "Assamese"
+msgstr "Assamese"
+
+#: src/generated/countries.js:377
+msgid "Australia"
+msgstr "Australia"
+
+#: src/generated/countries.js:9
+msgid "Austria"
+msgstr "Austria"
+
+#: src/generated/languages.js:16
+msgid "Avaric"
+msgstr "Avaric"
+
+#: src/generated/languages.js:9
+msgid "Avestan"
+msgstr "Avestan"
+
+#: src/generated/languages.js:17
+msgid "Aymara"
+msgstr "Aymara"
+
+#: src/generated/countries.js:84
+msgid "Azerbaijan"
+msgstr "Azerbaijan"
+
+#: src/generated/languages.js:18
+msgid "Azerbaijani"
+msgstr "Azerbaijani"
+
+#: src/generated/countries.js:172
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: src/generated/countries.js:86
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: src/generated/languages.js:24
+msgid "Bambara"
+msgstr "Bambara"
+
+#: src/generated/countries.js:85
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: src/generated/countries.js:163
+msgid "Barbados"
+msgstr "Barbados"
+
+#: src/generated/languages.js:19
+msgid "Bashkir"
+msgstr "Bashkir"
+
+#: src/generated/languages.js:48
+msgid "Basque"
+msgstr "Basque"
+
+#: src/generated/countries.js:19
+msgid "Belarus"
+msgstr "Belarus"
+
+#: src/generated/languages.js:20
+msgid "Belarusian"
+msgstr "Belarusian"
+
+#: src/generated/countries.js:17
+msgid "Belgium"
+msgstr "Belgium"
+
+#: src/generated/countries.js:173
+msgid "Belize"
+msgstr "Belize"
+
+#: src/generated/languages.js:25
+msgid "Bengali"
+msgstr "Bengali"
+
+#: src/generated/countries.js:251
+msgid "Benin"
+msgstr "Benin"
+
+#: src/generated/countries.js:170
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: src/generated/countries.js:88
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: src/generated/languages.js:22
+msgid "Bihari"
+msgstr "Bihari"
+
+#: src/generated/languages.js:23
+msgid "Bislama"
+msgstr "Bislama"
+
+#: src/generated/genres.js:9
+msgid "Blues"
+msgstr "Blues"
+
+#: src/generated/countries.js:356
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: src/generated/countries.js:171
+msgid "Bonaire"
+msgstr "Bonaire"
+
+#: src/generated/countries.js:12
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnia and Herzegovina"
+
+#: src/generated/languages.js:28
+msgid "Bosnian"
+msgstr "Bosnian"
+
+#: src/generated/countries.js:252
+msgid "Botswana"
+msgstr "Botswana"
+
+#: src/generated/countries.js:334
+msgid "Bouvet Island"
+msgstr "Bouvet Island"
+
+#: src/generated/countries.js:357
+msgid "Brazil"
+msgstr "Brazil"
+
+#: src/generated/genres.js:10
+msgid "Breakbeat"
+msgstr "Breakbeat"
+
+#: src/generated/languages.js:27
+msgid "Breton"
+msgstr "Breton"
+
+#: src/generated/countries.js:108
+msgid "British Indian Ocean Territory"
+msgstr "British Indian Ocean Territory"
+
+#: src/generated/countries.js:235
+msgid "British Virgin Islands"
+msgstr "British Virgin Islands"
+
+#: src/generated/countries.js:87
+msgid "Brunei"
+msgstr "Brunei"
+
+#: src/generated/countries.js:18
+msgid "Bulgaria"
+msgstr "Bulgaria"
+
+#: src/generated/languages.js:21
+msgid "Bulgarian"
+msgstr "Bulgarian"
+
+#: src/generated/countries.js:249
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: src/generated/languages.js:116
+msgid "Burmese"
+msgstr "Burmese"
+
+#: src/generated/countries.js:250
+msgid "Burundi"
+msgstr "Burundi"
+
+#: src/pages/app/search/by-genre/[genre].tsx:64
+#: src/pages/app/search/by-genre/index.tsx:20
+#: src/pages/app/search/index.tsx:28
+msgid "By Genre"
+msgstr "By Genre"
+
+#: src/pages/app/search/by-language/[language].tsx:71
+#: src/pages/app/search/by-language/index.tsx:40
+#: src/pages/app/search/index.tsx:27
+msgid "By Language"
+msgstr "By Language"
+
+#: src/pages/app/search/by-location/[continent]/[country].tsx:74
+#: src/pages/app/search/by-location/[continent]/index.tsx:74
+#: src/pages/app/search/by-location/index.tsx:31
+#: src/pages/app/search/index.tsx:26
+msgid "By Location"
+msgstr "By Location"
+
+#: src/generated/countries.js:118
+msgid "Cambodia"
+msgstr "Cambodia"
+
+#: src/generated/countries.js:272
+msgid "Cameroon"
+msgstr "Cameroon"
+
+#: src/generated/countries.js:174
+msgid "Canada"
+msgstr "Canada"
+
+#: src/generated/countries.js:273
+msgid "Cape Verde"
+msgstr "Cape Verde"
+
+#: src/generated/languages.js:29
+msgid "Catalan"
+msgstr "Catalan"
+
+#: src/generated/countries.js:198
+msgid "Cayman Islands"
+msgstr "Cayman Islands"
+
+#: src/generated/countries.js:260
+msgid "Central African Republic"
+msgstr "Central African Republic"
+
+#: src/generated/countries.js:322
+msgid "Chad"
+msgstr "Chad"
+
+#: src/generated/languages.js:31
+msgid "Chamorro"
+msgstr "Chamorro"
+
+#: src/generated/languages.js:30
+msgid "Chechen"
+msgstr "Chechen"
+
+#: src/components/music-player/ShareStationBtn.tsx:27
+msgid "Check out this groovy station"
+msgstr "Check out this groovy station"
+
+#: src/generated/languages.js:127
+msgid "Chichewa"
+msgstr "Chichewa"
+
+#: src/generated/countries.js:358
+msgid "Chile"
+msgstr "Chile"
+
+#: src/generated/countries.js:95
+msgid "China"
+msgstr "China"
+
+#: src/generated/languages.js:189
+msgid "Chinese"
+msgstr "Chinese"
+
+#: src/generated/countries.js:97
+msgid "Christmas Island"
+msgstr "Christmas Island"
+
+#: src/generated/languages.js:36
+msgid "Chuvash"
+msgstr "Chuvash"
+
+#: src/generated/genres.js:11
+msgid "Classical"
+msgstr "Classical"
+
+#: src/generated/countries.js:90
+msgid "Cocos [Keeling] Islands"
+msgstr "Cocos [Keeling] Islands"
+
+#: src/generated/countries.js:359
+msgid "Colombia"
+msgstr "Colombia"
+
+#: src/generated/countries.js:292
+msgid "Comoros"
+msgstr "Comoros"
+
+#: src/generated/countries.js:378
+msgid "Cook Islands"
+msgstr "Cook Islands"
+
+#: src/generated/languages.js:96
+msgid "Cornish"
+msgstr "Cornish"
+
+#: src/generated/languages.js:32
+msgid "Corsican"
+msgstr "Corsican"
+
+#: src/generated/countries.js:175
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: src/generated/genres.js:12
+msgid "Country"
+msgstr "Country"
+
+#: src/generated/languages.js:33
+msgid "Cree"
+msgstr "Cree"
+
+#: src/generated/countries.js:34
+msgid "Croatia"
+msgstr "Croatia"
+
+#: src/generated/languages.js:66
+msgid "Croatian"
+msgstr "Croatian"
+
+#: src/generated/countries.js:176
+msgid "Cuba"
+msgstr "Cuba"
+
+#: src/generated/countries.js:177
+msgid "Curacao"
+msgstr "Curacao"
+
+#: src/pages/app/search/by-genre/[genre].tsx:73
+msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
+msgstr "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
+
+#: src/pages/app/search/custom.tsx:16
+#: src/pages/app/search/index.tsx:29
+msgid "Custom Search"
+msgstr "Custom Search"
+
+#: src/pages/app/search/custom.tsx:20
+msgid "Custom search"
+msgstr "Custom search"
+
+#: src/generated/countries.js:21
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: src/generated/languages.js:34
+msgid "Czech"
+msgstr "Czech"
+
+#: src/generated/countries.js:22
+msgid "Czech Republic"
+msgstr "Czech Republic"
+
+#: src/generated/genres.js:13
+msgid "Dance"
+msgstr "Dance"
+
+#: src/generated/languages.js:38
+msgid "Danish"
+msgstr "Danish"
+
+#: src/generated/genres.js:14
+msgid "Deep House"
+msgstr "Deep House"
+
+#: src/generated/genres.js:15
+msgid "Deep Techno"
+msgstr "Deep Techno"
+
+#: src/generated/countries.js:254
+msgid "Democratic Republic of the Congo"
+msgstr "Democratic Republic of the Congo"
+
+#: src/generated/countries.js:24
+msgid "Denmark"
+msgstr "Denmark"
+
+#: src/components/StationRowItem.tsx:61
+msgid "Depending on your brower this station might not load beacuse it is not served over a secure connection"
+msgstr "Depending on your brower this station might not load beacuse it is not served over a secure connection"
+
+#: src/generated/genres.js:16
+msgid "Disco"
+msgstr "Disco"
+
+#: src/generated/languages.js:40
+msgid "Divehi"
+msgstr "Divehi"
+
+#: src/generated/countries.js:274
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: src/generated/countries.js:178
+msgid "Dominica"
+msgstr "Dominica"
+
+#: src/generated/countries.js:180
+msgid "Dominican Republic"
+msgstr "Dominican Republic"
+
+#: src/generated/genres.js:17
+msgid "Drum And Bass"
+msgstr "Drum And Bass"
+
+#: src/generated/languages.js:122
+msgid "Dutch"
+msgstr "Dutch"
+
+#: src/generated/languages.js:41
+msgid "Dzongkha"
+msgstr "Dzongkha"
+
+#: src/generated/countries.js:426
+msgid "East Timor"
+msgstr "East Timor"
+
+#: src/generated/countries.js:360
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: src/generated/countries.js:276
+msgid "Egypt"
+msgstr "Egypt"
+
+#: src/generated/countries.js:213
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: src/generated/genres.js:18
+msgid "Electro"
+msgstr "Electro"
+
+#: src/generated/genres.js:19
+msgid "Electronic"
+msgstr "Electronic"
+
+#: src/components/LanguageSwitcher.tsx:23
+#: src/generated/languages.js:44
+msgid "English"
+msgstr "English"
+
+#: src/generated/countries.js:285
+msgid "Equatorial Guinea"
+msgstr "Equatorial Guinea"
+
+#: src/generated/countries.js:278
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: src/components/music-player/MusicPlayer.tsx:107
+msgid "Error playing radio station"
+msgstr "Error playing radio station"
+
+#: src/generated/languages.js:45
+msgid "Esperanto"
+msgstr "Esperanto"
+
+#: src/generated/countries.js:25
+msgid "Estonia"
+msgstr "Estonia"
+
+#: src/generated/languages.js:47
+msgid "Estonian"
+msgstr "Estonian"
+
+#: src/generated/countries.js:279
+msgid "Ethiopia"
+msgstr "Ethiopia"
+
+#: src/lib/utils.ts:46
+msgid "Europe"
+msgstr "Europe"
+
+#: src/generated/languages.js:42
+msgid "Ewe"
+msgstr "Ewe"
+
+#: src/generated/countries.js:362
+msgid "Falkland Islands"
+msgstr "Falkland Islands"
+
+#: src/generated/countries.js:28
+msgid "Faroe Islands"
+msgstr "Faroe Islands"
+
+#: src/generated/languages.js:53
+msgid "Faroese"
+msgstr "Faroese"
+
+#: src/components/navigation/desktop/Menu.tsx:18
+#: src/components/navigation/mobile/MobileNavigation.tsx:40
+#: src/lib/appSettings.ts:14
+msgid "Favorites"
+msgstr "Favorites"
+
+#: src/generated/countries.js:379
+msgid "Fiji"
+msgstr "Fiji"
+
+#: src/generated/languages.js:52
+msgid "Fijian"
+msgstr "Fijian"
+
+#: src/pages/app/search/by-location/[continent]/index.tsx:82
+msgid "Filter Countries"
+msgstr "Filter Countries"
+
+#: src/pages/app/search/by-genre/index.tsx:45
+msgid "Filter Genres"
+msgstr "Filter Genres"
+
+#: src/components/ListStations.tsx:32
+msgid "Filter Languages"
+msgstr "Filter Languages"
+
+#: src/pages/app/search/by-location/[continent]/[country].tsx:87
+msgid "Filter Stations"
+msgstr "Filter Stations"
+
+#: src/generated/countries.js:27
+msgid "Finland"
+msgstr "Finland"
+
+#: src/generated/languages.js:51
+msgid "Finnish"
+msgstr "Finnish"
+
+#: src/generated/genres.js:20
+msgid "Folk"
+msgstr "Folk"
+
+#: src/generated/countries.js:29
+msgid "France"
+msgstr "France"
+
+#: src/generated/genres.js:21
+msgid "Freestyle"
+msgstr "Freestyle"
+
+#: src/generated/languages.js:54
+msgid "French"
+msgstr "French"
+
+#: src/generated/countries.js:367
+msgid "French Guiana"
+msgstr "French Guiana"
+
+#: src/generated/countries.js:401
+msgid "French Polynesia"
+msgstr "French Polynesia"
+
+#: src/generated/countries.js:348
+msgid "French Southern Territories"
+msgstr "French Southern Territories"
+
+#: src/generated/languages.js:50
+msgid "Fula"
+msgstr "Fula"
+
+#: src/generated/genres.js:22
+msgid "Funk"
+msgstr "Funk"
+
+#: src/generated/genres.js:23
+msgid "Funky"
+msgstr "Funky"
+
+#: src/generated/countries.js:280
+msgid "Gabon"
+msgstr "Gabon"
+
+#: src/generated/languages.js:58
+msgid "Galician"
+msgstr "Galician"
+
+#: src/generated/countries.js:282
+msgid "Gambia"
+msgstr "Gambia"
+
+#: src/generated/languages.js:100
+msgid "Ganda"
+msgstr "Ganda"
+
+#: src/generated/genres.js:24
+msgid "Gangsta Rap"
+msgstr "Gangsta Rap"
+
+#: src/generated/genres.js:25
+msgid "Garage"
+msgstr "Garage"
+
+#: src/generated/countries.js:102
+msgid "Georgia"
+msgstr "Georgia"
+
+#: src/generated/languages.js:83
+msgid "Georgian"
+msgstr "Georgian"
+
+#: src/generated/languages.js:39
+msgid "German"
+msgstr "German"
+
+#: src/generated/countries.js:23
+msgid "Germany"
+msgstr "Germany"
+
+#: src/generated/countries.js:281
+msgid "Ghana"
+msgstr "Ghana"
+
+#: src/generated/countries.js:32
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: src/components/music-player/MusicPlayer.tsx:116
+msgid "Go to station website"
+msgstr "Go to station website"
+
+#: src/generated/genres.js:26
+msgid "Gospel"
+msgstr "Gospel"
+
+#: src/generated/countries.js:33
+msgid "Greece"
+msgstr "Greece"
+
+#: src/generated/languages.js:43
+msgid "Greek"
+msgstr "Greek"
+
+#: src/generated/countries.js:186
+msgid "Greenland"
+msgstr "Greenland"
+
+#: src/generated/countries.js:185
+msgid "Grenada"
+msgstr "Grenada"
+
+#: src/generated/genres.js:27
+msgid "Grime"
+msgstr "Grime"
+
+#: src/generated/genres.js:28
+msgid "Grunge"
+msgstr "Grunge"
+
+#: src/generated/countries.js:187
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: src/generated/countries.js:381
+msgid "Guam"
+msgstr "Guam"
+
+#: src/generated/languages.js:59
+msgid "Guaraní"
+msgstr "Guaraní"
+
+#: src/generated/countries.js:188
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: src/generated/countries.js:31
+msgid "Guernsey"
+msgstr "Guernsey"
+
+#: src/generated/countries.js:283
+msgid "Guinea"
+msgstr "Guinea"
+
+#: src/generated/countries.js:290
+msgid "Guinea-Bissau"
+msgstr "Guinea-Bissau"
+
+#: src/generated/languages.js:60
+msgid "Gujarati"
+msgstr "Gujarati"
+
+#: src/generated/countries.js:368
+msgid "Guyana"
+msgstr "Guyana"
+
+#: src/generated/countries.js:190
+msgid "Haiti"
+msgstr "Haiti"
+
+#: src/generated/languages.js:67
+msgid "Haitian"
+msgstr "Haitian"
+
+#: src/generated/genres.js:29
+msgid "Hard Rock"
+msgstr "Hard Rock"
+
+#: src/generated/genres.js:30
+msgid "Hardcore"
+msgstr "Hardcore"
+
+#: src/generated/languages.js:62
+msgid "Hausa"
+msgstr "Hausa"
+
+#: src/generated/countries.js:342
+msgid "Heard Island and McDonald Islands"
+msgstr "Heard Island and McDonald Islands"
+
+#: src/generated/genres.js:31
+msgid "Heavy Metal"
+msgstr "Heavy Metal"
+
+#: src/generated/languages.js:63
+msgid "Hebrew"
+msgstr "Hebrew"
+
+#: src/generated/languages.js:70
+msgid "Herero"
+msgstr "Herero"
+
+#: src/generated/languages.js:64
+msgid "Hindi"
+msgstr "Hindi"
+
+#: src/generated/genres.js:32
+msgid "Hip Hop"
+msgstr "Hip Hop"
+
+#: src/generated/languages.js:65
+msgid "Hiri Motu"
+msgstr "Hiri Motu"
+
+#: src/generated/countries.js:189
+msgid "Honduras"
+msgstr "Honduras"
+
+#: src/generated/countries.js:103
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: src/generated/genres.js:33
+msgid "House"
+msgstr "House"
+
+#: src/generated/languages.js:68
+msgid "Hungarian"
+msgstr "Hungarian"
+
+#: src/generated/countries.js:35
+msgid "Hungary"
+msgstr "Hungary"
+
+#: src/generated/countries.js:38
+msgid "Iceland"
+msgstr "Iceland"
+
+#: src/generated/languages.js:78
+msgid "Icelandic"
+msgstr "Icelandic"
+
+#: src/generated/languages.js:77
+msgid "Ido"
+msgstr "Ido"
+
+#: src/generated/languages.js:74
+msgid "Igbo"
+msgstr "Igbo"
+
+#: src/generated/countries.js:106
+msgid "India"
+msgstr "India"
+
+#: src/generated/genres.js:34
+msgid "Indie"
+msgstr "Indie"
+
+#: src/generated/countries.js:104
+msgid "Indonesia"
+msgstr "Indonesia"
+
+#: src/generated/languages.js:72
+msgid "Indonesian"
+msgstr "Indonesian"
+
+#: src/generated/genres.js:35
+msgid "Instrumental"
+msgstr "Instrumental"
+
+#: src/generated/languages.js:71
+msgid "Interlingua"
+msgstr "Interlingua"
+
+#: src/generated/languages.js:73
+msgid "Interlingue"
+msgstr "Interlingue"
+
+#: src/generated/languages.js:80
+msgid "Inuktitut"
+msgstr "Inuktitut"
+
+#: src/generated/languages.js:76
+msgid "Inupiaq"
+msgstr "Inupiaq"
+
+#: src/generated/countries.js:114
+msgid "Iran"
+msgstr "Iran"
+
+#: src/generated/countries.js:113
+msgid "Iraq"
+msgstr "Iraq"
+
+#: src/generated/countries.js:36
+msgid "Ireland"
+msgstr "Ireland"
+
+#: src/generated/languages.js:56
+msgid "Irish"
+msgstr "Irish"
+
+#: src/generated/countries.js:37
+msgid "Isle of Man"
+msgstr "Isle of Man"
+
+#: src/generated/countries.js:105
+msgid "Israel"
+msgstr "Israel"
+
+#: src/generated/languages.js:79
+msgid "Italian"
+msgstr "Italian"
+
+#: src/generated/countries.js:39
+msgid "Italy"
+msgstr "Italy"
+
+#: src/generated/countries.js:271
+msgid "Ivory Coast"
+msgstr "Ivory Coast"
+
+#: src/generated/countries.js:191
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: src/generated/countries.js:116
+msgid "Japan"
+msgstr "Japan"
+
+#: src/generated/languages.js:81
+msgid "Japanese"
+msgstr "Japanese"
+
+#: src/generated/languages.js:82
+msgid "Javanese"
+msgstr "Javanese"
+
+#: src/generated/genres.js:36
+msgid "Jazz"
+msgstr "Jazz"
+
+#: src/generated/countries.js:40
+msgid "Jersey"
+msgstr "Jersey"
+
+#: src/generated/countries.js:115
+msgid "Jordan"
+msgstr "Jordan"
+
+#: src/generated/genres.js:37
+msgid "Jungle"
+msgstr "Jungle"
+
+#: src/generated/genres.js:38
+msgid "K-pop"
+msgstr "K-pop"
+
+#: src/generated/languages.js:88
+msgid "Kalaallisut"
+msgstr "Kalaallisut"
+
+#: src/generated/languages.js:90
+msgid "Kannada"
+msgstr "Kannada"
+
+#: src/generated/languages.js:92
+msgid "Kanuri"
+msgstr "Kanuri"
+
+#: src/generated/languages.js:93
+msgid "Kashmiri"
+msgstr "Kashmiri"
+
+#: src/generated/languages.js:87
+msgid "Kazakh"
+msgstr "Kazakh"
+
+#: src/generated/countries.js:122
+msgid "Kazakhstan"
+msgstr "Kazakhstan"
+
+#: src/generated/countries.js:291
+msgid "Kenya"
+msgstr "Kenya"
+
+#: src/generated/languages.js:89
+msgid "Khmer"
+msgstr "Khmer"
+
+#: src/generated/languages.js:85
+msgid "Kikuyu"
+msgstr "Kikuyu"
+
+#: src/generated/languages.js:143
+msgid "Kinyarwanda"
+msgstr "Kinyarwanda"
+
+#: src/generated/countries.js:382
+msgid "Kiribati"
+msgstr "Kiribati"
+
+#: src/generated/languages.js:140
+msgid "Kirundi"
+msgstr "Kirundi"
+
+#: src/generated/languages.js:95
+msgid "Komi"
+msgstr "Komi"
+
+#: src/generated/languages.js:84
+msgid "Kongo"
+msgstr "Kongo"
+
+#: src/generated/languages.js:91
+msgid "Korean"
+msgstr "Korean"
+
+#: src/generated/languages.js:94
+msgid "Kurdish"
+msgstr "Kurdish"
+
+#: src/generated/countries.js:121
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: src/generated/languages.js:86
+msgid "Kwanyama"
+msgstr "Kwanyama"
+
+#: src/generated/languages.js:97
+msgid "Kyrgyz"
+msgstr "Kyrgyz"
+
+#: src/generated/countries.js:117
+msgid "Kyrgyzstan"
+msgstr "Kyrgyzstan"
+
+#: src/generated/languages.js:103
+msgid "Lao"
+msgstr "Lao"
+
+#: src/generated/countries.js:123
+msgid "Laos"
+msgstr "Laos"
+
+#: src/generated/genres.js:39
+#: src/generated/languages.js:98
+msgid "Latin"
+msgstr "Latin"
+
+#: src/generated/countries.js:44
+msgid "Latvia"
+msgstr "Latvia"
+
+#: src/generated/languages.js:106
+msgid "Latvian"
+msgstr "Latvian"
+
+#: src/pages/index.tsx:20
+msgid "Launch Application"
+msgstr "Launch Application"
+
+#: src/generated/countries.js:124
+msgid "Lebanon"
+msgstr "Lebanon"
+
+#: src/generated/countries.js:294
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: src/generated/countries.js:293
+msgid "Liberia"
+msgstr "Liberia"
+
+#: src/generated/countries.js:295
+msgid "Libya"
+msgstr "Libya"
+
+#: src/generated/countries.js:41
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: src/generated/languages.js:101
+msgid "Limburgish"
+msgstr "Limburgish"
+
+#: src/generated/languages.js:102
+msgid "Lingala"
+msgstr "Lingala"
+
+#: src/generated/countries.js:42
+msgid "Lithuania"
+msgstr "Lithuania"
+
+#: src/generated/languages.js:104
+msgid "Lithuanian"
+msgstr "Lithuanian"
+
+#: src/pages/app/index.tsx:29
+msgid "Live Radio"
+msgstr "Live Radio"
+
+#: src/pages/app/search/index.tsx:25
+msgid "Local Radio"
+msgstr "Local Radio"
+
+#: src/generated/languages.js:105
+msgid "Luba-Katanga"
+msgstr "Luba-Katanga"
+
+#: src/generated/countries.js:43
+msgid "Luxembourg"
+msgstr "Luxembourg"
+
+#: src/generated/languages.js:99
+msgid "Luxembourgish"
+msgstr "Luxembourgish"
+
+#: src/generated/countries.js:133
+msgid "Macao"
+msgstr "Macao"
+
+#: src/generated/languages.js:110
+msgid "Macedonian"
+msgstr "Macedonian"
+
+#: src/generated/countries.js:297
+msgid "Madagascar"
+msgstr "Madagascar"
+
+#: src/generated/languages.js:107
+msgid "Malagasy"
+msgstr "Malagasy"
+
+#: src/generated/countries.js:301
+msgid "Malawi"
+msgstr "Malawi"
+
+#: src/generated/languages.js:114
+msgid "Malay"
+msgstr "Malay"
+
+#: src/generated/languages.js:111
+msgid "Malayalam"
+msgstr "Malayalam"
+
+#: src/generated/countries.js:135
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: src/generated/countries.js:134
+msgid "Maldives"
+msgstr "Maldives"
+
+#: src/generated/countries.js:298
+msgid "Mali"
+msgstr "Mali"
+
+#: src/generated/countries.js:54
+msgid "Malta"
+msgstr "Malta"
+
+#: src/generated/languages.js:115
+msgid "Maltese"
+msgstr "Maltese"
+
+#: src/generated/languages.js:61
+msgid "Manx"
+msgstr "Manx"
+
+#: src/generated/languages.js:113
+msgid "Marathi"
+msgstr "Marathi"
+
+#: src/generated/countries.js:384
+msgid "Marshall Islands"
+msgstr "Marshall Islands"
+
+#: src/generated/languages.js:108
+msgid "Marshallese"
+msgstr "Marshallese"
+
+#: src/generated/countries.js:201
+msgid "Martinique"
+msgstr "Martinique"
+
+#: src/generated/countries.js:299
+msgid "Mauritania"
+msgstr "Mauritania"
+
+#: src/generated/countries.js:300
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: src/generated/countries.js:327
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: src/generated/genres.js:40
+msgid "Metal"
+msgstr "Metal"
+
+#: src/generated/countries.js:203
+msgid "Mexico"
+msgstr "Mexico"
+
+#: src/generated/countries.js:380
+msgid "Micronesia"
+msgstr "Micronesia"
+
+#: src/generated/genres.js:41
+msgid "Minimal"
+msgstr "Minimal"
+
+#: src/generated/countries.js:46
+msgid "Moldova"
+msgstr "Moldova"
+
+#: src/generated/countries.js:45
+msgid "Monaco"
+msgstr "Monaco"
+
+#: src/generated/countries.js:132
+msgid "Mongolia"
+msgstr "Mongolia"
+
+#: src/generated/languages.js:112
+msgid "Mongolian"
+msgstr "Mongolian"
+
+#: src/generated/countries.js:47
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: src/generated/countries.js:202
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: src/generated/countries.js:296
+msgid "Morocco"
+msgstr "Morocco"
+
+#: src/generated/countries.js:302
+msgid "Mozambique"
+msgstr "Mozambique"
+
+#: src/generated/countries.js:127
+msgid "Myanmar [Burma]"
+msgstr "Myanmar [Burma]"
+
+#: src/generated/languages.js:109
+msgid "Māori"
+msgstr "Māori"
+
+#: src/generated/countries.js:303
+msgid "Namibia"
+msgstr "Namibia"
+
+#: src/generated/countries.js:397
+#: src/generated/languages.js:117
+msgid "Nauru"
+msgstr "Nauru"
+
+#: src/generated/languages.js:126
+msgid "Navajo"
+msgstr "Navajo"
+
+#: src/generated/languages.js:121
+msgid "Ndonga"
+msgstr "Ndonga"
+
+#: src/generated/countries.js:136
+msgid "Nepal"
+msgstr "Nepal"
+
+#: src/generated/languages.js:120
+msgid "Nepali"
+msgstr "Nepali"
+
+#: src/generated/countries.js:55
+msgid "Netherlands"
+msgstr "Netherlands"
+
+#: src/generated/countries.js:395
+msgid "New Caledonia"
+msgstr "New Caledonia"
+
+#: src/generated/genres.js:42
+msgid "New Wave"
+msgstr "New Wave"
+
+#: src/generated/countries.js:399
+msgid "New Zealand"
+msgstr "New Zealand"
+
+#: src/pages/_app.tsx:37
+msgid "Next.js PWA application made with metrial-ui"
+msgstr "Next.js PWA application made with metrial-ui"
+
+#: src/generated/countries.js:204
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: src/generated/countries.js:304
+msgid "Niger"
+msgstr "Niger"
+
+#: src/generated/countries.js:305
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: src/generated/countries.js:398
+msgid "Niue"
+msgstr "Niue"
+
+#: src/components/music-player/SongInfo.tsx:15
+#: src/components/music-player/SongInfo.tsx:16
+msgid "No Data"
+msgstr "No Data"
+
+#: src/generated/countries.js:396
+msgid "Norfolk Island"
+msgstr "Norfolk Island"
+
+#: src/lib/utils.ts:50
+msgid "North America"
+msgstr "North America"
+
+#: src/generated/countries.js:119
+msgid "North Korea"
+msgstr "North Korea"
+
+#: src/generated/countries.js:49
+msgid "North Macedonia"
+msgstr "North Macedonia"
+
+#: src/generated/countries.js:390
+msgid "Northern Mariana Islands"
+msgstr "Northern Mariana Islands"
+
+#: src/generated/languages.js:119
+msgid "Northern Ndebele"
+msgstr "Northern Ndebele"
+
+#: src/generated/languages.js:147
+msgid "Northern Sami"
+msgstr "Northern Sami"
+
+#: src/generated/countries.js:56
+msgid "Norway"
+msgstr "Norway"
+
+#: src/generated/languages.js:124
+msgid "Norwegian"
+msgstr "Norwegian"
+
+#: src/generated/languages.js:118
+msgid "Norwegian Bokmål"
+msgstr "Norwegian Bokmål"
+
+#: src/generated/languages.js:123
+msgid "Norwegian Nynorsk"
+msgstr "Norwegian Nynorsk"
+
+#: src/generated/languages.js:75
+msgid "Nuosu"
+msgstr "Nuosu"
+
+#: src/generated/languages.js:128
+msgid "Occitan"
+msgstr "Occitan"
+
+#: src/lib/utils.ts:54
+msgid "Oceania"
+msgstr "Oceania"
+
+#: src/generated/languages.js:129
+msgid "Ojibwe"
+msgstr "Ojibwe"
+
+#: src/generated/languages.js:35
+msgid "Old Church Slavonic"
+msgstr "Old Church Slavonic"
+
+#: src/generated/countries.js:137
+msgid "Oman"
+msgstr "Oman"
+
+#: src/generated/languages.js:131
+msgid "Oriya"
+msgstr "Oriya"
+
+#: src/generated/languages.js:130
+msgid "Oromo"
+msgstr "Oromo"
+
+#: src/generated/languages.js:132
+msgid "Ossetian"
+msgstr "Ossetian"
+
+#: src/generated/countries.js:139
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: src/generated/countries.js:418
+msgid "Palau"
+msgstr "Palau"
+
+#: src/generated/countries.js:140
+msgid "Palestine"
+msgstr "Palestine"
+
+#: src/generated/countries.js:205
+msgid "Panama"
+msgstr "Panama"
+
+#: src/generated/languages.js:133
+msgid "Panjabi"
+msgstr "Panjabi"
+
+#: src/generated/countries.js:407
+msgid "Papua New Guinea"
+msgstr "Papua New Guinea"
+
+#: src/generated/countries.js:370
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: src/generated/languages.js:136
+msgid "Pashto"
+msgstr "Pashto"
+
+#: src/generated/languages.js:49
+msgid "Persian"
+msgstr "Persian"
+
+#: src/generated/countries.js:369
+msgid "Peru"
+msgstr "Peru"
+
+#: src/generated/countries.js:138
+msgid "Philippines"
+msgstr "Philippines"
+
+#: src/generated/countries.js:413
+msgid "Pitcairn Islands"
+msgstr "Pitcairn Islands"
+
+#: src/components/music-player/PlayerToggleBtn.tsx:48
+msgid "Play"
+msgstr "Play"
+
+#: src/generated/countries.js:57
+msgid "Poland"
+msgstr "Poland"
+
+#: src/generated/languages.js:135
+msgid "Polish"
+msgstr "Polish"
+
+#: src/generated/genres.js:43
+msgid "Pop"
+msgstr "Pop"
+
+#: src/generated/countries.js:58
+msgid "Portugal"
+msgstr "Portugal"
+
+#: src/generated/languages.js:137
+msgid "Portuguese"
+msgstr "Portuguese"
+
+#: src/generated/genres.js:44
+msgid "Progressive House"
+msgstr "Progressive House"
+
+#: src/generated/genres.js:45
+msgid "Progressive Rock"
+msgstr "Progressive Rock"
+
+#: src/components/LanguageSwitcher.tsx:27
+msgid "Pseudo"
+msgstr "Pseudo"
+
+#: src/generated/genres.js:46
+msgid "Psychedelic Rock"
+msgstr "Psychedelic Rock"
+
+#: src/generated/countries.js:212
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: src/generated/genres.js:47
+msgid "Punk"
+msgstr "Punk"
+
+#: src/generated/genres.js:48
+msgid "Punk Rock"
+msgstr "Punk Rock"
+
+#: src/generated/languages.js:134
+msgid "Pāli"
+msgstr "Pāli"
+
+#: src/generated/countries.js:141
+msgid "Qatar"
+msgstr "Qatar"
+
+#: src/generated/languages.js:138
+msgid "Quechua"
+msgstr "Quechua"
+
+#: src/generated/genres.js:49
+msgid "Rap"
+msgstr "Rap"
+
+#: src/components/navigation/mobile/MobileNavigation.tsx:41
+msgid "Recent"
+msgstr "Recent"
+
+#: src/components/navigation/desktop/Menu.tsx:22
+#: src/lib/appSettings.ts:15
+msgid "Recent Stations"
+msgstr "Recent Stations"
+
+#: src/generated/genres.js:50
+msgid "Reggae"
+msgstr "Reggae"
+
+#: src/generated/genres.js:51
+msgid "Reggaeton"
+msgstr "Reggaeton"
+
+#: src/components/music-player/AddToFavoritesBtn.tsx:19
+msgid "Remove station from favorites"
+msgstr "Remove station from favorites"
+
+#: src/generated/countries.js:266
+msgid "Republic of the Congo"
+msgstr "Republic of the Congo"
+
+#: src/generated/genres.js:52
+msgid "Rhythm And Blues"
+msgstr "Rhythm And Blues"
+
+#: src/generated/genres.js:53
+msgid "Rock"
+msgstr "Rock"
+
+#: src/generated/countries.js:59
+msgid "Romania"
+msgstr "Romania"
+
+#: src/generated/languages.js:141
+msgid "Romanian"
+msgstr "Romanian"
+
+#: src/generated/languages.js:139
+msgid "Romansh"
+msgstr "Romansh"
+
+#: src/generated/countries.js:61
+msgid "Russia"
+msgstr "Russia"
+
+#: src/generated/languages.js:142
+msgid "Russian"
+msgstr "Russian"
+
+#: src/generated/countries.js:307
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: src/generated/countries.js:306
+msgid "Réunion"
+msgstr "Réunion"
+
+#: src/generated/countries.js:165
+msgid "Saint Barthélemy"
+msgstr "Saint Barthélemy"
+
+#: src/generated/countries.js:310
+msgid "Saint Helena"
+msgstr "Saint Helena"
+
+#: src/generated/countries.js:193
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts and Nevis"
+
+#: src/generated/countries.js:199
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: src/generated/countries.js:200
+msgid "Saint Martin"
+msgstr "Saint Martin"
+
+#: src/generated/countries.js:207
+msgid "Saint Pierre and Miquelon"
+msgstr "Saint Pierre and Miquelon"
+
+#: src/generated/countries.js:229
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent and the Grenadines"
+
+#: src/generated/genres.js:54
+msgid "Salsa"
+msgstr "Salsa"
+
+#: src/generated/countries.js:442
+msgid "Samoa"
+msgstr "Samoa"
+
+#: src/generated/languages.js:152
+msgid "Samoan"
+msgstr "Samoan"
+
+#: src/generated/countries.js:71
+msgid "San Marino"
+msgstr "San Marino"
+
+#: src/generated/languages.js:148
+msgid "Sango"
+msgstr "Sango"
+
+#: src/generated/languages.js:144
+msgid "Sanskrit"
+msgstr "Sanskrit"
+
+#: src/generated/languages.js:145
+msgid "Sardinian"
+msgstr "Sardinian"
+
+#: src/generated/countries.js:142
+msgid "Saudi Arabia"
+msgstr "Saudi Arabia"
+
+#: src/generated/languages.js:57
+msgid "Scottish Gaelic"
+msgstr "Scottish Gaelic"
+
+#: src/components/navigation/desktop/Menu.tsx:14
+#: src/components/navigation/mobile/MobileNavigation.tsx:39
+#: src/lib/appSettings.ts:13
+#: src/pages/app/search/by-genre/[genre].tsx:60
+#: src/pages/app/search/by-genre/index.tsx:16
+#: src/pages/app/search/by-language/[language].tsx:67
+#: src/pages/app/search/by-language/index.tsx:36
+#: src/pages/app/search/by-location/[continent]/[country].tsx:70
+#: src/pages/app/search/by-location/[continent]/index.tsx:70
+#: src/pages/app/search/by-location/index.tsx:27
+#: src/pages/app/search/custom.tsx:13
+msgid "Search"
+msgstr "Search"
+
+#: src/pages/app/search/by-location/index.tsx:35
+msgid "Search By Location"
+msgstr "Search By Location"
+
+#: src/pages/app/search/index.tsx:19
+msgid "Search For Radio Stations"
+msgstr "Search For Radio Stations"
+
+#: src/pages/app/search/custom.tsx:21
+msgid "Search For Stations"
+msgstr "Search For Stations"
+
+#: src/pages/app/search/by-genre/index.tsx:44
+msgid "Search For Stations by Genre"
+msgstr "Search For Stations by Genre"
+
+#: src/pages/app/search/by-language/index.tsx:44
+msgid "Search For Stations by Language"
+msgstr "Search For Stations by Language"
+
+#: src/pages/app/search/by-genre/[genre].tsx:71
+#: src/pages/app/search/by-language/[language].tsx:78
+#: src/pages/app/search/by-location/[continent]/[country].tsx:86
+msgid "Search For Stations in {0}"
+msgstr "Search For Stations in {0}"
+
+#: src/pages/app/search/by-location/[continent]/index.tsx:81
+msgid "Search for stations by country"
+msgstr "Search for stations by country"
+
+#: src/generated/countries.js:312
+msgid "Senegal"
+msgstr "Senegal"
+
+#: src/generated/countries.js:60
+msgid "Serbia"
+msgstr "Serbia"
+
+#: src/components/LanguageSwitcher.tsx:24
+#: src/generated/languages.js:156
+msgid "Serbian"
+msgstr "Serbian"
+
+#: src/components/navigation/desktop/Menu.tsx:26
+#: src/components/navigation/mobile/MobileNavigation.tsx:42
+#: src/lib/appSettings.ts:16
+msgid "Settings"
+msgstr "Settings"
+
+#: src/generated/countries.js:308
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: src/components/music-player/ShareStationBtn.tsx:26
+msgid "Share Station --"
+msgstr "Share Station --"
+
+#: src/components/music-player/ShareStationBtn.tsx:52
+#: src/components/music-player/ShareStationBtn.tsx:52
+msgid "Share station"
+msgstr "Share station"
+
+#: src/generated/languages.js:153
+msgid "Shona"
+msgstr "Shona"
+
+#: src/generated/countries.js:311
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: src/generated/languages.js:146
+msgid "Sindhi"
+msgstr "Sindhi"
+
+#: src/generated/countries.js:143
+msgid "Singapore"
+msgstr "Singapore"
+
+#: src/generated/languages.js:149
+msgid "Sinhala"
+msgstr "Sinhala"
+
+#: src/generated/countries.js:214
+msgid "Sint Maarten"
+msgstr "Sint Maarten"
+
+#: src/generated/genres.js:55
+msgid "Ska"
+msgstr "Ska"
+
+#: src/generated/languages.js:150
+msgid "Slovak"
+msgstr "Slovak"
+
+#: src/generated/countries.js:70
+msgid "Slovakia"
+msgstr "Slovakia"
+
+#: src/generated/languages.js:151
+msgid "Slovene"
+msgstr "Slovene"
+
+#: src/generated/countries.js:63
+msgid "Slovenia"
+msgstr "Slovenia"
+
+#: src/generated/countries.js:420
+msgid "Solomon Islands"
+msgstr "Solomon Islands"
+
+#: src/generated/languages.js:154
+msgid "Somali"
+msgstr "Somali"
+
+#: src/generated/countries.js:313
+msgid "Somalia"
+msgstr "Somalia"
+
+#: src/generated/genres.js:56
+msgid "Soul"
+msgstr "Soul"
+
+#: src/generated/countries.js:328
+msgid "South Africa"
+msgstr "South Africa"
+
+#: src/lib/utils.ts:58
+msgid "South America"
+msgstr "South America"
+
+#: src/generated/countries.js:336
+msgid "South Georgia and the South Sandwich Islands"
+msgstr "South Georgia and the South Sandwich Islands"
+
+#: src/generated/countries.js:120
+msgid "South Korea"
+msgstr "South Korea"
+
+#: src/generated/countries.js:314
+msgid "South Sudan"
+msgstr "South Sudan"
+
+#: src/generated/languages.js:125
+msgid "Southern Ndebele"
+msgstr "Southern Ndebele"
+
+#: src/generated/languages.js:158
+msgid "Southern Sotho"
+msgstr "Southern Sotho"
+
+#: src/generated/countries.js:26
+msgid "Spain"
+msgstr "Spain"
+
+#: src/generated/languages.js:46
+msgid "Spanish"
+msgstr "Spanish"
+
+#: src/generated/countries.js:125
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: src/components/music-player/PlayerToggleBtn.tsx:66
+msgid "Station is loading"
+msgstr "Station is loading"
+
+#: src/components/music-player/PlayerToggleBtn.tsx:55
+msgid "Stop"
+msgstr "Stop"
+
+#: src/generated/countries.js:309
+msgid "Sudan"
+msgstr "Sudan"
+
+#: src/generated/languages.js:159
+msgid "Sundanese"
+msgstr "Sundanese"
+
+#: src/generated/countries.js:371
+msgid "Suriname"
+msgstr "Suriname"
+
+#: src/generated/countries.js:65
+msgid "Svalbard and Jan Mayen"
+msgstr "Svalbard and Jan Mayen"
+
+#: src/generated/languages.js:161
+msgid "Swahili"
+msgstr "Swahili"
+
+#: src/generated/languages.js:157
+msgid "Swati"
+msgstr "Swati"
+
+#: src/generated/countries.js:321
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: src/generated/countries.js:62
+msgid "Sweden"
+msgstr "Sweden"
+
+#: src/generated/languages.js:160
+msgid "Swedish"
+msgstr "Swedish"
+
+#: src/generated/genres.js:57
+msgid "Swing"
+msgstr "Swing"
+
+#: src/components/layout/AppToolbar.tsx:84
+msgid "Switch to Dark Theme"
+msgstr "Switch to Dark Theme"
+
+#: src/components/layout/AppToolbar.tsx:83
+msgid "Switch to Light Theme"
+msgstr "Switch to Light Theme"
+
+#: src/generated/countries.js:20
+msgid "Switzerland"
+msgstr "Switzerland"
+
+#: src/generated/countries.js:144
+msgid "Syria"
+msgstr "Syria"
+
+#: src/generated/countries.js:316
+msgid "São Tomé and Príncipe"
+msgstr "São Tomé and Príncipe"
+
+#: src/generated/languages.js:168
+msgid "Tagalog"
+msgstr "Tagalog"
+
+#: src/generated/languages.js:175
+msgid "Tahitian"
+msgstr "Tahitian"
+
+#: src/generated/countries.js:149
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: src/generated/languages.js:164
+msgid "Tajik"
+msgstr "Tajik"
+
+#: src/generated/countries.js:146
+msgid "Tajikistan"
+msgstr "Tajikistan"
+
+#: src/generated/languages.js:162
+msgid "Tamil"
+msgstr "Tamil"
+
+#: src/generated/countries.js:325
+msgid "Tanzania"
+msgstr "Tanzania"
+
+#: src/generated/languages.js:173
+msgid "Tatar"
+msgstr "Tatar"
+
+#: src/generated/genres.js:58
+msgid "Tech House"
+msgstr "Tech House"
+
+#: src/generated/genres.js:59
+msgid "Techno"
+msgstr "Techno"
+
+#: src/generated/languages.js:163
+msgid "Telugu"
+msgstr "Telugu"
+
+#: src/generated/languages.js:165
+msgid "Thai"
+msgstr "Thai"
+
+#: src/generated/countries.js:145
+msgid "Thailand"
+msgstr "Thailand"
+
+#: src/generated/languages.js:26
+msgid "Tibetan Standard"
+msgstr "Tibetan Standard"
+
+#: src/generated/languages.js:166
+msgid "Tigrinya"
+msgstr "Tigrinya"
+
+#: src/generated/countries.js:323
+msgid "Togo"
+msgstr "Togo"
+
+#: src/generated/countries.js:425
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: src/generated/countries.js:427
+#: src/generated/languages.js:170
+msgid "Tonga"
+msgstr "Tonga"
+
+#: src/generated/genres.js:60
+msgid "Trance"
+msgstr "Trance"
+
+#: src/generated/genres.js:61
+msgid "Trap"
+msgstr "Trap"
+
+#: src/generated/countries.js:222
+msgid "Trinidad and Tobago"
+msgstr "Trinidad and Tobago"
+
+#: src/components/music-player/PlayerToggleBtn.tsx:43
+msgid "Try playing this station again"
+msgstr "Try playing this station again"
+
+#: src/generated/languages.js:172
+msgid "Tsonga"
+msgstr "Tsonga"
+
+#: src/generated/languages.js:169
+msgid "Tswana"
+msgstr "Tswana"
+
+#: src/generated/countries.js:324
+msgid "Tunisia"
+msgstr "Tunisia"
+
+#: src/generated/countries.js:148
+msgid "Turkey"
+msgstr "Turkey"
+
+#: src/generated/languages.js:171
+msgid "Turkish"
+msgstr "Turkish"
+
+#: src/generated/languages.js:167
+msgid "Turkmen"
+msgstr "Turkmen"
+
+#: src/generated/countries.js:147
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: src/generated/countries.js:216
+msgid "Turks and Caicos Islands"
+msgstr "Turks and Caicos Islands"
+
+#: src/generated/countries.js:428
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: src/generated/languages.js:174
+msgid "Twi"
+msgstr "Twi"
+
+#: src/generated/countries.js:430
+msgid "U.S. Minor Outlying Islands"
+msgstr "U.S. Minor Outlying Islands"
+
+#: src/generated/countries.js:241
+msgid "U.S. Virgin Islands"
+msgstr "U.S. Virgin Islands"
+
+#: src/generated/countries.js:326
+msgid "Uganda"
+msgstr "Uganda"
+
+#: src/generated/countries.js:72
+msgid "Ukraine"
+msgstr "Ukraine"
+
+#: src/generated/languages.js:177
+msgid "Ukrainian"
+msgstr "Ukrainian"
+
+#: src/generated/countries.js:77
+msgid "United Arab Emirates"
+msgstr "United Arab Emirates"
+
+#: src/generated/countries.js:30
+msgid "United Kingdom"
+msgstr "United Kingdom"
+
+#: src/generated/countries.js:227
+msgid "United States"
+msgstr "United States"
+
+#: src/generated/languages.js:178
+msgid "Urdu"
+msgstr "Urdu"
+
+#: src/generated/countries.js:372
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: src/generated/languages.js:176
+msgid "Uyghur"
+msgstr "Uyghur"
+
+#: src/generated/languages.js:179
+msgid "Uzbek"
+msgstr "Uzbek"
+
+#: src/generated/countries.js:150
+msgid "Uzbekistan"
+msgstr "Uzbekistan"
+
+#: src/generated/countries.js:435
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: src/generated/countries.js:73
+msgid "Vatican City"
+msgstr "Vatican City"
+
+#: src/generated/languages.js:180
+msgid "Venda"
+msgstr "Venda"
+
+#: src/generated/countries.js:373
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: src/generated/countries.js:151
+msgid "Vietnam"
+msgstr "Vietnam"
+
+#: src/generated/languages.js:181
+msgid "Vietnamese"
+msgstr "Vietnamese"
+
+#: src/generated/languages.js:182
+msgid "Volapük"
+msgstr "Volapük"
+
+#: src/generated/countries.js:437
+msgid "Wallis and Futuna"
+msgstr "Wallis and Futuna"
+
+#: src/generated/languages.js:183
+msgid "Walloon"
+msgstr "Walloon"
+
+#: src/pages/index.tsx:13
+msgid "Welcome to Next Radio App"
+msgstr "Welcome to Next Radio App"
+
+#: src/generated/languages.js:37
+msgid "Welsh"
+msgstr "Welsh"
+
+#: src/generated/languages.js:55
+msgid "Western Frisian"
+msgstr "Western Frisian"
+
+#: src/generated/countries.js:277
+msgid "Western Sahara"
+msgstr "Western Sahara"
+
+#: src/generated/languages.js:184
+msgid "Wolof"
+msgstr "Wolof"
+
+#: src/generated/genres.js:62
+msgid "World"
+msgstr "World"
+
+#: src/generated/languages.js:185
+msgid "Xhosa"
+msgstr "Xhosa"
+
+#: src/generated/countries.js:152
+msgid "Yemen"
+msgstr "Yemen"
+
+#: src/generated/languages.js:186
+msgid "Yiddish"
+msgstr "Yiddish"
+
+#: src/generated/languages.js:187
+msgid "Yoruba"
+msgstr "Yoruba"
+
+#: src/pages/app/favorites.tsx:10
+msgid "Your favorite Radio Stations"
+msgstr "Your favorite Radio Stations"
+
+#: src/generated/countries.js:329
+msgid "Zambia"
+msgstr "Zambia"
+
+#: src/generated/languages.js:188
+msgid "Zhuang"
+msgstr "Zhuang"
+
+#: src/generated/countries.js:330
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+#: src/generated/languages.js:190
+msgid "Zulu"
+msgstr "Zulu"
+
+#: src/pages/_app.tsx:38
+msgid "pwa,nextjs,material,design"
+msgstr "pwa,nextjs,material,design"
+
+#: src/components/StationRowItem.tsx:88
+msgid "remove"
+msgstr "remove"
+
+#: src/components/CustomSearchResults.tsx:54
+#: src/components/ListStations.tsx:43
+msgid "{0, plural, one {result} other {results}}"
+msgstr "{0, plural, one {result} other {results}}"
+
+#: src/generated/countries.js:10
+msgid "Åland"
+msgstr "Åland"

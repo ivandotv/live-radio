@@ -1,27 +1,41 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { RadioBrowserApi } from 'radio-browser-api'
-import { BrowseBy } from 'components/BrowseBy'
+import { t, Trans } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { ListStations } from 'components/ListStations'
+import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
-import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
-import { RadioStation } from 'types'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { languages } from 'generated/languages'
+import { loadTranslation, paramsWithLocales } from 'initTranslations'
 import { userAgentName } from 'lib/appSettings'
+import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+import { RadioBrowserApi } from 'radio-browser-api'
+import { RadioStation } from 'types'
 
-export const getStaticPaths: GetStaticPaths = async function () {
-  return {
-    paths: [
-      { params: { language: 'english' } },
-      { params: { language: 'spanish' } },
-      { params: { language: 'french' } },
-      { params: { language: 'german' } }
+export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
+  const paths = paramsWithLocales(
+    [
+      { language: 'english' },
+      { language: 'spanish' },
+      { language: 'french' },
+      { language: 'german' }
     ],
+    locales!
+  )
+
+  return {
+    paths,
     fallback: true
   }
 }
 
 export const getStaticProps: GetStaticProps = async function (ctx) {
-  const language = (ctx.params?.language as string).replace(/-/g, ' ')
+  const language = (ctx.params!.language as string)
+    .replace(/-/g, ' ')
+    .toLowerCase()
+
+  const translation = await loadTranslation(ctx.locale!)
 
   const api = new RadioBrowserApi(fetch, userAgentName)
   const stations = await api.searchStations(
@@ -36,7 +50,9 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   return {
     props: {
       stations: stationsToRadioStations(stations),
-      language
+      // stations: [],
+      language,
+      translation
     },
     revalidate: 600 // 10 minutes
   }
@@ -49,17 +65,27 @@ export default function LanguageStations({
   stations: RadioStation[]
   language: string
 }) {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <ListStationsFallback />
+  }
+
+  const languageTrans = languages().find(
+    (l) => language.toLowerCase() === l.raw.toLowerCase()
+  )!
+
   const breadcrumbs = [
     {
       href: '/app/search',
-      text: 'Search'
+      text: t`Search`
     },
     {
       href: '/app/search/by-language',
-      text: 'By Language'
+      text: t`By Language`
     },
     {
-      text: `${language}`
+      text: `${languageTrans.t}`
     }
   ]
 
@@ -69,18 +95,19 @@ export default function LanguageStations({
       uuid="id"
       indexes={['language', 'country', 'tags', 'continent', 'name']}
     >
-      <PageTitle title="Search For Stations" />
-      <BrowseBy
-        filterInputText="Filter Stations"
+      <PageTitle title={t`Search For Stations in ${languageTrans.t}`} />
+      <ListStations
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow()}
         noData={
-          <p>
-            Currently there is no data for <strong>${language}</strong>. Sorry
-            for the inconvenience.
-          </p>
+          <Trans>
+            <p>
+              Currently there is no data for <strong>{languageTrans.t}</strong>.
+              Sorry for the inconvenience.
+            </p>
+          </Trans>
         }
-      ></BrowseBy>
+      ></ListStations>
     </FilterDataStoreProvider>
   )
 }

@@ -3,6 +3,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
+import { t } from '@lingui/macro'
 
 const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
@@ -15,8 +16,8 @@ export const SongInfo = observer(function SongInfo() {
   const player = useMusicPlayer()
   const classes = useStyles()
 
-  let artist = player.songInfo?.artist || 'No Data'
-  let songTitle = player.songInfo?.title || 'No Data'
+  let artist = player.songInfo?.artist || t`No Data`
+  let songTitle = player.songInfo?.title || t`No Data`
 
   const showInfo =
     player.status !== PlayerStatus.STOPPED &&

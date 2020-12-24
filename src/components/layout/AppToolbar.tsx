@@ -1,4 +1,6 @@
+import { t } from '@lingui/macro'
 import AppBar from '@material-ui/core/AppBar'
+import Badge from '@material-ui/core/Badge'
 import IconButton from '@material-ui/core/IconButton'
 import {
   createStyles,
@@ -13,22 +15,33 @@ import MenuCloseIcon from '@material-ui/icons/ArrowBack'
 import DarkIcon from '@material-ui/icons/Brightness6'
 import LightIcon from '@material-ui/icons/Brightness7'
 import MenuIcon from '@material-ui/icons/Menu'
+import { LanguageSwitcher } from 'components/LanguageSwitcher'
 import { useAppShell } from 'components/providers/RootStoreProvider'
-import { useEffect, useState } from 'react'
-import Badge from '@material-ui/core/Badge'
-import { useRouter } from 'next/router'
+import { sections } from 'lib/appSettings'
+import { searchTranslation } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    switchThemeButton: {
-      marginLeft: 'auto'
-    },
     menuButtonDesktop: {
       marginRight: theme.spacing(2),
       [theme.breakpoints.down('sm')]: {
         display: 'none'
       }
+    },
+    appToolbar: {
+      alignItems: 'flex-end'
+    },
+    elementLeft: {
+      marginRight: 'auto',
+      display: 'flex',
+      alignItems: 'center'
+    },
+    elementsWrap: {
+      justifyContent: 'flex-end',
+      width: '100%'
     }
   })
 )
@@ -38,25 +51,15 @@ function useSetAppTitle(separator: string, defaultTitle: string) {
   const [title, setTitle] = useState(defaultTitle)
 
   useEffect(() => {
-    const path = router.pathname
-    const found = path.split('/')
+    const pathParts = router.pathname.split('/')
 
-    if (found[2]) {
-      setTitle(
-        // python where are you?
-        found[2]
-          .replace('/', separator)
-          .replace('-', ' ')
-          .split(' ')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ')
-      )
+    console.log({ pathParts })
+    if (pathParts[2]) {
+      const title = pathParts[2].replace('/', separator).replace('-', ' ')
+      setTitle(searchTranslation(title, sections()))
     } else {
       setTitle(defaultTitle)
     }
-
-    // console.log('pathname ', router.pathname)
-    // console.log('found ', found)
   }, [separator, router.pathname, defaultTitle])
 
   return title
@@ -86,39 +89,39 @@ export const AppToolbar = observer(function AppToolbar() {
       color={theme.palette.type === 'light' ? 'primary' : 'default'}
       position="fixed"
       elevation={0}
+      classes={{ root: classes.appToolbar }}
     >
-      <Toolbar variant="dense">
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={toggleDesktopDrawer}
-          className={classes.menuButtonDesktop}
-        >
-          {store.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
-        </IconButton>
-        <Typography variant="h6" noWrap>
-          {appTitle}
-        </Typography>
+      <Toolbar variant="dense" classes={{ root: classes.elementsWrap }}>
+        <div className={classes.elementLeft}>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={toggleDesktopDrawer}
+            className={classes.menuButtonDesktop}
+          >
+            {store.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
+          </IconButton>
+          <Typography variant="h6" noWrap>
+            {appTitle}
+          </Typography>
+        </div>
+        <LanguageSwitcher></LanguageSwitcher>
         <Tooltip
           title={
             store.theme === 'dark'
-              ? 'Switch to Light Theme'
-              : 'Switch to Dark Theme'
+              ? t`Switch to Light Theme`
+              : t`Switch to Dark Theme`
           }
           aria-label="toggle dark/light theme"
         >
-          <IconButton
-            color="inherit"
-            className={classes.switchThemeButton}
-            onClick={toggleTheme}
-            edge="end"
-          >
+          <IconButton color="inherit" onClick={toggleTheme} edge="end">
             <Badge badgeContent={counter} color="secondary" showZero>
               {store.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
             </Badge>
           </IconButton>
         </Tooltip>
+        {/* </div> */}
       </Toolbar>
     </AppBar>
   )

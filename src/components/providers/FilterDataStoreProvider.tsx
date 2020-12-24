@@ -20,18 +20,18 @@ export function FilterDataStoreProvider({
   children,
   initialState,
   uuid,
-  indexes
+  indexes,
+  query
 }: {
   children: ReactNode
   initialState: any[]
   uuid: string
   indexes: string[]
+  query?: string
 }) {
-  // console.log('provider initial state')
-  // console.log(initialState)
   const store = useMemo(() => {
-    return initFilterDataStore(initialState, uuid, indexes)
-  }, [initialState, uuid, indexes])
+    return initFilterDataStore(initialState, uuid, indexes, query)
+  }, [initialState, uuid, indexes, query])
 
   return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>
 }

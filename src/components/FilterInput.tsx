@@ -1,10 +1,10 @@
 import TextField from '@material-ui/core/TextField'
 import { observer } from 'mobx-react-lite'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 
 export const FilterInput = observer(function FilterInput({
   className,
-  textPlaceHolder,
+  textPlaceHolder = 'Search Stations:D ',
   query,
   handleOnChange
 }: {
@@ -15,10 +15,11 @@ export const FilterInput = observer(function FilterInput({
 }) {
   const searchRef = useRef<HTMLInputElement>(null)
 
-  console.log('filter input query ', query)
-  if (searchRef.current) {
-    searchRef.current.value = query
-  }
+  useEffect(() => {
+    if (searchRef.current) {
+      searchRef.current.value = query
+    }
+  }, [query])
 
   return (
     <TextField

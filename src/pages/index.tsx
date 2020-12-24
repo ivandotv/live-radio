@@ -2,6 +2,7 @@ import Link from 'next/link'
 // @ts-ignore
 import Banner from '../svg/landing-page.svg'
 import Head from 'next/head'
+import { t } from '@lingui/macro'
 import { PageTitle } from 'components/PageTitle'
 
 export default function Index() {
@@ -14,14 +15,14 @@ export default function Index() {
         ></link>
       </Head>
       <div className="page-wrap">
-        <PageTitle title="Welcome to Next Radio App" />
+        <PageTitle title={t`Welcome to Next Radio App`} />
         <h1>NEXT.JS PWA</h1>
         <div className="banner-wrapper">
           {/* <img src="/images/landing-page.svg" /> */}
           <Banner />
         </div>
         <Link href="/app">
-          <a className="launch-app">Launch Application</a>
+          <a className="launch-app">{t`Launch Application`}</a>
         </Link>
         <style jsx>
           {`

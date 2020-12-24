@@ -47,7 +47,8 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
 export function stationDataRow(
   showCountry = true,
   showFlag = true,
-  showTags = true
+  showTags = true,
+  showRemoveBtn = false
 ) {
   return (stations: RadioStation[]) => {
     return function DataRow(index: number) {
@@ -58,6 +59,7 @@ export function stationDataRow(
           showCountry={showCountry}
           showFlag={showFlag}
           showTags={showTags}
+          showRemoveBtn={showRemoveBtn}
           station={station}
         ></StationRowItem>
       )

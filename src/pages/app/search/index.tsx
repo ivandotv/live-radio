@@ -1,9 +1,13 @@
 import List from '@material-ui/core/List'
+import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationModal } from 'components/LocationModal'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { SyntheticEvent, useState } from 'react'
+import { getStaticTranslations } from 'initTranslations'
+
+export { getStaticTranslations as getStaticProps }
 
 export default function Search() {
   const [dialogOpen, setOpenDialog] = useState(false)
@@ -17,8 +21,8 @@ export default function Search() {
   }
 
   return (
-    <>
-      <PageTitle title="Search For Radio Stations" />
+    <div style={{ overflowY: 'scroll' }}>
+      <PageTitle title={t`Search For Radio Stations`} />
       <LocationModal open={dialogOpen} onClose={handleCloseDialog} />
       <List>
         <AppMenuItem
@@ -26,26 +30,26 @@ export default function Search() {
             e.preventDefault()
             handleOpenDialog()
           }}
-          primary="Local Radio"
+          primary={t`Local Radio`}
         />
         <AppMenuItem
           link={{ href: '/app/search/by-location' }}
-          primary="By Location"
+          primary={t`By Location`}
         />
         <AppMenuItem
           link={{ href: '/app/search/by-language' }}
-          primary="By Language"
+          primary={t`By Language`}
         />
         <AppMenuItem
           link={{ href: '/app/search/by-genre' }}
-          primary="By Genre"
+          primary={t`By Genre`}
         />
         <AppMenuItem
           link={{ href: '/app/search/custom' }}
-          primary="Custom Search"
+          primary={t`Custom Search`}
         />
       </List>
-    </>
+    </div>
   )
 }
 

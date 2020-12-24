@@ -1,17 +1,53 @@
-import { useRouter } from 'next/router'
-import { BrowseBy } from 'components/BrowseBy'
+import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { ListStations } from 'components/ListStations'
+import { ListStationsFallback } from 'components/ListStationsFallback'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
-import countriesJSON from 'generated/countries.json'
-import { continentsByCode } from 'lib/utils'
 import { PageTitle } from 'components/PageTitle'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { countries } from 'generated/countries'
+import { loadTranslation, paramsWithLocales } from 'initTranslations'
+import { continentsByCode } from 'lib/utils'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
 
-// list countries for the continent
-export default function CountryList() {
+export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
+  const params = Object.keys(continentsByCode()).map((key) => ({
+    continent: key
+  }))
+
+  const paths = paramsWithLocales(params, locales!)
+
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps = async function (ctx) {
+  const continent = (ctx.params?.continent as string).replace(/-/g, ' ')
+
+  console.log('get static PROPS ', ctx.locale)
+  const translation = await loadTranslation(ctx.locale!)
+
+  return {
+    props: {
+      continent,
+      translation
+    }
+  }
+}
+
+export default function CountryList({ continent }: { continent: string }) {
   const router = useRouter()
 
-  const continent = router.query.continent as keyof typeof countriesJSON
+  if (router.isFallback) {
+    return <ListStationsFallback />
+  }
+
+  const continentCodes = continentsByCode()
+  const countryData = countries()[continent as keyof typeof countries]
+
   const countryDataRow = function (
     countries: { name: string; code: string; flag: string; cont: string }[]
   ) {
@@ -22,13 +58,12 @@ export default function CountryList() {
         <AppMenuItem
           link={{
             href: {
-              pathname: `${router.pathname}/country/[country]`
+              pathname: `${router.pathname}/[country]`
             },
             as: {
-              pathname: `${router.pathname.replace(
-                '[continent]',
-                continent
-              )}/country/${country.code}`
+              pathname: `${router.pathname.replace('[continent]', continent)}/${
+                country.code
+              }`
             }
           }}
           primary={`${country.name} ${country.flag}`}
@@ -40,34 +75,29 @@ export default function CountryList() {
   const breadcrumbs = [
     {
       href: '/app/search',
-      text: 'Search'
+      text: t`Search`
     },
     {
       href: '/app/search/by-location',
-      text: 'By Location'
+      text: t`By Location`
     },
     {
-      text: `${continentsByCode[continent]}`
+      text: continentCodes[continent as keyof typeof continentCodes].t
     }
   ]
 
-  const showFallback = () => {
-    return !continent
-  }
-
   return (
     <FilterDataStoreProvider
-      initialState={countriesJSON[continent]}
+      initialState={countryData}
       uuid="name"
       indexes={['name']}
     >
-      <PageTitle title="Search for stations by country" />
-      <BrowseBy
-        filterInputText="Filter Countries"
+      <PageTitle title={t`Search for stations by country`} />
+      <ListStations
+        filterInputText={t`Filter Countries`}
         breadcrumbs={breadcrumbs}
         dataRow={countryDataRow}
-        showFallback={showFallback}
-      ></BrowseBy>
+      />
     </FilterDataStoreProvider>
   )
 }

@@ -1,4 +1,5 @@
 import ShareIcon from '@material-ui/icons/ShareOutlined'
+import { t } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import { observer } from 'mobx-react-lite'
@@ -33,8 +34,8 @@ export const ShareStationBtn = observer(function ShareStationBtn({
 
   const shareUrl = `${encodeURI(url)}/app${queryParams}`
 
-  const shareTitle = 'Share Station'
-  const shareText = 'Check out this groovy station'
+  const shareTitle = t`Share Station -- `
+  const shareText = t`Check out this groovy station`
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const [showDesktopShare, setShowDesktopShare] = useState(false)
@@ -71,7 +72,11 @@ export const ShareStationBtn = observer(function ShareStationBtn({
           text="check this out"
         />
       ) : null}
-      <Tooltip placement="top" title="Share station" aria-label="Share station">
+      <Tooltip
+        placement="top"
+        title={t`Share station`}
+        aria-label={t`Share station`}
+      >
         <IconButton
           onClick={handleClick}
           className={classes.button}

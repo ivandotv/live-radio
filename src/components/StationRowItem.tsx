@@ -1,17 +1,21 @@
-import ButtonBase from '@material-ui/core/ButtonBase'
+import { t, Trans } from '@lingui/macro'
+import Button from '@material-ui/core/Button'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import Tooltip from '@material-ui/core/Tooltip'
+import HttpIcon from '@material-ui/icons/ErrorOutline'
 import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
-import { useMusicPlayer } from 'components/providers/RootStoreProvider'
+import {
+  useMusicPlayer,
+  useRootStore
+} from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
 import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
-import { SyntheticEvent, useCallback } from 'react'
+import { MouseEvent, useCallback } from 'react'
 import { RadioStation } from 'types'
-import HttpIcon from '@material-ui/icons/ErrorOutline'
-import Tooltip from '@material-ui/core/Tooltip'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -24,6 +28,10 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     buttonBase: {
       width: '100%'
+    },
+    btnRemove: {
+      marginLeft: theme.spacing(2),
+      fontSize: '0.6rem'
     },
     title: {
       display: 'flex',
@@ -42,9 +50,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     playerStateIcon: {
       margin: `0 ${theme.spacing(0.5)}px`,
-      // display: 'inline'
       lineHeight: 1
-      // marginRight: theme.spacing(0.5)
     },
     httpIcon: {
       color: theme.palette.text.disabled,
@@ -54,36 +60,45 @@ const useStyles = makeStyles((theme: Theme) => {
   })
 })
 
-const httpIconTitle =
-  'This station might not load beacuse it is not served over secure connection'
 export const StationRowItem = observer(function StationRowItem({
   station,
   showCountry = true,
   showFlag = true,
-  showTags = true
+  showTags = true,
+  showRemoveBtn = false
 }: {
   station: RadioStation
   showCountry?: boolean
   showFlag?: boolean
   showTags?: boolean
+  showRemoveBtn?: boolean
 }) {
   const classes = useStyles({ showTags })
   const player = useMusicPlayer()
+  const { favorites } = useRootStore()
+
+  const httpIconTitle = t`Depending on your brower this station might not load beacuse it is not served over a secure connection`
 
   const togglePlay = useCallback(
-    (e: SyntheticEvent) => {
-      console.log('target ', e.target)
-      console.log('current target ', e.currentTarget)
+    (_e: MouseEvent) => {
       player.togglePlay(station)
     },
     [player, station]
   )
 
   const stationError = player.errorStations[station.id]
+  const removeFromfavorites = useCallback(
+    (e: MouseEvent) => {
+      e.stopPropagation()
+      favorites.remove(station.id)
+    },
+    [favorites, station.id]
+  )
 
   return (
-    <ButtonBase className={classes.buttonBase}>
+    <div className={classes.buttonBase}>
       <ListItem
+        button
         onClick={togglePlay}
         className={clsx(classes.root, {
           [classes.stationSelected]:
@@ -110,6 +125,18 @@ export const StationRowItem = observer(function StationRowItem({
                 <HttpIcon className={classes.httpIcon} />
               </Tooltip>
             ) : null}
+            {showRemoveBtn ? (
+              <Button
+                className={classes.btnRemove}
+                variant="contained"
+                color="secondary"
+                size="small"
+                disableElevation
+                onClick={removeFromfavorites}
+              >
+                <Trans>remove</Trans>
+              </Button>
+            ) : null}
           </div>
 
           {showTags ? (
@@ -117,6 +144,6 @@ export const StationRowItem = observer(function StationRowItem({
           ) : null}
         </ListItemText>
       </ListItem>
-    </ButtonBase>
+    </div>
   )
 })

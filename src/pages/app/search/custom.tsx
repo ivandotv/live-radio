@@ -3,23 +3,27 @@ import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { CustomSearchProvider } from 'components/providers/CustomSearchProvider'
 import { PageTitle } from 'components/PageTitle'
 import { stationDataRow } from 'lib/stationUtils'
+import { t } from '@lingui/macro'
+import { getStaticTranslations } from 'initTranslations'
+
+export { getStaticTranslations as getStaticProps }
 
 export default function CustomSearch() {
   const breadcrumbs = [
     {
       href: '/app/search',
-      text: 'Search'
+      text: t`Search`
     },
     {
-      text: 'Custom Search'
+      text: t`Custom Search`
     }
   ]
 
   return (
     <CustomSearchProvider>
-      <PageTitle title="Custom search" />
+      <PageTitle title={t`Custom search`} />
       <CustomSearchResults
-        filterInputText="Search For Stations"
+        filterInputText={t`Search For Stations`}
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow(true, true, false)}
       />

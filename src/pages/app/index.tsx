@@ -5,8 +5,13 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 import { PlayFromShareModal } from 'components/PlayFromShareModal'
+import { Trans } from '@lingui/macro'
+import { getStaticTranslations } from 'initTranslations'
+import { t } from '@lingui/macro'
 
 let instantPlayTriggered = false
+
+export { getStaticTranslations as getStaticProps }
 
 export default function Browse() {
   const router = useRouter()
@@ -28,8 +33,10 @@ export default function Browse() {
 
   return (
     <Paper>
-      <PageTitle title="Next Radio App" />
-      <h1>App Root = ovde staviti recent i tako to</h1>
+      <PageTitle title={t`Live Radio`} />
+      <Trans>
+        <h1>App Root = ovde staviti recent i ostale varijante</h1>
+      </Trans>
       <PlayFromShareModal
         open={openDialog}
         onClose={handleCloseDialog}

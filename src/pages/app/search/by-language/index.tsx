@@ -1,37 +1,43 @@
-import ISO6391 from 'iso-639-1'
-import { useRouter } from 'next/router'
-import { BrowseBy } from 'components/BrowseBy'
+import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { ListStations } from 'components/ListStations'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { languages } from 'generated/languages'
+import { getStaticTranslations } from 'initTranslations'
+import { useRouter } from 'next/router'
 
-const languages = ISO6391.getAllNames()
+export { getStaticTranslations as getStaticProps }
 
 export default function LanguageList() {
   const router = useRouter()
+  const langs = languages()
 
-  const languageSearch = languages.map((language) => {
+  const languageSearch = langs.map((language) => {
     return {
-      language
+      language: language.t,
+      raw: language.raw
     }
   })
 
-  const languageDataRow = function (languages: { language: string }[]) {
+  const languageDataRow = function (
+    languages: { language: string; raw: string }[]
+  ) {
     return function LanguageRow(index: number) {
-      const language = languages[index].language
+      const { language, raw } = languages[index]
 
       return (
         <AppMenuItem
           link={{
             href: {
-              pathname: `${router.pathname}/[language]`
+              pathname: `${router.pathname}/[raw]`
             },
             as: {
-              pathname: `${router.pathname}/${language.replace(/\s/g, '-')}`
+              pathname: `${router.pathname}/${raw.replace(/\s/g, '-')}`
             }
           }}
-          primary={`${language}`}
+          primary={language}
         />
       )
     }
@@ -40,11 +46,11 @@ export default function LanguageList() {
   const breadcrumbs = [
     {
       href: '/app/search',
-      text: 'Search'
+      text: t`Search`
     },
     {
       href: '/app/search/by-language',
-      text: 'By Language'
+      text: t`By Language`
     }
   ]
 
@@ -54,12 +60,11 @@ export default function LanguageList() {
       uuid="language"
       indexes={['language']}
     >
-      <PageTitle title="Search For Stations by Language" />
-      <BrowseBy
-        filterInputText="Filter Languages"
+      <PageTitle title={t`Search For Stations by Language`} />
+      <ListStations
         breadcrumbs={breadcrumbs}
         dataRow={languageDataRow}
-      ></BrowseBy>
+      ></ListStations>
     </FilterDataStoreProvider>
   )
 }

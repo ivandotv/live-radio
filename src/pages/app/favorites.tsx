@@ -1,14 +1,25 @@
-import Paper from '@material-ui/core/Paper'
+import { FavoritesList } from 'components/FavoritesList'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { PageTitle } from 'components/PageTitle'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { t } from '@lingui/macro'
+import { getStaticTranslations } from 'initTranslations'
 
-export default function Favourites() {
+export { getStaticTranslations as getStaticProps }
+
+export default function favorites() {
   return (
-    <Paper>
-      <PageTitle title="Your Favourite Radio Stations" />
-      favourites
-    </Paper>
+    <>
+      <PageTitle title={t`Your favorite Radio Stations`} />
+      <FilterDataStoreProvider
+        initialState={[]}
+        uuid="id"
+        indexes={['language', 'country', 'tags', 'continent', 'name']}
+      >
+        <FavoritesList />
+      </FilterDataStoreProvider>
+    </>
   )
 }
 
-Favourites.layout = AppDefaultLayout
+favorites.layout = AppDefaultLayout

@@ -19,6 +19,7 @@ export class FilterDataStore {
   protected searchTimeoutId: number | undefined
 
   constructor() {
+    console.log('filter store constructor')
     makeObservable(this, {
       allData: observable.shallow,
       filtered: observable.shallow,
@@ -28,7 +29,7 @@ export class FilterDataStore {
     })
   }
 
-  hydrate(data: any[], uuid: string, indexes: string[]): void {
+  hydrate(data: any[], uuid: string, indexes: string[], query?: string): void {
     ;(this.allData as IObservableArray).replace([...data])
     ;(this.filtered as IObservableArray).replace(this.allData)
     this.searchApi = new JsSearch.Search(uuid)
@@ -36,6 +37,11 @@ export class FilterDataStore {
       this.searchApi!.addIndex(index)
     })
     this.searchApi.addDocuments(this.allData)
+
+    if (query) {
+      console.log('---------  QUERY AGAIN ', query)
+      this.search(query)
+    }
   }
 
   search(query: string, delay?: number): void {
@@ -65,5 +71,11 @@ export class FilterDataStore {
       const result = this.searchApi?.search(query) as []
       ;(this.filtered as IObservableArray).replace([...result])
     }
+  }
+
+  addData(data: any[]) {
+    // ;(this.allData as IObservableArray).replace([...data])
+    this.allData.push(data)
+    this.searchApi!.addDocuments(data)
   }
 }

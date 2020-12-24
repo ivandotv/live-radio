@@ -1,8 +1,10 @@
+import { t } from '@lingui/macro'
+import { countries } from 'generated/countries'
 import { RadioStation } from 'types'
-import countriesJSON from 'generated/countries.json'
 
 export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
-  for (const [_i, continent] of Object.entries(countriesJSON)) {
+  const countryData = countries()
+  for (const [_i, continent] of Object.entries(countryData)) {
     for (const [_i, country] of Object.entries(continent)) {
       if (country[key].toLowerCase() === value.toLowerCase()) {
         return country
@@ -30,12 +32,50 @@ export const defaultStation: RadioStation = {
   continentCode: ''
 }
 
-export const continentsByCode = {
-  AF: 'Africa',
-  AN: 'Antarctica',
-  AS: 'Asia',
-  EU: 'Europe',
-  NA: 'North America',
-  OC: 'Oceania',
-  SA: 'South America'
+export function continentsByCode() {
+  return {
+    AF: {
+      raw: 'Africa',
+      t: t`Africa`
+    },
+    AN: {
+      raw: 'antarctica',
+      t: t`Antarctica`
+    },
+    AS: {
+      raw: 'asia',
+      t: t`Asia`
+    },
+    EU: {
+      raw: 'europe',
+      t: t`Europe`
+    },
+    NA: {
+      raw: 'North America',
+      t: t`North America`
+    },
+    OC: {
+      raw: 'oceania',
+      t: t`Oceania`
+    },
+    SA: {
+      raw: 'South America',
+      t: t`South America`
+    }
+  }
+}
+
+export function searchTranslation(
+  needle: string,
+  hayStack: { [key: string]: string }
+) {
+  console.log({ hayStack })
+  console.log({ needle })
+  if (hayStack[needle]) {
+    console.log('haystack needle ', hayStack[needle])
+
+    return hayStack[needle]
+  }
+
+  return needle
 }

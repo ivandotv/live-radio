@@ -1,34 +1,39 @@
-import { useRouter } from 'next/router'
-import { BrowseBy } from 'components/BrowseBy'
+import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { ListStations } from 'components/ListStations'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
-import { genres } from 'lib/popularGenres'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { getStaticTranslations } from 'initTranslations'
+import { genres } from 'generated/genres'
+import { useRouter } from 'next/router'
+
+export { getStaticTranslations as getStaticProps }
 
 export default function GenreList() {
   const router = useRouter()
   const breadcrumbs = [
     {
       href: '/app/search',
-      text: 'Search'
+      text: t`Search`
     },
     {
       href: '/app/search/by-genre',
-      text: 'By Genre'
+      text: t`By Genre`
     }
   ]
 
   // remap genres so they can be searched
-  const genreSearch = genres.map((genre) => {
+  const genreSearch = genres().map((genre) => {
     return {
-      genre
+      genre: genre.t,
+      raw: genre.raw
     }
   })
 
-  const genreDataRow = function (genres: { genre: string }[]) {
+  const genreDataRow = function (genres: { genre: string; raw: string }[]) {
     return function ListRow(index: number) {
-      const genre = genres[index].genre
+      const { genre, raw } = genres[index]
 
       return (
         <AppMenuItem
@@ -37,7 +42,7 @@ export default function GenreList() {
               pathname: `${router.pathname}/[genre]`
             },
             as: {
-              pathname: `${router.pathname}/${genre.replace(/\s/g, '-')}`
+              pathname: `${router.pathname}/${raw.replace(/\s/g, '-')}`
             }
           }}
           primary={`${genre}`}
@@ -52,12 +57,12 @@ export default function GenreList() {
       uuid="genre"
       indexes={['genre']}
     >
-      <PageTitle title="Search For Stations by Genre" />
-      <BrowseBy
-        filterInputText="Filter Genres"
+      <PageTitle title={t`Search For Stations by Genre`} />
+      <ListStations
+        filterInputText={t`Filter Genres`}
         breadcrumbs={breadcrumbs}
         dataRow={genreDataRow}
-      ></BrowseBy>
+      ></ListStations>
     </FilterDataStoreProvider>
   )
 }

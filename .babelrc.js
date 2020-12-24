@@ -6,6 +6,7 @@ const pkgVersion = `${
 
 const plugins = [
   ['inline-react-svg'],
+  ['macros'],
   [
     'transform-define',
     {

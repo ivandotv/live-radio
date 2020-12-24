@@ -1,25 +1,34 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { BrowseBy } from 'components/BrowseBy'
+import { ListStations } from 'components/ListStations'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { PageTitle } from 'components/PageTitle'
 import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
 import { RadioStation } from 'types'
 import { userAgentName } from 'lib/appSettings'
+import { t, Trans } from '@lingui/macro'
+import { loadTranslation, paramsWithLocales } from 'initTranslations'
+import { useRouter } from 'next/router'
+import { ListStationsFallback } from 'components/ListStationsFallback'
+import { genres } from 'generated/genres'
 
-export const getStaticPaths: GetStaticPaths = async function () {
+export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
+  const paths = paramsWithLocales(
+    [{ genre: 'pop' }, { genre: 'rock' }],
+    locales!
+  )
+
   return {
-    // todo - add most popular genres
-    paths: [{ params: { genre: 'pop' } }],
+    paths,
     fallback: true
   }
 }
 
 export const getStaticProps: GetStaticProps = async function (ctx) {
-  console.log('genre get static props', ctx)
+  const genre = (ctx.params!.genre as string).replace(/-/g, ' ')
 
-  const genre = (ctx.params?.genre as string).replace(/-/g, ' ')
+  const translation = await loadTranslation(ctx.locale!)
 
   const api = new RadioBrowserApi(fetch, userAgentName)
   const stations = await api.searchStations(
@@ -35,7 +44,8 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   return {
     props: {
       stations: stationsToRadioStations(stations),
-      genre
+      genre,
+      translation
     },
     revalidate: 600 // 10 minutes
   }
@@ -48,17 +58,26 @@ export default function GenreStations({
   stations: RadioStation[]
   genre: string
 }) {
+  const router = useRouter()
+
+  if (router.isFallback) {
+    return <ListStationsFallback />
+  }
+
+  const genreTrans = genres().find(
+    (g) => genre.toLowerCase() === g.raw.toLowerCase()
+  )!
   const breadcrumbs = [
     {
       href: '/app/search',
-      text: 'Search'
+      text: t`Search`
     },
     {
       href: '/app/search/by-genre',
-      text: 'By Genre'
+      text: t`By Genre`
     },
     {
-      text: `${genre}`
+      text: `${genreTrans.t}`
     }
   ]
 
@@ -68,18 +87,19 @@ export default function GenreStations({
       uuid="id"
       indexes={['tags', 'name', 'country', 'continent']}
     >
-      <PageTitle title={`Search For Stations in ${genre}`} />
-      <BrowseBy
+      <PageTitle title={t`Search For Stations in ${genreTrans.t}`} />
+      <ListStations
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow()}
-        filterInputText="Filter stations"
         noData={
           <p>
-            Currently there is no data for <strong>${genre}</strong>. Sorry for
-            the inconvenience.
+            <Trans>
+              Currently there is no data for <strong>${genreTrans.t}</strong>.
+              Sorry for the inconvenience.
+            </Trans>
           </p>
         }
-      ></BrowseBy>
+      ></ListStations>
     </FilterDataStoreProvider>
   )
 }
