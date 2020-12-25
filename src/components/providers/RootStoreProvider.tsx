@@ -5,10 +5,10 @@ import { RootStore } from 'lib/stores/RootStore'
 enableStaticRendering(typeof window === 'undefined')
 
 let store: RootStore
-const RootContext = createContext<RootStore | undefined>(undefined)
+const ctx = createContext<RootStore | undefined>(undefined)
 
 export function useRootStore() {
-  const context = useContext(RootContext)
+  const context = useContext(ctx)
   if (typeof context === 'undefined') {
     throw new Error('useRootStore must be called within RootStoreProvider')
   }
@@ -38,7 +38,7 @@ export function RootStoreProvider({ children }: { children: ReactNode }) {
     }, [root])
   }
 
-  return <RootContext.Provider value={root}>{children}</RootContext.Provider>
+  return <ctx.Provider value={root}>{children}</ctx.Provider>
 }
 
 export function getRootStore() {

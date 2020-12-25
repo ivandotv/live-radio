@@ -5,12 +5,10 @@ import { initCustomSearchStore } from 'lib/stores/initializers/initCustomSearchS
 
 enableStaticRendering(typeof window === 'undefined')
 
-const CustomSearchContext = createContext<CustomSearchStore | undefined>(
-  undefined
-)
+const ctx = createContext<CustomSearchStore | undefined>(undefined)
 
 export function useCustomSearch() {
-  const context = useContext(CustomSearchContext)
+  const context = useContext(ctx)
   if (typeof context === 'undefined') {
     throw new Error('useCustomSearch must be used within CustomSearchProvider')
   }
@@ -18,12 +16,12 @@ export function useCustomSearch() {
   return context
 }
 
-export function CustomSearchProvider({ children }: { children: ReactNode }) {
+export function CustomSearchStoreProvider({
+  children
+}: {
+  children: ReactNode
+}) {
   const player = initCustomSearchStore()
 
-  return (
-    <CustomSearchContext.Provider value={player}>
-      {children}
-    </CustomSearchContext.Provider>
-  )
+  return <ctx.Provider value={player}>{children}</ctx.Provider>
 }

@@ -5,7 +5,7 @@ import { Theme } from '@material-ui/core/styles/createMuiTheme'
 import { FilterInput } from 'components/FilterInput'
 import { FilterList } from 'components/FilterList'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
-import { useCustomSearch } from 'components/providers/CustomSearchProvider'
+import { useCustomSearch } from 'components/providers/CustomSearchStoreProvider'
 import { observer } from 'mobx-react-lite'
 import React, { ReactElement, useEffect, useRef } from 'react'
 

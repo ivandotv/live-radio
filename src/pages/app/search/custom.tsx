@@ -1,6 +1,6 @@
 import { CustomSearchResults } from 'components/CustomSearchResults'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { CustomSearchProvider } from 'components/providers/CustomSearchProvider'
+import { CustomSearchStoreProvider } from 'components/providers/CustomSearchStoreProvider'
 import { PageTitle } from 'components/PageTitle'
 import { stationDataRow } from 'lib/stationUtils'
 import { t } from '@lingui/macro'
@@ -20,14 +20,14 @@ export default function CustomSearch() {
   ]
 
   return (
-    <CustomSearchProvider>
+    <CustomSearchStoreProvider>
       <PageTitle title={t`Custom search`} />
       <CustomSearchResults
         filterInputText={t`Search For Stations`}
         breadcrumbs={breadcrumbs}
         dataRow={stationDataRow(true, true, false)}
       />
-    </CustomSearchProvider>
+    </CustomSearchStoreProvider>
   )
 }
 
