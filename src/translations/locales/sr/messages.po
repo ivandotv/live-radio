@@ -6,6 +6,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: sr\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
 
 #: src/pages/app/index.tsx:30
 msgid "<0>App Root = ovde staviti recent i ostale varijante</0>"
@@ -515,6 +521,10 @@ msgstr ""
 
 #: src/components/StationRowItem.tsx:61
 msgid "Depending on your brower this station might not load beacuse it is not served over a secure connection"
+msgstr ""
+
+#: src/components/LocationModal.tsx:39
+msgid "Determinig your location"
 msgstr ""
 
 #: src/generated/genres.js:16
@@ -1828,6 +1838,10 @@ msgstr ""
 msgid "Somalia"
 msgstr ""
 
+#: src/components/LocationModal.tsx:40
+msgid "Sorry, couldn't get your location"
+msgstr ""
+
 #: src/generated/genres.js:56
 msgid "Soul"
 msgstr ""
@@ -2199,6 +2213,10 @@ msgstr ""
 
 #: src/pages/app/favorites.tsx:10
 msgid "Your favorite Radio Stations"
+msgstr ""
+
+#: src/components/LocationModal.tsx:41
+msgid "Your location is"
 msgstr ""
 
 #: src/generated/countries.js:329

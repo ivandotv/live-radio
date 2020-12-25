@@ -2,14 +2,15 @@ import { t } from '@lingui/macro'
 import List from '@material-ui/core/List'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { observer } from 'mobx-react-lite'
-import { NextRouter } from 'next/router'
+import { NextRouter, useRouter } from 'next/router'
 
-function isSelected(path: string) {
-  return (router: NextRouter) => {
-    return router.asPath.indexOf(path) === 0
-  }
+function isSelected(router: NextRouter, path: string) {
+  return router.asPath.indexOf(path) === 0
 }
+
 export const Menu = observer(function Menu() {
+  const router = useRouter()
+
   const menuItems = [
     {
       link: '/app/search',
@@ -40,7 +41,7 @@ export const Menu = observer(function Menu() {
           key={item.link}
           link={{ href: `${item.link}` }}
           primary={item.text}
-          selected={isSelected(`${item.link}`)}
+          selected={isSelected(router, `${item.link}`)}
         />
       ))}
     </List>

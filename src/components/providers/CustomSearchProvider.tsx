@@ -12,7 +12,7 @@ const CustomSearchContext = createContext<CustomSearchStore | undefined>(
 export function useCustomSearch() {
   const context = useContext(CustomSearchContext)
   if (typeof context === 'undefined') {
-    throw new Error('useCustomSearch must be used within MusicPlayerProvider')
+    throw new Error('useCustomSearch must be used within CustomSearchProvider')
   }
 
   return context

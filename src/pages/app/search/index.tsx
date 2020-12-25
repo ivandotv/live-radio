@@ -1,11 +1,12 @@
 import List from '@material-ui/core/List'
 import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { LocationModal } from 'components/LocationModal'
+import { LocationModal } from 'components/locationModal/LocationModal'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { SyntheticEvent, useState } from 'react'
 import { getStaticTranslations } from 'initTranslations'
+import { LocationStoreProvider } from 'components/providers/LocationStoreProvider'
 
 export { getStaticTranslations as getStaticProps }
 
@@ -21,9 +22,11 @@ export default function Search() {
   }
 
   return (
-    <div style={{ overflowY: 'scroll' }}>
+    <div style={{ overflowY: 'auto' }}>
       <PageTitle title={t`Search For Radio Stations`} />
-      <LocationModal open={dialogOpen} onClose={handleCloseDialog} />
+      <LocationStoreProvider>
+        <LocationModal open={dialogOpen} onClose={handleCloseDialog} />
+      </LocationStoreProvider>
       <List>
         <AppMenuItem
           onClick={(e: SyntheticEvent) => {

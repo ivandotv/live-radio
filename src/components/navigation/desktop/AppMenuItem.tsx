@@ -1,8 +1,7 @@
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Link, { LinkProps } from 'next/link'
-import { NextRouter, useRouter } from 'next/router'
-import { ReactNode, useEffect, useState, MouseEvent } from 'react'
+import { MouseEvent, ReactNode, useEffect, useState } from 'react'
 
 export function AppMenuItem({
   onClick,
@@ -10,17 +9,16 @@ export function AppMenuItem({
   icon,
   primary,
   secondary = '',
-  selected
+  selected = false
 }: {
   link?: LinkProps
   primary?: string
   secondary?: string
   onClick?: (...args: any[]) => void
-  selected?: (router: NextRouter) => boolean
+  selected?: boolean
   children?: ReactNode
   icon?: ReactNode
 }) {
-  const router = useRouter()
   const [clientRender, setClientRender] = useState(false)
 
   // https://nextjs.org/docs/routing/shallow-routing#caveats
@@ -39,20 +37,22 @@ export function AppMenuItem({
       button
       component="a"
       onClick={handleClick}
-      selected={clientRender && selected && selected(router)}
+      selected={clientRender && selected}
     >
       {icon}
       <ListItemText primary={primary} secondary={secondary} />
     </ListItem>
   )
 
-  const linkWrap = link ? (
-    <Link {...link} passHref>
-      {Item}
-    </Link>
-  ) : (
-    <>{Item}</>
+  return (
+    <>
+      {link ? (
+        <Link {...link} passHref>
+          {Item}
+        </Link>
+      ) : (
+        <>{Item}</>
+      )}
+    </>
   )
-
-  return <>{linkWrap}</>
 }

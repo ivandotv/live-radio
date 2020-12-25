@@ -1,3 +1,4 @@
+import { t, Trans } from '@lingui/macro'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Dialog from '@material-ui/core/Dialog'
@@ -7,12 +8,12 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { countryDataByKey } from 'lib/utils'
+import { useLocationStore } from 'components/providers/LocationStoreProvider'
+import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useCallback, useMemo } from 'react'
-import useSWR from 'swr'
 
-const useStyles = makeStyles((_theme: Theme) => {
+const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     modal: {
       display: 'flex',
@@ -24,24 +25,17 @@ const useStyles = makeStyles((_theme: Theme) => {
     },
     flag: {
       color: '#000000'
+    },
+    actionColors: {
+      color:
+        theme.palette.type === 'dark'
+          ? theme.palette.primary.contrastText
+          : theme.palette.primary.main
     }
   })
 })
 
-const queryProgressText = 'Determinig your location'
-const queryErrorText = "Sorry, couldn't get your location"
-const querySuccessText = 'Your location is '
-
-const fetcher = (url: string) =>
-  fetch(url).then((res) => {
-    if (res.ok) {
-      return res.json()
-    } else {
-      throw new Error()
-    }
-  })
-
-export function LocationModal({
+export const LocationModal = observer(function LocationModal({
   open,
   onClose
 }: {
@@ -50,32 +44,28 @@ export function LocationModal({
 }) {
   const classes = useStyles()
   const router = useRouter()
+  const location = useLocationStore()
 
-  const { data, error } = useSWR<{ country: string; status: string }>(
-    open ? '/api/locationinfo' : null,
-    fetcher,
-    { shouldRetryOnError: false }
-  )
+  if (open) {
+    location.getLocation()
+  }
 
   const countryData = useMemo(() => {
-    if (data?.country) {
-      const countryData = countryDataByKey('name', data.country)
-
-      if (countryData) {
-        return {
-          link: {
-            href: 'search/by-location/[continent]/country/[country]',
-            as: `search/by-location/${countryData.cont}/country/${countryData.code}`
-          },
-          flag: countryData.flag,
-          country: data.country
-        }
+    const data = location.data
+    if (data) {
+      return {
+        link: {
+          href: 'search/by-location/[continent]/[country]',
+          as: `search/by-location/${data.cont}/${data.code}`
+        },
+        flag: data.flag,
+        country: data.name
       }
     }
-  }, [data])
+  }, [location.data])
 
   const goToBrowseByLocation = () => {
-    router.push('browse/by-location')
+    router.push('search/by-location')
   }
 
   const goToCountryStations = () => {
@@ -94,11 +84,13 @@ export function LocationModal({
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle className={classes.modalTitle} id="alert-dialog-title">
-        {countryData
-          ? querySuccessText
-          : error
-          ? queryErrorText
-          : queryProgressText}
+        {countryData ? (
+          <Trans>Your location is</Trans>
+        ) : location.error ? (
+          <Trans> Sorry, couldn&apos;t get your location</Trans>
+        ) : (
+          <Trans>Determinig your location</Trans>
+        )}
       </DialogTitle>
       <DialogContent className={classes.modal}>
         <DialogContentText component="div" id="alert-dialog-description">
@@ -107,32 +99,34 @@ export function LocationModal({
               <span className={classes.flag}>{countryData.flag}</span>
               {countryData.country}
             </Typography>
-          ) : !error ? (
+          ) : !location.error ? (
             <CircularProgress />
           ) : null}
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        {error ? (
-          <Button onClick={handleClose} color="primary">
-            close
+      <DialogActions className={classes.actionColors}>
+        {location.error ? (
+          <Button onClick={handleClose} color="inherit">
+            {t`close`}
           </Button>
         ) : null}
-        {countryData || error ? (
+        {countryData || location.error ? (
           <>
-            <Button onClick={goToBrowseByLocation} color="primary">
-              {countryData
-                ? 'Let me choose different location'
-                : 'Let me choose the location'}
+            <Button onClick={goToBrowseByLocation} color="inherit">
+              {countryData ? (
+                <Trans>Let me choose different location</Trans>
+              ) : (
+                <Trans>Let me choose the location</Trans>
+              )}
             </Button>
           </>
         ) : null}
         {countryData ? (
-          <Button onClick={goToCountryStations} color="primary" autoFocus>
-            {"Okay, let's go"}
+          <Button onClick={goToCountryStations} color="inherit" autoFocus>
+            <Trans>Okay, let&apos;s go</Trans>
           </Button>
         ) : null}
       </DialogActions>
     </Dialog>
   )
-}
+})

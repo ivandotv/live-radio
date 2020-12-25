@@ -20,7 +20,7 @@ const nextConfig = {
   typescript: {
     // !! WARN !!
     // TEMP: Remove for production
-    ignoreBuildErrors: true
+    ignoreBuildErrors: false
   }
 }
 

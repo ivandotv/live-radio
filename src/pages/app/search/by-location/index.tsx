@@ -42,7 +42,7 @@ export default function ByLocation() {
   ]
 
   return (
-    <div style={{ overflowY: 'scroll' }}>
+    <div style={{ overflowY: 'auto' }}>
       <PageTitle title={t`Search By Location`} />
       <LocationBreadcrumbs links={breadcrumbs} />
       <List>{continents}</List>

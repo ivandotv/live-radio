@@ -32,16 +32,15 @@ export class CustomSearchStore {
   }
 
   search(query: string, delay?: number): void {
-    // debounce search
     this.query = query
 
-    // debounce the search itself
     if (this.searchTimeoutId) {
       clearTimeout(this.searchTimeoutId)
     }
 
     if (query.length) {
       if (delay) {
+        // debounce the search itself
         this.searchTimeoutId = window.setTimeout(() => {
           runInAction(() => {
             this.searchData(this.query)
@@ -54,10 +53,11 @@ export class CustomSearchStore {
   }
 
   protected async searchData(query: string) {
+    // respond only to last resolved promise
     const localToken = Date.now()
     this.requestToken = localToken
     this.searchInProgress = true
-    console.log('start search ', query)
+
     try {
       const result = await this.api.searchStations(
         {
