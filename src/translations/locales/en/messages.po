@@ -25,7 +25,7 @@ msgstr "<0>Currently there is no data for <1>{0}</1>. Sorry for the inconvenienc
 msgid "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
 msgstr "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
 
-#: src/pages/app/search/by-location/[continent]/[country].tsx:87
+#: src/pages/app/search/by-location/[continent]/[country].tsx:86
 msgid "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
 msgstr "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
 
@@ -339,7 +339,7 @@ msgstr "By Genre"
 msgid "By Language"
 msgstr "By Language"
 
-#: src/pages/app/search/by-location/[continent]/[country].tsx:74
+#: src/pages/app/search/by-location/[continent]/[country].tsx:73
 #: src/pages/app/search/by-location/[continent]/index.tsx:74
 #: src/pages/app/search/by-location/index.tsx:31
 #: src/pages/app/search/index.tsx:29
@@ -662,7 +662,7 @@ msgstr "Filter Genres"
 msgid "Filter Languages"
 msgstr "Filter Languages"
 
-#: src/pages/app/search/by-location/[continent]/[country].tsx:87
+#: src/pages/app/search/by-location/[continent]/[country].tsx:86
 msgid "Filter Stations"
 msgstr "Filter Stations"
 
@@ -1725,7 +1725,7 @@ msgstr "Scottish Gaelic"
 #: src/pages/app/search/by-genre/index.tsx:16
 #: src/pages/app/search/by-language/[language].tsx:67
 #: src/pages/app/search/by-language/index.tsx:36
-#: src/pages/app/search/by-location/[continent]/[country].tsx:70
+#: src/pages/app/search/by-location/[continent]/[country].tsx:69
 #: src/pages/app/search/by-location/[continent]/index.tsx:70
 #: src/pages/app/search/by-location/index.tsx:27
 #: src/pages/app/search/custom.tsx:13
@@ -1754,7 +1754,7 @@ msgstr "Search For Stations by Language"
 
 #: src/pages/app/search/by-genre/[genre].tsx:71
 #: src/pages/app/search/by-language/[language].tsx:78
-#: src/pages/app/search/by-location/[continent]/[country].tsx:86
+#: src/pages/app/search/by-location/[continent]/[country].tsx:85
 msgid "Search For Stations in {0}"
 msgstr "Search For Stations in {0}"
 
