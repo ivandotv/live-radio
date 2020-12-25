@@ -329,20 +329,20 @@ msgstr ""
 
 #: src/pages/app/search/by-genre/[genre].tsx:64
 #: src/pages/app/search/by-genre/index.tsx:20
-#: src/pages/app/search/index.tsx:28
+#: src/pages/app/search/index.tsx:31
 msgid "By Genre"
 msgstr ""
 
 #: src/pages/app/search/by-language/[language].tsx:71
 #: src/pages/app/search/by-language/index.tsx:40
-#: src/pages/app/search/index.tsx:27
+#: src/pages/app/search/index.tsx:30
 msgid "By Language"
 msgstr ""
 
 #: src/pages/app/search/by-location/[continent]/[country].tsx:74
 #: src/pages/app/search/by-location/[continent]/index.tsx:74
 #: src/pages/app/search/by-location/index.tsx:31
-#: src/pages/app/search/index.tsx:26
+#: src/pages/app/search/index.tsx:29
 msgid "By Location"
 msgstr ""
 
@@ -475,7 +475,7 @@ msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 msgstr ""
 
 #: src/pages/app/search/custom.tsx:16
-#: src/pages/app/search/index.tsx:29
+#: src/pages/app/search/index.tsx:32
 msgid "Custom Search"
 msgstr ""
 
@@ -523,7 +523,7 @@ msgstr ""
 msgid "Depending on your brower this station might not load beacuse it is not served over a secure connection"
 msgstr ""
 
-#: src/components/LocationModal.tsx:39
+#: src/components/locationModal/LocationModal.tsx:66
 msgid "Determinig your location"
 msgstr ""
 
@@ -1135,6 +1135,14 @@ msgstr ""
 msgid "Lesotho"
 msgstr ""
 
+#: src/components/locationModal/LocationModal.tsx:82
+msgid "Let me choose different location"
+msgstr ""
+
+#: src/components/locationModal/LocationModal.tsx:82
+msgid "Let me choose the location"
+msgstr ""
+
 #: src/generated/countries.js:293
 msgid "Liberia"
 msgstr ""
@@ -1167,7 +1175,7 @@ msgstr ""
 msgid "Live Radio"
 msgstr ""
 
-#: src/pages/app/search/index.tsx:25
+#: src/pages/app/search/index.tsx:28
 msgid "Local Radio"
 msgstr ""
 
@@ -1443,6 +1451,10 @@ msgstr ""
 
 #: src/generated/languages.js:129
 msgid "Ojibwe"
+msgstr ""
+
+#: src/components/locationModal/LocationModal.tsx:86
+msgid "Okay, let's go"
 msgstr ""
 
 #: src/generated/languages.js:35
@@ -1724,7 +1736,7 @@ msgstr ""
 msgid "Search By Location"
 msgstr ""
 
-#: src/pages/app/search/index.tsx:19
+#: src/pages/app/search/index.tsx:20
 msgid "Search For Radio Stations"
 msgstr ""
 
@@ -1838,7 +1850,7 @@ msgstr ""
 msgid "Somalia"
 msgstr ""
 
-#: src/components/LocationModal.tsx:40
+#: src/components/locationModal/LocationModal.tsx:66
 msgid "Sorry, couldn't get your location"
 msgstr ""
 
@@ -2215,7 +2227,7 @@ msgstr ""
 msgid "Your favorite Radio Stations"
 msgstr ""
 
-#: src/components/LocationModal.tsx:41
+#: src/components/locationModal/LocationModal.tsx:66
 msgid "Your location is"
 msgstr ""
 
@@ -2233,6 +2245,10 @@ msgstr ""
 
 #: src/generated/languages.js:190
 msgid "Zulu"
+msgstr ""
+
+#: src/components/locationModal/LocationModal.tsx:78
+msgid "close"
 msgstr ""
 
 #: src/pages/_app.tsx:38

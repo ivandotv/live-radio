@@ -5,7 +5,6 @@ import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-// @ts-expect-error
 import getFlag from 'country-code-emoji'
 import { countries } from 'generated/countries'
 import { loadTranslation, paramsWithLocales } from 'initTranslations'
