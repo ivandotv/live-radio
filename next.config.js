@@ -5,6 +5,7 @@ const withPWA = require('next-pwa')
 const runtimeCaching = require('./src/cache')
 
 const nextConfig = {
+  reactStrictMode: true,
   i18n: {
     // These are all the locales you want to support in
     // your application
