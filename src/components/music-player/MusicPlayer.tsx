@@ -71,10 +71,11 @@ export const MusicPlayer = observer(function MusicPlayer() {
   const classes = useStyles({
     drawerWidth: appShell.desktopDrawerWidth
   })
+  const [snackErrorOpen, setSnackErrorOpen] = useState(false)
+  const [snackFavOpen, setSnackFavOpen] = useState(false)
 
-  /* This is safe beacause the value changes only on production build
-     The code dissapears in the production build
-  */
+  /* This is safe beacause the code dissapears in the production build
+   */
   if (__DEV__) {
     // eslint-disable-next-line
     useEffect(() => {
@@ -83,18 +84,17 @@ export const MusicPlayer = observer(function MusicPlayer() {
     }, [player])
   }
 
-  const [snackOpen, setSnackOpen] = useState(false)
-
   const onSnackClose = (_: SyntheticEvent, reason: string) => {
     if (reason === 'clickaway') {
       return
     }
-    setSnackOpen(false)
+    setSnackErrorOpen(false)
+    setSnackFavOpen(false)
   }
 
   useEffect(() => {
     if (player.playerError) {
-      setSnackOpen(true)
+      setSnackErrorOpen(true)
     }
   }, [player.playerError])
 
@@ -106,14 +106,15 @@ export const MusicPlayer = observer(function MusicPlayer() {
     new AppMediaSession(player, navigator)
   }, [player])
 
-  const infavorites = Boolean(favorites.get(player.station.id))
+  const inFavorites = Boolean(favorites.get(player.station.id))
 
   const togglefavorites = () => {
-    if (infavorites) {
+    if (inFavorites) {
       favorites.remove(player.station.id)
     } else {
       favorites.add(player.station)
     }
+    setSnackFavOpen(true)
   }
 
   return (
@@ -123,12 +124,18 @@ export const MusicPlayer = observer(function MusicPlayer() {
           vertical: 'bottom',
           horizontal: 'center'
         }}
-        open={snackOpen}
+        open={snackErrorOpen || snackFavOpen}
         autoHideDuration={2500}
         onClose={onSnackClose}
         className={classes.snackbar}
       >
-        <Alert severity="error">{t`Error playing radio station`}</Alert>
+        {snackErrorOpen ? (
+          <Alert severity="error">{t`Error playing radio station`}</Alert>
+        ) : (
+          <Alert severity="success">
+            {inFavorites ? t`Added to favorites` : t`Removed from favourites`}
+          </Alert>
+        )}
       </Snackbar>
 
       <div className={classes.uiWrap}>
@@ -136,7 +143,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <PlayerToggleBtn fontSize="3.3rem" />
           <AddTofavoritesBtn
             fontSize="2.5rem"
-            active={infavorites}
+            active={inFavorites}
             onClick={togglefavorites}
           />
           <ShareStationBtn fontSize="2.2rem" />
