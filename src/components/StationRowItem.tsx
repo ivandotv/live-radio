@@ -1,9 +1,10 @@
-import { t, Trans } from '@lingui/macro'
-import Button from '@material-ui/core/Button'
+import { t } from '@lingui/macro'
+import IconButton from '@material-ui/core/IconButton'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
+import DeleteIcon from '@material-ui/icons/Delete'
 import HttpIcon from '@material-ui/icons/ErrorOutline'
 import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
@@ -30,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => {
       width: '100%'
     },
     btnRemove: {
-      marginLeft: theme.spacing(2),
+      marginLeft: theme.spacing(1),
       fontSize: '0.6rem'
     },
     title: {
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     httpIcon: {
       color: theme.palette.text.disabled,
-      margin: `0 ${theme.spacing(0.5)}px`,
+      marginLeft: `${theme.spacing(0.5)}px`,
       fontSize: '1.2rem'
     }
   })
@@ -126,16 +127,16 @@ export const StationRowItem = observer(function StationRowItem({
               </Tooltip>
             ) : null}
             {showRemoveBtn ? (
-              <Button
-                className={classes.btnRemove}
-                variant="contained"
-                color="secondary"
-                size="small"
-                disableElevation
-                onClick={removeFromfavorites}
-              >
-                <Trans>remove</Trans>
-              </Button>
+              <Tooltip title={t`Remove from favorites`}>
+                <IconButton
+                  aria-label={t`remove`}
+                  className={classes.btnRemove}
+                  size="small"
+                  onClick={removeFromfavorites}
+                >
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             ) : null}
           </div>
 
