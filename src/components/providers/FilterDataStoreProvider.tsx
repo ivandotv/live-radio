@@ -5,10 +5,11 @@ import { initFilterDataStore } from 'lib/stores/initializers/initFilterDataStore
 
 enableStaticRendering(typeof window === 'undefined')
 
-const ctx = createContext<FilterDataStore | undefined>(undefined)
+const FilterDataContext = createContext<FilterDataStore | undefined>(undefined)
+FilterDataContext.displayName = 'FilterDataContext'
 
 export function useFilterDataStore() {
-  const context = useContext(ctx)
+  const context = useContext(FilterDataContext)
   if (typeof context === 'undefined') {
     throw new Error('useStoreContext must be used within StoreProvider')
   }
@@ -33,5 +34,9 @@ export function FilterDataStoreProvider({
     return initFilterDataStore(initialState, uuid, indexes, query)
   }, [initialState, uuid, indexes, query])
 
-  return <ctx.Provider value={store}>{children}</ctx.Provider>
+  return (
+    <FilterDataContext.Provider value={store}>
+      {children}
+    </FilterDataContext.Provider>
+  )
 }

@@ -5,10 +5,13 @@ import { initCustomSearchStore } from 'lib/stores/initializers/initCustomSearchS
 
 enableStaticRendering(typeof window === 'undefined')
 
-const ctx = createContext<CustomSearchStore | undefined>(undefined)
+const CustomSearchContext = createContext<CustomSearchStore | undefined>(
+  undefined
+)
+CustomSearchContext.displayName = 'CustomSearchContext'
 
 export function useCustomSearch() {
-  const context = useContext(ctx)
+  const context = useContext(CustomSearchContext)
   if (typeof context === 'undefined') {
     throw new Error('useCustomSearch must be used within CustomSearchProvider')
   }
@@ -23,5 +26,9 @@ export function CustomSearchStoreProvider({
 }) {
   const player = initCustomSearchStore()
 
-  return <ctx.Provider value={player}>{children}</ctx.Provider>
+  return (
+    <CustomSearchContext.Provider value={player}>
+      {children}
+    </CustomSearchContext.Provider>
+  )
 }

@@ -5,10 +5,11 @@ import { createContext, ReactNode, useContext } from 'react'
 
 enableStaticRendering(typeof window === 'undefined')
 
-const ctx = createContext<LocationStore | undefined>(undefined)
+const LocationStoreContext = createContext<LocationStore | undefined>(undefined)
+LocationStoreContext.displayName = 'LocationStoreContext'
 
 export function useLocationStore() {
-  const context = useContext(ctx)
+  const context = useContext(LocationStoreContext)
   if (typeof context === 'undefined') {
     throw new Error('LocactionStore must be used within LocationProvider')
   }
@@ -17,5 +18,9 @@ export function useLocationStore() {
 }
 
 export function LocationStoreProvider({ children }: { children: ReactNode }) {
-  return <ctx.Provider value={locationStoreFactory()}>{children}</ctx.Provider>
+  return (
+    <LocationStoreContext.Provider value={locationStoreFactory()}>
+      {children}
+    </LocationStoreContext.Provider>
+  )
 }
