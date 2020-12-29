@@ -1,7 +1,7 @@
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 import { FilterDataStore } from 'lib/stores/FilterDataStore'
-import { initFilterDataStore } from 'lib/stores/initializers/initFilterDataStore'
+import { filterDataStoreFactory } from 'lib/stores/factories/filterDataStoreFactory'
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -31,7 +31,7 @@ export function FilterDataStoreProvider({
   query?: string
 }) {
   const store = useMemo(() => {
-    return initFilterDataStore(initialState, uuid, indexes, query)
+    return filterDataStoreFactory(initialState, uuid, indexes, query)
   }, [initialState, uuid, indexes, query])
 
   return (

@@ -1,4 +1,4 @@
-import { locationStoreFactory } from 'lib/stores/initializers/locationStoreFactory'
+import { locationStoreFactory } from 'lib/stores/factories/locationStoreFactory'
 import { LocationStore } from 'lib/stores/LocationStore'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext } from 'react'

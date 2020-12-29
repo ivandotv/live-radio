@@ -1,9 +1,10 @@
 import { AppStorage, getLocalDB } from 'lib/LocalDB'
 import { AppShellStore } from 'lib/stores/AppShellStore'
-import { initMusicPlayer } from 'lib/stores/initializers/initMusicPlayerStore'
+import { musicPlayerFactory } from 'lib/stores/factories/musicPlayerFactory'
 import { MusicPlayerStore } from 'lib/stores/MusicPlayerStore'
 import { FavoritesStore } from './FavoritesStore'
-import { initFavoritesStore } from './initializers/initFavoritesStore'
+import { favoriteStoreFactory } from './factories/favoriteStoreFactory'
+import { appShellFactory } from './factories/appShellFactory'
 
 export class RootStore {
   appShell: AppShellStore
@@ -15,9 +16,9 @@ export class RootStore {
   favorites: FavoritesStore
 
   constructor() {
-    this.appShell = new AppShellStore(this)
-    this.musicPlayer = initMusicPlayer(this)
+    this.appShell = appShellFactory(this)
+    this.musicPlayer = musicPlayerFactory(this)
     this.storage = getLocalDB()
-    this.favorites = initFavoritesStore(this, this.storage)
+    this.favorites = favoriteStoreFactory(this, this.storage)
   }
 }

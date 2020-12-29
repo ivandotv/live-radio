@@ -1,7 +1,7 @@
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext } from 'react'
 import { CustomSearchStore } from 'lib/stores/CustomSearchStore'
-import { initCustomSearchStore } from 'lib/stores/initializers/initCustomSearchStore'
+import { customSearchFactory } from 'lib/stores/factories/customSearchFactory'
 
 enableStaticRendering(typeof window === 'undefined')
 
@@ -24,7 +24,7 @@ export function CustomSearchStoreProvider({
 }: {
   children: ReactNode
 }) {
-  const player = initCustomSearchStore()
+  const player = customSearchFactory()
 
   return (
     <CustomSearchContext.Provider value={player}>

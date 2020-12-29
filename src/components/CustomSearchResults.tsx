@@ -1,7 +1,6 @@
 import { plural, Trans } from '@lingui/macro'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { createStyles, makeStyles } from '@material-ui/core/styles'
-import { Theme } from '@material-ui/core/styles/createMuiTheme'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { FilterInput } from 'components/FilterInput'
 import { FilterList } from 'components/FilterList'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'

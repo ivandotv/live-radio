@@ -2,7 +2,7 @@ import { CustomSearchStore } from 'lib/stores/CustomSearchStore'
 
 let store: CustomSearchStore
 
-export function initCustomSearchStore() {
+export function customSearchFactory() {
   const isSSR = typeof window === 'undefined'
 
   const transport = isSSR ? fetch : fetch.bind(window)
@@ -11,8 +11,7 @@ export function initCustomSearchStore() {
 
   // For SSG and SSR always create a new store
   if (isSSR) return _store
-  // Create the store once in the client
-  if (!store) store = _store
 
-  return _store
+  // Create the store once in the client
+  return (store = _store)
 }

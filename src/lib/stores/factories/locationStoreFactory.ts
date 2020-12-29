@@ -10,7 +10,5 @@ export function locationStoreFactory() {
 
   if (isSSR) return _store
 
-  if (!store) store = _store
-
-  return _store
+  return (store = _store)
 }
