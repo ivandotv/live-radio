@@ -28,7 +28,7 @@ export class FavoritesStore {
     }
 
     this.loading = true
-    const stations = await this.storage.getfavoriteStations()
+    const stations = await this.storage.getFavoriteStations()
 
     setTimeout(() => {
       runInAction(() => {
@@ -56,7 +56,7 @@ export class FavoritesStore {
     if (!favStation) {
       this.stationsById.set(station.id, station)
     }
-    this.storage.addStationTofavorites(station)
+    this.storage.addStationToFavorites(station)
   }
 
   remove(id: string) {
@@ -65,6 +65,6 @@ export class FavoritesStore {
     if (favStation) {
       this.stationsById.delete(id)
     }
-    this.storage.removeStationFromfavorites(id)
+    this.storage.removeStationFromFavorites(id)
   }
 }

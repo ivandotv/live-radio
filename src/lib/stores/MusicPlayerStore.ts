@@ -1,7 +1,8 @@
 import { Howl } from 'howler'
+import { AppStorage } from 'lib/LocalDB'
 import { SongInfoService } from 'lib/SongInfoService'
-import { AppStorage } from 'lib/Storage'
 import { RootStore } from 'lib/stores/RootStore'
+import { defaultStation } from 'lib/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioStation } from 'types'
 
@@ -21,7 +22,9 @@ export class MusicPlayerStore {
     data: any
   } | null = null
 
-  station: RadioStation
+  station!: RadioStation
+
+  initialized = false
 
   songInfo: { artist: string; title: string } | undefined = undefined
 
@@ -61,7 +64,25 @@ export class MusicPlayerStore {
       disposePlayer: action,
       initPlayer: action
     })
-    this.station = this.storage.getLastUsedStation()
+
+    // this.station = defaultStation
+  }
+
+  init() {
+    if (this.initialized) return
+
+    this.storage
+      .getLastPlayedStation()
+      .then((station) => {
+        runInAction(() => {
+          this.station = station ?? defaultStation
+        })
+      })
+      .catch(() =>
+        runInAction(() => {
+          this.station = defaultStation
+        })
+      )
   }
 
   protected songServiceCb(
@@ -115,6 +136,8 @@ export class MusicPlayerStore {
         this.playerError = null
         this.errorStations[station.id] = false
       })
+
+      this.storage.setLastPlayedStation(this.station)
     })
 
     this.player.on('pause', () => {

@@ -1,12 +1,30 @@
-import { IDBPDatabase, openDB } from 'idb'
+import { DBSchema, IDBPDatabase, openDB } from 'idb'
 import { RadioStation } from 'types'
 
-// force singleton for AppDB
 export interface AppStorage {
-  addStationTofavorites: (station: RadioStation) => void
-  removeStationFromfavorites: (id: string) => void
-  getfavoriteStations: () => Promise<RadioStation[]>
+  addStationToFavorites: (station: RadioStation) => Promise<string>
+  removeStationFromFavorites: (id: string) => Promise<void>
+  getFavoriteStations: () => Promise<RadioStation[]>
+  getLastPlayedStation: () => Promise<RadioStation | undefined>
+  setLastPlayedStation: (station: RadioStation) => Promise<number>
 }
+
+interface AppDB extends DBSchema {
+  favorites: {
+    key: string
+    value: RadioStation
+  }
+  recent: {
+    value: RadioStation
+    key: string
+  }
+  lastStation: {
+    key: number
+    value: RadioStation
+  }
+}
+
+// force singleton for AppDB
 let instance: LocalDB
 
 export function getLocalDB() {
@@ -21,12 +39,12 @@ export function getLocalDB() {
 // export type IAppDB = InstanceType<typeof AppDB>
 
 export class LocalDB implements AppStorage {
-  protected db: IDBPDatabase | undefined
+  protected db!: IDBPDatabase<AppDB>
 
   constructor() {}
 
   async initDB() {
-    const db = await openDB('LiveRadio', 1, {
+    const db = await openDB<AppDB>('LiveRadio', 1, {
       upgrade(db, oldVersion, newVersion, transaction) {
         console.log({ db })
         console.log({ oldVersion })
@@ -35,7 +53,7 @@ export class LocalDB implements AppStorage {
         if (oldVersion === 0) {
           db.createObjectStore('favorites', { keyPath: 'id' })
           db.createObjectStore('recent', { keyPath: 'id' })
-          db.createObjectStore('lastStation', { keyPath: 'id' })
+          db.createObjectStore('lastStation')
         }
       },
       blocked() {
@@ -60,19 +78,31 @@ export class LocalDB implements AppStorage {
     return this.db
   }
 
-  async addStationTofavorites(station: RadioStation) {
+  async getLastPlayedStation() {
+    const db = await this.getDB()
+
+    return await db.get('lastStation', 1)
+  }
+
+  async setLastPlayedStation(station: RadioStation) {
+    const db = await this.getDB()
+
+    return await db.put('lastStation', station, 1)
+  }
+
+  async addStationToFavorites(station: RadioStation) {
     const db = await this.getDB()
 
     return await db.add('favorites', station)
   }
 
-  async removeStationFromfavorites(id: string) {
+  async removeStationFromFavorites(id: string) {
     const db = await this.getDB()
 
     return await db.delete('favorites', id)
   }
 
-  async getfavoriteStations(): Promise<RadioStation[]> {
+  async getFavoriteStations(): Promise<RadioStation[]> {
     const db = await this.getDB()
 
     return await db.getAll('favorites')

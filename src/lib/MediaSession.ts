@@ -25,7 +25,7 @@ export class AppMediaSession {
       () => {
         return {
           songInfo: this.musicPlayer.songInfo,
-          stationName: this.musicPlayer.station.name
+          stationName: this.musicPlayer.station?.name
         }
       },
       ({

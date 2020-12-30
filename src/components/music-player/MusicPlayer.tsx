@@ -1,5 +1,6 @@
-import Snackbar from '@material-ui/core/Snackbar'
 import { t } from '@lingui/macro'
+import LinearProgress from '@material-ui/core/LinearProgress'
+import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import Alert from '@material-ui/lab/Alert'
@@ -35,7 +36,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     uiWrap: {
       display: 'flex',
-      flexDirection: 'column'
+      flexDirection: 'column',
+      width: '100%'
     },
     column: {
       display: 'flex',
@@ -84,14 +86,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
     }, [player])
   }
 
-  const onSnackClose = (_: SyntheticEvent, reason: string) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setSnackErrorOpen(false)
-    setSnackFavOpen(false)
-  }
-
   useEffect(() => {
     if (player.playerError) {
       setSnackErrorOpen(true)
@@ -106,7 +100,20 @@ export const MusicPlayer = observer(function MusicPlayer() {
     new AppMediaSession(player, navigator)
   }, [player])
 
-  const inFavorites = Boolean(favorites.get(player.station.id))
+  useEffect(() => {
+    player.init()
+  }, [player])
+
+  const onSnackClose = (_: SyntheticEvent, reason: string) => {
+    if (reason === 'clickaway') {
+      return
+    }
+    setSnackErrorOpen(false)
+    setSnackFavOpen(false)
+  }
+  const inFavorites = Boolean(
+    player.station && favorites.get(player.station.id)
+  )
 
   const togglefavorites = () => {
     if (inFavorites) {
@@ -119,6 +126,38 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   return (
     <div className={classes.root}>
+      <div className={classes.uiWrap}>
+        {player.station ? (
+          <div className={classes.column}>
+            <PlayerToggleBtn fontSize="3.3rem" />
+            <AddTofavoritesBtn
+              fontSize="2.5rem"
+              active={inFavorites}
+              onClick={togglefavorites}
+            />
+            <ShareStationBtn fontSize="2.2rem" />
+            <div className={classes.infoWrap}>
+              <Tooltip title={t`Go to station website`}>
+                <a
+                  href={player.station.homepage}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={classes.stationLink}
+                >
+                  <span className={classes.stationName}>
+                    {player.station.name}
+                  </span>
+                </a>
+              </Tooltip>
+              <div className={classes.songInfo}>
+                <SongInfo />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <LinearProgress color="secondary" />
+        )}
+      </div>
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
@@ -137,35 +176,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
           </Alert>
         )}
       </Snackbar>
-
-      <div className={classes.uiWrap}>
-        <div className={classes.column}>
-          <PlayerToggleBtn fontSize="3.3rem" />
-          <AddTofavoritesBtn
-            fontSize="2.5rem"
-            active={inFavorites}
-            onClick={togglefavorites}
-          />
-          <ShareStationBtn fontSize="2.2rem" />
-          <div className={classes.infoWrap}>
-            <Tooltip title={t`Go to station website`}>
-              <a
-                href={player.station.homepage}
-                target="_blank"
-                rel="noreferrer"
-                className={classes.stationLink}
-              >
-                <span className={classes.stationName}>
-                  {player.station.name}
-                </span>
-              </a>
-            </Tooltip>
-            <div className={classes.songInfo}>
-              <SongInfo />
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   )
 })

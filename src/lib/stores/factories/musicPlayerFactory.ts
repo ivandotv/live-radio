@@ -1,4 +1,4 @@
-import { LocalStorage, LocalStorageSSR } from 'lib/Storage'
+import { getLocalDB } from 'lib/LocalDB'
 import { SongInfoService } from 'lib/SongInfoService'
 import { MusicPlayerStore } from 'lib/stores/MusicPlayerStore'
 import { RootStore } from 'lib/stores/RootStore'
@@ -10,13 +10,10 @@ export function musicPlayerFactory(root: RootStore) {
 
   let _store
   if (!store) {
-    const storage = isSSR
-      ? LocalStorageSSR
-      : new LocalStorage(window.localStorage)
     const fetchImpl = isSSR ? fetch : fetch.bind(window)
     const songInfoService = new SongInfoService(fetchImpl)
 
-    _store = new MusicPlayerStore(root, storage, songInfoService)
+    _store = new MusicPlayerStore(root, getLocalDB(), songInfoService)
   } else {
     _store = store
   }
