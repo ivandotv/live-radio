@@ -1,7 +1,6 @@
 import { reaction } from 'mobx'
 import { MusicPlayerStore, PlayerStatus } from './stores/MusicPlayerStore'
 
-//TODO - add metadata image
 export class AppMediaSession {
   constructor(
     protected musicPlayer: MusicPlayerStore,

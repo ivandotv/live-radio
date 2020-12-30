@@ -216,6 +216,8 @@ export class MusicPlayerStore {
         this.status === PlayerStatus.ERROR
       ) {
         this.play(station)
+      } else if (this.status === PlayerStatus.PAUSED) {
+        this.resume()
       } else {
         // buffering or playing
         this.stop()

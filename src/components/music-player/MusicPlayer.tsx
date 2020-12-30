@@ -74,7 +74,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   const [snackErrorOpen, setSnackErrorOpen] = useState(false)
   const [snackFavOpen, setSnackFavOpen] = useState(false)
 
-  /* This is safe beacause the code dissapears in the production build
+  /* This is safe beacause the code disappears in the production build
    */
   if (__DEV__) {
     // eslint-disable-next-line
