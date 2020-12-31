@@ -13,7 +13,7 @@ import Head from 'next/head'
 import { ReactElement, ReactNode } from 'react'
 import { layout } from 'lib/appSettings'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
-import { useAppShell } from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigation'
 import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
 import { AppToolbar } from 'components/layout/AppToolbar'
@@ -76,14 +76,14 @@ export const AppShellLayout = observer(function AppShellLayout({
 }: {
   children: ReactNode
 }) {
-  const store = useAppShell()
+  const { appShell } = useRootStore()
   const theme = useTheme()
   const classes = useStyles()
 
   return (
     <>
       <Head>
-        {store.showApp ? (
+        {appShell.showApp ? (
           <meta
             name="theme-color"
             key="theme-color"
@@ -96,7 +96,10 @@ export const AppShellLayout = observer(function AppShellLayout({
         ) : null}
       </Head>
       <CssBaseline />
-      <div style={{ opacity: store.showApp ? 1 : 0 }} className={classes.root}>
+      <div
+        style={{ opacity: appShell.showApp ? 1 : 0 }}
+        className={classes.root}
+      >
         <AppToolbar />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">

@@ -8,10 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import HttpIcon from '@material-ui/icons/ErrorOutline'
 import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
-import {
-  useMusicPlayer,
-  useRootStore
-} from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
 import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
@@ -75,25 +72,24 @@ export const StationRowItem = observer(function StationRowItem({
   showRemoveBtn?: boolean
 }) {
   const classes = useStyles({ showTags })
-  const player = useMusicPlayer()
-  const { favorites } = useRootStore()
+  const { favoriteStations, musicPlayer } = useRootStore()
 
   const httpIconTitle = t`Depending on your brower this station might not load beacuse it is not served over a secure connection`
 
   const togglePlay = useCallback(
     (_e: MouseEvent) => {
-      player.togglePlay(station)
+      musicPlayer.togglePlay(station)
     },
-    [player, station]
+    [musicPlayer, station]
   )
 
-  const stationError = player.errorStations[station.id]
+  const stationError = musicPlayer.errorStations[station.id]
   const removeFromfavorites = useCallback(
     (e: MouseEvent) => {
       e.stopPropagation()
-      favorites.remove(station.id)
+      favoriteStations.remove(station.id)
     },
-    [favorites, station.id]
+    [favoriteStations, station.id]
   )
 
   return (
@@ -103,8 +99,8 @@ export const StationRowItem = observer(function StationRowItem({
         onClick={togglePlay}
         className={clsx(classes.root, {
           [classes.stationSelected]:
-            player.station?.id === station.id &&
-            player.status !== PlayerStatus.ERROR,
+            musicPlayer.station?.id === station.id &&
+            musicPlayer.status !== PlayerStatus.ERROR,
           [classes.stationError]: stationError
         })}
         component="div"

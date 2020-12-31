@@ -3,10 +3,10 @@ import Play from '@material-ui/icons/PlayArrow'
 import Loading from '@material-ui/icons/RotateLeft'
 import Stop from '@material-ui/icons/Stop'
 import Error from '@material-ui/icons/Warning'
+import { useRootStore } from 'components/providers/RootStoreProvider'
+import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
 import { ReactNode } from 'react'
-import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
-import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -41,31 +41,34 @@ export const PlayerStateIcon = observer(function PlayerStateIcon({
   stationId?: string
   className?: string
 }) {
-  const player = useMusicPlayer()
+  const { musicPlayer } = useRootStore()
   const classes = useStyles({ fontSize })
   let btn: ReactNode | null = null
 
   const error = <Error className={`${classes.error} ${classes.button}`} />
 
-  if (!stationId || (player.station && stationId === player.station.id)) {
-    if (player.status === PlayerStatus.PLAYING) {
+  if (
+    !stationId ||
+    (musicPlayer.station && stationId === musicPlayer.station.id)
+  ) {
+    if (musicPlayer.status === PlayerStatus.PLAYING) {
       btn = <Stop className={classes.button}></Stop>
     } else if (
-      player.status === PlayerStatus.STOPPED ||
-      player.status === PlayerStatus.PAUSED
+      musicPlayer.status === PlayerStatus.STOPPED ||
+      musicPlayer.status === PlayerStatus.PAUSED
     ) {
       btn = <Play className={classes.button}></Play>
-    } else if (player.status === PlayerStatus.BUFFERING) {
+    } else if (musicPlayer.status === PlayerStatus.BUFFERING) {
       btn = (
         <Loading
           className={`${classes.loading} ${classes.button}`}
           style={{ fontSize }}
         ></Loading>
       )
-    } else if (player.status === PlayerStatus.ERROR) {
+    } else if (musicPlayer.status === PlayerStatus.ERROR) {
       btn = error
     }
-  } else if (player.errorStations[stationId]) {
+  } else if (musicPlayer.errorStations[stationId]) {
     btn = error
   } else {
     btn = <Play className={classes.button}></Play>

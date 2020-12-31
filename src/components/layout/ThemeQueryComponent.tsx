@@ -1,5 +1,5 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useAppShell } from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { AppTheme } from 'lib/stores/AppShellStore'
 import { autorun, reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
@@ -13,7 +13,7 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
   themeKey: string
   desktopDrawerKey: string
 }) {
-  const store = useAppShell()
+  const { appShell } = useRootStore()
   // const isInitialMount = useRef(true)
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
@@ -25,13 +25,13 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
 
         if (typeof theme === 'string') {
           // we have explicitly set theme
-          store.setTheme(theme as AppTheme)
+          appShell.setTheme(theme as AppTheme)
         } else {
           // system or browser set theme
-          store.setTheme(prefersDarkMode ? 'dark' : 'light', false)
+          appShell.setTheme(prefersDarkMode ? 'dark' : 'light', false)
         }
       }),
-    [prefersDarkMode, themeKey, store]
+    [prefersDarkMode, themeKey, appShell]
   )
 
   // setup desktop drawer position
@@ -39,37 +39,37 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
     () =>
       autorun(() => {
         const isOpen = window.localStorage.getItem(desktopDrawerKey)
-        store.setDesktopDrawer(isOpen === 'open', false)
-        store.readyToShow(true)
+        appShell.setDesktopDrawer(isOpen === 'open', false)
+        appShell.readyToShow(true)
       }),
-    [store, desktopDrawerKey]
+    [appShell, desktopDrawerKey]
   )
 
   // write currently chosen theme to local storage
   useEffect(
     () =>
       reaction(
-        () => store.theme,
+        () => appShell.theme,
         () => {
-          if (store.persistTheme) {
-            window.localStorage.setItem(themeKey, store.theme)
+          if (appShell.persistTheme) {
+            window.localStorage.setItem(themeKey, appShell.theme)
           }
         }
       ),
-    [store, themeKey]
+    [appShell, themeKey]
   )
   useEffect(
     () =>
       reaction(
-        () => store.desktopDrawerIsOpen,
+        () => appShell.desktopDrawerIsOpen,
         () => {
           window.localStorage.setItem(
             desktopDrawerKey,
-            store.desktopDrawerIsOpen ? 'open' : 'closed'
+            appShell.desktopDrawerIsOpen ? 'open' : 'closed'
           )
         }
       ),
-    [store.desktopDrawerIsOpen, desktopDrawerKey]
+    [appShell.desktopDrawerIsOpen, desktopDrawerKey]
   )
 
   return null

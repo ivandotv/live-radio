@@ -1,7 +1,7 @@
 import { LocationStore } from '../LocationStore'
 
 let store: LocationStore
-export function locationStoreFactory() {
+export function locationFactory() {
   const isSSR = typeof window === 'undefined'
 
   const fetchImpl = isSSR ? fetch : fetch.bind(window)

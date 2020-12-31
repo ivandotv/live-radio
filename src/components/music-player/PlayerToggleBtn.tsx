@@ -1,15 +1,15 @@
-import IconButton from '@material-ui/core/IconButton'
 import { t } from '@lingui/macro'
+import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import Play from '@material-ui/icons/PlayArrow'
 import Loading from '@material-ui/icons/RotateLeft'
 import Stop from '@material-ui/icons/Stop'
 import Error from '@material-ui/icons/Warning'
+import { useRootStore } from 'components/providers/RootStoreProvider'
+import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
 import { ReactNode, useCallback } from 'react'
-import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
-import { useMusicPlayer } from 'components/providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -44,13 +44,13 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
   fontSize: string | number
   stationId?: string
 }) {
-  const player = useMusicPlayer()
+  const { musicPlayer } = useRootStore()
   const classes = useStyles({ fontSize })
   let btn: ReactNode | null = null
 
   const togglePlay = useCallback(() => {
-    player.togglePlay()
-  }, [player])
+    musicPlayer.togglePlay()
+  }, [musicPlayer])
 
   const errorBtn = (
     <Tooltip placement="top" title={t`Try playing this station again`}>
@@ -68,8 +68,11 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
     </Tooltip>
   )
 
-  if (!stationId || (player.station && stationId === player.station.id)) {
-    if (player.status === PlayerStatus.PLAYING) {
+  if (
+    !stationId ||
+    (musicPlayer.station && stationId === musicPlayer.station.id)
+  ) {
+    if (musicPlayer.status === PlayerStatus.PLAYING) {
       btn = (
         <Tooltip placement="top" title={t`Stop`}>
           <IconButton className={classes.button} size="medium">
@@ -78,11 +81,11 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
         </Tooltip>
       )
     } else if (
-      player.status === PlayerStatus.STOPPED ||
-      player.status === PlayerStatus.PAUSED
+      musicPlayer.status === PlayerStatus.STOPPED ||
+      musicPlayer.status === PlayerStatus.PAUSED
     ) {
       btn = playBtn
-    } else if (player.status === PlayerStatus.BUFFERING) {
+    } else if (musicPlayer.status === PlayerStatus.BUFFERING) {
       btn = (
         <Tooltip placement="top" title={t`Station is loading`}>
           <IconButton className={classes.button} size="medium">
@@ -93,10 +96,10 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
           </IconButton>
         </Tooltip>
       )
-    } else if (player.status === PlayerStatus.ERROR) {
+    } else if (musicPlayer.status === PlayerStatus.ERROR) {
       btn = errorBtn
     }
-  } else if (player.errorStations[stationId]) {
+  } else if (musicPlayer.errorStations[stationId]) {
     btn = errorBtn
   } else {
     btn = playBtn

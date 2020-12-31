@@ -1,6 +1,6 @@
 import { FilterDataStore } from 'lib/stores/FilterDataStore'
 
-export function filterDataStoreFactory(
+export function filterDataFactory(
   initialState: any[],
   uuid: string,
   indexes: string[],

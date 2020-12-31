@@ -1,6 +1,6 @@
 import Collapse from '@material-ui/core/Collapse'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { useMusicPlayer } from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
 import { observer } from 'mobx-react-lite'
 import { t } from '@lingui/macro'
@@ -13,22 +13,22 @@ const useStyles = makeStyles((_theme: Theme) =>
 )
 
 export const SongInfo = observer(function SongInfo() {
-  const player = useMusicPlayer()
+  const { musicPlayer } = useRootStore()
   const classes = useStyles()
 
-  let artist = player.songInfo?.artist || t`No Data`
-  let songTitle = player.songInfo?.title || t`No Data`
+  let artist = musicPlayer.songInfo?.artist || t`No Data`
+  let songTitle = musicPlayer.songInfo?.title || t`No Data`
 
   const showInfo =
-    player.status !== PlayerStatus.STOPPED &&
-    player.status !== PlayerStatus.BUFFERING &&
-    player.stationChecked
+    musicPlayer.status !== PlayerStatus.STOPPED &&
+    musicPlayer.status !== PlayerStatus.BUFFERING &&
+    musicPlayer.stationChecked
 
   return (
     <Collapse in={showInfo}>
       <div>
         <span className={classes.artist}>{artist}</span>
-        {player.songInfo?.artist ? (
+        {musicPlayer.songInfo?.artist ? (
           <>
             <span> / </span>
             <span className={classes.songTitle}>{songTitle}</span>

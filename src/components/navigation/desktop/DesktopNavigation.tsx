@@ -7,9 +7,9 @@ import {
   useTheme
 } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import { observer } from 'mobx-react-lite'
-import { useAppShell } from 'components/providers/RootStoreProvider'
 import { Menu } from 'components/navigation/desktop/Menu'
+import { useRootStore } from 'components/providers/RootStoreProvider'
+import { observer } from 'mobx-react-lite'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,25 +50,25 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const DesktopNavigation = observer(function DesktopNavigation() {
-  const store = useAppShell()
-  const classes = useStyles({ drawerWidth: store.desktopDrawerWidth })
+  const { appShell: appShell } = useRootStore()
+  const classes = useStyles({ drawerWidth: appShell.desktopDrawerWidth })
   const theme = useTheme()
 
   return (
     <Box
       className={clsx(classes.drawer, {
-        [classes.box]: !store.desktopDrawerIsOpen,
-        [classes.boxAnim]: !store.desktopDrawerIsOpen && store.showApp,
-        [classes.boxShift]: store.desktopDrawerIsOpen,
-        [classes.boxShiftAnim]: store.desktopDrawerIsOpen && store.showApp
+        [classes.box]: !appShell.desktopDrawerIsOpen,
+        [classes.boxAnim]: !appShell.desktopDrawerIsOpen && appShell.showApp,
+        [classes.boxShift]: appShell.desktopDrawerIsOpen,
+        [classes.boxShiftAnim]: appShell.desktopDrawerIsOpen && appShell.showApp
       })}
     >
       <Drawer
         anchor="left"
         variant="persistent"
-        open={store.desktopDrawerIsOpen}
+        open={appShell.desktopDrawerIsOpen}
         transitionDuration={
-          store.showApp && store.animateDesktopDrawer
+          appShell.showApp && appShell.animateDesktopDrawer
             ? {
                 appear: 0,
                 enter: theme.transitions.duration.enteringScreen,

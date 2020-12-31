@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import { useCallback } from 'react'
 import useSWR from 'swr'
 import { RadioStation } from 'types'
-import { useMusicPlayer } from './providers/RootStoreProvider'
+import { useRootStore } from './providers/RootStoreProvider'
 
 const useStyles = makeStyles((_theme: Theme) => {
   return createStyles({
@@ -48,7 +48,7 @@ export function PlayFromShareModal({
   onClose: () => void
 }) {
   const classes = useStyles()
-  const player = useMusicPlayer()
+  const { musicPlayer } = useRootStore()
 
   const { data, error } = useSWR<RadioStation[]>(
     open ? `/api/stationinfo?play=${encodeURIComponent(play)}` : null,
@@ -63,7 +63,7 @@ export function PlayFromShareModal({
   }, [onClose])
 
   function playStation() {
-    player.play(station!)
+    musicPlayer.play(station!)
     handleClose()
   }
 

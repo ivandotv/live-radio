@@ -35,7 +35,7 @@ export const ListStations = observer(function ListStations({
   noData,
   dataRow,
   breadcrumbs,
-  filterInputText = t`Filter Languages`,
+  filterInputText = t`Filter Stations`,
   showSearch = true,
   showFallback = false
 }: {

@@ -3,7 +3,7 @@ import Paper from '@material-ui/core/Paper'
 import { PageTitle } from 'components/PageTitle'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useMusicPlayer } from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { PlayFromShareModal } from 'components/PlayFromShareModal'
 import { Trans } from '@lingui/macro'
 import { getStaticTranslations } from 'initTranslations'
@@ -15,7 +15,7 @@ export { getStaticTranslations as getStaticProps }
 
 export default function Browse() {
   const router = useRouter()
-  const player = useMusicPlayer()
+  const { musicPlayer } = useRootStore()
   const [openDialog, setOpenDialog] = useState(false)
   const play = router.query.play as string
 
@@ -25,7 +25,7 @@ export default function Browse() {
       instantPlayTriggered = true
       setOpenDialog(true)
     }
-  }, [play, player])
+  }, [play, musicPlayer])
 
   const handleCloseDialog = () => {
     setOpenDialog(false)

@@ -16,7 +16,7 @@ import DarkIcon from '@material-ui/icons/Brightness6'
 import LightIcon from '@material-ui/icons/Brightness7'
 import MenuIcon from '@material-ui/icons/Menu'
 import { LanguageSwitcher } from 'components/LanguageSwitcher'
-import { useAppShell } from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { sections } from 'lib/appSettings'
 import { searchTranslation } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
@@ -55,7 +55,7 @@ function useSetAppTitle(separator: string, defaultTitle: string) {
 
     console.log({ pathParts })
     if (pathParts[2]) {
-      const title = pathParts[2].replace('/', separator).replace('-', ' ')
+      const title = pathParts[2].replace('/', separator)
       setTitle(searchTranslation(title, sections()))
     } else {
       setTitle(defaultTitle)
@@ -69,19 +69,19 @@ export const AppToolbar = observer(function AppToolbar() {
   const theme = useTheme()
   const classes = useStyles()
   const appTitle = useSetAppTitle(' / ', '')
-  const store = useAppShell()
+  const { appShell } = useRootStore()
 
   const [counter, setCounter] = useState(0)
 
   const toggleDesktopDrawer = () => {
-    store.setDesktopDrawer(!store.desktopDrawerIsOpen)
+    appShell.setDesktopDrawer(!appShell.desktopDrawerIsOpen)
   }
 
   const toggleTheme = () => {
     setCounter((counter) => {
       return counter + 1
     })
-    store.setTheme(store.theme === 'dark' ? 'light' : 'dark')
+    appShell.setTheme(appShell.theme === 'dark' ? 'light' : 'dark')
   }
 
   return (
@@ -100,7 +100,7 @@ export const AppToolbar = observer(function AppToolbar() {
             onClick={toggleDesktopDrawer}
             className={classes.menuButtonDesktop}
           >
-            {store.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
+            {appShell.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
           </IconButton>
           <Typography variant="h6" noWrap>
             {appTitle}
@@ -109,7 +109,7 @@ export const AppToolbar = observer(function AppToolbar() {
         <LanguageSwitcher></LanguageSwitcher>
         <Tooltip
           title={
-            store.theme === 'dark'
+            appShell.theme === 'dark'
               ? t`Switch to Light Theme`
               : t`Switch to Dark Theme`
           }
@@ -117,7 +117,7 @@ export const AppToolbar = observer(function AppToolbar() {
         >
           <IconButton color="inherit" onClick={toggleTheme} edge="end">
             <Badge badgeContent={counter} color="secondary" showZero>
-              {store.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
+              {appShell.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
             </Badge>
           </IconButton>
         </Tooltip>

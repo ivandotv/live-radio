@@ -1,4 +1,4 @@
-import { locationStoreFactory } from 'lib/stores/factories/locationStoreFactory'
+import { locationFactory } from 'lib/stores/factories/locationStoreFactory'
 import { LocationStore } from 'lib/stores/LocationStore'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext } from 'react'
@@ -19,7 +19,7 @@ export function useLocationStore() {
 
 export function LocationStoreProvider({ children }: { children: ReactNode }) {
   return (
-    <LocationStoreContext.Provider value={locationStoreFactory()}>
+    <LocationStoreContext.Provider value={locationFactory()}>
       {children}
     </LocationStoreContext.Provider>
   )

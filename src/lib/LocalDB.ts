@@ -3,8 +3,11 @@ import { RadioStation } from 'types'
 
 export interface AppStorage {
   addStationToFavorites: (station: RadioStation) => Promise<string>
+  addStationToHistory: (station: RadioStation) => Promise<string>
   removeStationFromFavorites: (id: string) => Promise<void>
+  removeStationFromHistory: (id: string) => Promise<void>
   getFavoriteStations: () => Promise<RadioStation[]>
+  getStationHistory: () => Promise<RadioStation[]>
   getLastPlayedStation: () => Promise<RadioStation | undefined>
   setLastPlayedStation: (station: RadioStation) => Promise<number>
 }
@@ -14,13 +17,17 @@ interface AppDB extends DBSchema {
     key: string
     value: RadioStation
   }
-  recent: {
+  history: {
     value: RadioStation
     key: string
   }
   lastStation: {
     key: number
     value: RadioStation
+  }
+  test: {
+    key: number
+    value: boolean
   }
 }
 
@@ -44,7 +51,7 @@ export class LocalDB implements AppStorage {
   constructor() {}
 
   async initDB() {
-    const db = await openDB<AppDB>('LiveRadio', 1, {
+    const db = await openDB<AppDB>('LiveRadio', 2, {
       upgrade(db, oldVersion, newVersion, transaction) {
         console.log({ db })
         console.log({ oldVersion })
@@ -52,7 +59,7 @@ export class LocalDB implements AppStorage {
         console.log({ transaction })
         if (oldVersion === 0) {
           db.createObjectStore('favorites', { keyPath: 'id' })
-          db.createObjectStore('recent', { keyPath: 'id' })
+          db.createObjectStore('history', { keyPath: 'id' })
           db.createObjectStore('lastStation')
         }
       },
@@ -90,6 +97,20 @@ export class LocalDB implements AppStorage {
     return await db.put('lastStation', station, 1)
   }
 
+  async addStationToHistory(station: RadioStation) {
+    const db = await this.getDB()
+
+    console.log('history ', station.id)
+
+    return await db.put('history', station)
+  }
+
+  async removeStationFromHistory(id: string) {
+    const db = await this.getDB()
+
+    return await db.delete('history', id)
+  }
+
   async addStationToFavorites(station: RadioStation) {
     const db = await this.getDB()
 
@@ -106,5 +127,13 @@ export class LocalDB implements AppStorage {
     const db = await this.getDB()
 
     return await db.getAll('favorites')
+  }
+
+  async getStationHistory(): Promise<RadioStation[]> {
+    const db = await this.getDB()
+
+    const stations = await db.getAll('history')
+
+    return stations.reverse()
   }
 }

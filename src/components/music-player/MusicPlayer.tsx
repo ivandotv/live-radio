@@ -8,11 +8,7 @@ import { AddTofavoritesBtn } from 'components/music-player/AddToFavoritesBtn'
 import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
 import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
 import { SongInfo } from 'components/music-player/SongInfo'
-import {
-  useAppShell,
-  useMusicPlayer,
-  useRootStore
-} from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { layout } from 'lib/appSettings'
 import { AppMediaSession } from 'lib/MediaSession'
 import { observer } from 'mobx-react-lite'
@@ -67,9 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const MusicPlayer = observer(function MusicPlayer() {
-  const player = useMusicPlayer()
-  const appShell = useAppShell()
-  const { favorites } = useRootStore()
+  const { favoriteStations, appShell, musicPlayer } = useRootStore()
   const classes = useStyles({
     drawerWidth: appShell.desktopDrawerWidth
   })
@@ -82,27 +76,27 @@ export const MusicPlayer = observer(function MusicPlayer() {
     // eslint-disable-next-line
     useEffect(() => {
       // @ts-ignore
-      window.player = player
-    }, [player])
+      window.player = musicPlayer
+    }, [musicPlayer])
   }
 
   useEffect(() => {
-    if (player.playerError) {
+    if (musicPlayer.playerError) {
       setSnackErrorOpen(true)
     }
-  }, [player.playerError])
+  }, [musicPlayer.playerError])
 
   useEffect(() => {
-    favorites.load()
-  }, [favorites])
+    favoriteStations.load()
+  }, [favoriteStations])
 
   useEffect(() => {
-    new AppMediaSession(player, navigator)
-  }, [player])
+    new AppMediaSession(musicPlayer, navigator)
+  }, [musicPlayer])
 
   useEffect(() => {
-    player.init()
-  }, [player])
+    musicPlayer.init()
+  }, [musicPlayer])
 
   const onSnackClose = (_: SyntheticEvent, reason: string) => {
     if (reason === 'clickaway') {
@@ -112,14 +106,14 @@ export const MusicPlayer = observer(function MusicPlayer() {
     setSnackFavOpen(false)
   }
   const inFavorites = Boolean(
-    player.station && favorites.get(player.station.id)
+    musicPlayer.station && favoriteStations.get(musicPlayer.station.id)
   )
 
   const togglefavorites = () => {
     if (inFavorites) {
-      favorites.remove(player.station.id)
+      favoriteStations.remove(musicPlayer.station.id)
     } else {
-      favorites.add(player.station)
+      favoriteStations.add(musicPlayer.station)
     }
     setSnackFavOpen(true)
   }
@@ -127,7 +121,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   return (
     <div className={classes.root}>
       <div className={classes.uiWrap}>
-        {player.station ? (
+        {musicPlayer.station ? (
           <div className={classes.column}>
             <PlayerToggleBtn fontSize="3.3rem" />
             <AddTofavoritesBtn
@@ -139,13 +133,13 @@ export const MusicPlayer = observer(function MusicPlayer() {
             <div className={classes.infoWrap}>
               <Tooltip title={t`Go to station website`}>
                 <a
-                  href={player.station.homepage}
+                  href={musicPlayer.station.homepage}
                   target="_blank"
                   rel="noreferrer"
                   className={classes.stationLink}
                 >
                   <span className={classes.stationName}>
-                    {player.station.name}
+                    {musicPlayer.station.name}
                   </span>
                 </a>
               </Tooltip>

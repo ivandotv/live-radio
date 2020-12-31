@@ -138,6 +138,7 @@ export class MusicPlayerStore {
       })
 
       this.storage.setLastPlayedStation(this.station)
+      this.storage.addStationToHistory(this.station)
     })
 
     this.player.on('pause', () => {

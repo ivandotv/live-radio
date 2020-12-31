@@ -9,41 +9,41 @@ import { Trans } from '@lingui/macro'
 
 const indexes = ['language', 'country', 'tags', 'continent', 'name']
 
-export const FavoritesList = observer(function FavoritesList() {
-  const { favoriteStations } = useRootStore()
+export const RecentStationsList = observer(function RecentStationsList() {
+  const { recentStations: history } = useRootStore()
   const filterStore = useFilterDataStore()
 
   useEffect(() => {
     ;(async function () {
-      await favoriteStations.load()
-      filterStore.hydrate(favoriteStations.stations, 'id', indexes)
+      await history.load()
+      filterStore.hydrate(history.stations, 'id', indexes)
     })()
-  }, [filterStore, favoriteStations])
+  }, [filterStore, history])
 
   useEffect(
     () =>
       reaction(
-        () => favoriteStations.stations.length,
+        () => history.stations.length,
         () => {
           filterStore.hydrate(
-            favoriteStations.stations,
+            history.stations,
             'id',
             indexes,
             filterStore.query
           )
         }
       ),
-    [favoriteStations, filterStore]
+    [history, filterStore]
   )
 
   return (
     <ListStations
-      showFallback={!favoriteStations.loaded}
-      showSearch={favoriteStations.stations.length > 0}
-      dataRow={stationDataRow(true, true, true, true)}
+      showFallback={!history.loaded}
+      showSearch={history.stations.length > 0}
+      dataRow={stationDataRow(true, true, true)}
       noData={
         <Trans>
-          <p>No favorites</p>
+          <p>No recent history</p>
         </Trans>
       }
     />

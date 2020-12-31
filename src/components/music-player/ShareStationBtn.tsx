@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 import IconButton from '@material-ui/core/IconButton'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { ShareStationDesktop } from 'components/music-player/ShareStationDesktop'
-import { useMusicPlayer } from 'components/providers/RootStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { url } from 'lib/appSettings'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,9 +26,9 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   fontSize: string | number
 }) {
   const classes = useStyles({ fontSize })
-  const player = useMusicPlayer()
+  const { musicPlayer } = useRootStore()
 
-  const id = player.station.id
+  const id = musicPlayer.station.id
 
   const queryParams = `?play=${encodeURIComponent(id)}`
 

@@ -33,6 +33,10 @@ msgstr ""
 msgid "<0>No favorites</0>"
 msgstr ""
 
+#: src/components/RecentStationsList.tsx:34
+msgid "<0>No recent history</0>"
+msgstr ""
+
 #: src/components/FilterList.tsx:21
 msgid "<0>No results</0>"
 msgstr ""
@@ -52,6 +56,10 @@ msgstr ""
 
 #: src/components/music-player/AddToFavoritesBtn.tsx:20
 msgid "Add station to favorites"
+msgstr ""
+
+#: src/components/music-player/MusicPlayer.tsx:132
+msgid "Added to favorites"
 msgstr ""
 
 #: src/generated/languages.js:7
@@ -596,7 +604,7 @@ msgstr ""
 msgid "Eritrea"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:107
+#: src/components/music-player/MusicPlayer.tsx:131
 msgid "Error playing radio station"
 msgstr ""
 
@@ -637,7 +645,7 @@ msgid "Faroese"
 msgstr ""
 
 #: src/components/navigation/desktop/Menu.tsx:18
-#: src/components/navigation/mobile/MobileNavigation.tsx:40
+#: src/components/navigation/mobile/MobileNavigation.tsx:48
 #: src/lib/appSettings.ts:14
 msgid "Favorites"
 msgstr ""
@@ -659,9 +667,10 @@ msgid "Filter Genres"
 msgstr ""
 
 #: src/components/ListStations.tsx:32
-msgid "Filter Languages"
-msgstr ""
+#~ msgid "Filter Languages"
+#~ msgstr ""
 
+#: src/components/ListStations.tsx:32
 #: src/pages/app/search/by-location/[continent]/[country].tsx:86
 msgid "Filter Stations"
 msgstr ""
@@ -762,7 +771,7 @@ msgstr ""
 msgid "Gibraltar"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:116
+#: src/components/music-player/MusicPlayer.tsx:114
 msgid "Go to station website"
 msgstr ""
 
@@ -1593,13 +1602,17 @@ msgstr ""
 msgid "Rap"
 msgstr ""
 
-#: src/components/navigation/mobile/MobileNavigation.tsx:41
+#: src/components/navigation/mobile/MobileNavigation.tsx:49
 msgid "Recent"
 msgstr ""
 
 #: src/components/navigation/desktop/Menu.tsx:22
 #: src/lib/appSettings.ts:15
 msgid "Recent Stations"
+msgstr ""
+
+#: src/pages/app/recent-stations.tsx:10
+msgid "Recently listened stations"
 msgstr ""
 
 #: src/generated/genres.js:50
@@ -1610,8 +1623,16 @@ msgstr ""
 msgid "Reggaeton"
 msgstr ""
 
+#: src/components/StationRowItem.tsx:87
+msgid "Remove from favorites"
+msgstr ""
+
 #: src/components/music-player/AddToFavoritesBtn.tsx:19
 msgid "Remove station from favorites"
+msgstr ""
+
+#: src/components/music-player/MusicPlayer.tsx:132
+msgid "Removed from favourites"
 msgstr ""
 
 #: src/generated/countries.js:266
@@ -1637,6 +1658,10 @@ msgstr ""
 #: src/generated/languages.js:139
 msgid "Romansh"
 msgstr ""
+
+#: src/lib/appSettings.ts:15
+#~ msgid "Rsecent Stations"
+#~ msgstr ""
 
 #: src/generated/countries.js:61
 msgid "Russia"
@@ -1719,7 +1744,7 @@ msgid "Scottish Gaelic"
 msgstr ""
 
 #: src/components/navigation/desktop/Menu.tsx:14
-#: src/components/navigation/mobile/MobileNavigation.tsx:39
+#: src/components/navigation/mobile/MobileNavigation.tsx:47
 #: src/lib/appSettings.ts:13
 #: src/pages/app/search/by-genre/[genre].tsx:60
 #: src/pages/app/search/by-genre/index.tsx:16
@@ -1776,7 +1801,7 @@ msgid "Serbian"
 msgstr ""
 
 #: src/components/navigation/desktop/Menu.tsx:26
-#: src/components/navigation/mobile/MobileNavigation.tsx:42
+#: src/components/navigation/mobile/MobileNavigation.tsx:50
 #: src/lib/appSettings.ts:16
 msgid "Settings"
 msgstr ""
@@ -1898,11 +1923,11 @@ msgstr ""
 msgid "Sri Lanka"
 msgstr ""
 
-#: src/components/music-player/PlayerToggleBtn.tsx:66
+#: src/components/music-player/PlayerToggleBtn.tsx:67
 msgid "Station is loading"
 msgstr ""
 
-#: src/components/music-player/PlayerToggleBtn.tsx:55
+#: src/components/music-player/PlayerToggleBtn.tsx:56
 msgid "Stop"
 msgstr ""
 

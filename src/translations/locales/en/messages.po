@@ -33,6 +33,10 @@ msgstr "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenie
 msgid "<0>No favorites</0>"
 msgstr "<0>No favorites</0>"
 
+#: src/components/RecentStationsList.tsx:34
+msgid "<0>No recent history</0>"
+msgstr "<0>No recent history</0>"
+
 #: src/components/FilterList.tsx:21
 msgid "<0>No results</0>"
 msgstr "<0>No results</0>"
@@ -53,6 +57,10 @@ msgstr "About"
 #: src/components/music-player/AddToFavoritesBtn.tsx:20
 msgid "Add station to favorites"
 msgstr "Add station to favorites"
+
+#: src/components/music-player/MusicPlayer.tsx:132
+msgid "Added to favorites"
+msgstr "Added to favorites"
 
 #: src/generated/languages.js:7
 msgid "Afar"
@@ -596,7 +604,7 @@ msgstr "Equatorial Guinea"
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: src/components/music-player/MusicPlayer.tsx:107
+#: src/components/music-player/MusicPlayer.tsx:131
 msgid "Error playing radio station"
 msgstr "Error playing radio station"
 
@@ -637,7 +645,7 @@ msgid "Faroese"
 msgstr "Faroese"
 
 #: src/components/navigation/desktop/Menu.tsx:18
-#: src/components/navigation/mobile/MobileNavigation.tsx:40
+#: src/components/navigation/mobile/MobileNavigation.tsx:48
 #: src/lib/appSettings.ts:14
 msgid "Favorites"
 msgstr "Favorites"
@@ -659,9 +667,10 @@ msgid "Filter Genres"
 msgstr "Filter Genres"
 
 #: src/components/ListStations.tsx:32
-msgid "Filter Languages"
-msgstr "Filter Languages"
+#~ msgid "Filter Languages"
+#~ msgstr "Filter Languages"
 
+#: src/components/ListStations.tsx:32
 #: src/pages/app/search/by-location/[continent]/[country].tsx:86
 msgid "Filter Stations"
 msgstr "Filter Stations"
@@ -762,7 +771,7 @@ msgstr "Ghana"
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: src/components/music-player/MusicPlayer.tsx:116
+#: src/components/music-player/MusicPlayer.tsx:114
 msgid "Go to station website"
 msgstr "Go to station website"
 
@@ -1593,7 +1602,7 @@ msgstr "Quechua"
 msgid "Rap"
 msgstr "Rap"
 
-#: src/components/navigation/mobile/MobileNavigation.tsx:41
+#: src/components/navigation/mobile/MobileNavigation.tsx:49
 msgid "Recent"
 msgstr "Recent"
 
@@ -1601,6 +1610,10 @@ msgstr "Recent"
 #: src/lib/appSettings.ts:15
 msgid "Recent Stations"
 msgstr "Recent Stations"
+
+#: src/pages/app/recent-stations.tsx:10
+msgid "Recently listened stations"
+msgstr "Recently listened stations"
 
 #: src/generated/genres.js:50
 msgid "Reggae"
@@ -1610,9 +1623,17 @@ msgstr "Reggae"
 msgid "Reggaeton"
 msgstr "Reggaeton"
 
+#: src/components/StationRowItem.tsx:87
+msgid "Remove from favorites"
+msgstr "Remove from favorites"
+
 #: src/components/music-player/AddToFavoritesBtn.tsx:19
 msgid "Remove station from favorites"
 msgstr "Remove station from favorites"
+
+#: src/components/music-player/MusicPlayer.tsx:132
+msgid "Removed from favourites"
+msgstr "Removed from favourites"
 
 #: src/generated/countries.js:266
 msgid "Republic of the Congo"
@@ -1637,6 +1658,10 @@ msgstr "Romanian"
 #: src/generated/languages.js:139
 msgid "Romansh"
 msgstr "Romansh"
+
+#: src/lib/appSettings.ts:15
+#~ msgid "Rsecent Stations"
+#~ msgstr "Rsecent Stations"
 
 #: src/generated/countries.js:61
 msgid "Russia"
@@ -1719,7 +1744,7 @@ msgid "Scottish Gaelic"
 msgstr "Scottish Gaelic"
 
 #: src/components/navigation/desktop/Menu.tsx:14
-#: src/components/navigation/mobile/MobileNavigation.tsx:39
+#: src/components/navigation/mobile/MobileNavigation.tsx:47
 #: src/lib/appSettings.ts:13
 #: src/pages/app/search/by-genre/[genre].tsx:60
 #: src/pages/app/search/by-genre/index.tsx:16
@@ -1776,7 +1801,7 @@ msgid "Serbian"
 msgstr "Serbian"
 
 #: src/components/navigation/desktop/Menu.tsx:26
-#: src/components/navigation/mobile/MobileNavigation.tsx:42
+#: src/components/navigation/mobile/MobileNavigation.tsx:50
 #: src/lib/appSettings.ts:16
 msgid "Settings"
 msgstr "Settings"
@@ -1898,11 +1923,11 @@ msgstr "Spanish"
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: src/components/music-player/PlayerToggleBtn.tsx:66
+#: src/components/music-player/PlayerToggleBtn.tsx:67
 msgid "Station is loading"
 msgstr "Station is loading"
 
-#: src/components/music-player/PlayerToggleBtn.tsx:55
+#: src/components/music-player/PlayerToggleBtn.tsx:56
 msgid "Stop"
 msgstr "Stop"
 
