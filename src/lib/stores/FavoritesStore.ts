@@ -44,7 +44,7 @@ export class FavoritesStore {
   }
 
   get stations() {
-    return [...this.stationsById.values()]
+    return [...this.stationsById.values()].reverse()
   }
 
   get(id: string) {

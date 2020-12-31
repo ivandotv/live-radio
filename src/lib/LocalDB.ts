@@ -43,7 +43,6 @@ export function getLocalDB() {
 
   return instance
 }
-// export type IAppDB = InstanceType<typeof AppDB>
 
 export class LocalDB implements AppStorage {
   protected db!: IDBPDatabase<AppDB>
@@ -134,6 +133,6 @@ export class LocalDB implements AppStorage {
 
     const stations = await db.getAll('history')
 
-    return stations.reverse()
+    return stations
   }
 }
