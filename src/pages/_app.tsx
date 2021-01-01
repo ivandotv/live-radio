@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement, useEffect } from 'react'
+import { ReactElement, useEffect, useRef } from 'react'
 import { I18nProvider } from '@lingui/react'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
@@ -16,7 +16,6 @@ export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   layout?: (page: NextApplicationPage, props: any) => ReactElement
 }
 
-let firstRender = true
 initTranslations(i18n)
 
 export default function MyApp(props: AppProps) {
@@ -27,8 +26,9 @@ export default function MyApp(props: AppProps) {
 
   const router = useRouter()
   const locale = router.locale || router.defaultLocale!
+  const firstRender = useRef(true)
 
-  if (firstRender) {
+  if (firstRender.current) {
     if (pageProps.translation) {
       i18n.load(locale, pageProps.translation)
       i18n.activate(locale)
@@ -37,12 +37,12 @@ export default function MyApp(props: AppProps) {
 
   useEffect(() => {
     console.log('use effect ', locale)
-    if (pageProps.translation && !firstRender) {
+    if (pageProps.translation && !firstRender.current) {
       console.log('load ', locale)
       i18n.load(locale, pageProps.translation)
       i18n.activate(locale)
     }
-    firstRender = false
+    firstRender.current = false
   }, [locale, pageProps.translation])
 
   return (
