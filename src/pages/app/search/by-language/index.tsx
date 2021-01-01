@@ -30,6 +30,7 @@ export default function LanguageList() {
       return (
         <AppMenuItem
           link={{
+            prefetch: false,
             href: {
               pathname: `${router.pathname}/[raw]`
             },

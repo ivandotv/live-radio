@@ -38,6 +38,7 @@ export default function GenreList() {
       return (
         <AppMenuItem
           link={{
+            prefetch: false,
             href: {
               pathname: `${router.pathname}/[genre]`
             },

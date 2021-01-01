@@ -57,6 +57,7 @@ export default function CountryList({ continent }: { continent: string }) {
       return (
         <AppMenuItem
           link={{
+            prefetch: false,
             href: {
               pathname: `${router.pathname}/[country]`
             },
