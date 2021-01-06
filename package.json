@@ -32,7 +32,7 @@
     "country-code-emoji": "^2.1.0",
     "csso": "^4.2.0",
     "howler": "^2.2.1",
-    "idb": "^5.0.8",
+    "idb": "^6.0.0",
     "js-search": "^2.0.0",
     "make-plural": "^6.2.2",
     "mobx": "^6.0.4",
