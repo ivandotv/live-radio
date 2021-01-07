@@ -17,6 +17,7 @@ import { useRootStore } from 'components/providers/RootStoreProvider'
 import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigation'
 import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
 import { AppToolbar } from 'components/layout/AppToolbar'
+import { OfflineIndicator } from 'components/OfflineIndicator'
 
 // todo - make the values dynamic
 const {
@@ -58,9 +59,15 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: theme.zIndex.appBar - 1
     },
     bottomUiWrap: {
+      position: 'relative',
       width: '100%',
       bottom: 0,
       zIndex: 1
+    },
+    offlineIndicator: {
+      position: 'absolute',
+      width: '100%',
+      top: '-27px' //magic!
     },
     contentSpacer: {
       [theme.breakpoints.up('md')]: {
@@ -113,6 +120,7 @@ export const AppShellLayout = observer(function AppShellLayout({
             <Paper>
               <div className={classes.pageWrap}>{children as ReactElement}</div>
               <div className={classes.bottomUiWrap}>
+                <OfflineIndicator className={classes.offlineIndicator} />
                 <MusicPlayer></MusicPlayer>
                 <Hidden mdUp implementation="css">
                   <MobileNavigation />
