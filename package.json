@@ -38,7 +38,7 @@
     "mobx": "^6.0.4",
     "mobx-react-lite": "^3.1.6",
     "mobx-utils": "^6.0.3",
-    "next": "10.0.4",
+    "next": "10.0.5",
     "next-pwa": "^5.0.1",
     "node-internet-radio": "^0.2.1",
     "nookies": "^2.5.0",
