@@ -8,6 +8,7 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { url } from 'lib/appSettings'
 import { initTranslations } from 'initTranslations'
+import { PWAIcons } from 'components/PWAIcons'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
@@ -59,21 +60,11 @@ export default function MyApp(props: AppProps) {
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="description"
-          content={t`Next.js PWA application made with metrial-ui`}
+          content={t`Listen live radio online`}
           key="description"
         />
-        <meta
-          name="keywords"
-          content={t`pwa,nextjs,material,design`}
-          key="keywords"
-        />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link
-          href="/favicon-32x32.png"
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-        />
+        <meta name="keywords" content={t`pwa,radio,live`} key="keywords" />
+        <PWAIcons />
         {router.locales!.concat('x-default').map((locale) => {
           const localePath = locale === 'x-default' ? '' : `/${locale}`
           const href = `${url}${localePath}${router.asPath}`

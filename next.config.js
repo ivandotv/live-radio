@@ -2,7 +2,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 const withPWA = require('next-pwa')
-const runtimeCaching = require('./src/cache')
+// const runtimeCaching = require('./src/cache')
 
 const nextConfig = {
   // reactStrictMode: true,
@@ -14,7 +14,7 @@ const nextConfig = {
   },
   pwa: {
     dest: 'public',
-    runtimeCaching,
+    // runtimeCaching,
     scope: '/app',
     disable: process.env.NODE_ENV !== 'production'
   },

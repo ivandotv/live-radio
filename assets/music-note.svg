@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="195"
+   height="198"
+   viewBox="0 0 51.593749 52.387502"
+   version="1.1"
+   id="svg6534"
+   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   sodipodi:docname="music-note.svg">
+  <defs
+     id="defs6528" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="206.98494"
+     inkscape:cy="97.897168"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="704"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     lock-margins="false" />
+  <metadata
+     id="metadata6531">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-79.552962,-58.66588)">
+    <path
+       d="m 100.79407,75.46806 v 4.542244 10.811425 c -0.841602,-0.548956 -1.921108,-0.878966 -3.098293,-0.878966 -2.687691,0 -4.866837,1.719783 -4.866837,3.841099 0,2.121117 2.179146,3.840702 4.866837,3.840702 2.687933,0 4.866833,-1.719585 4.866833,-3.840702 0,-0.06894 -0.009,-0.136294 -0.0128,-0.204243 h 0.0128 V 79.660825 l 13.53965,-2.674644 v 9.994646 c -0.84161,-0.548955 -1.92111,-0.878964 -3.0983,-0.878964 -2.68794,0 -4.86683,1.719782 -4.86683,3.8409 0,2.121317 2.17889,3.840901 4.86683,3.840901 2.57138,0 4.67174,-1.574745 4.84947,-3.568111 h 0.0173 v -13.578652 -4.533105 -0.0091 z"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.223646"
+       id="path2068" />
+  </g>
+</svg>

@@ -342,13 +342,13 @@ msgid "By Genre"
 msgstr ""
 
 #: src/pages/app/search/by-language/[language].tsx:71
-#: src/pages/app/search/by-language/index.tsx:40
+#: src/pages/app/search/by-language/index.tsx:41
 #: src/pages/app/search/index.tsx:30
 msgid "By Language"
 msgstr ""
 
 #: src/pages/app/search/by-location/[continent]/[country].tsx:73
-#: src/pages/app/search/by-location/[continent]/index.tsx:74
+#: src/pages/app/search/by-location/[continent]/index.tsx:75
 #: src/pages/app/search/by-location/index.tsx:31
 #: src/pages/app/search/index.tsx:29
 msgid "By Location"
@@ -658,11 +658,11 @@ msgstr ""
 msgid "Fijian"
 msgstr ""
 
-#: src/pages/app/search/by-location/[continent]/index.tsx:82
+#: src/pages/app/search/by-location/[continent]/index.tsx:83
 msgid "Filter Countries"
 msgstr ""
 
-#: src/pages/app/search/by-genre/index.tsx:45
+#: src/pages/app/search/by-genre/index.tsx:46
 msgid "Filter Genres"
 msgstr ""
 
@@ -981,6 +981,10 @@ msgstr ""
 
 #: src/generated/countries.js:105
 msgid "Israel"
+msgstr ""
+
+#: src/components/OfflineIndicator.tsx:28
+msgid "It appears that you are offline"
 msgstr ""
 
 #: src/generated/languages.js:79
@@ -1749,9 +1753,9 @@ msgstr ""
 #: src/pages/app/search/by-genre/[genre].tsx:60
 #: src/pages/app/search/by-genre/index.tsx:16
 #: src/pages/app/search/by-language/[language].tsx:67
-#: src/pages/app/search/by-language/index.tsx:36
+#: src/pages/app/search/by-language/index.tsx:37
 #: src/pages/app/search/by-location/[continent]/[country].tsx:69
-#: src/pages/app/search/by-location/[continent]/index.tsx:70
+#: src/pages/app/search/by-location/[continent]/index.tsx:71
 #: src/pages/app/search/by-location/index.tsx:27
 #: src/pages/app/search/custom.tsx:13
 msgid "Search"
@@ -1769,11 +1773,11 @@ msgstr ""
 msgid "Search For Stations"
 msgstr ""
 
-#: src/pages/app/search/by-genre/index.tsx:44
+#: src/pages/app/search/by-genre/index.tsx:45
 msgid "Search For Stations by Genre"
 msgstr ""
 
-#: src/pages/app/search/by-language/index.tsx:44
+#: src/pages/app/search/by-language/index.tsx:45
 msgid "Search For Stations by Language"
 msgstr ""
 
@@ -1783,7 +1787,7 @@ msgstr ""
 msgid "Search For Stations in {0}"
 msgstr ""
 
-#: src/pages/app/search/by-location/[continent]/index.tsx:81
+#: src/pages/app/search/by-location/[continent]/index.tsx:82
 msgid "Search for stations by country"
 msgstr ""
 
