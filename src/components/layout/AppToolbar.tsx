@@ -54,13 +54,20 @@ function useSetAppTitle(separator: string, defaultTitle: string) {
     const pathParts = router.pathname.split('/')
 
     console.log({ pathParts })
-    if (pathParts[2]) {
-      const title = pathParts[2].replace('/', separator)
-      setTitle(searchTranslation(title, sections()))
-    } else {
-      setTitle(defaultTitle)
+    let prettyTitle = title
+    if (pathParts.length > 2) {
+      prettyTitle = searchTranslation(
+        pathParts[2].replace('/', separator),
+        sections()
+      )
+    } else if (pathParts[1] === 'app') {
+      prettyTitle = searchTranslation(
+        pathParts[1].replace('/', separator),
+        sections()
+      )
     }
-  }, [separator, router.pathname, defaultTitle])
+    setTitle(prettyTitle)
+  }, [separator, router.pathname, title])
 
   return title
 }
