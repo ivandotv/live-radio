@@ -8,10 +8,29 @@ import { useRouter } from 'next/router'
 import { ReactElement, ReactNode } from 'react'
 import { ListStationsFallback } from './ListStationsFallback'
 import { plural, t } from '@lingui/macro'
+
+import { layout } from 'lib/appSettings'
+
+const {
+  playerHeight,
+  mobileMenuHeight,
+  topBarHeight,
+  mainContentSpacer
+} = layout
+
+const desktopContentHeight = playerHeight + topBarHeight + mainContentSpacer
+const mobileContentHeight = playerHeight + topBarHeight + mobileMenuHeight
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     noData: {
-      margin: theme.spacing(2)
+      // margin: theme.spacing(2),
+      // display: 'flex',
+      overflowY: 'auto',
+      height: `calc( 100vh - ${desktopContentHeight}px )`,
+      [theme.breakpoints.down('sm')]: {
+        padding: 0,
+        height: `calc( 100vh - ${mobileContentHeight}px )`
+      }
     },
     skeletonItem: {
       marginTop: theme.spacing(2),
