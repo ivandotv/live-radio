@@ -75,11 +75,11 @@ export default function CountryList({ continent }: { continent: string }) {
 
   const breadcrumbs = [
     {
-      href: '/app/search',
+      href: '/app',
       text: t`Search`
     },
     {
-      href: '/app/search/by-location',
+      href: '/app/by-location',
       text: t`By Location`
     },
     {

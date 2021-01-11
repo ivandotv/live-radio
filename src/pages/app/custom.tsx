@@ -11,7 +11,7 @@ export { getStaticTranslations as getStaticProps }
 export default function CustomSearch() {
   const breadcrumbs = [
     {
-      href: '/app/search',
+      href: '/app',
       text: t`Search`
     },
     {

@@ -18,10 +18,10 @@ export default function ByLocation() {
         <AppMenuItem
           link={{
             href: {
-              pathname: '/app/search/by-location/[continent]'
+              pathname: '/app/by-location/[continent]'
             },
             as: {
-              pathname: `/app/search/by-location/${key}`
+              pathname: `/app/by-location/${key}`
             }
           }}
           primary={value.t}
@@ -32,11 +32,11 @@ export default function ByLocation() {
 
   const breadcrumbs = [
     {
-      href: '/app/search',
+      href: '/app',
       text: t`Search`
     },
     {
-      href: '/app/search/by-location',
+      href: '/app/by-location',
       text: t`By Location`
     }
   ]

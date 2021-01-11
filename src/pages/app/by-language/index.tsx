@@ -46,11 +46,11 @@ export default function LanguageList() {
 
   const breadcrumbs = [
     {
-      href: '/app/search',
+      href: '/app',
       text: t`Search`
     },
     {
-      href: '/app/search/by-language',
+      href: '/app/by-language',
       text: t`By Language`
     }
   ]

@@ -13,7 +13,7 @@ export const Menu = observer(function Menu() {
 
   const menuItems = [
     {
-      link: '/app/search',
+      link: '/app',
       text: t`Search`
     },
     {

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 const menuPaths = [
-  '/app/search',
+  '/app',
   '/app/favorites',
   '/app/recent-stations',
   '/app/settings'

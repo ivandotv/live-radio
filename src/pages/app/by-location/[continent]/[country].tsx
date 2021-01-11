@@ -86,16 +86,16 @@ export default function CountryStations({
 
   const breadcrumbs = [
     {
-      href: '/app/search',
+      href: '/app',
       text: t`Search`
     },
     {
-      href: '/app/search/by-location',
+      href: '/app/by-location',
       text: t`By Location`
     },
     {
-      href: '/app/search/by-location/[continent.raw]',
-      as: `/app/search/by-location/${continentCode}`,
+      href: '/app/by-location/[continent.raw]',
+      as: `/app/by-location/${continentCode}`,
       text: `${continentName.t}`
     },
     {

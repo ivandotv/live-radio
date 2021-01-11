@@ -55,8 +55,8 @@ export const LocationModal = observer(function LocationModal({
     if (data) {
       return {
         link: {
-          href: 'search/by-location/[continent]/[country]',
-          as: `search/by-location/${data.cont}/${data.code}`
+          href: 'app/by-location/[continent]/[country]',
+          as: `app/by-location/${data.cont}/${data.code}`
         },
         flag: data.flag,
         country: data.name

@@ -69,11 +69,11 @@ export default function GenreStations({
   )!
   const breadcrumbs = [
     {
-      href: '/app/search',
+      href: '/app',
       text: t`Search`
     },
     {
-      href: '/app/search/by-genre',
+      href: '/app/by-genre',
       text: t`By Genre`
     },
     {

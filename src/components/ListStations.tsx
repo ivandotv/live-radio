@@ -68,7 +68,7 @@ export const ListStations = observer(function ListStations({
       {breadcrumbs ? (
         <LocationBreadcrumbs
           links={breadcrumbs}
-          tail={<span>{resultPlural}</span>}
+          tail={<span> {resultPlural} </span>}
         />
       ) : null}
       {store.allData.length ? (
