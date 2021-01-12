@@ -50,7 +50,7 @@ export class LocalDB implements AppStorage {
   constructor() {}
 
   async initDB() {
-    const db = await openDB<AppDB>('LiveRadio', 2, {
+    const db = await openDB<AppDB>('LiveRadio', 1, {
       upgrade(db, oldVersion, newVersion, transaction) {
         console.log({ db })
         console.log({ oldVersion })
