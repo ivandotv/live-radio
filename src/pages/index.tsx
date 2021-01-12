@@ -1,5 +1,5 @@
 import Link from 'next/link'
-// @ts-ignore
+// @ts-expect-error
 import Banner from '../svg/landing-page.svg'
 import Head from 'next/head'
 import { t } from '@lingui/macro'

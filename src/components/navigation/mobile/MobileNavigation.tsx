@@ -1,15 +1,14 @@
-import BottomNavigation from '@material-ui/core/BottomNavigation'
 import { t } from '@lingui/macro'
+import BottomNavigation from '@material-ui/core/BottomNavigation'
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import RestoreIcon from '@material-ui/icons/Restore'
 import SearchIcon from '@material-ui/icons/Search'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { observer } from 'mobx-react-lite'
-import { NextRouter, useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-// import
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,25 +30,41 @@ const menuPaths = [
   '/app/settings'
 ]
 
-function getSelected(router: NextRouter) {
-  return menuPaths.findIndex((path) => router.asPath.indexOf(path) === 0)
+function getSelected(path: string, paths: string[]) {
+  //get for first item in menuPaths
+  if (
+    path === '/app' ||
+    path.startsWith('/app/by-') ||
+    path.startsWith('/app/custom')
+  ) {
+    return 0
+  }
+
+  //skip first item
+  for (let i = 1; i < paths.length; i++) {
+    if (path.startsWith(paths[i])) {
+      return i
+    }
+  }
+
+  return -1
 }
 
 export const MobileNavigation = observer(function MobileNavigation() {
   const classes = useStyles()
   const router = useRouter()
-  const [value, setSelected] = useState(-1)
+  const [selected, setSelected] = useState(-1)
 
   useEffect(() => {
-    const currSelected = getSelected(router)
+    const currSelected = getSelected(router.asPath, menuPaths.slice(1))
     if (currSelected !== -1) {
       setSelected(currSelected)
     }
-  }, [router])
+  }, [router.asPath])
 
   return (
     <BottomNavigation
-      value={value}
+      value={selected}
       onChange={(_event, newValue) => {
         //navigate
         setSelected(newValue)
