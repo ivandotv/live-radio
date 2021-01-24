@@ -5,7 +5,6 @@ const pkgVersion = `${
 }-${childProcess.execSync('git rev-parse --short HEAD')}`
 
 const plugins = [
-  ['inline-react-svg'],
   ['macros'],
   [
     'transform-define',
