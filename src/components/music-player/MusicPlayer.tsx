@@ -95,9 +95,20 @@ export const MusicPlayer = observer(function MusicPlayer() {
   }, [musicPlayer])
 
   useEffect(() => {
-    musicPlayer.init()
+    ;(async function () {
+      await musicPlayer.init()
+      const playInterrupted = sessionStorage.getItem('playInterrupted')
+      if (playInterrupted) {
+        // play immediately
+        // todo -localstorage should be abstracted away
+        sessionStorage.removeItem('playInterrupted')
+        musicPlayer.play(musicPlayer.station)
+        console.log('play was interrupted - continuoing')
+      }
+    })()
   }, [musicPlayer])
 
+  useEffect(() => {}, [])
   const onSnackClose = (_: SyntheticEvent, reason: string) => {
     if (reason === 'clickaway') {
       return
@@ -166,7 +177,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <Alert severity="error">{t`Error playing radio station`}</Alert>
         ) : (
           <Alert severity="success">
-            {inFavorites ? t`Added to favorites` : t`Removed from favourites`}
+            {inFavorites ? t`Added to favorites` : t`Removed from favorites`}
           </Alert>
         )}
       </Snackbar>

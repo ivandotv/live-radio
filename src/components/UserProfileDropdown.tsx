@@ -9,9 +9,12 @@ import {
   Popper
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { observer } from 'mobx-react-lite'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
+import { useRootStore } from './providers/RootStoreProvider'
 const useStyles = makeStyles((_theme: Theme) =>
   createStyles({
     avatar: {
@@ -22,10 +25,11 @@ const useStyles = makeStyles((_theme: Theme) =>
   })
 )
 
-export function UserProfileDropdown() {
+export const UserProfileDropdown = observer(function UserProfileDropdown() {
   const [session] = useSession()
   const classes = useStyles()
   const router = useRouter()
+  const { musicPlayer } = useRootStore()
 
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
@@ -70,6 +74,12 @@ export function UserProfileDropdown() {
         <MenuItem
           onClick={(e: React.MouseEvent<EventTarget>) => {
             handleClose(e)
+            if (
+              musicPlayer.status === PlayerStatus.PLAYING ||
+              musicPlayer.status === PlayerStatus.BUFFERING
+            ) {
+              sessionStorage.setItem('playInterrupted', '1')
+            }
             signIn()
           }}
           key="signin"
@@ -114,4 +124,4 @@ export function UserProfileDropdown() {
       </div>
     </div>
   )
-}
+})
