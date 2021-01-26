@@ -9,6 +9,7 @@ import { t } from '@lingui/macro'
 import { url } from 'lib/appSettings'
 import { initTranslations } from 'initTranslations'
 import { PWAIcons } from 'components/PWAIcons'
+import { Provider as AuthProvider } from 'next-auth/client'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
@@ -76,11 +77,13 @@ export default function MyApp(props: AppProps) {
       </Head>
 
       <I18nProvider i18n={i18n}>
-        {Component.layout ? (
-          Component.layout(Component, pageProps)
-        ) : (
-          <Component {...pageProps} />
-        )}
+        <AuthProvider session={pageProps.session}>
+          {Component.layout ? (
+            Component.layout(Component, pageProps)
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </AuthProvider>
       </I18nProvider>
     </>
   )

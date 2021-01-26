@@ -11,6 +11,24 @@ export const userAgentName = 'Live Radio'
 export const url = process.env.NEXT_PUBLIC_VERCEL_URL!.replace(/\/$/, '')
 export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
+export const db = {
+  uri: process.env.MONGODB_URI,
+  name: process.env.MONGO_DB_NAME
+}
+
+export const auth = {
+  github: {
+    clientId: process.env.GITHUB_ID as string,
+    clientSecret: process.env.GITHUB_SECRET as string
+  },
+  google: {
+    clientId: process.env.GOOGLE_ID as string,
+    clientSecret: process.env.GOOGLE_SECRET as string
+  },
+  signSecret: process.env.AUTH_SIGN_SECRET,
+  debug: Boolean(process.env.DEBUG_AUTH) ?? false
+}
+
 export function sections() {
   return {
     app: t`Search`,
