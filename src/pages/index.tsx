@@ -128,6 +128,12 @@ export default function Index() {
             body {
               font-family: 'Open Sans', sans-serif;
             }
+            @media (prefers-color-scheme: dark) {
+              body {
+                background-color: #212121;
+                color: white;
+              }
+            }
           `}
         </style>
       </div>
