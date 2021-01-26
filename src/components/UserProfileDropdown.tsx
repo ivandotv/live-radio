@@ -82,12 +82,11 @@ export function UserProfileDropdown() {
     <div>
       <div ref={anchorRef}>
         <Avatar
+          alt={session?.user?.name ?? '?'}
           className={classes.avatar}
           onClick={handleToggle}
           src={session?.user.image as string}
-        >
-          {session?.user.name}
-        </Avatar>
+        ></Avatar>
       </div>
       <div>
         <Popper
