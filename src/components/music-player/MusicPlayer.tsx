@@ -57,7 +57,13 @@ const useStyles = makeStyles((theme: Theme) =>
       color: 'inherit'
     },
     snackbar: {
-      bottom: `${layout.playerHeight + theme.spacing(2)}px`
+      bottom: `${layout.playerHeight + theme.spacing(1)}px`,
+      [theme.breakpoints.down('sm')]: {
+        // opacity: 0.1
+        bottom: `${
+          layout.playerHeight + layout.mobileMenuHeight + theme.spacing(1)
+        }px`
+      }
     }
   })
 )
