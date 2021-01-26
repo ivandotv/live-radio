@@ -7,12 +7,11 @@ import { url } from 'lib/appSettings'
 import { Avatar } from '@material-ui/core'
 import { NextPageContext } from 'next'
 import { useRouter } from 'next/router'
+import clsx from 'clsx'
 
 export default function Index() {
   const [session] = useSession()
-
   const router = useRouter()
-
   const localePath = router.defaultLocale === router.locale ? '' : router.locale
 
   return (
@@ -45,9 +44,9 @@ export default function Index() {
                   })
                 }
               }}
-              className={`app-btn ${session ? 'has-session' : ''}`}
+              className={clsx('app-btn', { 'has-session': session })}
             >
-              {session ? t`Jump back in` : t`Login or Register`}
+              {session ? t`Welcome Back` : t`Sign in or Register`}
               {session ? (
                 <div className="avatar avatar-user">
                   <Avatar src={session?.user.image as string}></Avatar>
