@@ -78,7 +78,7 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
               musicPlayer.status === PlayerStatus.PLAYING ||
               musicPlayer.status === PlayerStatus.BUFFERING
             ) {
-              sessionStorage.setItem('playInterrupted', '1')
+              sessionStorage.setItem('signInInterrupt', '1')
             }
             signIn()
           }}

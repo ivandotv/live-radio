@@ -103,13 +103,12 @@ export const MusicPlayer = observer(function MusicPlayer() {
   useEffect(() => {
     ;(async function () {
       await musicPlayer.init()
-      const playInterrupted = sessionStorage.getItem('playInterrupted')
-      if (playInterrupted) {
+      const signInInterrupt = sessionStorage.getItem('signInInterrupt')
+      if (signInInterrupt) {
         // play immediately
-        // todo -localstorage should be abstracted away
-        sessionStorage.removeItem('playInterrupted')
+        // todo -sessionStorage should be abstracted away
+        sessionStorage.removeItem('signInInterrupt')
         musicPlayer.play(musicPlayer.station)
-        console.log('play was interrupted - continuoing')
       }
     })()
   }, [musicPlayer])
