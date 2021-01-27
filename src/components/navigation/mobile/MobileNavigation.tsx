@@ -56,7 +56,8 @@ export const MobileNavigation = observer(function MobileNavigation() {
   const [selected, setSelected] = useState(-1)
 
   useEffect(() => {
-    const currSelected = getSelected(router.asPath, menuPaths.slice(1))
+    const currSelected = getSelected(router.asPath, menuPaths)
+    console.log('curr selected ', currSelected)
     if (currSelected !== -1) {
       setSelected(currSelected)
     }
