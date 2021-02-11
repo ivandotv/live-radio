@@ -6,7 +6,7 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { PageTitle } from 'components/PageTitle'
 import { createStationListRow, stationsToRadioStations } from 'lib/stationUtils'
 import { RadioStation } from 'types'
-import { userAgentName } from 'app-confg'
+import { userAgentName } from 'app-config'
 import { t, Trans } from '@lingui/macro'
 import { loadTranslation, paramsWithLocales } from 'initTranslations'
 import { useRouter } from 'next/router'

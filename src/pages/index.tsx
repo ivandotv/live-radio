@@ -1,28 +1,19 @@
-import Link from 'next/link'
-import Head from 'next/head'
 import { t } from '@lingui/macro'
-import { PageTitle } from 'components/PageTitle'
-import { getSession, signIn, signOut, useSession } from 'next-auth/client'
-<<<<<<< HEAD
-import { url } from 'lib/appSettings'
-=======
-import { url, db } from 'app-confg'
->>>>>>> 12ef997 (enable auth)
 import { Avatar } from '@material-ui/core'
-import { NextPageContext } from 'next'
-import { useRouter } from 'next/router'
+import { url } from 'app-config'
 import clsx from 'clsx'
-import { test } from 'app-confg'
+import { PageTitle } from 'components/PageTitle'
+import { NextPageContext } from 'next'
+import { getSession, signIn, signOut, useSession } from 'next-auth/client'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 export default function Index() {
   const [session] = useSession()
   const router = useRouter()
-<<<<<<< HEAD
-  const localePath = router.defaultLocale === router.locale ? '' : router.locale
-=======
   const localePath =
     router.defaultLocale === router.locale ? '' : `/${router.locale}`
->>>>>>> 12ef997 (enable auth)
 
   return (
     <>
@@ -50,11 +41,10 @@ export default function Index() {
                 if (!session) {
                   e.preventDefault()
                   signIn(undefined, {
-<<<<<<< HEAD
                     callbackUrl: `${url}/${localePath}/app`
-=======
-                    callbackUrl: `${url}${localePath}/app`
->>>>>>> 12ef997 (enable auth)
+                    callbackUrl: `${window.location
+                      .toString()
+                      .replace(/\/$/, '')}/app`
                   })
                 }
               }}
@@ -63,14 +53,10 @@ export default function Index() {
               {session ? t`Welcome Back` : t`Sign in or Register`}
               {session ? (
                 <div className="avatar avatar-user">
-<<<<<<< HEAD
-                  <Avatar src={session?.user.image as string}></Avatar>
-=======
                   <Avatar
                     alt={session?.user?.name ?? '?'}
                     src={session?.user.image as string}
                   ></Avatar>
->>>>>>> 12ef997 (enable auth)
                 </div>
               ) : null}
             </a>
@@ -80,11 +66,12 @@ export default function Index() {
               onClick={(e: React.MouseEvent) => {
                 if (session) {
                   e.preventDefault()
-<<<<<<< HEAD
-                  signOut({ callbackUrl: `${url}/${localePath}/app` })
-=======
                   signOut({ callbackUrl: `${url}${localePath}/app` })
->>>>>>> 12ef997 (enable auth)
+                  signOut({
+                    callbackUrl: `${window.location
+                      .toString()
+                      .replace(/\/$/, '')}/app`
+                  })
                 }
               }}
               className="app-btn"
@@ -95,7 +82,6 @@ export default function Index() {
               </div>
             </a>
           </Link>
-          <span>test: {process.env.NEXT_PUBLIC_NEXTAUTH_URL}</span>
         </div>
         <style jsx>
           {`
@@ -169,12 +155,6 @@ export default function Index() {
 
 // Export the `session` prop to use sessions with Server Side Rendering
 export async function getServerSideProps(context: NextPageContext) {
-<<<<<<< HEAD
-=======
-  console.log('test env ', process.env.LOCAL_TEST)
-  console.log('DB test ', db)
-
->>>>>>> 12ef997 (enable auth)
   return {
     props: {
       session: await getSession(context)

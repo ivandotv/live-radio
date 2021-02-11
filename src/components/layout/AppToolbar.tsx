@@ -18,11 +18,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { LanguageSwitcher } from 'components/LanguageSwitcher'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { UserProfileDropdown } from 'components/UserProfileDropdown'
-<<<<<<< HEAD
-import { sections } from 'lib/appSettings'
-=======
 import { sections } from 'app-confg'
->>>>>>> 12ef997 (enable auth)
 import { searchTranslation } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
 import { useSession } from 'next-auth/client'
@@ -86,17 +82,8 @@ export const AppToolbar = observer(function AppToolbar() {
 
   const [session] = useSession()
 
-<<<<<<< HEAD
-  if (session) {
-    console.log('session loaded')
-    console.log(session)
-  } else {
-    console.log('session is loading')
-  }
-=======
   appShell.setUserIsSignedIn(Boolean(session))
 
->>>>>>> 12ef997 (enable auth)
   const [counter, setCounter] = useState(0)
 
   const toggleDesktopDrawer = () => {

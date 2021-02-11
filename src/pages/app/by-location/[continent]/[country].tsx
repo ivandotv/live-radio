@@ -8,7 +8,7 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import getFlag from 'country-code-emoji'
 import { countries } from 'generated/countries'
 import { loadTranslation, paramsWithLocales } from 'initTranslations'
-import { userAgentName } from 'app-confg'
+import { userAgentName } from 'app-config'
 import { createStationListRow, stationsToRadioStations } from 'lib/stationUtils'
 import { continentsByCode } from 'lib/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
