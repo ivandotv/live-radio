@@ -8,7 +8,7 @@ import { Avatar } from '@material-ui/core'
 import { NextPageContext } from 'next'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
-import { test, url } from 'app-confg'
+import { test } from 'app-confg'
 
 export default function Index() {
   const [session] = useSession()
