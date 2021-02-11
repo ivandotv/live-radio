@@ -9,7 +9,6 @@ export const url =
 
 export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
-export const test = process.env.NEXT_PUBLIC_NEXTAUTH_URL
 export const vercelEnv = process.env.VERCEL_ENV ?? ''
 
 export const db = {

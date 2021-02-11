@@ -148,7 +148,7 @@ export function languages(){
   { raw: 'Sango', t: t`Sango` },
   { raw: 'Sinhala', t: t`Sinhala` },
   { raw: 'Slovak', t: t`Slovak` },
-  { raw: 'Slovene', t: t`Slovene` },
+  { raw: 'Slovenian', t: t`Slovenian` },
   { raw: 'Samoan', t: t`Samoan` },
   { raw: 'Shona', t: t`Shona` },
   { raw: 'Somali', t: t`Somali` },

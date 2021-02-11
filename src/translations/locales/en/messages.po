@@ -57,8 +57,8 @@ msgstr "<0>Your recent stations will appear here</0>"
 msgid "Abkhaz"
 msgstr "Abkhaz"
 
+#: src/app-config.ts:42
 #: src/components/navigation/desktop/Menu.tsx:33
-#: src/lib/appConfig.ts:39
 msgid "About"
 msgstr "About"
 
@@ -130,7 +130,7 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/pages/index.tsx:57
+#: src/pages/index.tsx:59
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
@@ -347,21 +347,21 @@ msgstr "Burmese"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/lib/appConfig.ts:37
+#: src/app-config.ts:40
 #: src/pages/app/by-genre/[genre].tsx:64
 #: src/pages/app/by-genre/index.tsx:20
 #: src/pages/app/index.tsx:50
 msgid "By Genre"
 msgstr "By Genre"
 
-#: src/lib/appConfig.ts:36
+#: src/app-config.ts:39
 #: src/pages/app/by-language/[language].tsx:71
 #: src/pages/app/by-language/index.tsx:41
 #: src/pages/app/index.tsx:49
 msgid "By Language"
 msgstr "By Language"
 
-#: src/lib/appConfig.ts:35
+#: src/app-config.ts:38
 #: src/pages/app/by-location/[continent]/[country].tsx:73
 #: src/pages/app/by-location/[continent]/index.tsx:75
 #: src/pages/app/by-location/index.tsx:31
@@ -409,7 +409,7 @@ msgstr "Chamorro"
 msgid "Chechen"
 msgstr "Chechen"
 
-#: src/components/music-player/ShareStationBtn.tsx:27
+#: src/components/music-player/ShareStationBtn.tsx:28
 msgid "Check out this groovy station"
 msgstr "Check out this groovy station"
 
@@ -497,7 +497,7 @@ msgstr "Curacao"
 msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 msgstr "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 
-#: src/lib/appConfig.ts:33
+#: src/app-config.ts:36
 #: src/pages/app/custom.tsx:16
 #: src/pages/app/index.tsx:51
 msgid "Custom Search"
@@ -668,9 +668,9 @@ msgstr "Faroe Islands"
 msgid "Faroese"
 msgstr "Faroese"
 
+#: src/app-config.ts:35
 #: src/components/navigation/desktop/Menu.tsx:18
 #: src/components/navigation/mobile/MobileNavigation.tsx:60
-#: src/lib/appConfig.ts:32
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -1638,8 +1638,8 @@ msgstr "Rap"
 msgid "Recent"
 msgstr "Recent"
 
+#: src/app-config.ts:37
 #: src/components/navigation/desktop/Menu.tsx:23
-#: src/lib/appConfig.ts:34
 msgid "Recent Stations"
 msgstr "Recent Stations"
 
@@ -1783,9 +1783,9 @@ msgstr "Saudi Arabia"
 msgid "Scottish Gaelic"
 msgstr "Scottish Gaelic"
 
+#: src/app-config.ts:34
 #: src/components/navigation/desktop/Menu.tsx:11
 #: src/components/navigation/mobile/MobileNavigation.tsx:59
-#: src/lib/appConfig.ts:31
 #: src/pages/app/by-genre/[genre].tsx:60
 #: src/pages/app/by-genre/index.tsx:16
 #: src/pages/app/by-language/[language].tsx:67
@@ -1840,10 +1840,10 @@ msgstr "Serbia"
 msgid "Serbian"
 msgstr "Serbian"
 
+#: src/app-config.ts:41
 #: src/components/UserProfileDropdown.tsx:47
 #: src/components/navigation/desktop/Menu.tsx:28
 #: src/components/navigation/mobile/MobileNavigation.tsx:62
-#: src/lib/appConfig.ts:38
 msgid "Settings"
 msgstr "Settings"
 
@@ -1851,12 +1851,12 @@ msgstr "Settings"
 msgid "Seychelles"
 msgstr "Seychelles"
 
-#: src/components/music-player/ShareStationBtn.tsx:26
+#: src/components/music-player/ShareStationBtn.tsx:27
 msgid "Share Station --"
 msgstr "Share Station --"
 
-#: src/components/music-player/ShareStationBtn.tsx:52
-#: src/components/music-player/ShareStationBtn.tsx:52
+#: src/components/music-player/ShareStationBtn.tsx:53
+#: src/components/music-player/ShareStationBtn.tsx:53
 msgid "Share station"
 msgstr "Share station"
 
@@ -1872,7 +1872,7 @@ msgstr "Sierra Leone"
 msgid "Sign in"
 msgstr "Sign in"
 
-#: src/pages/index.tsx:44
+#: src/pages/index.tsx:42
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
@@ -1909,12 +1909,16 @@ msgid "Slovakia"
 msgstr "Slovakia"
 
 #: src/generated/languages.js:151
-msgid "Slovene"
-msgstr "Slovene"
+#~ msgid "Slovene"
+#~ msgstr "Slovene"
 
 #: src/generated/countries.js:63
 msgid "Slovenia"
 msgstr "Slovenia"
+
+#: src/generated/languages.js:151
+msgid "Slovenian"
+msgstr "Slovenian"
 
 #: src/generated/countries.js:420
 msgid "Solomon Islands"
@@ -2277,11 +2281,11 @@ msgstr "Wallis and Futuna"
 msgid "Walloon"
 msgstr "Walloon"
 
-#: src/pages/index.tsx:44
+#: src/pages/index.tsx:42
 msgid "Welcome Back"
 msgstr "Welcome Back"
 
-#: src/pages/index.tsx:29
+#: src/pages/index.tsx:25
 msgid "Welcome to Live Radio App"
 msgstr "Welcome to Live Radio App"
 
