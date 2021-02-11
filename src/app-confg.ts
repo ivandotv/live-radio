@@ -6,6 +6,7 @@ export const url = process.env.NEXT_PUBLIC_VERCEL_URL!.replace(/\/$/, '')
 export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
 export const test = process.env.NEXT_PUBLIC_NEXTAUTH_URL
+
 export const db = {
   uri: process.env.MONGODB_URI,
   dbName: process.env.MONGO_DB_NAME

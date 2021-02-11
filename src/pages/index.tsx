@@ -75,8 +75,9 @@ export default function Index() {
               </div>
             </a>
           </Link>
-          <h1>test:{test}</h1>
-          <h1>vercelurl:{url}</h1>
+          <span>test: {test}</span>
+          <br />
+          <span>vercelurl: {url}</span>
         </div>
         <style jsx>
           {`
