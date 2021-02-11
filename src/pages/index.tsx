@@ -75,9 +75,7 @@ export default function Index() {
               </div>
             </a>
           </Link>
-          <span>test: {test}</span>
-          <br />
-          <span>vercelurl: {url}</span>
+          <span>test: {process.env.NEXT_PUBLIC_NEXTAUTH_URL}</span>
         </div>
         <style jsx>
           {`
