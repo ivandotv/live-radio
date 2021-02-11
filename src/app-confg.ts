@@ -1,19 +1,13 @@
 import { t } from '@lingui/macro'
 
-export const layout = {
-  playerHeight: 73,
-  mobileMenuHeight: 56,
-  topBarHeight: 56,
-  mainContentSpacer: 16
-} as const
-
 export const userAgentName = 'Live Radio'
+export const isProduction = process.env.NODE_ENV === 'production'
 export const url = process.env.NEXT_PUBLIC_VERCEL_URL!.replace(/\/$/, '')
 export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
 export const db = {
   uri: process.env.MONGODB_URI,
-  name: process.env.MONGO_DB_NAME
+  dbName: process.env.MONGO_DB_NAME
 }
 
 export const auth = {
@@ -28,6 +22,14 @@ export const auth = {
   signSecret: process.env.AUTH_SIGN_SECRET,
   debug: Boolean(process.env.DEBUG_AUTH) ?? false
 }
+
+export const layout = {
+  playerHeight: 73,
+  mobileMenuHeight: 56,
+  topBarHeight: 56,
+  mainContentSpacer: 16
+} as const
+
 
 export function sections() {
   return {

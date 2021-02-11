@@ -1,6 +1,6 @@
 import { ListStations } from 'components/ListStations'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { stationDataRow } from 'lib/stationUtils'
+import { createStationListRow } from 'lib/stationUtils'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
@@ -40,9 +40,9 @@ export const RecentStationsList = observer(function RecentStationsList() {
 
   return (
     <ListStations
-      showFallback={!history.loaded}
+      showFallback={!history.loadStatus || history.loadStatus === 'pending'}
       showSearch={history.stations.length > 0}
-      dataRow={stationDataRow(true, true, true)}
+      dataRow={createStationListRow({ store: history })}
       noData={
         <div className={classes.noDataWrap}>
           <Trans>

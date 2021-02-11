@@ -1,13 +1,13 @@
-import { getLocalDB } from 'lib/LocalDB'
+import { appStorageFactory } from 'lib/storage/AppStorage'
 import { RootStore } from 'lib/stores/RootStore'
-import { RecentStationsStore } from '../RecentStationsStore'
+import { RadioStore } from 'lib/stores/RadioStore'
 
-let store: RecentStationsStore
+let store: RadioStore
 
 export function recentStationsFactory(root: RootStore) {
   const isSSR = typeof window === 'undefined'
 
-  const _store = store ?? new RecentStationsStore(root, getLocalDB())
+  const _store = store ?? new RadioStore(root, appStorageFactory())
 
   if (isSSR) return _store
 

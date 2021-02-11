@@ -11,7 +11,7 @@ import {
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { ReactElement, ReactNode } from 'react'
-import { layout } from 'lib/appSettings'
+import { layout } from 'app-confg'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigation'

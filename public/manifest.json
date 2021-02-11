@@ -3,6 +3,7 @@
   "background_color": "#4a90e2",
   "display": "standalone",
   "start_url": "/app",
+  "scope": "/app",
   "name": "Live Radio",
   "short_name": "Live Radio",
   "description": "Listen to live radio",

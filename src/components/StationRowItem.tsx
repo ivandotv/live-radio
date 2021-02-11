@@ -1,19 +1,17 @@
 import { t } from '@lingui/macro'
-import IconButton from '@material-ui/core/IconButton'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
+import { Collapse, ListItem, ListItemText, Tooltip } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import Tooltip from '@material-ui/core/Tooltip'
-import DeleteIcon from '@material-ui/icons/Delete'
 import HttpIcon from '@material-ui/icons/ErrorOutline'
 import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
 import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { RadioStore } from 'lib/stores/RadioStore'
 import { observer } from 'mobx-react-lite'
-import { MouseEvent, useCallback } from 'react'
+import { MouseEvent, useCallback, useState } from 'react'
 import { RadioStation } from 'types'
+import { StationRowRemoveBtn } from './StationRowRemoveBtn'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -28,8 +26,9 @@ const useStyles = makeStyles((theme: Theme) => {
       width: '100%'
     },
     btnRemove: {
-      marginLeft: theme.spacing(1),
-      fontSize: '0.6rem'
+      marginLeft: 'auto',
+      fontSize: '0.6rem',
+      minHeight: '30px'
     },
     title: {
       display: 'flex',
@@ -60,21 +59,19 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export const StationRowItem = observer(function StationRowItem({
   station,
+  store,
   showCountry = true,
   showFlag = true,
-  showTags = true,
-  showRemoveBtn = false
+  showTags = true
 }: {
   station: RadioStation
+  store?: RadioStore
   showCountry?: boolean
   showFlag?: boolean
   showTags?: boolean
-  showRemoveBtn?: boolean
 }) {
   const classes = useStyles({ showTags })
-  const { favoriteStations, musicPlayer } = useRootStore()
-
-  const httpIconTitle = t`Depending on your brower this station might not load beacuse it is not served over a secure connection`
+  const { musicPlayer } = useRootStore()
 
   const togglePlay = useCallback(
     (_e: MouseEvent) => {
@@ -84,63 +81,64 @@ export const StationRowItem = observer(function StationRowItem({
   )
 
   const stationError = musicPlayer.errorStations[station.id]
-  const removeFromfavorites = useCallback(
-    (e: MouseEvent) => {
-      e.stopPropagation()
-      favoriteStations.remove(station.id)
-    },
-    [favoriteStations, station.id]
-  )
+  const [show, setShow] = useState(true)
 
   return (
     <div className={classes.buttonBase}>
-      <ListItem
-        button
-        onClick={togglePlay}
-        className={clsx(classes.root, {
-          [classes.stationSelected]:
-            musicPlayer.station?.id === station.id &&
-            musicPlayer.status !== PlayerStatus.ERROR,
-          [classes.stationError]: stationError
-        })}
-        component="div"
+      <Collapse
+        collapsedHeight="0.5px"
+        onExited={() => {
+          console.log('on exit ')
+          store!.removeLocal(station.id)
+        }}
+        in={show}
       >
-        <ListItemText>
-          <div className={classes.title}>
-            <PlayerStateIcon
-              className={classes.playerStateIcon}
-              stationId={station.id}
-              fontSize="1.3rem"
-            />
-            {`${station.name}`}
-            {showCountry && station.country.length
-              ? ` | ${station.country}`
-              : null}
-            {showFlag && station.flag.length ? ` ${station.flag}` : null}
-            {station.url.indexOf('https') === -1 ? (
-              <Tooltip title={httpIconTitle}>
-                <HttpIcon className={classes.httpIcon} />
-              </Tooltip>
-            ) : null}
-            {showRemoveBtn ? (
-              <Tooltip title={t`Remove from favorites`}>
-                <IconButton
-                  aria-label={t`remove`}
-                  className={classes.btnRemove}
-                  size="small"
-                  onClick={removeFromfavorites}
+        <ListItem
+          button
+          onClick={togglePlay}
+          className={clsx(classes.root, {
+            [classes.stationSelected]:
+              musicPlayer.station?.id === station.id &&
+              musicPlayer.status !== PlayerStatus.ERROR,
+            [classes.stationError]: stationError
+          })}
+          component="div"
+        >
+          <ListItemText>
+            <div className={classes.title}>
+              <PlayerStateIcon
+                className={classes.playerStateIcon}
+                stationId={station.id}
+                fontSize="1.3rem"
+              />
+              {`${station.name}`}
+              {showCountry && station.country.length
+                ? ` | ${station.country}`
+                : null}
+              {showFlag && station.flag.length ? ` ${station.flag}` : null}
+              {station.url.indexOf('https') === -1 ? (
+                <Tooltip
+                  title={t`Depending on your browser this station might not load beacuse it is not served over a secure (https) connection`}
                 >
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            ) : null}
-          </div>
+                  <HttpIcon className={classes.httpIcon} />
+                </Tooltip>
+              ) : null}
+              {store ? (
+                <StationRowRemoveBtn
+                  className={classes.btnRemove}
+                  store={store}
+                  id={station.id}
+                  setShow={setShow}
+                />
+              ) : null}
+            </div>
 
-          {showTags ? (
-            <StationRowTags className={classes.tags} station={station} />
-          ) : null}
-        </ListItemText>
-      </ListItem>
+            {showTags ? (
+              <StationRowTags className={classes.tags} station={station} />
+            ) : null}
+          </ListItemText>
+        </ListItem>
+      </Collapse>
     </div>
   )
 })

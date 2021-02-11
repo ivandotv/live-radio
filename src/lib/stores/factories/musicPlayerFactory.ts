@@ -1,8 +1,12 @@
-import { getLocalDB } from 'lib/LocalDB'
 import { SongInfoService } from 'lib/SongInfoService'
+import { appStorageFactory } from 'lib/storage/AppStorage'
 import { MusicPlayerStore } from 'lib/stores/MusicPlayerStore'
 import { RootStore } from 'lib/stores/RootStore'
+<<<<<<< HEAD
 import { defaultStation } from 'lib/utils'
+=======
+import { getDefaultStation } from 'lib/stationUtils'
+>>>>>>> 12ef997 (enable auth)
 
 let store: MusicPlayerStore
 
@@ -16,9 +20,15 @@ export function musicPlayerFactory(root: RootStore) {
 
     _store = new MusicPlayerStore(
       root,
+<<<<<<< HEAD
       getLocalDB(),
       songInfoService,
       defaultStation
+=======
+      appStorageFactory(),
+      songInfoService,
+      getDefaultStation()
+>>>>>>> 12ef997 (enable auth)
     )
   } else {
     _store = store

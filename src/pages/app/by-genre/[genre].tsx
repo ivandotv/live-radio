@@ -4,9 +4,9 @@ import { ListStations } from 'components/ListStations'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { PageTitle } from 'components/PageTitle'
-import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
+import { createStationListRow, stationsToRadioStations } from 'lib/stationUtils'
 import { RadioStation } from 'types'
-import { userAgentName } from 'lib/appSettings'
+import { userAgentName } from 'app-confg'
 import { t, Trans } from '@lingui/macro'
 import { loadTranslation, paramsWithLocales } from 'initTranslations'
 import { useRouter } from 'next/router'
@@ -90,7 +90,7 @@ export default function GenreStations({
       <PageTitle title={t`Search For Stations in ${genreTrans.t}`} />
       <ListStations
         breadcrumbs={breadcrumbs}
-        dataRow={stationDataRow()}
+        dataRow={createStationListRow()}
         noData={
           <p>
             <Trans>

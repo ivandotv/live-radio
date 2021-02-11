@@ -6,3 +6,16 @@ declare const __BUILD_DATE__: string
 declare module '@rehooks/online-status' {
   export default function useOnlineStatus(): boolean
 }
+
+declare module NodeJS {
+  interface Global {
+    mongo: {
+      conn: MongoConnection | null
+      promise: Promise<MongoConnection> | null
+    }
+  }
+  type MongoConnection = {
+    client: MongoClient
+    db: Db
+  }
+}

@@ -1,18 +1,18 @@
 import { t } from '@lingui/macro'
 import LinearProgress from '@material-ui/core/LinearProgress'
-import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
-import Alert from '@material-ui/lab/Alert'
 import { AddTofavoritesBtn } from 'components/music-player/AddToFavoritesBtn'
 import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
 import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
 import { SongInfo } from 'components/music-player/SongInfo'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { layout } from 'lib/appSettings'
+import { layout } from 'app-confg'
 import { AppMediaSession } from 'lib/MediaSession'
 import { observer } from 'mobx-react-lite'
-import { SyntheticEvent, useEffect, useState } from 'react'
+import { useSnackbar } from 'notistack'
+import { useEffect } from 'react'
+import { usePromise } from 'react-use'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,9 +73,13 @@ export const MusicPlayer = observer(function MusicPlayer() {
   const classes = useStyles({
     drawerWidth: appShell.desktopDrawerWidth
   })
-  const [snackErrorOpen, setSnackErrorOpen] = useState(false)
-  const [snackFavOpen, setSnackFavOpen] = useState(false)
+  const { enqueueSnackbar } = useSnackbar()
+  const mounted = usePromise()
 
+  const addFavSync = favoriteStations.syncs.add.get(musicPlayer.station.id)
+  const removeFavSync = favoriteStations.syncs.add.get(musicPlayer.station.id)
+
+  console.log('station name ', musicPlayer.station.name)
   /* This is safe beacause the code disappears in the production build
    */
   if (__DEV__) {
@@ -86,11 +90,20 @@ export const MusicPlayer = observer(function MusicPlayer() {
     }, [musicPlayer])
   }
 
+  //todo - switch to mobx when
   useEffect(() => {
     if (musicPlayer.playerError) {
-      setSnackErrorOpen(true)
+      enqueueSnackbar(t`Error playing radio station`, {
+        variant: 'error',
+        className: classes.snackbar,
+        autoHideDuration: 2000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center'
+        }
+      })
     }
-  }, [musicPlayer.playerError])
+  }, [musicPlayer.playerError, enqueueSnackbar, classes.snackbar])
 
   useEffect(() => {
     favoriteStations.load()
@@ -113,6 +126,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
     })()
   }, [musicPlayer])
 
+<<<<<<< HEAD
   useEffect(() => {}, [])
   const onSnackClose = (_: SyntheticEvent, reason: string) => {
     if (reason === 'clickaway') {
@@ -121,17 +135,51 @@ export const MusicPlayer = observer(function MusicPlayer() {
     setSnackErrorOpen(false)
     setSnackFavOpen(false)
   }
+=======
+>>>>>>> 12ef997 (enable auth)
   const inFavorites = Boolean(
-    musicPlayer.station && favoriteStations.get(musicPlayer.station.id)
+    musicPlayer.station &&
+      favoriteStations.stations.find(
+        (station) => musicPlayer.station.id === station.id
+      )
   )
 
-  const togglefavorites = () => {
-    if (inFavorites) {
-      favoriteStations.remove(musicPlayer.station.id)
-    } else {
-      favoriteStations.add(musicPlayer.station)
+  const toggleFavorites = async () => {
+    const action = inFavorites ? 'remove' : 'add'
+    console.log('toggle favorites ', action)
+    const station = musicPlayer.station
+    favoriteStations.syncs.remove
+    console.log('add fav sync ', addFavSync?.status)
+    console.log('remove fav sync ', addFavSync?.status)
+    if (addFavSync?.status === 'pending' || removeFavSync?.status === 'pending')
+      return
+    console.log('toggle favorites action!!!!')
+    try {
+      if (inFavorites) {
+        await mounted(favoriteStations.remove(station.id))
+      } else {
+        await mounted(favoriteStations.add(station, true))
+      }
+    } catch {
+      enqueueSnackbar(
+        action === 'add'
+          ? 'Error adding to  favorites'
+          : 'Error removing from favorites',
+        {
+          variant: 'error',
+          className: classes.snackbar,
+          onExited: () => {},
+          autoHideDuration: 2000,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center'
+          }
+        }
+      )
+    } finally {
+      // favoriteStations.cleanupSync('remove', station.id)
+      // favoriteStations.cleanupSync('add', station.id)
     }
-    setSnackFavOpen(true)
   }
 
   return (
@@ -143,7 +191,8 @@ export const MusicPlayer = observer(function MusicPlayer() {
             <AddTofavoritesBtn
               fontSize="2.5rem"
               active={inFavorites}
-              onClick={togglefavorites}
+              onClick={toggleFavorites}
+              inFavorites={inFavorites}
             />
             <ShareStationBtn fontSize="2.2rem" />
             <div className={classes.infoWrap}>
@@ -168,6 +217,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <LinearProgress color="secondary" />
         )}
       </div>
+<<<<<<< HEAD
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
@@ -186,6 +236,8 @@ export const MusicPlayer = observer(function MusicPlayer() {
           </Alert>
         )}
       </Snackbar>
+=======
+>>>>>>> 12ef997 (enable auth)
     </div>
   )
 })

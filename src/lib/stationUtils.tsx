@@ -1,9 +1,10 @@
-import { Station } from 'radio-browser-api'
-import { RadioStation } from 'types'
-import { countries, continents } from 'countries-list'
 import { StationRowItem } from 'components/StationRowItem'
+import { continents, countries } from 'countries-list'
 // @ts-ignore
 import flag from 'country-code-emoji'
+import { Station } from 'radio-browser-api'
+import { RadioStation } from 'types'
+import { RadioStore } from './stores/RadioStore'
 
 export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   const result = []
@@ -44,25 +45,54 @@ export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   return result
 }
 
-export function stationDataRow(
-  showCountry = true,
-  showFlag = true,
-  showTags = true,
-  showRemoveBtn = false
-) {
+export function createStationListRow(opts?: {
+  showCountry?: boolean
+  showFlag?: boolean
+  showTags?: boolean
+  store?: RadioStore
+}) {
+  Object.assign(
+    {
+      showCountry: true,
+      showFlag: true,
+      showTags: true
+    },
+    opts
+  )
+
   return (stations: RadioStation[]) => {
     return function DataRow(index: number) {
       const station = stations[index]
 
       return (
         <StationRowItem
-          showCountry={showCountry}
-          showFlag={showFlag}
-          showTags={showTags}
-          showRemoveBtn={showRemoveBtn}
+          {...opts}
+          // showCountry={opts?.showCountry}
+          // showFlag={opts?.showFlag}
+          // showTags={opts?.showTags}
+          // removeBtnFn={opts!.removeBtnFn}
+          // store={opts.store}
+          key={station.id}
           station={station}
         ></StationRowItem>
       )
     }
+  }
+}
+
+export function getDefaultStation() {
+  return {
+    id: 'ae503431-073b-499d-81e9-c32dfa1e32c2',
+    name: 'Soma FM',
+    url: 'https://ice1.somafm.com/groovesalad-256-mp3',
+    homepage: 'http://www.somafm.com/',
+    tags: [],
+    language: [],
+    codec: 'MP3',
+    flag: '',
+    country: 'Internet',
+    countryCode: '',
+    continent: '',
+    continentCode: ''
   }
 }

@@ -1,6 +1,6 @@
 import { Howl } from 'howler'
-import { AppStorage } from 'lib/LocalDB'
 import { SongInfoService } from 'lib/SongInfoService'
+import { AppStorage } from 'lib/storage/AppStorage'
 import { RootStore } from 'lib/stores/RootStore'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioStation } from 'types'
@@ -136,8 +136,8 @@ export class MusicPlayerStore {
         this.errorStations[station.id] = false
       })
 
-      this.storage.setLastPlayedStation(this.station)
-      this.storage.addStationToHistory(this.station)
+      // this.storage.setLastPlayedStation(this.station)
+      this.storage.addRecentStation(this.station)
     })
 
     this.player.on('pause', () => {

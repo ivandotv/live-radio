@@ -1,7 +1,7 @@
+import { auth, db } from 'app-confg'
 import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { InitOptions, User } from 'next-auth'
 import Providers from 'next-auth/providers'
-import { auth, db } from 'lib/appSettings'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
@@ -16,7 +16,11 @@ const options: InitOptions = {
   // * You must to install an appropriate node_module for your database
   // * The Email provider requires a database (OAuth providers do not)
   // database: process.env.DATABASE_URL,
+<<<<<<< HEAD
   database: `${db.uri}/${db.name}`,
+=======
+  database: `${db.uri}/${db.dbName}`,
+>>>>>>> 12ef997 (enable auth)
 
   // The secret should be set to a reasonably long random string.
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
@@ -71,9 +75,15 @@ const options: InitOptions = {
     // signIn: async (user, account, profile) => { return Promise.resolve(true) },
     // redirect: async (url, baseUrl) => { return Promise.resolve(baseUrl) },
     session: async (session: any, user: any) => {
+<<<<<<< HEAD
       console.log('Session CB')
       console.log({ session })
       console.log({ user })
+=======
+      // console.log('Session CB')
+      // console.log({ session })
+      // console.log({ user })
+>>>>>>> 12ef997 (enable auth)
 
       if (user.id) {
         session.user.id = user.id
@@ -84,6 +94,7 @@ const options: InitOptions = {
     jwt: async (
       token,
       user: User & { id: string },
+<<<<<<< HEAD
       account,
       profile,
       isNewUser
@@ -98,6 +109,16 @@ const options: InitOptions = {
         //first sign in
         token.id = user.id
         // add user id
+=======
+      _account,
+      _profile,
+      _isNewUser
+    ) => {
+      if (user) {
+        //first sign in
+        // add user id
+        token.id = user.id
+>>>>>>> 12ef997 (enable auth)
       }
 
       return Promise.resolve(token)
@@ -106,7 +127,25 @@ const options: InitOptions = {
 
   // Events are useful for logging
   // https://next-auth.js.org/configuration/events
+<<<<<<< HEAD
   events: {},
+=======
+  events: {
+    createUser: async (_user) => {
+      /* user created */
+      // console.log('user created')
+      // console.log({ message: user })
+      // // add data to user table
+      // const { db } = await connectToDatabase()
+      // await db
+      //   .collection('users')
+      //   .updateOne(
+      //     { _id: new ObjectId(user.id) },
+      //     { $set: { favorites: [], recent: [] } }
+      //   )
+    }
+  },
+>>>>>>> 12ef997 (enable auth)
   debug: auth.debug
 }
 

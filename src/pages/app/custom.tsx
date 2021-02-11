@@ -2,7 +2,7 @@ import { CustomSearchResults } from 'components/CustomSearchResults'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { CustomSearchStoreProvider } from 'components/providers/CustomSearchStoreProvider'
 import { PageTitle } from 'components/PageTitle'
-import { stationDataRow } from 'lib/stationUtils'
+import { createStationListRow } from 'lib/stationUtils'
 import { t } from '@lingui/macro'
 import { getStaticTranslations } from 'initTranslations'
 
@@ -25,7 +25,7 @@ export default function CustomSearch() {
       <CustomSearchResults
         filterInputText={t`Search For Stations`}
         breadcrumbs={breadcrumbs}
-        dataRow={stationDataRow(true, true, false)}
+        dataRow={createStationListRow({ showTags: false })}
       />
     </CustomSearchStoreProvider>
   )

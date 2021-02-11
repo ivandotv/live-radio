@@ -23,7 +23,7 @@ export function languages(){
   { raw: 'Bislama', t: t`Bislama` },
   { raw: 'Bambara', t: t`Bambara` },
   { raw: 'Bengali', t: t`Bengali` },
-  { raw: 'Tibetan Standard', t: t`Tibetan Standard` },
+  { raw: 'Tibetan', t: t`Tibetan` },
   { raw: 'Breton', t: t`Breton` },
   { raw: 'Bosnian', t: t`Bosnian` },
   { raw: 'Catalan', t: t`Catalan` },
