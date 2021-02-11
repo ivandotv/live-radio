@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
-import { db } from 'app-config'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
 import { NextPageContext } from 'next'
@@ -149,9 +148,6 @@ export default function Index() {
 
 // Export the `session` prop to use sessions with Server Side Rendering
 export async function getServerSideProps(context: NextPageContext) {
-  console.log('test env ', process.env.LOCAL_TEST)
-  console.log('DB test ', db)
-
   return {
     props: {
       session: await getSession(context)

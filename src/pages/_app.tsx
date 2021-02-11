@@ -1,16 +1,15 @@
+import { i18n } from '@lingui/core'
+import { t } from '@lingui/macro'
+import { I18nProvider } from '@lingui/react'
+import { url } from 'app-config'
+import { PWAIcons } from 'components/PWAIcons'
+import { initTranslations } from 'initTranslations'
 import { NextPage } from 'next'
+import { Provider as AuthProvider } from 'next-auth/client'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useRef } from 'react'
-import { I18nProvider } from '@lingui/react'
-import { i18n } from '@lingui/core'
-import { t } from '@lingui/macro'
-import { url } from 'app-config'
-import { initTranslations } from 'initTranslations'
-import { PWAIcons } from 'components/PWAIcons'
-import { Provider as AuthProvider } from 'next-auth/client'
-import * as appConfig from 'app-config'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
@@ -47,9 +46,6 @@ export default function MyApp(props: AppProps) {
     }
     firstRender.current = false
   }, [locale, pageProps.translation])
-
-  console.log({ appConfig })
-  console.log('url ', url)
 
   return (
     <>

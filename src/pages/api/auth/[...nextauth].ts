@@ -16,8 +16,12 @@ const options: InitOptions = {
   // * You must to install an appropriate node_module for your database
   // * The Email provider requires a database (OAuth providers do not)
   // database: process.env.DATABASE_URL,
-  database: `${db.uri}/${db.dbName}`,
-
+  database: {
+    type: 'mongodb',
+    url: db.uri,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  },
   // The secret should be set to a reasonably long random string.
   // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
   // a separate secret is defined explicitly for encrypting the JWT.

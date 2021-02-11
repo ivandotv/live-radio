@@ -1,16 +1,6 @@
 import { db } from 'app-config'
 import { Db, MongoClient } from 'mongodb'
 
-const { uri, dbName } = db
-
-if (!uri) {
-  throw new Error('Database URI not provided')
-}
-
-if (!dbName) {
-  throw new Error('Database name not provided')
-}
-
 /**
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections growing exponentially
@@ -33,15 +23,18 @@ export async function connectToDatabase(): Promise<{
   if (!cached.promise) {
     const opts = {
       useNewUrlParser: true,
-      useUnifiedTopology: true
+      useUnifiedTopology: true,
+      validateOptions: true
     }
 
-    cached.promise = MongoClient.connect(uri as string, opts).then((client) => {
-      return {
-        client,
-        db: client.db(dbName)
+    cached.promise = MongoClient.connect(db.uri as string, opts).then(
+      (client) => {
+        return {
+          client,
+          db: client.db(db.dbName)
+        }
       }
-    })
+    )
   }
   try {
     cached.conn = await cached.promise
