@@ -12,6 +12,7 @@ import { Avatar } from '@material-ui/core'
 import { NextPageContext } from 'next'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
+import { test } from 'app-confg'
 
 export default function Index() {
   const [session] = useSession()
@@ -94,6 +95,7 @@ export default function Index() {
               </div>
             </a>
           </Link>
+          <span>test: {process.env.NEXT_PUBLIC_NEXTAUTH_URL}</span>
         </div>
         <style jsx>
           {`

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "npm run generate && npm run extract && npm run compile && next build",
+    "build": "yarn generate && yarn extract && yarn compile && next build",
     "start": "next start",
     "analyze": "env ANALYZE=true npm run build",
     "gen-countries": "node scripts/generate-countries.js",
