@@ -25,7 +25,11 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     loading: {
       alignSelf: 'center',
-      marginTop: theme.spacing(3)
+      marginTop: theme.spacing(3),
+      color:
+        theme.palette.type === 'dark'
+          ? theme.palette.primary.contrastText
+          : theme.palette.primary.main
     },
     error: {
       margin: theme.spacing(2)

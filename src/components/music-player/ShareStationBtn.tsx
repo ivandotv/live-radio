@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { ShareStationDesktop } from 'components/music-player/ShareStationDesktop'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { url } from 'lib/appSettings'
+import { url } from 'app-confg'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

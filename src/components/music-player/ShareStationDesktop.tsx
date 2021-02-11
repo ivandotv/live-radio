@@ -1,13 +1,13 @@
+import { t } from '@lingui/macro'
 import Fade from '@material-ui/core/Fade'
 import Link from '@material-ui/core/Link'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import Snackbar from '@material-ui/core/Snackbar'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import Alert from '@material-ui/lab/Alert'
-import { layout } from 'lib/appSettings'
+import { layout } from 'app-confg'
 import { observer } from 'mobx-react-lite'
-import { SyntheticEvent, useState } from 'react'
+import { useSnackbar } from 'notistack'
+import { SyntheticEvent } from 'react'
 
 const twitterLink = (url: string, _text: string) =>
   `https://twitter.com/intent/tweet?url=${url}`
@@ -20,7 +20,7 @@ http://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${encodeURICompo
   text
 )}`
 
-const stationSnackSuccess = 'Station link copied to clipboard'
+// const stationSnackSuccess = 'Station link copied to clipboard'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -48,25 +48,36 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
   text: string
 }) {
   const classes = useStyles()
-  const [snackOpen, setSnackOpen] = useState(false)
+  // const [snackOpen, setSnackOpen] = useState(false)
 
   const handleClick = (_e: SyntheticEvent) => {
     handleClose()
   }
 
+  const { enqueueSnackbar } = useSnackbar()
+
   const copyLink = async () => {
     await navigator.clipboard.writeText(url)
     handleClose()
     console.log('copied to clipboard')
-    setSnackOpen(true)
+    // setSnackOpen(true)
+    enqueueSnackbar(t`Station link copied to clipboard`, {
+      variant: 'success',
+      className: classes.snackbar,
+      autoHideDuration: 2000,
+      anchorOrigin: {
+        vertical: 'bottom',
+        horizontal: 'center'
+      }
+    })
   }
 
-  const onSnackClose = (_: SyntheticEvent, reason: string) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setSnackOpen(false)
-  }
+  // const onSnackClose = (_: SyntheticEvent, reason: string) => {
+  //   if (reason === 'clickaway') {
+  //     return
+  //   }
+  //   setSnackOpen(false)
+  // }
 
   const copyLinkItem =
     typeof window !== 'undefined' && navigator.clipboard ? (
@@ -116,7 +127,7 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
         {copyLinkItem}
       </Menu>
 
-      <Snackbar
+      {/* <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'center'
@@ -127,7 +138,7 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
         className={classes.snackbar}
       >
         <Alert severity="success">{stationSnackSuccess}</Alert>
-      </Snackbar>
+      </Snackbar> */}
     </>
   )
 })

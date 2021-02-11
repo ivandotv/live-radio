@@ -7,7 +7,10 @@ module.exports = {
   },
   globals: {
     __DEV__: true,
-    __VERSION__: true
+    __VERSION__: true,
+    __COMMIT_SHA__: true,
+    __BUILD_DATE__: true,
+    // mongo: true
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [

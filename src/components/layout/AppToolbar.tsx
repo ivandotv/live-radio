@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
+import { IconButton } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
 import Badge from '@material-ui/core/Badge'
-import IconButton from '@material-ui/core/IconButton'
 import {
   createStyles,
   makeStyles,
@@ -17,9 +17,11 @@ import LightIcon from '@material-ui/icons/Brightness7'
 import MenuIcon from '@material-ui/icons/Menu'
 import { LanguageSwitcher } from 'components/LanguageSwitcher'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { sections } from 'lib/appSettings'
+import { UserProfileDropdown } from 'components/UserProfileDropdown'
+import { sections } from 'app-confg'
 import { searchTranslation } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
+import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
@@ -78,6 +80,10 @@ export const AppToolbar = observer(function AppToolbar() {
   const appTitle = useSetAppTitle(' / ', '')
   const { appShell } = useRootStore()
 
+  const [session] = useSession()
+
+  appShell.setUserIsSignedIn(Boolean(session))
+
   const [counter, setCounter] = useState(0)
 
   const toggleDesktopDrawer = () => {
@@ -113,7 +119,8 @@ export const AppToolbar = observer(function AppToolbar() {
             {appTitle}
           </Typography>
         </div>
-        <LanguageSwitcher></LanguageSwitcher>
+        <UserProfileDropdown />
+        <LanguageSwitcher />
         <Tooltip
           title={
             appShell.theme === 'dark'

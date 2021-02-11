@@ -4,17 +4,16 @@ import { MusicPlayerStore } from 'lib/stores/MusicPlayerStore'
 import { appShellFactory } from './factories/appShellFactory'
 import { favoritesFactory } from './factories/favoritesFactory'
 import { recentStationsFactory } from './factories/recentStationsFactory'
-import { FavoritesStore } from './FavoritesStore'
-import { RecentStationsStore } from './RecentStationsStore'
+import { RadioStore } from './RadioStore'
 
 export class RootStore {
   appShell: AppShellStore
 
   musicPlayer: MusicPlayerStore
 
-  favoriteStations: FavoritesStore
+  favoriteStations: RadioStore
 
-  recentStations: RecentStationsStore
+  recentStations: RadioStore
 
   constructor() {
     this.appShell = appShellFactory(this)

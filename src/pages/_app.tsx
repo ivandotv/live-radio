@@ -6,9 +6,11 @@ import { ReactElement, useEffect, useRef } from 'react'
 import { I18nProvider } from '@lingui/react'
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { url } from 'lib/appSettings'
+import { url } from 'app-confg'
 import { initTranslations } from 'initTranslations'
 import { PWAIcons } from 'components/PWAIcons'
+import { Provider as AuthProvider } from 'next-auth/client'
+import * as appConfig from 'app-confg'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
@@ -46,10 +48,13 @@ export default function MyApp(props: AppProps) {
     firstRender.current = false
   }, [locale, pageProps.translation])
 
+  console.log({ appConfig })
+  console.log('url ', url)
+
   return (
     <>
       <Head>
-        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="manifest" href="/manifest.json" />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -69,18 +74,25 @@ export default function MyApp(props: AppProps) {
           const localePath = locale === 'x-default' ? '' : `/${locale}`
           const href = `${url}${localePath}${router.asPath}`
 
-          return (
+          return locale === 'xx' ? null : (
             <link key={locale} rel="alternate" hrefLang={locale} href={href} />
           )
         })}
       </Head>
 
       <I18nProvider i18n={i18n}>
-        {Component.layout ? (
-          Component.layout(Component, pageProps)
-        ) : (
-          <Component {...pageProps} />
-        )}
+        <AuthProvider
+          options={{
+            clientMaxAge: 0 //60 * 60
+          }}
+          session={pageProps.session}
+        >
+          {Component.layout ? (
+            Component.layout(Component, pageProps)
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </AuthProvider>
       </I18nProvider>
     </>
   )

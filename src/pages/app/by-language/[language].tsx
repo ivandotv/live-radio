@@ -6,8 +6,8 @@ import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { languages } from 'generated/languages'
 import { loadTranslation, paramsWithLocales } from 'initTranslations'
-import { userAgentName } from 'lib/appSettings'
-import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
+import { userAgentName } from 'app-confg'
+import { createStationListRow, stationsToRadioStations } from 'lib/stationUtils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -98,7 +98,7 @@ export default function LanguageStations({
       <PageTitle title={t`Search For Stations in ${languageTrans.t}`} />
       <ListStations
         breadcrumbs={breadcrumbs}
-        dataRow={stationDataRow()}
+        dataRow={createStationListRow()}
         noData={
           <Trans>
             <p>

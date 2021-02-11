@@ -1,9 +1,10 @@
 import { Trans } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ListStations } from 'components/ListStations'
+import { PageLoadError } from 'components/PageLoadError'
 import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { stationDataRow } from 'lib/stationUtils'
+import { createStationListRow } from 'lib/stationUtils'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useEffect } from 'react'
@@ -34,13 +35,42 @@ export const FavoritesList = observer(function FavoritesList() {
   const { favoriteStations } = useRootStore()
   const filterStore = useFilterDataStore()
   const classes = useStyles()
+  // const { enqueueSnackbar } = useSnackbar()
+
+  // const removeStation = useCallback(
+  //   async (id: string) => {
+  //     try {
+  //       console.log('fav list remove station ', id)
+  //       await favoriteStations.remove(id)
+  //     } catch {
+  //       console.log('CATCH - fav list remove station ', id)
+  //       enqueueSnackbar(t`Error removing station`, {
+  //         variant: 'error',
+  //         autoHideDuration: 1500,
+  //         anchorOrigin: {
+  //           vertical: 'bottom',
+  //           horizontal: 'center'
+  //         }
+  //       })
+  //     }
+  //   },
+  //   [favoriteStations, enqueueSnackbar]
+  // )
+
+  //hydrate immediately on first render
+  filterStore.hydrate(
+    favoriteStations.stations,
+    'id',
+    indexes,
+    filterStore.query
+  )
 
   useEffect(() => {
-    ;(async function () {
-      await favoriteStations.load()
-      filterStore.hydrate(favoriteStations.stations, 'id', indexes)
-    })()
-  }, [filterStore, favoriteStations])
+    // do not load again on repeated client navigation
+    if (favoriteStations.loadStatus !== 'resolved') {
+      favoriteStations.load()
+    }
+  }, [favoriteStations, filterStore])
 
   useEffect(
     () =>
@@ -58,18 +88,36 @@ export const FavoritesList = observer(function FavoritesList() {
     [favoriteStations, filterStore]
   )
 
+  if (favoriteStations.loadStatus === 'rejected') {
+    return (
+      <>
+        <PageLoadError
+          onClick={() => favoriteStations.load()}
+          data={
+            <p>
+              <Trans>
+                There was an error trying to load your favorite stations.
+              </Trans>
+            </p>
+          }
+        />
+      </>
+    )
+  }
+
   return (
     <ListStations
-      showFallback={!favoriteStations.loaded}
+      showFallback={
+        !favoriteStations.loadStatus ||
+        favoriteStations.loadStatus === 'pending'
+      }
       showSearch={favoriteStations.stations.length > 0}
-      dataRow={stationDataRow(true, true, true, true)}
+      dataRow={createStationListRow({ store: favoriteStations })}
       noData={
         <div className={classes.noDataWrap}>
-          <Trans>
-            <p className={classes.noDataText}>
-              Your favorite stations will appear here
-            </p>
-          </Trans>
+          <p className={classes.noDataText}>
+            <Trans>Your favorite stations will appear here</Trans>
+          </p>
           <img
             className={classes.noDataImage}
             src="/images/dancing-panda.svg"

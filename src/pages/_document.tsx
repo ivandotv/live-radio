@@ -12,7 +12,7 @@ import csso from 'csso'
 export default class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html>
         <Head>
           <link
             rel="stylesheet"

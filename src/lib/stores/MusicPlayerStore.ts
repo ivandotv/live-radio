@@ -1,8 +1,7 @@
 import { Howl } from 'howler'
-import { AppStorage } from 'lib/LocalDB'
 import { SongInfoService } from 'lib/SongInfoService'
+import { AppStorage } from 'lib/storage/AppStorage'
 import { RootStore } from 'lib/stores/RootStore'
-import { defaultStation } from 'lib/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioStation } from 'types'
 
@@ -22,7 +21,7 @@ export class MusicPlayerStore {
     data: any
   } | null = null
 
-  station!: RadioStation
+  // station!: RadioStation
 
   initialized = false
 
@@ -42,7 +41,8 @@ export class MusicPlayerStore {
   constructor(
     protected rootStore: RootStore,
     protected storage: AppStorage,
-    protected songInfoService: SongInfoService
+    protected songInfoService: SongInfoService,
+    public station: RadioStation
   ) {
     makeObservable<
       MusicPlayerStore,
@@ -68,21 +68,20 @@ export class MusicPlayerStore {
     // this.station = defaultStation
   }
 
-  init() {
-    if (this.initialized) return
+  async init() {
+    if (this.initialized) return Promise.resolve()
+    this.initialized = true
 
-    this.storage
-      .getLastPlayedStation()
-      .then((station) => {
-        runInAction(() => {
-          this.station = station ?? defaultStation
-        })
+    try {
+      const station = await this.storage.getLastPlayedStation()
+      runInAction(() => {
+        if (station) {
+          this.station = station
+        }
       })
-      .catch(() =>
-        runInAction(() => {
-          this.station = defaultStation
-        })
-      )
+    } catch {
+      //noop
+    }
   }
 
   protected songServiceCb(
@@ -137,8 +136,8 @@ export class MusicPlayerStore {
         this.errorStations[station.id] = false
       })
 
-      this.storage.setLastPlayedStation(this.station)
-      this.storage.addStationToHistory(this.station)
+      // this.storage.setLastPlayedStation(this.station)
+      this.storage.addRecentStation(this.station)
     })
 
     this.player.on('pause', () => {

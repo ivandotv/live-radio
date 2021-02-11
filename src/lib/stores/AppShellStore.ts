@@ -15,11 +15,14 @@ export class AppShellStore {
 
   desktopDrawerWidth = 270
 
+  userIsSignedIn = false
+
   constructor(protected rootStore: RootStore) {
     makeObservable(this, {
       showApp: observable,
       theme: observable,
       desktopDrawerIsOpen: observable,
+      userIsSignedIn: observable,
       readyToShow: action,
       setDesktopDrawer: action,
       setTheme: action
@@ -38,5 +41,9 @@ export class AppShellStore {
   setDesktopDrawer(isOpen: boolean, animate = true) {
     this.desktopDrawerIsOpen = isOpen
     this.animateDesktopDrawer = animate
+  }
+
+  setUserIsSignedIn(isSignedIn: boolean) {
+    this.userIsSignedIn = isSignedIn
   }
 }

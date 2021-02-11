@@ -8,8 +8,8 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import getFlag from 'country-code-emoji'
 import { countries } from 'generated/countries'
 import { loadTranslation, paramsWithLocales } from 'initTranslations'
-import { userAgentName } from 'lib/appSettings'
-import { stationDataRow, stationsToRadioStations } from 'lib/stationUtils'
+import { userAgentName } from 'app-confg'
+import { createStationListRow, stationsToRadioStations } from 'lib/stationUtils'
 import { continentsByCode } from 'lib/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -113,7 +113,7 @@ export default function CountryStations({
       <ListStations
         filterInputText={t`Filter Stations`}
         breadcrumbs={breadcrumbs}
-        dataRow={stationDataRow(false, false)}
+        dataRow={createStationListRow({ showCountry: false, showFlag: false })}
         noData={
           <Trans>
             <p>
