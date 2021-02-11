@@ -1,20 +1,15 @@
-import Link from 'next/link'
-import Head from 'next/head'
 import { t } from '@lingui/macro'
-import { PageTitle } from 'components/PageTitle'
-import { getSession, signIn, signOut, useSession } from 'next-auth/client'
-import { url, db } from 'app-confg'
 import { Avatar } from '@material-ui/core'
-import { NextPageContext } from 'next'
-import { useRouter } from 'next/router'
+import { db } from 'app-config'
 import clsx from 'clsx'
-import { test } from 'app-confg'
+import { PageTitle } from 'components/PageTitle'
+import { NextPageContext } from 'next'
+import { getSession, signIn, signOut, useSession } from 'next-auth/client'
+import Head from 'next/head'
+import Link from 'next/link'
 
 export default function Index() {
   const [session] = useSession()
-  const router = useRouter()
-  const localePath =
-    router.defaultLocale === router.locale ? '' : `/${router.locale}`
 
   return (
     <>
@@ -42,7 +37,9 @@ export default function Index() {
                 if (!session) {
                   e.preventDefault()
                   signIn(undefined, {
-                    callbackUrl: `${url}${localePath}/app`
+                    callbackUrl: `${window.location
+                      .toString()
+                      .replace(/\/$/, '')}/app`
                   })
                 }
               }}
@@ -64,7 +61,11 @@ export default function Index() {
               onClick={(e: React.MouseEvent) => {
                 if (session) {
                   e.preventDefault()
-                  signOut({ callbackUrl: `${url}${localePath}/app` })
+                  signOut({
+                    callbackUrl: `${window.location
+                      .toString()
+                      .replace(/\/$/, '')}/app`
+                  })
                 }
               }}
               className="app-btn"
@@ -75,7 +76,6 @@ export default function Index() {
               </div>
             </a>
           </Link>
-          <span>test: {process.env.NEXT_PUBLIC_NEXTAUTH_URL}</span>
         </div>
         <style jsx>
           {`

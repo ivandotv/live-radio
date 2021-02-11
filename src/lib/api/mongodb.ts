@@ -1,4 +1,4 @@
-import { db } from 'app-confg'
+import { db } from 'app-config'
 import { Db, MongoClient } from 'mongodb'
 
 const { uri, dbName } = db

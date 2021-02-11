@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { isProduction } from 'app-confg'
+import { isProduction } from 'app-config'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession, Session } from 'next-auth/client'
 import { NextHandler } from 'next-connect'
