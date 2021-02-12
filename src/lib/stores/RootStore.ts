@@ -16,6 +16,7 @@ export class RootStore {
   recentStations: RadioStore
 
   constructor() {
+    console.log('root store constructor')
     this.appShell = appShellFactory(this)
     this.musicPlayer = musicPlayerFactory(this)
     this.favoriteStations = favoritesFactory(this)

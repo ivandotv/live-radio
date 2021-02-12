@@ -7,7 +7,7 @@ import { useRootStore } from 'components/providers/RootStoreProvider'
 import { createStationListRow } from 'lib/stationUtils'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 
 const indexes = ['language', 'country', 'tags', 'continent', 'name']
 
@@ -34,36 +34,14 @@ export const useStyles = makeStyles((theme: Theme) =>
 export const FavoritesList = observer(function FavoritesList() {
   const { favoriteStations } = useRootStore()
   const filterStore = useFilterDataStore()
+  const [firstRender, setFirstRender] = useState(true)
+
+  console.log('favorites List')
   const classes = useStyles()
-  // const { enqueueSnackbar } = useSnackbar()
 
-  // const removeStation = useCallback(
-  //   async (id: string) => {
-  //     try {
-  //       console.log('fav list remove station ', id)
-  //       await favoriteStations.remove(id)
-  //     } catch {
-  //       console.log('CATCH - fav list remove station ', id)
-  //       enqueueSnackbar(t`Error removing station`, {
-  //         variant: 'error',
-  //         autoHideDuration: 1500,
-  //         anchorOrigin: {
-  //           vertical: 'bottom',
-  //           horizontal: 'center'
-  //         }
-  //       })
-  //     }
-  //   },
-  //   [favoriteStations, enqueueSnackbar]
-  // )
-
-  //hydrate immediately on first render
-  filterStore.hydrate(
-    favoriteStations.stations,
-    'id',
-    indexes,
-    filterStore.query
-  )
+  useEffect(() => {
+    setFirstRender(false)
+  }, [])
 
   useEffect(() => {
     // do not load again on repeated client navigation
@@ -84,6 +62,7 @@ export const FavoritesList = observer(function FavoritesList() {
             filterStore.query
           )
         }
+        // { fireImmediately: true }
       ),
     [favoriteStations, filterStore]
   )
@@ -108,8 +87,9 @@ export const FavoritesList = observer(function FavoritesList() {
   return (
     <ListStations
       showFallback={
-        !favoriteStations.loadStatus ||
-        favoriteStations.loadStatus === 'pending'
+        // firstRender ||
+        // !favoriteStations.loadStatus ||
+        favoriteStations?.loadStatus === 'pending'
       }
       showSearch={favoriteStations.stations.length > 0}
       dataRow={createStationListRow({ store: favoriteStations })}
