@@ -100,7 +100,7 @@ export class AppStorage {
   async getLastPlayedStation() {
     const storage = await this.resolveStorage()
 
-    return new Promise.resolve([])
+    return Promise.resolve()
 
     return storage.getLastPlayedStation()
   }
