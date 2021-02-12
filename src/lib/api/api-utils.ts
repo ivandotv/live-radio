@@ -2,7 +2,7 @@ import { isProduction } from 'app-config'
 import { ObjectId } from 'mongodb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextApiRequestWithSession } from './middleware'
-import { connectToDatabase } from './mongodb'
+import { connectToDatabase } from './mongodb-connection'
 
 export type DBCollections = 'favorites' | 'recent'
 

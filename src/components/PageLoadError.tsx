@@ -32,7 +32,13 @@ export function PageLoadError({
   return (
     <div className={classes.loadError}>
       <Error className={classes.loadErrorSign} />
-      {data}
+      {data ? (
+        data
+      ) : (
+        <p>
+          <Trans>Error loading data</Trans>
+        </p>
+      )}
       <Button onClick={onClick} variant="contained" color="primary">
         <Trans>Try again</Trans>
       </Button>

@@ -4,7 +4,7 @@ import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
 import { Station } from 'radio-browser-api'
 import { RadioStation } from 'types'
-import { RadioStore } from './stores/RadioStore'
+import { RadioStore } from './stores/radio-store'
 
 export function stationsToRadioStations(stations: Station[]): RadioStation[] {
   const result = []

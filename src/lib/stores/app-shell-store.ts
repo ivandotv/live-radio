@@ -1,5 +1,5 @@
 import { action, makeObservable, observable } from 'mobx'
-import { RootStore } from 'lib/stores/RootStore'
+import { RootStore } from 'lib/stores/root-store'
 
 export type AppTheme = 'light' | 'dark'
 export class AppShellStore {
@@ -12,8 +12,6 @@ export class AppShellStore {
   showApp = false
 
   desktopDrawerIsOpen = true
-
-  desktopDrawerWidth = 270
 
   userIsSignedIn = false
 

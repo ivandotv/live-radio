@@ -1,7 +1,7 @@
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { FilterDataStore } from 'lib/stores/FilterDataStore'
-import { filterDataFactory } from 'lib/stores/factories/filterDataFactory'
+import { FilterDataStore } from 'lib/stores/filter-data-store'
+import { filterDataFactory } from 'lib/stores/factories/filter-data-factory'
 
 enableStaticRendering(typeof window === 'undefined')
 

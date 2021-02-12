@@ -1,4 +1,4 @@
-import { FilterDataStore } from 'lib/stores/FilterDataStore'
+import { FilterDataStore } from 'lib/stores/filter-data-store'
 
 export function filterDataFactory(
   initialState: any[],

@@ -1,5 +1,5 @@
 import { RadioStation } from 'types'
-import { StorageProvider } from './AppStorage'
+import { StorageProvider } from './app-storage-service'
 
 export class RemoteStorage implements StorageProvider {
   constructor(protected fetchImpl: typeof fetch) {}

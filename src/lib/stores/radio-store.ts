@@ -1,7 +1,7 @@
-import { AppStorage } from 'lib/storage/AppStorage'
+import { AppStorage } from 'lib/services/storage/app-storage-service'
 import { action, computed, makeObservable, observable, runInAction } from 'mobx'
 import { RadioStation } from 'types'
-import { RootStore } from './RootStore'
+import { RootStore } from './root-store'
 
 export type TransactionStatus<TData = any> = {
   status: 'pending' | 'resolved' | 'rejected' | null

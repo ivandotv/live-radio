@@ -1,6 +1,6 @@
-import { appStorageFactory } from 'lib/storage/AppStorage'
-import { RootStore } from 'lib/stores/RootStore'
-import { RadioStore } from 'lib/stores//RadioStore'
+import { appStorageFactory } from 'lib/services/storage/app-storage-service'
+import { RootStore } from 'lib/stores/root-store'
+import { RadioStore } from 'lib/stores/radio-store'
 // import { FavoritesStore } from '../FavoritesStore'
 
 let store: RadioStore

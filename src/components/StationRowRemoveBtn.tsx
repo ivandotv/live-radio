@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Error from '@material-ui/icons/Warning'
-import { RadioStore } from 'lib/stores/RadioStore'
+import { RadioStore } from 'lib/stores/radio-store'
 import { when } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useEffect } from 'react'

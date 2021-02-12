@@ -4,11 +4,14 @@ import { ListStations } from 'components/ListStations'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { PageTitle } from 'components/PageTitle'
-import { createStationListRow, stationsToRadioStations } from 'lib/stationUtils'
+import {
+  createStationListRow,
+  stationsToRadioStations
+} from 'lib/station-utils'
 import { RadioStation } from 'types'
 import { userAgentName } from 'app-config'
 import { t, Trans } from '@lingui/macro'
-import { loadTranslation, paramsWithLocales } from 'initTranslations'
+import { loadTranslation, paramsWithLocales } from 'lib/translations'
 import { useRouter } from 'next/router'
 import { ListStationsFallback } from 'components/ListStationsFallback'
 import { genres } from 'generated/genres'

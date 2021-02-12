@@ -33,9 +33,9 @@ export const layout = {
   playerHeight: 73,
   mobileMenuHeight: 56,
   topBarHeight: 56,
-  mainContentSpacer: 16
+  mainContentSpacer: 16,
+  desktopDrawerWidth: 270
 } as const
-
 
 export function sections() {
   return {

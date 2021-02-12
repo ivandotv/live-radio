@@ -1,4 +1,4 @@
-import { CustomSearchStore } from 'lib/stores/CustomSearchStore'
+import { CustomSearchStore } from 'lib/stores/custom-search-store'
 
 let store: CustomSearchStore
 

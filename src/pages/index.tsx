@@ -1,19 +1,14 @@
 import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
-import { url } from 'app-config'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
 import { NextPageContext } from 'next'
 import { getSession, signIn, signOut, useSession } from 'next-auth/client'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 
 export default function Index() {
   const [session] = useSession()
-  const router = useRouter()
-  const localePath =
-    router.defaultLocale === router.locale ? '' : `/${router.locale}`
 
   return (
     <>
@@ -41,10 +36,10 @@ export default function Index() {
                 if (!session) {
                   e.preventDefault()
                   signIn(undefined, {
-                    callbackUrl: `${url}/${localePath}/app`
-                    callbackUrl: `${window.location
-                      .toString()
-                      .replace(/\/$/, '')}/app`
+                    callbackUrl: `${window.location.origin.replace(
+                      /\/$/,
+                      ''
+                    )}/app`
                   })
                 }
               }}
@@ -66,11 +61,11 @@ export default function Index() {
               onClick={(e: React.MouseEvent) => {
                 if (session) {
                   e.preventDefault()
-                  signOut({ callbackUrl: `${url}${localePath}/app` })
                   signOut({
-                    callbackUrl: `${window.location
-                      .toString()
-                      .replace(/\/$/, '')}/app`
+                    callbackUrl: `${window.location.origin.replace(
+                      /\/$/,
+                      ''
+                    )}/app`
                   })
                 }
               }}
@@ -137,6 +132,11 @@ export default function Index() {
         </style>
         <style jsx global>
           {`
+            img {
+              width: 100%;
+              height: auto;
+              aspect-ratio: attr(width) / attr(height);
+            }
             body {
               font-family: 'Open Sans', sans-serif;
             }

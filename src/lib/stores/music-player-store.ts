@@ -1,7 +1,7 @@
 import { Howl } from 'howler'
-import { SongInfoService } from 'lib/SongInfoService'
-import { AppStorage } from 'lib/storage/AppStorage'
-import { RootStore } from 'lib/stores/RootStore'
+import { SongInfoService } from 'lib/services/song-info-service'
+import { AppStorage } from 'lib/services/storage/app-storage-service'
+import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioStation } from 'types'
 

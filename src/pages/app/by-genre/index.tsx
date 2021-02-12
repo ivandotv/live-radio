@@ -4,7 +4,7 @@ import { ListStations } from 'components/ListStations'
 import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-import { getStaticTranslations } from 'initTranslations'
+import { getStaticTranslations } from 'lib/translations'
 import { genres } from 'generated/genres'
 import { useRouter } from 'next/router'
 

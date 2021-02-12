@@ -4,7 +4,7 @@ import Loading from '@material-ui/icons/RotateLeft'
 import Stop from '@material-ui/icons/Stop'
 import Error from '@material-ui/icons/Warning'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { PlayerStatus } from 'lib/stores/music-player-store'
 import { observer } from 'mobx-react-lite'
 import { ReactNode } from 'react'
 

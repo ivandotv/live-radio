@@ -1,5 +1,5 @@
 import { userAgentName } from 'app-config'
-import { stationsToRadioStations } from 'lib/stationUtils'
+import { stationsToRadioStations } from 'lib/station-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 

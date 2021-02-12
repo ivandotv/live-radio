@@ -1,7 +1,7 @@
 import { reaction } from 'mobx'
-import { MusicPlayerStore, PlayerStatus } from './stores/MusicPlayerStore'
+import { MusicPlayerStore, PlayerStatus } from 'lib/stores/music-player-store'
 
-export class AppMediaSession {
+export class MediaSessionService {
   constructor(
     protected musicPlayer: MusicPlayerStore,
     protected navigator: Navigator

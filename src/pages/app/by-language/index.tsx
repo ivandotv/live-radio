@@ -5,7 +5,7 @@ import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { languages } from 'generated/languages'
-import { getStaticTranslations } from 'initTranslations'
+import { getStaticTranslations } from 'lib/translations'
 import { useRouter } from 'next/router'
 
 export { getStaticTranslations as getStaticProps }

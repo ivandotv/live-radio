@@ -130,7 +130,7 @@ msgstr ""
 msgid "Anguilla"
 msgstr ""
 
-#: src/pages/index.tsx:59
+#: src/pages/index.tsx:58
 msgid "Anonymous User"
 msgstr ""
 
@@ -1872,7 +1872,7 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-#: src/pages/index.tsx:42
+#: src/pages/index.tsx:43
 msgid "Sign in or Register"
 msgstr ""
 
@@ -2104,7 +2104,7 @@ msgstr ""
 msgid "Thailand"
 msgstr ""
 
-#: src/components/FavoritesList.tsx:67
+#: src/components/FavoritesList.tsx:52
 msgid "There was an error trying to load your favorite stations."
 msgstr ""
 
@@ -2281,11 +2281,11 @@ msgstr ""
 msgid "Walloon"
 msgstr ""
 
-#: src/pages/index.tsx:42
+#: src/pages/index.tsx:43
 msgid "Welcome Back"
 msgstr ""
 
-#: src/pages/index.tsx:25
+#: src/pages/index.tsx:28
 msgid "Welcome to Live Radio App"
 msgstr ""
 
@@ -2329,11 +2329,11 @@ msgstr ""
 msgid "Yoruba"
 msgstr ""
 
-#: src/pages/app/favorites.tsx:10
+#: src/pages/app/favorites.tsx:12
 msgid "Your favorite Radio Stations"
 msgstr ""
 
-#: src/components/FavoritesList.tsx:76
+#: src/components/FavoritesList.tsx:63
 msgid "Your favorite stations will appear here"
 msgstr ""
 

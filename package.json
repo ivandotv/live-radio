@@ -5,16 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "yarn generate && yarn extract && yarn compile && next build",
+    "build": "yarn generate && yarn lang:extract && yarn lang:compile && next build",
     "start": "next start",
     "analyze": "env ANALYZE=true npm run build",
-    "gen-countries": "node scripts/generate-countries.js",
-    "gen-languages": "node scripts/generate-languages.js",
-    "gen-genres": "node scripts/generate-genres.js",
-    "generate": "npm-run-all gen-*",
-    "extract": "lingui extract",
-    "compile": "lingui compile",
-    "type-check": "tsc"
+    "gen:countries": "node scripts/generate-countries.js",
+    "gen:languages": "node scripts/generate-languages.js",
+    "gen:genres": "node scripts/generate-genres.js",
+    "generate": "npm-run-all gen:*",
+    "lang:extract": "lingui extract",
+    "lang:compile": "lingui compile",
+    "type:check": "tsc",
+    "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\""
   },
   "browserslist": [
     ">0.3%",

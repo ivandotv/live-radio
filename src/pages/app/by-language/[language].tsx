@@ -5,9 +5,12 @@ import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { languages } from 'generated/languages'
-import { loadTranslation, paramsWithLocales } from 'initTranslations'
+import { loadTranslation, paramsWithLocales } from 'lib/translations'
 import { userAgentName } from 'app-config'
-import { createStationListRow, stationsToRadioStations } from 'lib/stationUtils'
+import {
+  createStationListRow,
+  stationsToRadioStations
+} from 'lib/station-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'

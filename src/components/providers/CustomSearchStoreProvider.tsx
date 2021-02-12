@@ -1,7 +1,7 @@
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext } from 'react'
-import { CustomSearchStore } from 'lib/stores/CustomSearchStore'
-import { customSearchFactory } from 'lib/stores/factories/customSearchFactory'
+import { CustomSearchStore } from 'lib/stores/custom-search-store'
+import { customSearchFactory } from 'lib/stores/factories/custom-search-factory'
 
 enableStaticRendering(typeof window === 'undefined')
 

@@ -5,7 +5,7 @@ import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { continentsByCode } from 'lib/utils'
 import { t } from '@lingui/macro'
-import { getStaticTranslations } from 'initTranslations'
+import { getStaticTranslations } from 'lib/translations'
 
 export { getStaticTranslations as getStaticProps }
 

@@ -1,6 +1,6 @@
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { AppTheme } from 'lib/stores/AppShellStore'
+import { AppTheme } from 'lib/stores/app-shell-store'
 import { autorun, reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useEffect, useLayoutEffect } from 'react'

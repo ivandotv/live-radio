@@ -1,13 +1,14 @@
-import { FavoritesList } from 'components/FavoritesList'
+import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-import { t } from '@lingui/macro'
-import { getStaticTranslations } from 'initTranslations'
 import { useRootStore } from 'components/providers/RootStoreProvider'
+import { getStaticTranslations } from 'lib/translations'
+import { RemovableItemsList } from 'components/RemovableItemsList'
 
 export { getStaticTranslations as getStaticProps }
 
+// should not be wrapper in to observable!
 export default function Favorites() {
   const { favoriteStations } = useRootStore()
 
@@ -19,7 +20,7 @@ export default function Favorites() {
         uuid="id"
         indexes={['language', 'country', 'tags', 'continent', 'name']}
       >
-        <FavoritesList />
+        <RemovableItemsList store={favoriteStations} />
       </FilterDataStoreProvider>
     </>
   )

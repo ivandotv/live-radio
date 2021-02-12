@@ -3,16 +3,13 @@ import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
 import { url } from 'app-config'
 import { PWAIcons } from 'components/PWAIcons'
-import { initTranslations } from 'initTranslations'
+import { initTranslations } from 'lib/translations'
 import { NextPage } from 'next'
 import { Provider as AuthProvider } from 'next-auth/client'
-<<<<<<< HEAD
-=======
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useRef } from 'react'
->>>>>>> 5d607ef (fix mongodb atlas config)
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (

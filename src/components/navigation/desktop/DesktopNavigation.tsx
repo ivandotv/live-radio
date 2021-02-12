@@ -10,6 +10,7 @@ import clsx from 'clsx'
 import { Menu } from 'components/navigation/desktop/Menu'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { observer } from 'mobx-react-lite'
+import { layout } from 'app-config'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const DesktopNavigation = observer(function DesktopNavigation() {
   const { appShell: appShell } = useRootStore()
-  const classes = useStyles({ drawerWidth: appShell.desktopDrawerWidth })
+  const classes = useStyles({ drawerWidth: layout.desktopDrawerWidth })
   const theme = useTheme()
 
   return (

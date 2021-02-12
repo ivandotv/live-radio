@@ -1,7 +1,7 @@
 import Collapse from '@material-ui/core/Collapse'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { PlayerStatus } from 'lib/stores/music-player-store'
 import { observer } from 'mobx-react-lite'
 import { t } from '@lingui/macro'
 

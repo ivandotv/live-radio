@@ -1,4 +1,4 @@
-import { LocationStore } from '../LocationStore'
+import { LocationStore } from '../location-store'
 
 let store: LocationStore
 export function locationFactory() {

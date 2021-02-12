@@ -8,7 +8,7 @@ import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
 import { SongInfo } from 'components/music-player/SongInfo'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { layout } from 'app-config'
-import { AppMediaSession } from 'lib/MediaSession'
+import { MediaSessionService } from 'lib/services/media-session-service'
 import { observer } from 'mobx-react-lite'
 import { useSnackbar } from 'notistack'
 import { useEffect } from 'react'
@@ -69,9 +69,9 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const MusicPlayer = observer(function MusicPlayer() {
-  const { favoriteStations, appShell, musicPlayer } = useRootStore()
+  const { favoriteStations, musicPlayer } = useRootStore()
   const classes = useStyles({
-    drawerWidth: appShell.desktopDrawerWidth
+    drawerWidth: layout.desktopDrawerWidth
   })
   const { enqueueSnackbar } = useSnackbar()
   const mounted = usePromise()
@@ -110,7 +110,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   }, [favoriteStations])
 
   useEffect(() => {
-    new AppMediaSession(musicPlayer, navigator)
+    new MediaSessionService(musicPlayer, navigator)
   }, [musicPlayer])
 
   useEffect(() => {
@@ -126,17 +126,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
     })()
   }, [musicPlayer])
 
-<<<<<<< HEAD
-  useEffect(() => {}, [])
-  const onSnackClose = (_: SyntheticEvent, reason: string) => {
-    if (reason === 'clickaway') {
-      return
-    }
-    setSnackErrorOpen(false)
-    setSnackFavOpen(false)
-  }
-=======
->>>>>>> 12ef997 (enable auth)
   const inFavorites = Boolean(
     musicPlayer.station &&
       favoriteStations.stations.find(
@@ -217,27 +206,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
           <LinearProgress color="secondary" />
         )}
       </div>
-<<<<<<< HEAD
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        open={snackErrorOpen || snackFavOpen}
-        autoHideDuration={2500}
-        onClose={onSnackClose}
-        className={classes.snackbar}
-      >
-        {snackErrorOpen ? (
-          <Alert severity="error">{t`Error playing radio station`}</Alert>
-        ) : (
-          <Alert severity="success">
-            {inFavorites ? t`Added to favorites` : t`Removed from favorites`}
-          </Alert>
-        )}
-      </Snackbar>
-=======
->>>>>>> 12ef997 (enable auth)
     </div>
   )
 })

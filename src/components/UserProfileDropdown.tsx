@@ -9,7 +9,7 @@ import {
   Popper
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { PlayerStatus } from 'lib/stores/MusicPlayerStore'
+import { PlayerStatus } from 'lib/stores/music-player-store'
 import { observer } from 'mobx-react-lite'
 import { signIn, signOut, useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
