@@ -232,7 +232,7 @@ export class MusicPlayerStore {
       throw new Error('Player has no station to play')
     }
 
-    if (this.station && this.station.id === station.id) {
+    if (this.station?.id === station.id) {
       // same station
       if (
         this.status === PlayerStatus.STOPPED ||
