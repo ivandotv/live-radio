@@ -19,7 +19,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: '100%'
     },
     noDataImage: {
-      height: 'auto',
+      // height: 'auto',
+      width: 'auto',
       maxHeight: '100%',
       marginTop: theme.spacing(2)
     },
