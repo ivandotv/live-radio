@@ -7,10 +7,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { ShareStationDesktop } from 'components/music-player/ShareStationDesktop'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-
-function createShareUrl(path: string, id: string) {
-  return `${encodeURI(path)}/app${`?play=${encodeURIComponent(id)}`}`
-}
+import { url } from 'app-config'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,9 +28,9 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const classes = useStyles({ fontSize })
   const { musicPlayer } = useRootStore()
 
-  const id = musicPlayer.station.id
-
-  // const shareUrl = shareUrl(window.location.toString(), id)
+  const shareUrl = `${encodeURI(url)}/app?play=${encodeURIComponent(
+    musicPlayer.station.id
+  )}`
   const shareTitle = t`Share Station -- `
   const shareText = t`Check out this groovy station`
 
@@ -51,7 +48,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
       navigator.share({
         title: shareTitle,
         text: shareText,
-        url: createShareUrl(window.location.host, id)
+        url: shareUrl
       })
     } else {
       setAnchorEl(event.currentTarget)
@@ -68,7 +65,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
         <ShareStationDesktop
           anchorEl={anchorEl}
           handleClose={handleClose}
-          url={createShareUrl(window.location.host, id)}
+          url={shareUrl}
           text="check this out"
         />
       ) : null}
