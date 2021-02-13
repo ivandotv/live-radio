@@ -111,11 +111,13 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   useEffect(() => {
     new MediaSessionService(musicPlayer, navigator)
+
+    return () => musicPlayer.stop()
   }, [musicPlayer])
 
   useEffect(() => {
     ;(async function () {
-      await musicPlayer.init()
+      await mounted(musicPlayer.init())
       const signInInterrupt = sessionStorage.getItem('signInInterrupt')
       if (signInInterrupt) {
         // play immediately
@@ -124,7 +126,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
         musicPlayer.play(musicPlayer.station)
       }
     })()
-  }, [musicPlayer])
+  }, [musicPlayer, mounted])
 
   const inFavorites = Boolean(
     musicPlayer.station &&
