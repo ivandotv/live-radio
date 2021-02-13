@@ -50,14 +50,14 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/RecentStationsList.tsx:38
-msgid "<0>Your recent stations will appear here</0>"
-msgstr ""
+#~ msgid "<0>Your recent stations will appear here</0>"
+#~ msgstr ""
 
 #: src/generated/languages.js:8
 msgid "Abkhaz"
 msgstr ""
 
-#: src/app-config.ts:42
+#: src/app-config.ts:43
 #: src/components/navigation/desktop/Menu.tsx:33
 msgid "About"
 msgstr ""
@@ -130,7 +130,7 @@ msgstr ""
 msgid "Anguilla"
 msgstr ""
 
-#: src/pages/index.tsx:58
+#: src/pages/index.tsx:55
 msgid "Anonymous User"
 msgstr ""
 
@@ -347,21 +347,21 @@ msgstr ""
 msgid "Burundi"
 msgstr ""
 
-#: src/app-config.ts:40
+#: src/app-config.ts:41
 #: src/pages/app/by-genre/[genre].tsx:64
 #: src/pages/app/by-genre/index.tsx:20
 #: src/pages/app/index.tsx:50
 msgid "By Genre"
 msgstr ""
 
-#: src/app-config.ts:39
+#: src/app-config.ts:40
 #: src/pages/app/by-language/[language].tsx:71
 #: src/pages/app/by-language/index.tsx:41
 #: src/pages/app/index.tsx:49
 msgid "By Language"
 msgstr ""
 
-#: src/app-config.ts:38
+#: src/app-config.ts:39
 #: src/pages/app/by-location/[continent]/[country].tsx:73
 #: src/pages/app/by-location/[continent]/index.tsx:75
 #: src/pages/app/by-location/index.tsx:31
@@ -497,7 +497,7 @@ msgstr ""
 msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 msgstr ""
 
-#: src/app-config.ts:36
+#: src/app-config.ts:37
 #: src/pages/app/custom.tsx:16
 #: src/pages/app/index.tsx:51
 msgid "Custom Search"
@@ -624,6 +624,10 @@ msgstr ""
 msgid "Eritrea"
 msgstr ""
 
+#: src/components/PageLoadError.tsx:23
+msgid "Error loading data"
+msgstr ""
+
 #: src/components/music-player/MusicPlayer.tsx:95
 msgid "Error playing radio station"
 msgstr ""
@@ -668,7 +672,7 @@ msgstr ""
 msgid "Faroese"
 msgstr ""
 
-#: src/app-config.ts:35
+#: src/app-config.ts:36
 #: src/components/navigation/desktop/Menu.tsx:18
 #: src/components/navigation/mobile/MobileNavigation.tsx:60
 msgid "Favorites"
@@ -1638,12 +1642,12 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
-#: src/app-config.ts:37
+#: src/app-config.ts:38
 #: src/components/navigation/desktop/Menu.tsx:23
 msgid "Recent Stations"
 msgstr ""
 
-#: src/pages/app/recent-stations.tsx:10
+#: src/pages/app/recent-stations.tsx:13
 msgid "Recently listened stations"
 msgstr ""
 
@@ -1783,7 +1787,7 @@ msgstr ""
 msgid "Scottish Gaelic"
 msgstr ""
 
-#: src/app-config.ts:34
+#: src/app-config.ts:35
 #: src/components/navigation/desktop/Menu.tsx:11
 #: src/components/navigation/mobile/MobileNavigation.tsx:59
 #: src/pages/app/by-genre/[genre].tsx:60
@@ -1840,7 +1844,7 @@ msgstr ""
 msgid "Serbian"
 msgstr ""
 
-#: src/app-config.ts:41
+#: src/app-config.ts:42
 #: src/components/UserProfileDropdown.tsx:47
 #: src/components/navigation/desktop/Menu.tsx:28
 #: src/components/navigation/mobile/MobileNavigation.tsx:62
@@ -1872,7 +1876,7 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
-#: src/pages/index.tsx:43
+#: src/pages/index.tsx:40
 msgid "Sign in or Register"
 msgstr ""
 
@@ -2105,7 +2109,11 @@ msgid "Thailand"
 msgstr ""
 
 #: src/components/FavoritesList.tsx:52
-msgid "There was an error trying to load your favorite stations."
+#~ msgid "There was an error trying to load your favorite stations."
+#~ msgstr ""
+
+#: src/components/RemovableItemsList.tsx:42
+msgid "There was an error trying to load your stations."
 msgstr ""
 
 #: src/generated/languages.js:26
@@ -2145,7 +2153,7 @@ msgstr ""
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: src/components/PageLoadError.tsx:24
+#: src/components/PageLoadError.tsx:26
 msgid "Try again"
 msgstr ""
 
@@ -2281,11 +2289,11 @@ msgstr ""
 msgid "Walloon"
 msgstr ""
 
-#: src/pages/index.tsx:43
+#: src/pages/index.tsx:40
 msgid "Welcome Back"
 msgstr ""
 
-#: src/pages/index.tsx:28
+#: src/pages/index.tsx:25
 msgid "Welcome to Live Radio App"
 msgstr ""
 
@@ -2329,16 +2337,20 @@ msgstr ""
 msgid "Yoruba"
 msgstr ""
 
-#: src/pages/app/favorites.tsx:12
+#: src/pages/app/favorites.tsx:13
 msgid "Your favorite Radio Stations"
 msgstr ""
 
 #: src/components/FavoritesList.tsx:63
-msgid "Your favorite stations will appear here"
-msgstr ""
+#~ msgid "Your favorite stations will appear here"
+#~ msgstr ""
 
 #: src/components/locationModal/LocationModal.tsx:66
 msgid "Your location is"
+msgstr ""
+
+#: src/components/RemovableItemsList.tsx:48
+msgid "Your stations will appear here"
 msgstr ""
 
 #: src/generated/countries.js:329

@@ -6,7 +6,6 @@
 /public/workbox*.js.map
 /public/sw.js
 /public/sw.js.map
-/public/pwa-icons/
 
 # dependencies
 /node_modules
