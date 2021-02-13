@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) => {
       lineHeight: 1
     },
     httpIcon: {
-      color: theme.palette.text.disabled,
+      color: '#ff0000',
       marginLeft: `${theme.spacing(0.5)}px`,
       fontSize: '1.2rem'
     }
@@ -118,7 +118,7 @@ export const StationRowItem = observer(function StationRowItem({
               {showFlag && station.flag.length ? ` ${station.flag}` : null}
               {station.url.indexOf('https') === -1 ? (
                 <Tooltip
-                  title={t`Depending on your browser this station might not load beacuse it is not served over a secure (https) connection`}
+                  title={t`Depending on your browser this station might not load beacuse it is not served over a secure (https) connection.`}
                 >
                   <HttpIcon className={classes.httpIcon} />
                 </Tooltip>
