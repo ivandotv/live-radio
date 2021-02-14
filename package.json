@@ -44,7 +44,7 @@
     "mongodb": "^3.6.4",
     "next": "10.0.4",
     "next-auth": "^3.1.0",
-    "next-connect": "^0.9.1",
+    "next-connect": "^0.10.0",
     "next-pwa": "^5.0.2",
     "node-internet-radio": "^0.2.1",
     "nookies": "^2.5.0",
