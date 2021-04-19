@@ -64,7 +64,7 @@
     "@lingui/cli": "^3.5.1",
     "@lingui/loader": "^3.5.1",
     "@lingui/macro": "^3.5.1",
-    "@next/bundle-analyzer": "^10.0.5",
+    "@next/bundle-analyzer": "^10.1.3",
     "@types/csso": "^3.5.1",
     "@types/howler": "^2.2.1",
     "@types/js-search": "^1.4.0",
