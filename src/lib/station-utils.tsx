@@ -6,7 +6,8 @@ import { Station } from 'radio-browser-api'
 import { RadioStation } from 'types'
 import { RadioStore } from './stores/radio-store'
 
-export function stationsToRadioStations(stations: Station[]): RadioStation[] {
+//todo - rename to dataToRadioStations
+export function dataToRadioStations(stations: Station[]): RadioStation[] {
   const result = []
 
   const duplicates: { [key: string]: boolean } = {}

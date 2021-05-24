@@ -5,7 +5,7 @@ import { DarkTheme, LightTheme } from 'lib/theme'
 import { ThemeQueryComponent } from './ThemeQueryComponent'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 
-export const AppThemeSetup = observer(function AppLayoutSetup({
+export const AppThemeProvider = observer(function AppThemeProvider({
   children
 }: {
   children: ReactNode

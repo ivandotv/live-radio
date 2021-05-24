@@ -1,7 +1,7 @@
 import { RadioStation } from 'types'
-import { StorageProvider } from './app-storage-service'
+import { AppStorageService } from './app-storage-service'
 
-export class RemoteStorage implements StorageProvider {
+export class RemoteStorage implements AppStorageService {
   constructor(protected fetchImpl: typeof fetch) {}
 
   async getFavoriteStations(): Promise<RadioStation[]> {

@@ -9,10 +9,7 @@ import getFlag from 'country-code-emoji'
 import { countries } from 'generated/countries'
 import { loadTranslation, paramsWithLocales } from 'lib/translations'
 import { userAgentName } from 'app-config'
-import {
-  createStationListRow,
-  stationsToRadioStations
-} from 'lib/station-utils'
+import { createStationListRow, dataToRadioStations } from 'lib/station-utils'
 import { continentsByCode } from 'lib/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -53,7 +50,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   return {
     props: {
-      stations: stationsToRadioStations(stationResults),
+      stations: dataToRadioStations(stationResults),
       countryCode,
       continentCode: continent,
       flag,

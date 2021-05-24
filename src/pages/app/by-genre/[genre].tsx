@@ -4,10 +4,7 @@ import { ListStations } from 'components/ListStations'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { PageTitle } from 'components/PageTitle'
-import {
-  createStationListRow,
-  stationsToRadioStations
-} from 'lib/station-utils'
+import { createStationListRow, dataToRadioStations } from 'lib/station-utils'
 import { RadioStation } from 'types'
 import { userAgentName } from 'app-config'
 import { t, Trans } from '@lingui/macro'
@@ -46,7 +43,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   return {
     props: {
-      stations: stationsToRadioStations(stations),
+      stations: dataToRadioStations(stations),
       genre,
       translation
     },

@@ -7,10 +7,7 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { languages } from 'generated/languages'
 import { loadTranslation, paramsWithLocales } from 'lib/translations'
 import { userAgentName } from 'app-config'
-import {
-  createStationListRow,
-  stationsToRadioStations
-} from 'lib/station-utils'
+import { createStationListRow, dataToRadioStations } from 'lib/station-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -52,7 +49,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   return {
     props: {
-      stations: stationsToRadioStations(stations),
+      stations: dataToRadioStations(stations),
       // stations: [],
       language,
       translation

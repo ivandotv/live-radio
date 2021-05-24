@@ -5,7 +5,7 @@ import { RemoteStorage } from './remote-storage-service'
 
 let instance: AppStorage
 
-export type StorageProvider = {
+export type AppStorageService = {
   getFavoriteStations(): Promise<RadioStation[]>
   addFavoriteStation(station: RadioStation): Promise<any>
   removeFavoriteStation(id: string): Promise<any>

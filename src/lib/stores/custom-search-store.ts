@@ -1,7 +1,7 @@
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { RadioStation } from 'types'
-import { stationsToRadioStations } from 'lib/station-utils'
+import { dataToRadioStations } from 'lib/station-utils'
 import { userAgentName } from 'app-config'
 
 export class CustomSearchStore {
@@ -70,7 +70,7 @@ export class CustomSearchStore {
       if (this.requestToken === localToken) {
         // process stations
         runInAction(() => {
-          this.data = { result: stationsToRadioStations(result) }
+          this.data = { result: dataToRadioStations(result) }
           this.searchInProgress = false
           this.lastQuery = query
         })

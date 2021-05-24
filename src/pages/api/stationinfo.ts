@@ -1,5 +1,5 @@
 import { userAgentName } from 'app-config'
-import { stationsToRadioStations } from 'lib/station-utils'
+import { dataToRadioStations } from 'lib/station-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 
@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const stationId = req.query.play as string
     const stationResponse = await api.getStationsById([stationId])
 
-    res.status(200).json(stationsToRadioStations(stationResponse))
+    res.status(200).json(dataToRadioStations(stationResponse))
   } catch (err) {
     res.status(503).json({ message: err.message ?? 'server error' })
   }
