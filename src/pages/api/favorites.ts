@@ -1,6 +1,5 @@
 import {
   deleteStation,
-  getStations,
   onError,
   onNoMatch,
   saveStation
@@ -10,9 +9,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
 
 const collectionName = 'favorites'
+
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
-  .get(setupSession, getStations(collectionName))
-  .post(setupSession, validateStation, saveStation(collectionName))
-  .delete(setupSession, deleteStation(collectionName))
+  .use(setupSession)
+  .get(collectionName)
+  .post(validateStation, saveStation(collectionName))
+  .delete(deleteStation(collectionName))
 
 export default handler
