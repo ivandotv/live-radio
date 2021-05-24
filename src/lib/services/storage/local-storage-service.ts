@@ -1,5 +1,5 @@
 import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 import { AppStorageService } from './app-storage-service'
 
 interface LocalSchema extends DBSchema {

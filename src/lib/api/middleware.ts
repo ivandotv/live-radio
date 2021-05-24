@@ -1,20 +1,26 @@
 import Joi from 'joi'
 import { isProduction } from 'app-config'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getSession, Session } from 'next-auth/client'
+import { getSession } from 'next-auth/client'
+import { Session } from 'next-auth'
 import { NextHandler } from 'next-connect'
-export type SessionWithUserId = Session & { id: string }
-export type NextApiRequestWithSession = NextApiRequest & SessionWithUserId
+
+// export type SessionWithUserId = Session & { id: string }
+
+// export type NextApiRequestWithSession = NextApiRequest & SessionWithUserId
+
+export type NextApiRequestWithSession = NextApiRequest & {
+  session?: Session
+}
+
 export async function setupSession(
   req: NextApiRequestWithSession,
   res: NextApiResponse,
   next: NextHandler
 ) {
-  const session = (await getSession({ req })) as Session & {
-    user: { id: string }
-  }
+  const session = await getSession({ req })
   if (!session) {
-    return res.status(401).json({ msg: 'Not Authorized' })
+    return res.status(401).json({ msg: 'Unauthorized' })
   }
   req.session = session
   next()

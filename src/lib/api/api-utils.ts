@@ -32,6 +32,10 @@ export function getStations(collection: 'favorites' | 'recent') {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     const { db } = await connectToDatabase()
 
+    if (!req.session) {
+      return res.status(401).json({ msg: 'Unauthorized' })
+    }
+
     const user = await db
       .collection('users')
       .findOne(
@@ -73,6 +77,10 @@ export function saveStation(collection: DBCollections) {
     const { id: stationId } = req.body
     delete req.body.id
 
+    if (!req.session) {
+      return res.status(401).json({ msg: 'Not authorized' })
+    }
+
     const session = client.startSession()
     try {
       await session.withTransaction(async () => {
@@ -107,6 +115,9 @@ export function deleteStation(collection: DBCollections) {
       return res.status(400).json({ msg: 'Station ID expected' })
     }
 
+    if (!req.session) {
+      return res.status(401).json({ msg: 'Unauthorized' })
+    }
     await db
       .collection('users')
       .updateOne(

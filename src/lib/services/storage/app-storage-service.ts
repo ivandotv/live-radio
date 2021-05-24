@@ -1,5 +1,5 @@
 import { AuthService } from 'lib/services/auth-service'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 import { LocalStorage } from './local-storage-service'
 import { RemoteStorage } from './remote-storage-service'
 

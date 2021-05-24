@@ -1,6 +1,6 @@
 import { AppStorage } from 'lib/services/storage/app-storage-service'
 import { action, computed, makeObservable, observable, runInAction } from 'mobx'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 import { RootStore } from './root-store'
 
 export type TransactionStatus<TData = any> = {

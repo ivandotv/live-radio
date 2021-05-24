@@ -95,7 +95,7 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
           alt={session?.user?.name ?? '?'}
           className={classes.avatar}
           onClick={handleToggle}
-          src={session?.user.image as string}
+          src={session?.user?.image as string}
         ></Avatar>
       </div>
       <div>

@@ -1,4 +1,4 @@
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 import { AppStorageService } from './app-storage-service'
 
 export class RemoteStorage implements AppStorageService {

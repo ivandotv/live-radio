@@ -1,11 +1,12 @@
 import { auth, db } from 'app-config'
-import { NextApiRequest, NextApiResponse } from 'next'
-import NextAuth, { InitOptions, User } from 'next-auth'
+// import { NextApiRequest, NextApiResponse } from 'next'
+import NextAuth, { User } from 'next-auth'
 import Providers from 'next-auth/providers'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
-const options: InitOptions = {
+
+export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [Providers.GitHub(auth.github), Providers.Google(auth.google)],
   // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
@@ -81,13 +82,7 @@ const options: InitOptions = {
 
       return Promise.resolve(session)
     },
-    jwt: async (
-      token,
-      user: User & { id: string },
-      _account,
-      _profile,
-      _isNewUser
-    ) => {
+    jwt: async (token: any, user: User) => {
       if (user) {
         //first sign in
         // add user id
@@ -101,7 +96,7 @@ const options: InitOptions = {
   // Events are useful for logging
   // https://next-auth.js.org/configuration/events
   events: {
-    createUser: async (_user) => {
+    createUser: async (_user: User) => {
       /* user created */
       // console.log('user created')
       // console.log({ message: user })
@@ -116,8 +111,4 @@ const options: InitOptions = {
     }
   },
   debug: auth.debug
-}
-
-export default (req: NextApiRequest, res: NextApiResponse) => {
-  return NextAuth(req, res, options)
-}
+})

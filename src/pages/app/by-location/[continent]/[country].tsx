@@ -14,7 +14,7 @@ import { continentsByCode } from 'lib/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 
 const indexes = ['language', 'country', 'tags', 'continent', 'name']
 
@@ -76,9 +76,10 @@ export default function CountryStations({
     return <ListStationsFallback />
   }
 
-  const continentName = continentsByCode()[
-    continentCode as keyof ReturnType<typeof continentsByCode>
-  ]
+  const continentName =
+    continentsByCode()[
+      continentCode as keyof ReturnType<typeof continentsByCode>
+    ]
 
   const countryData = countries()[
     continentCode as keyof ReturnType<typeof countries>

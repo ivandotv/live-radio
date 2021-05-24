@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite'
 import { useCallback } from 'react'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
 import { TagList } from 'components/TagList'
 

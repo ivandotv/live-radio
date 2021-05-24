@@ -10,7 +10,7 @@ import { PlayerStatus } from 'lib/stores/music-player-store'
 import { RadioStore } from 'lib/stores/radio-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useCallback, useState } from 'react'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 import { StationRowRemoveBtn } from './StationRowRemoveBtn'
 
 const useStyles = makeStyles((theme: Theme) => {

@@ -3,9 +3,23 @@ import { continents, countries } from 'countries-list'
 // @ts-ignore
 import flag from 'country-code-emoji'
 import { Station } from 'radio-browser-api'
-import { RadioStation } from 'types'
 import { RadioStore } from './stores/radio-store'
 
+export type RadioStation = {
+  tags: string[]
+  name: string
+  url: string
+  id: string
+  // favicon: string
+  homepage: string
+  country: string // country code?
+  countryCode: string
+  language: string[]
+  codec: string
+  continent: string
+  continentCode: string
+  flag: string
+}
 //todo - rename to dataToRadioStations
 export function dataToRadioStations(stations: Station[]): RadioStation[] {
   const result = []

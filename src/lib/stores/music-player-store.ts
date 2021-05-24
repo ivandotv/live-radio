@@ -3,7 +3,7 @@ import { SongInfoService } from 'lib/services/song-info-service'
 import { AppStorage } from 'lib/services/storage/app-storage-service'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',

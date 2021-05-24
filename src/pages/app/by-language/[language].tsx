@@ -11,7 +11,7 @@ import { createStationListRow, dataToRadioStations } from 'lib/station-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
   const paths = paramsWithLocales(

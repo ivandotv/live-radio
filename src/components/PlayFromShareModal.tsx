@@ -9,7 +9,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import { useCallback } from 'react'
 import useSWR from 'swr'
-import { RadioStation } from 'types'
+import { RadioStation } from 'lib/station-utils'
 import { useRootStore } from './providers/RootStoreProvider'
 
 const useStyles = makeStyles((_theme: Theme) => {
