@@ -4,9 +4,7 @@ let store: LocationStore
 export function locationFactory() {
   const isSSR = typeof window === 'undefined'
 
-  const fetchImpl = isSSR ? fetch : fetch.bind(window)
-
-  const _store = store ?? new LocationStore(fetchImpl)
+  const _store = store ?? new LocationStore()
 
   if (isSSR) return _store
 
