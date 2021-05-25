@@ -4,6 +4,7 @@ import { AppStorage } from 'lib/services/storage/app-storage-service'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioStation } from 'lib/station-utils'
+import { RadioBrowserApi } from 'radio-browser-api'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -33,16 +34,21 @@ export class MusicPlayerStore {
 
   errorStations: { [key: string]: boolean } = {}
 
+  protected stationClickTimeoutId: number | undefined
+
+  protected stationClickDelay = 10000
+
   protected player: Howl | undefined = undefined
 
   protected firstTryLoad = true
 
-  // TODO - switch to robot3 state library for player state
+  // TODO - this should be a state machine
   constructor(
     protected rootStore: RootStore,
     protected storage: AppStorage,
     protected songInfoService: SongInfoService,
-    public station: RadioStation
+    public station: RadioStation,
+    protected radioApi: RadioBrowserApi
   ) {
     makeObservable<
       MusicPlayerStore,
@@ -129,6 +135,23 @@ export class MusicPlayerStore {
       console.log('radio playing')
       this.songInfoService.start(station.url, this.songServiceCb.bind(this))
       this.firstTryLoad = true
+      clearTimeout(this.stationClickTimeoutId)
+      this.stationClickTimeoutId = window.setTimeout(() => {
+        runInAction(() => {
+          if (
+            this.status === PlayerStatus.PLAYING ||
+            this.status === PlayerStatus.BUFFERING
+          ) {
+            this.radioApi
+              .sendStationClick(this.station.id)
+              .catch((_e: Error) => {
+                //todo - log error
+              })
+          }
+        })
+        this.stationClickTimeoutId = undefined
+      }, this.stationClickDelay)
+
       runInAction(() => {
         this.stationChecked = false
         this.status = PlayerStatus.PLAYING

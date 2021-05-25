@@ -35,6 +35,7 @@ const useStyles = makeStyles((theme: Theme) => {
   })
 })
 
+//todo - this should be a state machine
 export const LocationModal = observer(function LocationModal({
   open,
   onClose

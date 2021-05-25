@@ -3,6 +3,8 @@ import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { MusicPlayerStore } from 'lib/stores/music-player-store'
 import { RootStore } from 'lib/stores/root-store'
 import { getDefaultStation } from 'lib/station-utils'
+import { RadioBrowserApi } from 'radio-browser-api'
+import { userAgentName } from 'app-config'
 
 let store: MusicPlayerStore
 
@@ -18,7 +20,8 @@ export function musicPlayerFactory(root: RootStore) {
       root,
       appStorageFactory(),
       songInfoService,
-      getDefaultStation()
+      getDefaultStation(),
+      new RadioBrowserApi(fetchImpl, userAgentName, true)
     )
   } else {
     _store = store
