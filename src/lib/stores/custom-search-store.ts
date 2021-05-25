@@ -13,7 +13,7 @@ export class CustomSearchStore {
 
   protected searchTimeoutId: number | undefined
 
-  protected requestToken: number | undefined
+  protected requestToken: Record<string, unknown> | undefined
 
   data: { result?: RadioStation[]; error?: Error } = {}
 
@@ -54,7 +54,7 @@ export class CustomSearchStore {
 
   protected async searchData(query: string) {
     // respond only to last resolved promise
-    const localToken = Date.now()
+    const localToken = {}
     this.requestToken = localToken
     this.searchInProgress = true
 

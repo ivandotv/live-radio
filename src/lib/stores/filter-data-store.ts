@@ -1,11 +1,5 @@
 import * as JsSearch from 'js-search'
-import {
-  action,
-  IObservableArray,
-  makeObservable,
-  observable,
-  runInAction
-} from 'mobx'
+import { action, makeObservable, observable, runInAction } from 'mobx'
 
 export class FilterDataStore {
   allData: any[] = []
@@ -30,8 +24,11 @@ export class FilterDataStore {
   }
 
   hydrate(data: any[], uuid: string, indexes: string[], query?: string): void {
-    ;(this.allData as IObservableArray).replace([...data])
-    ;(this.filtered as IObservableArray).replace(this.allData)
+    // ;(this.allData as IObservableArray).replace([...data])
+    // ;(this.filtered as IObservableArray).replace(this.allData)
+    this.allData = [...data]
+    this.filtered = [...data]
+
     this.searchApi = new JsSearch.Search(uuid)
     indexes.forEach((index) => {
       this.searchApi!.addIndex(index)
@@ -66,10 +63,12 @@ export class FilterDataStore {
 
   protected searchData(query: string): void {
     if (this.query.length === 0) {
-      ;(this.filtered as IObservableArray).replace([...this.allData])
+      // ;(this.filtered as IObservableArray).replace([...this.allData])
+      this.filtered = [...this.allData]
     } else {
       const result = this.searchApi?.search(query) as []
-      ;(this.filtered as IObservableArray).replace([...result])
+      // ;(this.filtered as IObservableArray).replace([...result])
+      this.filtered = [...result]
     }
   }
 

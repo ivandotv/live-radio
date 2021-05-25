@@ -1,4 +1,4 @@
-import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 
 export function DefaultMenuItems({
   onClick

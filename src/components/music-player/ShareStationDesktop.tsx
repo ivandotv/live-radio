@@ -20,8 +20,6 @@ http://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${encodeURICompo
   text
 )}`
 
-// const stationSnackSuccess = 'Station link copied to clipboard'
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     link: {
@@ -71,13 +69,6 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
       }
     })
   }
-
-  // const onSnackClose = (_: SyntheticEvent, reason: string) => {
-  //   if (reason === 'clickaway') {
-  //     return
-  //   }
-  //   setSnackOpen(false)
-  // }
 
   const copyLinkItem =
     typeof window !== 'undefined' && navigator.clipboard ? (

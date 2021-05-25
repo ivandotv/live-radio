@@ -65,7 +65,7 @@ export const LocationModal = observer(function LocationModal({
   }, [location.data])
 
   const goToBrowseByLocation = () => {
-    router.push('search/by-location')
+    router.push('app/by-location')
   }
 
   const goToCountryStations = () => {

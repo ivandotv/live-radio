@@ -27,7 +27,7 @@ export class SongInfoService {
   }
 
   protected async fetchData(stationUrl: string) {
-    const response = await this.transport('/api/songinfo', {
+    const response = await this.transport('/api/song-info', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

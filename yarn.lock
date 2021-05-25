@@ -5728,6 +5728,11 @@ next-auth@^3.23.3:
     preact-render-to-string "^5.1.14"
     querystring "^0.2.0"
 
+next-compose-plugins@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/next-compose-plugins/-/next-compose-plugins-2.2.1.tgz#020fc53f275a7e719d62521bef4300fbb6fde5ab"
+  integrity sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==
+
 next-connect@^0.10.1:
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/next-connect/-/next-connect-0.10.1.tgz#59628f98a184694a9415bef48076ed0fe10902ce"

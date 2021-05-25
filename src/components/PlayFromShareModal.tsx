@@ -51,7 +51,7 @@ export function PlayFromShareModal({
   const { musicPlayer } = useRootStore()
 
   const { data, error } = useSWR<RadioStation[]>(
-    open ? `/api/stationinfo?play=${encodeURIComponent(play)}` : null,
+    open ? `/api/station-info?play=${encodeURIComponent(play)}` : null,
     fetcher,
     { shouldRetryOnError: false }
   )

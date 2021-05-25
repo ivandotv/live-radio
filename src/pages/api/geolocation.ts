@@ -7,13 +7,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const detectedIp = requestIp.getClientIp(req)
 
   // if localhost is detected , send empty string
-  const queryIp = detectedIp === '::1' ? '' : detectedIp
+  let queryIp = detectedIp === '::1' ? '' : detectedIp
+  queryIp = ''
 
   try {
     const response = await fetch(`http://ip-api.com/json/${queryIp}`)
-    const { country } = await response.json()
-
-    const countryData = countryDataByKey('name', country)
+    const data = await response.json()
+    console.log(data)
+    const countryData = countryDataByKey('name', data.country)
 
     if (!countryData) {
       throw new Error(`Can't parse location data`)

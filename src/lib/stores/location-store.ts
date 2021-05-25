@@ -5,13 +5,12 @@ export class LocationStore {
 
   error = false
 
-  data:
-    | { name: string; code: string; cont: string; flag: string }
-    | undefined = undefined //mobx thing
+  data: { name: string; code: string; cont: string; flag: string } | undefined =
+    undefined //mobx thing
 
-  protected url = '/api/locationinfo '
+  protected url = '/api/geolocation '
 
-  constructor(protected transport: typeof fetch) {
+  constructor() {
     makeObservable(this, {
       data: observable,
       loading: observable,

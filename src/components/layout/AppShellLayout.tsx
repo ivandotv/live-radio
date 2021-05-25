@@ -20,12 +20,8 @@ import { AppToolbar } from 'components/layout/AppToolbar'
 import { OfflineIndicator } from 'components/OfflineIndicator'
 
 // todo - make the values dynamic
-const {
-  playerHeight,
-  mobileMenuHeight,
-  topBarHeight,
-  mainContentSpacer
-} = layout
+const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
+  layout
 
 const desktopContentHeight = playerHeight + topBarHeight + mainContentSpacer
 const mobileContentHeight = playerHeight + topBarHeight + mobileMenuHeight

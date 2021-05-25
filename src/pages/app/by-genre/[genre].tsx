@@ -1,21 +1,30 @@
-import { GetStaticPaths, GetStaticProps } from 'next'
-import { RadioBrowserApi } from 'radio-browser-api'
-import { ListStations } from 'components/ListStations'
-import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-import { PageTitle } from 'components/PageTitle'
-import { createStationListRow, dataToRadioStations } from 'lib/station-utils'
-import { RadioStation } from 'lib/station-utils'
-import { userAgentName } from 'app-config'
 import { t, Trans } from '@lingui/macro'
-import { loadTranslation, paramsWithLocales } from 'lib/translations'
-import { useRouter } from 'next/router'
+import { userAgentName } from 'app-config'
+import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
+import { PageTitle } from 'components/PageTitle'
+import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { genres } from 'generated/genres'
+import {
+  createStationListRow,
+  dataToRadioStations,
+  RadioStation
+} from 'lib/station-utils'
+import { loadTranslation, paramsWithLocales } from 'lib/translations'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { useRouter } from 'next/router'
+import { RadioBrowserApi } from 'radio-browser-api'
 
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
   const paths = paramsWithLocales(
-    [{ genre: 'pop' }, { genre: 'rock' }],
+    [
+      { genre: 'pop' },
+      { genre: 'rock' },
+      { genre: 'dance' },
+      { genre: 'rock' },
+      { genre: 'house' }
+    ],
     locales!
   )
 
@@ -61,6 +70,8 @@ export default function GenreStations({
   const router = useRouter()
 
   if (router.isFallback) {
+    console.log('fallback')
+
     return <ListStationsFallback />
   }
 

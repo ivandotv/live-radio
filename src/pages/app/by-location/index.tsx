@@ -1,7 +1,7 @@
 import List from '@material-ui/core/List'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
-import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { continentsByCode } from 'lib/utils'
 import { t } from '@lingui/macro'

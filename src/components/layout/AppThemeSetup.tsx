@@ -12,10 +12,9 @@ export const AppThemeProvider = observer(function AppThemeProvider({
 }) {
   const { appShell } = useRootStore()
 
-  // leave if out of mobx because of suspense
+  // leave it out of mobx because of suspense
   const [showQueryTheme, setShowQueryTheme] = useState(false)
 
-  // console.log('new app shell provider')
   useEffect(() => {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')

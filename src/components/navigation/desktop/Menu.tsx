@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import List from '@material-ui/core/List'
-import { AppMenuItem } from 'components/navigation/desktop/AppMenuItem'
+import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 
