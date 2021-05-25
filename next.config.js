@@ -11,7 +11,8 @@ const withPWA = require('next-pwa')
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
 const nextConfig = {
-  // reactStrictMode: true,
+  reactStrictMode: true,
+  future: { webpack5: true },
   i18n: {
     // These are all the locales you want to support in
     // your application
