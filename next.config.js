@@ -4,14 +4,13 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 const withPWA = require('next-pwa')
-// const runtimeCaching = require('./src/cache')
 
 // @ts-check
 /**
  * @type {import('next/dist/next-server/server/config').NextConfig}
  **/
 const nextConfig = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   future: { webpack5: true },
   i18n: {
     // These are all the locales you want to support in
@@ -21,7 +20,6 @@ const nextConfig = {
   },
   pwa: {
     dest: 'public',
-    // runtimeCaching,
     scope: '/app',
     disable: process.env.NODE_ENV !== 'production'
   },

@@ -14,7 +14,14 @@ export class MediaSessionService {
             this.navigator.mediaSession.metadata = new MediaMetadata({
               title: this.musicPlayer.station.name,
               artist: undefined,
-              album: undefined
+              album: undefined,
+              artwork: [
+                {
+                  src: '/pwa-icons/manifest-icon-512.png',
+                  sizes: '512x512',
+                  type: 'image/png'
+                }
+              ]
             })
           }
         }
