@@ -3,7 +3,7 @@ import { musicPlayerFactory } from 'lib/stores/factories/music-player-factory'
 import { MusicPlayerStore } from 'lib/stores/music-player-store'
 import { appShellFactory } from './factories/app-shell-factory'
 import { favoritesFactory } from './factories/favorites-factory'
-import { recentStationsFactory } from './factories/recent-stations-factory'
+import { recentStationsFactory } from './factories/radio-store-factory'
 import { RadioStore } from './radio-store'
 
 export class RootStore {
