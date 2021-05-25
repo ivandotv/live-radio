@@ -2,8 +2,8 @@
   "theme_color": "#4a90e2",
   "background_color": "#4a90e2",
   "display": "standalone",
-  "start_url": "/app",
-  "scope": "/app",
+  "start_url": "/app/",
+  "scope": "/app/",
   "name": "Live Radio",
   "short_name": "Live Radio",
   "description": "Listen to live radio",
@@ -24,31 +24,25 @@
   ],
   "shortcuts": [
     {
-      "name": "Go to Home",
-      "short_name": "Home",
-      "description": "Open home section of the applications",
-      "url": "app",
-      "icons": [
-        { "src": "pwa-shortcuts/home-shortcut.png", "sizes": "192x192" }
-      ]
-    },
-    {
       "name": "Go to Settings",
       "short_name": "Settings",
-      "description": "Open settings section of the applications",
+      "description": "Manage application settings",
       "url": "app/settings",
-      "icons": [
-        { "src": "pwa-shortcuts/settings-shortcut.png", "sizes": "192x192" }
-      ]
+      "icons": [{ "src": "pwa-shortcuts/settings.png", "sizes": "192x192" }]
     },
     {
-      "name": "Go to Profile",
-      "short_name": "Profile",
-      "description": "Open profile section of the applications",
-      "url": "app/settings?section=profile",
-      "icons": [
-        { "src": "pwa-shortcuts/profile-shortcut.png", "sizes": "192x192" }
-      ]
+      "name": "Go to Favorites",
+      "short_name": "Favorites",
+      "description": "Manage your favorite stations",
+      "url": "app/favorites",
+      "icons": [{ "src": "pwa-shortcuts/favorites.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Recently played",
+      "short_name": "Recent",
+      "description": "Manage your recent stations",
+      "url": "app/recent-stations",
+      "icons": [{ "src": "pwa-shortcuts/recent.png", "sizes": "192x192" }]
     }
   ]
 }
