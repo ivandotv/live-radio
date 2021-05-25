@@ -3,12 +3,11 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import requestIp from 'request-ip'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log(requestIp.getClientIp(req))
   const detectedIp = requestIp.getClientIp(req)
 
   // if localhost is detected , send empty string
-  let queryIp = detectedIp === '::1' ? '' : detectedIp
-  queryIp = ''
+  let queryIp =
+    detectedIp === '::1' || detectedIp === '127.0.0.1' ? '' : detectedIp
 
   try {
     const response = await fetch(`http://ip-api.com/json/${queryIp}`)
