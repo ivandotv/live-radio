@@ -105,8 +105,7 @@ export default function GenreStations({
         noData={
           <p>
             <Trans>
-              Currently there is no data for <strong>${genreTrans.t}</strong>.
-              Sorry for the inconvenience.
+              Currently there is no data for <strong> ${genreTrans.t}</strong>.
             </Trans>
           </p>
         }

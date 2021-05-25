@@ -63,10 +63,7 @@ export const CustomSearchResults = observer(function CustomSearchResults({
   const noData = (
     <div className={classes.noData}>
       <Trans>
-        <p>
-          Currently there is no data for your query. Sorry for the
-          inconvenience.
-        </p>
+        <p>Currently there is no data for your query.</p>
       </Trans>
     </div>
   )

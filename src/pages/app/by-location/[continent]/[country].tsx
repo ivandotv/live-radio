@@ -118,9 +118,8 @@ export default function CountryStations({
         noData={
           <Trans>
             <p>
-              Currently there is no data!!! for
-              <strong>{`${countryData.name}`}</strong>. Sorry for the
-              inconvenience.
+              Currently there is no data for
+              <strong> {`${countryData.name}`}</strong>.
             </p>
           </Trans>
         }

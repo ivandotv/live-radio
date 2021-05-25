@@ -11,19 +11,15 @@ import { plural, t } from '@lingui/macro'
 
 import { layout } from 'app-config'
 
-const {
-  playerHeight,
-  mobileMenuHeight,
-  topBarHeight,
-  mainContentSpacer
-} = layout
+const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
+  layout
 
 const desktopContentHeight = playerHeight + topBarHeight + mainContentSpacer
 const mobileContentHeight = playerHeight + topBarHeight + mobileMenuHeight
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     noData: {
-      // margin: theme.spacing(2),
+      margin: theme.spacing(2),
       // display: 'flex',
       overflowY: 'auto',
       height: `calc( 100vh - ${desktopContentHeight}px )`,

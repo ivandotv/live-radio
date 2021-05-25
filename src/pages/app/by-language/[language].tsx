@@ -102,8 +102,8 @@ export default function LanguageStations({
         noData={
           <Trans>
             <p>
-              Currently there is no data for <strong>{languageTrans.t}</strong>.
-              Sorry for the inconvenience.
+              Currently there is no data for <strong> {languageTrans.t}</strong>
+              .
             </p>
           </Trans>
         }
