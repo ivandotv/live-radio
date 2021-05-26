@@ -7,25 +7,13 @@ import Providers from 'next-auth/providers'
 // https://next-auth.js.org/configuration/options
 
 export default NextAuth({
-  // https://next-auth.js.org/configuration/providers
   providers: [Providers.GitHub(auth.github), Providers.Google(auth.google)],
-  // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
-  // https://next-auth.js.org/configuration/databases
-  //
-
-  // Notes:
-  // * You must to install an appropriate node_module for your database
-  // * The Email provider requires a database (OAuth providers do not)
-  // database: process.env.DATABASE_URL,
   database: {
     type: 'mongodb',
     url: db.uri,
     useNewUrlParser: true,
     useUnifiedTopology: true
   },
-  // The secret should be set to a reasonably long random string.
-  // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
-  // a separate secret is defined explicitly for encrypting the JWT.
   secret: auth.signSecret,
 
   session: {
@@ -43,26 +31,12 @@ export default NextAuth({
     // updateAge: 24 * 60 * 60, // 24 hours
   },
 
-  // JSON Web tokens are only used for sessions if the `jwt: true` session
-  // option is set - or by default if no database is specified.
-  // https://next-auth.js.org/configuration/options#jwt
-  jwt: {
-    // A secret to use for key generation (you should set this explicitly)
-    // secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw',
-    // Set to true to use encryption (default: false)
-    // encryption: true,
-    // You can define your own encode/decode functions for signing and encryption
-    // if you want to override the default behaviour.
-    // encode: async ({ secret, token, maxAge }) => {},
-    // decode: async ({ secret, token, maxAge }) => {},
-  },
-
   // You can define custom pages to override the built-in pages.
   // The routes shown here are the default URLs that will be used when a custom
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    // signIn: '/api/auth/signin',  // Displays signin buttons
+    signIn: '/auth/sign-in' // Displays signin buttons
     // signOut: '/api/auth/signout', // Displays form with sign out button
     // error: '/api/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/api/auth/verify-request', // Used for check email page
@@ -90,24 +64,6 @@ export default NextAuth({
       }
 
       return Promise.resolve(token)
-    }
-  },
-
-  // Events are useful for logging
-  // https://next-auth.js.org/configuration/events
-  events: {
-    createUser: async (_user: User) => {
-      /* user created */
-      // console.log('user created')
-      // console.log({ message: user })
-      // // add data to user table
-      // const { db } = await connectToDatabase()
-      // await db
-      //   .collection('users')
-      //   .updateOne(
-      //     { _id: new ObjectId(user.id) },
-      //     { $set: { favorites: [], recent: [] } }
-      //   )
     }
   },
   debug: auth.debug

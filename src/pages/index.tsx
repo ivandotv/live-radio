@@ -2,22 +2,21 @@ import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
+import { useClientUrl } from 'lib/utils'
 import { NextPageContext } from 'next'
-import { getSession, signIn, signOut, useSession } from 'next-auth/client'
-import Head from 'next/head'
+import { getSession, signOut, useSession } from 'next-auth/client'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import globalStyles from 'styles/global'
 
 export default function Index() {
   const [session] = useSession()
+  const router = useRouter()
+
+  const callback = useClientUrl(`/${router.locale}/app`)
 
   return (
     <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap"
-          rel="stylesheet"
-        ></link>
-      </Head>
       <div className="page-wrap">
         <PageTitle title={t`Welcome to Live Radio App`} />
         <h1>Live Radio</h1>
@@ -26,25 +25,11 @@ export default function Index() {
         </div>
         <div className="btn-wrap">
           <Link
-            locale={session ? undefined : false}
-            href={session ? '/app' : '/api/auth/signin'}
+            href={session ? '/app' : `/auth/sign-in?callbackUrl=${callback}`}
             passHref={true}
             prefetch={false}
           >
-            <a
-              onClick={(e: React.MouseEvent) => {
-                if (!session) {
-                  e.preventDefault()
-                  signIn(undefined, {
-                    callbackUrl: `${window.location.origin.replace(
-                      /\/$/,
-                      ''
-                    )}/app`
-                  })
-                }
-              }}
-              className={clsx('app-btn', { 'has-session': session })}
-            >
+            <a className={clsx('app-btn', { 'has-session': session })}>
               {session ? t`Welcome Back` : t`Sign in or Register`}
               {session ? (
                 <div className="avatar avatar-user">
@@ -109,12 +94,6 @@ export default function Index() {
             .app-btn {
               display: flex;
               align-items: center;
-              background-color: blue;
-              border-radius: 6px;
-              color: #fff;
-              padding: 8px;
-              font-size: 0.9rem;
-              text-decoration: none;
             }
 
             .avatar-user {
@@ -131,22 +110,7 @@ export default function Index() {
           `}
         </style>
         <style jsx global>
-          {`
-            img {
-              width: 100%;
-              height: auto;
-              aspect-ratio: attr(width) / attr(height);
-            }
-            body {
-              font-family: 'Open Sans', sans-serif;
-            }
-            @media (prefers-color-scheme: dark) {
-              body {
-                background-color: #212121;
-                color: white;
-              }
-            }
-          `}
+          {globalStyles}
         </style>
       </div>
     </>
@@ -155,9 +119,11 @@ export default function Index() {
 
 // Export the `session` prop to use sessions with Server Side Rendering
 export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context)
+
   return {
     props: {
-      session: await getSession(context)
+      session
     }
   }
 }

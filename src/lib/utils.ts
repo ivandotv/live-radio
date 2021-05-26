@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro'
 import { countries } from 'generated/countries'
+import { useEffect, useState } from 'react'
 
 export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
   const countryData = countries()
@@ -60,4 +61,13 @@ export function searchTranslation(
   }
 
   return needle
+}
+
+export function useClientUrl(path: string = '') {
+  const [url, setUrl] = useState('')
+  useEffect(() => {
+    setUrl(`${window.location.origin.replace(/\/$/, '')}${path}`)
+  }, [url, path])
+
+  return url
 }

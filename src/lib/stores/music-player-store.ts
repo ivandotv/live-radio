@@ -222,8 +222,10 @@ export class MusicPlayerStore {
   }
 
   protected disposePlayer() {
-    this.player!.unload()
-    this.player!.off()
+    if (this.player) {
+      this.player.unload()
+      this.player.off()
+    }
   }
 
   play(station: RadioStation) {

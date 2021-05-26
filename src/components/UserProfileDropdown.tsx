@@ -10,8 +10,9 @@ import {
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { PlayerStatus } from 'lib/stores/music-player-store'
+import { useClientUrl } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
-import { signIn, signOut, useSession } from 'next-auth/client'
+import { signOut, useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 import { useRootStore } from './providers/RootStoreProvider'
@@ -33,6 +34,8 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
 
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
+
+  const callbackUrl = useClientUrl(`/${router.locale}${router.pathname}`)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)
@@ -80,7 +83,7 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
             ) {
               sessionStorage.setItem('signInInterrupt', '1')
             }
-            signIn()
+            router.push(`/auth/sign-in?callbackUrl=${callbackUrl}`)
           }}
           key="signin"
         >

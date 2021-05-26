@@ -19,6 +19,8 @@ export async function setupSession(
   next: NextHandler
 ) {
   const session = await getSession({ req })
+  console.log('has session ???')
+  console.log('session ')
   if (!session) {
     return res.status(401).json({ msg: 'Unauthorized' })
   }
