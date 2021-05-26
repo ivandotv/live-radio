@@ -1,5 +1,6 @@
 import {
   deleteStation,
+  getStations,
   onError,
   onNoMatch,
   saveStation
@@ -12,7 +13,7 @@ const collectionName = 'favorites'
 
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
   .use(setupSession)
-  .get(collectionName)
+  .get(getStations(collectionName))
   .post(validateStation, saveStation(collectionName))
   .delete(deleteStation(collectionName))
 
