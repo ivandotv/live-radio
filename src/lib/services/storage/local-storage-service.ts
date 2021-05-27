@@ -23,7 +23,7 @@ export class LocalStorage implements AppStorageService {
   }
 
   async addFavoriteStation(station: RadioStation) {
-    return this.set('favorites', station)
+    return this.put('favorites', station)
   }
 
   removeFavoriteStation(id: string) {
@@ -35,7 +35,7 @@ export class LocalStorage implements AppStorageService {
   }
 
   addRecentStation(station: RadioStation) {
-    return this.set('history', station)
+    return this.put('history', station)
   }
 
   removeRecentStation(id: string) {
@@ -106,7 +106,7 @@ export class LocalStorage implements AppStorageService {
   async put(
     collection: StoreNames<LocalSchema>,
     station: RadioStation,
-    key: string | IDBKeyRange | undefined
+    key?: string | IDBKeyRange | undefined
   ) {
     const db = await this.getDB()
 
