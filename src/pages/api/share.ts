@@ -6,6 +6,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const config = getConfig()
   const play = req.query?.play as string
 
+  res.status(301)
+
   if (!play) {
     //go to index
     res.redirect('/')
