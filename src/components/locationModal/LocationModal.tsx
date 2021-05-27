@@ -8,10 +8,11 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { useLocationStore } from 'components/providers/LocationStoreProvider'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { useCallback, useMemo } from 'react'
+import { fetchJson } from 'nice-fetch'
+import { useCallback, useEffect, useMemo } from 'react'
+import { useAsyncFn } from 'react-use'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -45,14 +46,26 @@ export const LocationModal = observer(function LocationModal({
 }) {
   const classes = useStyles()
   const router = useRouter()
-  const locationStore = useLocationStore()
 
-  if (open) {
-    locationStore.getLocation()
-  }
+  const [state, doFetch] = useAsyncFn(async () => {
+    const data = await fetchJson<{
+      cont: string
+      code: string
+      flag: string
+      name: string
+    }>('/api/geolocation')
+
+    return data[0]
+  })
+
+  useEffect(() => {
+    if (open) {
+      doFetch()
+    }
+  }, [open, doFetch])
 
   const countryData = useMemo(() => {
-    const data = locationStore.data
+    const data = state.value
     if (data) {
       return {
         link: {
@@ -63,7 +76,7 @@ export const LocationModal = observer(function LocationModal({
         country: data.name
       }
     }
-  }, [locationStore.data])
+  }, [state.value])
 
   const goToBrowseByLocation = () => {
     router.push('app/by-location')
@@ -87,7 +100,7 @@ export const LocationModal = observer(function LocationModal({
       <DialogTitle className={classes.modalTitle} id="alert-dialog-title">
         {countryData ? (
           <Trans>Your location is</Trans>
-        ) : locationStore.error ? (
+        ) : state.error ? (
           <Trans> Sorry, couldn&apos;t get your location</Trans>
         ) : (
           <Trans>Determinig your location</Trans>
@@ -100,18 +113,18 @@ export const LocationModal = observer(function LocationModal({
               <span className={classes.flag}>{countryData.flag}</span>
               {countryData.country}
             </Typography>
-          ) : !locationStore.error ? (
+          ) : !state.error ? (
             <CircularProgress />
           ) : null}
         </DialogContentText>
       </DialogContent>
       <DialogActions className={classes.actionColors}>
-        {locationStore.error ? (
+        {state.error ? (
           <Button onClick={handleClose} color="inherit">
             {t`close`}
           </Button>
         ) : null}
-        {countryData || locationStore.error ? (
+        {countryData || state.error ? (
           <>
             <Button onClick={goToBrowseByLocation} color="inherit">
               {countryData ? (
