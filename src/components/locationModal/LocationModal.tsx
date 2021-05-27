@@ -45,14 +45,14 @@ export const LocationModal = observer(function LocationModal({
 }) {
   const classes = useStyles()
   const router = useRouter()
-  const location = useLocationStore()
+  const locationStore = useLocationStore()
 
   if (open) {
-    location.getLocation()
+    locationStore.getLocation()
   }
 
   const countryData = useMemo(() => {
-    const data = location.data
+    const data = locationStore.data
     if (data) {
       return {
         link: {
@@ -63,7 +63,7 @@ export const LocationModal = observer(function LocationModal({
         country: data.name
       }
     }
-  }, [location.data])
+  }, [locationStore.data])
 
   const goToBrowseByLocation = () => {
     router.push('app/by-location')
@@ -87,7 +87,7 @@ export const LocationModal = observer(function LocationModal({
       <DialogTitle className={classes.modalTitle} id="alert-dialog-title">
         {countryData ? (
           <Trans>Your location is</Trans>
-        ) : location.error ? (
+        ) : locationStore.error ? (
           <Trans> Sorry, couldn&apos;t get your location</Trans>
         ) : (
           <Trans>Determinig your location</Trans>
@@ -100,18 +100,18 @@ export const LocationModal = observer(function LocationModal({
               <span className={classes.flag}>{countryData.flag}</span>
               {countryData.country}
             </Typography>
-          ) : !location.error ? (
+          ) : !locationStore.error ? (
             <CircularProgress />
           ) : null}
         </DialogContentText>
       </DialogContent>
       <DialogActions className={classes.actionColors}>
-        {location.error ? (
+        {locationStore.error ? (
           <Button onClick={handleClose} color="inherit">
             {t`close`}
           </Button>
         ) : null}
-        {countryData || location.error ? (
+        {countryData || locationStore.error ? (
           <>
             <Button onClick={goToBrowseByLocation} color="inherit">
               {countryData ? (

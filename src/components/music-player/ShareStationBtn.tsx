@@ -28,7 +28,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const classes = useStyles({ fontSize })
   const { musicPlayer } = useRootStore()
 
-  const shareUrl = `${encodeURI(url)}/app?play=${encodeURIComponent(
+  const shareUrl = `${encodeURI(url)}/api/share?play=${encodeURIComponent(
     musicPlayer.station.id
   )}`
   const shareTitle = t`Share Station -- `

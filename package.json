@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "yarn generate && yarn lang:extract && yarn lang:compile && next build",
+    "build": "yarn generate && yarn lang && next build",
     "start": "next start",
     "analyze": "env ANALYZE=true npm run build",
     "gen:countries": "node scripts/generate-countries.js",
@@ -14,6 +14,7 @@
     "generate": "npm-run-all gen:*",
     "lang:extract": "NODE_ENV=development lingui extract",
     "lang:compile": "lingui compile",
+    "lang": "yarn lang:extract && yarn lang:compile",
     "type:check": "tsc",
     "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky install"
@@ -31,6 +32,7 @@
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@rehooks/online-status": "^1.1.2",
     "@types/request-ip": "0.0.35",
+    "accept-language-parser": "^1.5.0",
     "clsx": "^1.1.1",
     "country-code-emoji": "^2.3.0",
     "csso": "^4.2.0",
@@ -66,6 +68,7 @@
     "@lingui/loader": "^3.9.0",
     "@lingui/macro": "^3.9.0",
     "@next/bundle-analyzer": "^10.2.2",
+    "@types/accept-language-parser": "^1.5.1",
     "@types/csso": "^3.5.1",
     "@types/howler": "^2.2.2",
     "@types/js-search": "^1.4.0",

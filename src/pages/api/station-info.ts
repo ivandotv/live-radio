@@ -9,8 +9,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const stationId = req.query.play as string
     const stationResponse = await api.getStationsById([stationId])
+    const stations = dataToRadioStations(stationResponse)
 
-    res.status(200).json(dataToRadioStations(stationResponse))
+    console.log('stations length ', stations.length)
+
+    if (stations.length) {
+      res.status(200).json(stations)
+    } else {
+      res.status(404).json({ message: 'not found' })
+    }
   } catch (err) {
     res.status(503).json({ message: err.message ?? 'server error' })
   }

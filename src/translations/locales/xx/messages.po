@@ -18,16 +18,28 @@ msgstr ""
 #~ msgstr ""
 
 #: src/pages/app/by-language/[language].tsx:103
-msgid "<0>Currently there is no data for <1>{0}</1>. Sorry for the inconvenience.</0>"
+msgid "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgstr ""
 
+#: src/pages/app/by-language/[language].tsx:103
+#~ msgid "<0>Currently there is no data for <1>{0}</1>. Sorry for the inconvenience.</0>"
+#~ msgstr ""
+
 #: src/components/CustomSearchResults.tsx:65
-msgid "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
+#~ msgid "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
+#~ msgstr ""
+
+#: src/components/CustomSearchResults.tsx:65
+msgid "<0>Currently there is no data for your query.</0>"
+msgstr ""
+
+#: src/pages/app/by-location/[continent]/[country].tsx:119
+msgid "<0>Currently there is no data for<1> {0}</1>.</0>"
 msgstr ""
 
 #: src/pages/app/by-location/[continent]/[country].tsx:118
-msgid "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
-msgstr ""
+#~ msgid "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
+#~ msgstr ""
 
 #: src/components/FavoritesList.tsx:34
 #~ msgid "<0>No favorites</0>"
@@ -41,7 +53,7 @@ msgstr ""
 msgid "<0>No results</0>"
 msgstr ""
 
-#: src/components/CustomSearchResults.tsx:106
+#: src/components/CustomSearchResults.tsx:103
 msgid "<0>Search service is not available at the moment. Sorry for the inconvenience.</0>"
 msgstr ""
 
@@ -78,7 +90,7 @@ msgstr ""
 msgid "Afghanistan"
 msgstr ""
 
-#: src/lib/utils.ts:23
+#: src/lib/utils.ts:24
 msgid "Africa"
 msgstr ""
 
@@ -130,12 +142,12 @@ msgstr ""
 msgid "Anguilla"
 msgstr ""
 
-#: src/pages/index.tsx:74
+#: src/pages/index.tsx:59
 msgid "Anonymous User"
 msgstr ""
 
 #: src/generated/countries.js:333
-#: src/lib/utils.ts:27
+#: src/lib/utils.ts:28
 msgid "Antarctica"
 msgstr ""
 
@@ -171,7 +183,7 @@ msgstr ""
 msgid "Aruba"
 msgstr ""
 
-#: src/lib/utils.ts:31
+#: src/lib/utils.ts:32
 msgid "Asia"
 msgstr ""
 
@@ -348,7 +360,7 @@ msgid "Burundi"
 msgstr ""
 
 #: src/app-config.ts:48
-#: src/pages/app/by-genre/[genre].tsx:77
+#: src/pages/app/by-genre/[genre].tsx:88
 #: src/pages/app/by-genre/index.tsx:22
 #: src/pages/app/index.tsx:68
 msgid "By Genre"
@@ -362,7 +374,7 @@ msgid "By Language"
 msgstr ""
 
 #: src/app-config.ts:46
-#: src/pages/app/by-location/[continent]/[country].tsx:94
+#: src/pages/app/by-location/[continent]/[country].tsx:95
 #: src/pages/app/by-location/[continent]/index.tsx:83
 #: src/pages/app/by-location/index.tsx:40
 #: src/pages/app/index.tsx:62
@@ -457,6 +469,10 @@ msgstr ""
 msgid "Cook Islands"
 msgstr ""
 
+#: src/components/music-player/ShareStationDesktop.tsx:75
+msgid "Copy link"
+msgstr ""
+
 #: src/generated/languages.js:96
 msgid "Cornish"
 msgstr ""
@@ -493,9 +509,13 @@ msgstr ""
 msgid "Curacao"
 msgstr ""
 
-#: src/pages/app/by-genre/[genre].tsx:96
-msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
+#: src/pages/app/by-genre/[genre].tsx:107
+msgid "Currently there is no data for <0> ${0}</0>."
 msgstr ""
+
+#: src/pages/app/by-genre/[genre].tsx:96
+#~ msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
+#~ msgstr ""
 
 #: src/app-config.ts:44
 #: src/pages/app/custom.tsx:18
@@ -555,7 +575,7 @@ msgstr ""
 msgid "Depending on your browser this station might not load beacuse it is not served over a secure (https) connection."
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:92
+#: src/components/locationModal/LocationModal.tsx:93
 msgid "Determinig your location"
 msgstr ""
 
@@ -656,7 +676,7 @@ msgstr ""
 msgid "Ethiopia"
 msgstr ""
 
-#: src/lib/utils.ts:35
+#: src/lib/utils.ts:36
 msgid "Europe"
 msgstr ""
 
@@ -702,9 +722,13 @@ msgstr ""
 #~ msgid "Filter Languages"
 #~ msgstr ""
 
-#: src/components/ListStations.tsx:57
-#: src/pages/app/by-location/[continent]/[country].tsx:114
+#: src/components/ListStations.tsx:53
+#: src/pages/app/by-location/[continent]/[country].tsx:115
 msgid "Filter Stations"
+msgstr ""
+
+#: src/components/PlayFromShareModal.tsx:40
+msgid "Finding station"
 msgstr ""
 
 #: src/generated/countries.js:27
@@ -1180,11 +1204,11 @@ msgstr ""
 msgid "Lesotho"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:117
+#: src/components/locationModal/LocationModal.tsx:118
 msgid "Let me choose different location"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:119
+#: src/components/locationModal/LocationModal.tsx:120
 msgid "Let me choose the location"
 msgstr ""
 
@@ -1446,7 +1470,7 @@ msgstr ""
 msgid "Norfolk Island"
 msgstr ""
 
-#: src/lib/utils.ts:39
+#: src/lib/utils.ts:40
 msgid "North America"
 msgstr ""
 
@@ -1494,7 +1518,7 @@ msgstr ""
 msgid "Occitan"
 msgstr ""
 
-#: src/lib/utils.ts:43
+#: src/lib/utils.ts:44
 msgid "Oceania"
 msgstr ""
 
@@ -1502,7 +1526,7 @@ msgstr ""
 msgid "Ojibwe"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:126
+#: src/components/locationModal/LocationModal.tsx:127
 msgid "Okay, let's go"
 msgstr ""
 
@@ -1574,6 +1598,7 @@ msgstr ""
 msgid "Pitcairn Islands"
 msgstr ""
 
+#: src/components/PlayFromShareModal.tsx:77
 #: src/components/music-player/PlayerToggleBtn.tsx:64
 msgid "Play"
 msgstr ""
@@ -1794,11 +1819,11 @@ msgstr ""
 #: src/app-config.ts:42
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:79
-#: src/pages/app/by-genre/[genre].tsx:73
+#: src/pages/app/by-genre/[genre].tsx:84
 #: src/pages/app/by-genre/index.tsx:18
 #: src/pages/app/by-language/[language].tsx:81
 #: src/pages/app/by-language/index.tsx:50
-#: src/pages/app/by-location/[continent]/[country].tsx:90
+#: src/pages/app/by-location/[continent]/[country].tsx:91
 #: src/pages/app/by-location/[continent]/index.tsx:79
 #: src/pages/app/by-location/index.tsx:36
 #: src/pages/app/custom.tsx:15
@@ -1825,9 +1850,9 @@ msgstr ""
 msgid "Search For Stations by Language"
 msgstr ""
 
-#: src/pages/app/by-genre/[genre].tsx:90
+#: src/pages/app/by-genre/[genre].tsx:101
 #: src/pages/app/by-language/[language].tsx:98
-#: src/pages/app/by-location/[continent]/[country].tsx:112
+#: src/pages/app/by-location/[continent]/[country].tsx:113
 msgid "Search For Stations in {0}"
 msgstr ""
 
@@ -1849,7 +1874,7 @@ msgid "Serbian"
 msgstr ""
 
 #: src/app-config.ts:49
-#: src/components/UserProfileDropdown.tsx:70
+#: src/components/UserProfileDropdown.tsx:73
 #: src/components/navigation/desktop/Menu.tsx:31
 #: src/components/navigation/mobile/MobileNavigation.tsx:94
 msgid "Settings"
@@ -1876,15 +1901,16 @@ msgstr ""
 msgid "Sierra Leone"
 msgstr ""
 
-#: src/components/UserProfileDropdown.tsx:87
+#: src/components/UserProfileDropdown.tsx:90
+#: src/pages/auth/sign-in.tsx:20
 msgid "Sign in"
 msgstr ""
 
-#: src/pages/index.tsx:48
+#: src/pages/index.tsx:33
 msgid "Sign in or Register"
 msgstr ""
 
-#: src/components/UserProfileDropdown.tsx:61
+#: src/components/UserProfileDropdown.tsx:64
 msgid "Sign out"
 msgstr ""
 
@@ -1940,8 +1966,12 @@ msgstr ""
 msgid "Somalia"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:90
+#: src/components/locationModal/LocationModal.tsx:91
 msgid "Sorry, couldn't get your location"
+msgstr ""
+
+#: src/components/PlayFromShareModal.tsx:42
+msgid "Sorry, requested station is not available"
 msgstr ""
 
 #: src/generated/genres.js:56
@@ -1952,7 +1982,7 @@ msgstr ""
 msgid "South Africa"
 msgstr ""
 
-#: src/lib/utils.ts:47
+#: src/lib/utils.ts:48
 msgid "South America"
 msgstr ""
 
@@ -1988,11 +2018,15 @@ msgstr ""
 msgid "Sri Lanka"
 msgstr ""
 
+#: src/components/PlayFromShareModal.tsx:41
+msgid "Station found"
+msgstr ""
+
 #: src/components/music-player/PlayerToggleBtn.tsx:90
 msgid "Station is loading"
 msgstr ""
 
-#: src/components/music-player/ShareStationDesktop.tsx:64
+#: src/components/music-player/ShareStationDesktop.tsx:62
 msgid "Station link copied to clipboard"
 msgstr ""
 
@@ -2293,11 +2327,11 @@ msgstr ""
 msgid "Walloon"
 msgstr ""
 
-#: src/pages/index.tsx:48
+#: src/pages/index.tsx:33
 msgid "Welcome Back"
 msgstr ""
 
-#: src/pages/index.tsx:22
+#: src/pages/index.tsx:21
 msgid "Welcome to Live Radio App"
 msgstr ""
 
@@ -2349,7 +2383,7 @@ msgstr ""
 #~ msgid "Your favorite stations will appear here"
 #~ msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:88
+#: src/components/locationModal/LocationModal.tsx:89
 msgid "Your location is"
 msgstr ""
 
@@ -2373,8 +2407,13 @@ msgstr ""
 msgid "Zulu"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:110
+#: src/components/PlayFromShareModal.tsx:87
+#: src/components/locationModal/LocationModal.tsx:111
 msgid "close"
+msgstr ""
+
+#: src/components/PlayFromShareModal.tsx:92
+msgid "play"
 msgstr ""
 
 #: src/pages/_app.tsx:38
@@ -2390,8 +2429,8 @@ msgstr ""
 msgid "remove"
 msgstr ""
 
-#: src/components/CustomSearchResults.tsx:76
-#: src/components/ListStations.tsx:80
+#: src/components/CustomSearchResults.tsx:73
+#: src/components/ListStations.tsx:76
 msgid "{0, plural, one {result} other {results}}"
 msgstr ""
 

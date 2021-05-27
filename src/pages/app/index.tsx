@@ -4,7 +4,7 @@ import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationModal } from 'components/locationModal/LocationModal'
 import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
-import { SyntheticEvent, useEffect, useRef, useState } from 'react'
+import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { getStaticTranslations } from 'lib/translations'
 import { LocationStoreProvider } from 'components/providers/LocationStoreProvider'
 import { useRouter } from 'next/router'
@@ -39,9 +39,9 @@ export default function Search() {
     }
   }, [play, musicPlayer])
 
-  const handleClosePlayDialog = () => {
+  const handleClosePlayDialog = useCallback(() => {
     setOpenPlayDialog(false)
-  }
+  }, [])
 
   return (
     <div style={{ overflowY: 'auto' }}>

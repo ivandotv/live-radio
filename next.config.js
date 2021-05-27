@@ -5,6 +5,8 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 })
 const withPWA = require('next-pwa')
 
+const locales = ['en', 'sr', 'xx']
+
 // @ts-check
 /**
  * @type {import('next/dist/next-server/server/config').NextConfig}
@@ -15,7 +17,7 @@ const nextConfig = {
   i18n: {
     // These are all the locales you want to support in
     // your application
-    locales: ['en', 'sr', 'xx'],
+    locales,
     defaultLocale: 'en'
   },
   pwa: {
@@ -27,6 +29,9 @@ const nextConfig = {
     // !! WARN !!
     // TEMP: Remove for production
     ignoreBuildErrors: false
+  },
+  serverRuntimeConfig: {
+    locales
   }
 }
 

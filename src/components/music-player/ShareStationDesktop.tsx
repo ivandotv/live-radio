@@ -72,7 +72,7 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
 
   const copyLinkItem =
     typeof window !== 'undefined' && navigator.clipboard ? (
-      <MenuItem onClick={copyLink}>Copy link</MenuItem>
+      <MenuItem onClick={copyLink}>{t`Copy link`}</MenuItem>
     ) : null
 
   return (

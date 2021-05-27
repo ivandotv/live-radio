@@ -97,17 +97,17 @@ export function createStationListRow(opts?: {
 
 export function getDefaultStation() {
   return {
-    id: 'ae503431-073b-499d-81e9-c32dfa1e32c2',
-    name: 'Soma FM',
-    url: 'https://ice1.somafm.com/groovesalad-256-mp3',
-    homepage: 'http://www.somafm.com/',
-    tags: [],
+    id: '961173b5-0601-11e8-ae97-52543be04c81',
+    name: 'SomaFM Lush',
+    url: 'https://ice.somafm.com/lush-128-mp3',
+    homepage: 'https://www.somafm.com/',
     language: [],
-    codec: 'MP3',
+    tags: [],
     flag: '',
     country: 'Internet',
     countryCode: '',
     continent: '',
-    continentCode: ''
+    continentCode: '',
+    codec: 'MP3'
   }
 }

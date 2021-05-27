@@ -1,9 +1,9 @@
 import { Howl } from 'howler'
 import { SongInfoService } from 'lib/services/song-info-service'
 import { AppStorage } from 'lib/services/storage/app-storage-service'
+import { RadioStation } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-import { RadioStation } from 'lib/station-utils'
 import { RadioBrowserApi } from 'radio-browser-api'
 
 export const PlayerStatus = {
@@ -279,5 +279,17 @@ export class MusicPlayerStore {
   resume() {
     console.log('player-> resume')
     this.player!.play()
+  }
+
+  async getStationInfo(id: string) {
+    const response = await fetch(
+      `/api/station-info?play=${encodeURIComponent(id)}`
+    )
+
+    if (response.ok) {
+      return response.json()
+    } else {
+      throw new Error()
+    }
   }
 }

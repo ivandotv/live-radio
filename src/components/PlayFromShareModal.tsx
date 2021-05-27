@@ -1,3 +1,4 @@
+import { t } from '@lingui/macro'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Dialog from '@material-ui/core/Dialog'
@@ -7,9 +8,8 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { useCallback } from 'react'
-import useSWR from 'swr'
-import { RadioStation } from 'lib/station-utils'
+import { useEffect } from 'react'
+import { useAsyncFn } from 'react-use'
 import { useRootStore } from './providers/RootStoreProvider'
 
 const useStyles = makeStyles((_theme: Theme) => {
@@ -25,19 +25,6 @@ const useStyles = makeStyles((_theme: Theme) => {
   })
 })
 
-const queryProgressText = 'Finding station'
-const queryErrorText = 'Sorry, requested station is not available'
-const querySuccessText = 'Station found'
-
-const fetcher = (url: string) =>
-  fetch(url).then((res) => {
-    if (res.ok) {
-      return res.json()
-    } else {
-      throw new Error()
-    }
-  })
-
 export function PlayFromShareModal({
   open,
   play,
@@ -50,21 +37,23 @@ export function PlayFromShareModal({
   const classes = useStyles()
   const { musicPlayer } = useRootStore()
 
-  const { data, error } = useSWR<RadioStation[]>(
-    open ? `/api/station-info?play=${encodeURIComponent(play)}` : null,
-    fetcher,
-    { shouldRetryOnError: false }
-  )
+  const queryProgressText = t`Finding station`
+  const querySuccessText = t`Station found`
+  const queryErrorText = t`Sorry, requested station is not available`
 
-  const station = data && data.length > 0 ? data[0] : undefined
+  const [state, doFetch] = useAsyncFn((id) => musicPlayer.getStationInfo(id))
 
-  const handleClose = useCallback(() => {
-    onClose()
-  }, [onClose])
+  useEffect(() => {
+    if (open) {
+      doFetch(play)
+    }
+  }, [open, doFetch, play])
+
+  const station = state.value ? state.value[0] : undefined
 
   function playStation() {
     musicPlayer.play(station!)
-    handleClose()
+    onClose()
   }
 
   return (
@@ -77,7 +66,7 @@ export function PlayFromShareModal({
       <DialogTitle className={classes.modalTitle} id="alert-dialog-title">
         {station
           ? querySuccessText
-          : error
+          : state.error
           ? queryErrorText
           : queryProgressText}
       </DialogTitle>
@@ -85,22 +74,22 @@ export function PlayFromShareModal({
         <DialogContentText component="div" id="alert-dialog-description">
           {station ? (
             <Typography variant="h5" color="textPrimary">
-              Play: {station.name}
+              {t`Play`}: {station.name}
             </Typography>
-          ) : !error ? (
+          ) : !state.error ? (
             <CircularProgress />
           ) : null}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        {station || error ? (
-          <Button onClick={handleClose} color="primary">
-            close
+        {station || state.error ? (
+          <Button onClick={onClose} color="primary">
+            {t`close`}
           </Button>
         ) : null}
         {station ? (
           <Button onClick={playStation} color="primary" autoFocus>
-            play
+            {t`play`}
           </Button>
         ) : null}
       </DialogActions>
