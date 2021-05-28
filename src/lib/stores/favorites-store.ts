@@ -1,6 +1,6 @@
 import { AppStorage } from 'lib/services/storage/app-storage-service'
 import { RadioStation } from 'lib/station-utils'
-import { RadioBrowserApi } from 'radio-browser-api'
+import { client } from 'lib/utils'
 import { RadioStore } from './radio-store'
 import { RootStore } from './root-store'
 
@@ -8,15 +8,15 @@ export class FavoritesStore extends RadioStore {
   constructor(
     protected rootStore: RootStore,
     protected storage: AppStorage,
-    protected radioApi: RadioBrowserApi
+    protected transport: typeof client
   ) {
     super(rootStore, storage)
   }
 
   async add(station: RadioStation, optimistic = false) {
-    super.add(station, optimistic)
+    await super.add(station, optimistic)
     try {
-      await this.radioApi.voteForStation(station.id)
+      await client('/api/vote-for-station', { data: { id: station.id } })
     } catch (e) {
       //todo -log error
     }

@@ -1,10 +1,11 @@
+import { isProduction } from 'app-config'
 import { Howl } from 'howler'
 import { SongInfoService } from 'lib/services/song-info-service'
 import { AppStorage } from 'lib/services/storage/app-storage-service'
 import { RadioStation } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
+import { client } from 'lib/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-import { RadioBrowserApi } from 'radio-browser-api'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -36,7 +37,7 @@ export class MusicPlayerStore {
 
   protected stationClickTimeoutId: number | undefined
 
-  protected stationClickDelay = 10000
+  protected stationClickDelay = isProduction ? 10000 : 1000
 
   protected player: Howl | undefined = undefined
 
@@ -47,8 +48,7 @@ export class MusicPlayerStore {
     protected rootStore: RootStore,
     protected storage: AppStorage,
     protected songInfoService: SongInfoService,
-    public station: RadioStation,
-    protected radioApi: RadioBrowserApi
+    public station: RadioStation
   ) {
     makeObservable<
       MusicPlayerStore,
@@ -142,11 +142,11 @@ export class MusicPlayerStore {
             this.status === PlayerStatus.PLAYING ||
             this.status === PlayerStatus.BUFFERING
           ) {
-            this.radioApi
-              .sendStationClick(this.station.id)
-              .catch((_e: Error) => {
+            client('/api/station-click', { data: { id: station.id } }).catch(
+              (_e: Error) => {
                 //todo - log error
-              })
+              }
+            )
           }
         })
         this.stationClickTimeoutId = undefined

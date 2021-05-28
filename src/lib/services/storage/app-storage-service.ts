@@ -1,5 +1,6 @@
 import { AuthService } from 'lib/services/auth-service'
 import { RadioStation } from 'lib/station-utils'
+import { client } from 'lib/utils'
 import { LocalStorage } from './local-storage-service'
 import { RemoteStorage } from './remote-storage-service'
 
@@ -17,12 +18,12 @@ export type AppStorageService = {
 
 export function appStorageFactory() {
   const isSSR = typeof window === 'undefined'
-  const transport = isSSR ? fetch : fetch.bind(window)
+  // const transport = isSSR ? fetch : fetch.bind(window)
 
   if (isSSR || !instance) {
     instance = new AppStorage(
       new LocalStorage('LiveRadio'),
-      new RemoteStorage(transport),
+      new RemoteStorage(client),
       new AuthService()
     )
   }

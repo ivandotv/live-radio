@@ -1,8 +1,9 @@
 import { RadioStation } from 'lib/station-utils'
+import { client, ClientRequest } from 'lib/utils'
 import { AppStorageService } from './app-storage-service'
 
 export class RemoteStorage implements AppStorageService {
-  constructor(protected fetchImpl: typeof fetch) {}
+  constructor(protected transport: typeof client) {}
 
   async getFavoriteStations(): Promise<RadioStation[]> {
     return await this.runRequest('/api/favorites', {
@@ -63,14 +64,12 @@ export class RemoteStorage implements AppStorageService {
     return station.length ? station[0] : null
   }
 
-  protected async runRequest<TResult = any>(
-    input: RequestInfo,
-    init?: RequestInit
-  ): Promise<TResult> {
-    const response = await this.fetchImpl(input, init)
-    if (response.ok) {
-      return await response.json()
-    }
-    throw response
+  protected async runRequest<T>(
+    endpoint: string,
+    config?: ClientRequest
+  ): Promise<T> {
+    const [data] = await this.transport<T>(endpoint, config)
+
+    return data
   }
 }

@@ -16,9 +16,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (stations.length) {
       res.status(200).json(stations)
     } else {
-      res.status(404).json({ message: 'not found' })
+      res.status(404).json({ msg: 'not found' })
     }
   } catch (err) {
-    res.status(503).json({ message: err.message ?? 'server error' })
+    res.status(503).json({ msg: err.message ?? 'server error' })
   }
 }
