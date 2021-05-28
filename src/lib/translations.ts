@@ -1,7 +1,7 @@
 import { I18n } from '@lingui/core'
-import defaultCatalog from 'translations/locales/en/messages'
 import { en, sr } from 'make-plural/plurals'
 import { GetStaticProps } from 'next'
+import defaultCatalog from 'translations/locales/en/messages'
 
 export function initTranslations(i18n: I18n) {
   i18n.loadLocaleData({
@@ -14,16 +14,18 @@ export function initTranslations(i18n: I18n) {
   i18n.activate('en')
 }
 
-export const getStaticTranslations: GetStaticProps =
-  async function getStaticTranslations({ locale }) {
-    const messages = await loadTranslation(locale!)
+export const getStaticTranslations: GetStaticProps<
+  { translation: any },
+  { locale: string }
+> = async function getStaticTranslations({ locale }) {
+  const messages = await loadTranslation(locale!)
 
-    return {
-      props: {
-        translation: messages
-      }
+  return {
+    props: {
+      translation: messages
     }
   }
+}
 
 export async function loadTranslation(locale: string): Promise<any> {
   const { messages } = await import(

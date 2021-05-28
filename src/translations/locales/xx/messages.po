@@ -90,7 +90,7 @@ msgstr ""
 msgid "Afghanistan"
 msgstr ""
 
-#: src/lib/utils.ts:24
+#: src/lib/utils.ts:25
 msgid "Africa"
 msgstr ""
 
@@ -142,12 +142,13 @@ msgstr ""
 msgid "Anguilla"
 msgstr ""
 
+#: src/pages/auth/sign-in.tsx:69
 #: src/pages/index.tsx:59
 msgid "Anonymous User"
 msgstr ""
 
 #: src/generated/countries.js:333
-#: src/lib/utils.ts:28
+#: src/lib/utils.ts:29
 msgid "Antarctica"
 msgstr ""
 
@@ -183,7 +184,7 @@ msgstr ""
 msgid "Aruba"
 msgstr ""
 
-#: src/lib/utils.ts:32
+#: src/lib/utils.ts:33
 msgid "Asia"
 msgstr ""
 
@@ -362,14 +363,14 @@ msgstr ""
 #: src/app-config.ts:48
 #: src/pages/app/by-genre/[genre].tsx:88
 #: src/pages/app/by-genre/index.tsx:22
-#: src/pages/app/index.tsx:68
+#: src/pages/app/index.tsx:65
 msgid "By Genre"
 msgstr ""
 
 #: src/app-config.ts:47
 #: src/pages/app/by-language/[language].tsx:85
 #: src/pages/app/by-language/index.tsx:54
-#: src/pages/app/index.tsx:66
+#: src/pages/app/index.tsx:63
 msgid "By Language"
 msgstr ""
 
@@ -377,7 +378,7 @@ msgstr ""
 #: src/pages/app/by-location/[continent]/[country].tsx:95
 #: src/pages/app/by-location/[continent]/index.tsx:83
 #: src/pages/app/by-location/index.tsx:40
-#: src/pages/app/index.tsx:62
+#: src/pages/app/index.tsx:59
 msgid "By Location"
 msgstr ""
 
@@ -423,6 +424,10 @@ msgstr ""
 
 #: src/components/music-player/ShareStationBtn.tsx:35
 msgid "Check out this groovy station"
+msgstr ""
+
+#: src/pages/auth/sign-in.tsx:22
+msgid "Check your email address."
 msgstr ""
 
 #: src/generated/languages.js:127
@@ -519,7 +524,7 @@ msgstr ""
 
 #: src/app-config.ts:44
 #: src/pages/app/custom.tsx:18
-#: src/pages/app/index.tsx:71
+#: src/pages/app/index.tsx:68
 msgid "Custom Search"
 msgstr ""
 
@@ -575,7 +580,7 @@ msgstr ""
 msgid "Depending on your browser this station might not load beacuse it is not served over a secure (https) connection."
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:93
+#: src/components/locationModal/LocationModal.tsx:106
 msgid "Determinig your location"
 msgstr ""
 
@@ -676,7 +681,7 @@ msgstr ""
 msgid "Ethiopia"
 msgstr ""
 
-#: src/lib/utils.ts:36
+#: src/lib/utils.ts:37
 msgid "Europe"
 msgstr ""
 
@@ -1204,11 +1209,11 @@ msgstr ""
 msgid "Lesotho"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:118
+#: src/components/locationModal/LocationModal.tsx:131
 msgid "Let me choose different location"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:120
+#: src/components/locationModal/LocationModal.tsx:133
 msgid "Let me choose the location"
 msgstr ""
 
@@ -1248,7 +1253,7 @@ msgstr ""
 #~ msgid "Live Radio"
 #~ msgstr ""
 
-#: src/pages/app/index.tsx:58
+#: src/pages/app/index.tsx:55
 msgid "Local Radio"
 msgstr ""
 
@@ -1470,7 +1475,7 @@ msgstr ""
 msgid "Norfolk Island"
 msgstr ""
 
-#: src/lib/utils.ts:40
+#: src/lib/utils.ts:41
 msgid "North America"
 msgstr ""
 
@@ -1518,7 +1523,7 @@ msgstr ""
 msgid "Occitan"
 msgstr ""
 
-#: src/lib/utils.ts:44
+#: src/lib/utils.ts:45
 msgid "Oceania"
 msgstr ""
 
@@ -1526,7 +1531,7 @@ msgstr ""
 msgid "Ojibwe"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:127
+#: src/components/locationModal/LocationModal.tsx:140
 msgid "Okay, let's go"
 msgstr ""
 
@@ -1834,7 +1839,7 @@ msgstr ""
 msgid "Search By Location"
 msgstr ""
 
-#: src/pages/app/index.tsx:48
+#: src/pages/app/index.tsx:47
 msgid "Search For Radio Stations"
 msgstr ""
 
@@ -1902,12 +1907,20 @@ msgid "Sierra Leone"
 msgstr ""
 
 #: src/components/UserProfileDropdown.tsx:90
-#: src/pages/auth/sign-in.tsx:20
+#: src/pages/auth/sign-in.tsx:43
 msgid "Sign in"
+msgstr ""
+
+#: src/pages/auth/sign-in.tsx:23
+msgid "Sign in failed. Check the details you provided are correct."
 msgstr ""
 
 #: src/pages/index.tsx:33
 msgid "Sign in or Register"
+msgstr ""
+
+#: src/pages/auth/sign-in.tsx:63
+msgid "Sign in with"
 msgstr ""
 
 #: src/components/UserProfileDropdown.tsx:64
@@ -1966,7 +1979,7 @@ msgstr ""
 msgid "Somalia"
 msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:91
+#: src/components/locationModal/LocationModal.tsx:104
 msgid "Sorry, couldn't get your location"
 msgstr ""
 
@@ -1982,7 +1995,7 @@ msgstr ""
 msgid "South Africa"
 msgstr ""
 
-#: src/lib/utils.ts:48
+#: src/lib/utils.ts:49
 msgid "South America"
 msgstr ""
 
@@ -2166,6 +2179,10 @@ msgstr ""
 msgid "Tigrinya"
 msgstr ""
 
+#: src/pages/auth/sign-in.tsx:21
+msgid "To confirm your identity, sign in with the same account you used originally."
+msgstr ""
+
 #: src/generated/countries.js:323
 msgid "Togo"
 msgstr ""
@@ -2197,6 +2214,15 @@ msgstr ""
 
 #: src/components/music-player/PlayerToggleBtn.tsx:56
 msgid "Try playing this station again"
+msgstr ""
+
+#: src/pages/auth/sign-in.tsx:15
+#: src/pages/auth/sign-in.tsx:16
+#: src/pages/auth/sign-in.tsx:17
+#: src/pages/auth/sign-in.tsx:18
+#: src/pages/auth/sign-in.tsx:19
+#: src/pages/auth/sign-in.tsx:20
+msgid "Try signing with a different account."
 msgstr ""
 
 #: src/generated/languages.js:172
@@ -2257,6 +2283,10 @@ msgstr ""
 
 #: src/generated/languages.js:177
 msgid "Ukrainian"
+msgstr ""
+
+#: src/pages/auth/sign-in.tsx:24
+msgid "Unable to sign in."
 msgstr ""
 
 #: src/generated/countries.js:77
@@ -2383,7 +2413,7 @@ msgstr ""
 #~ msgid "Your favorite stations will appear here"
 #~ msgstr ""
 
-#: src/components/locationModal/LocationModal.tsx:89
+#: src/components/locationModal/LocationModal.tsx:102
 msgid "Your location is"
 msgstr ""
 
@@ -2408,7 +2438,7 @@ msgid "Zulu"
 msgstr ""
 
 #: src/components/PlayFromShareModal.tsx:87
-#: src/components/locationModal/LocationModal.tsx:111
+#: src/components/locationModal/LocationModal.tsx:124
 msgid "close"
 msgstr ""
 

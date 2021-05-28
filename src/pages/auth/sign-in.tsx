@@ -1,16 +1,41 @@
 import { t } from '@lingui/macro'
+import Link from 'next/link'
 import { PageTitle } from 'components/PageTitle'
 import { useClientUrl } from 'lib/utils'
 import { ClientSafeProvider, getProviders, signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
+import { loadTranslation } from 'lib/translations'
+import { NextPageContext } from 'next'
 
 export default function SignIn({
   providers
 }: {
   providers: Record<string, ClientSafeProvider>
 }) {
+  const errors = {
+    Signin: t`Try signing with a different account.`,
+    OAuthSignin: t`Try signing with a different account.`,
+    OAuthCallback: t`Try signing with a different account.`,
+    OAuthCreateAccount: t`Try signing with a different account.`,
+    EmailCreateAccount: t`Try signing with a different account.`,
+    Callback: t`Try signing with a different account.`,
+    OAuthAccountNotLinked: t`To confirm your identity, sign in with the same account you used originally.`,
+    EmailSignin: t`Check your email address.`,
+    CredentialsSignin: t`Sign in failed. Check the details you provided are correct.`,
+    default: t`Unable to sign in.`
+  } as const
+
   const router = useRouter()
+
+  const errorType = router.query?.error as keyof typeof errors | undefined
+  let errorMessage
+
+  if (errorType) {
+    errorMessage = errorType && (errors[errorType] ?? errors.default)
+  }
+  console.log('type ', errorType)
+  console.log('msg ', errorMessage)
 
   const queryCallback = router.query?.callbackUrl as string
   const callbackUrl = useClientUrl(`/${router.locale}/app`)
@@ -21,6 +46,11 @@ export default function SignIn({
       <div className="banner-wrapper">
         <img width="450" height="326" src="/images/landing-page.svg" />
       </div>
+      {errorMessage ? (
+        <div className="btn-wrap">
+          <span className="error">{errorMessage}</span>
+        </div>
+      ) : null}
       <div className="btn-wrap">
         {Object.values(providers).map((provider) => (
           <a
@@ -32,9 +62,15 @@ export default function SignIn({
               })
             }
           >
-            Sign in with {provider.name}
+            {t`Sign in with`} {provider.name}
           </a>
         ))}
+
+        {errorMessage ? (
+          <Link href="/app" passHref={true}>
+            <a className="app-btn">{t`Anonymous User`}</a>
+          </Link>
+        ) : null}
       </div>
       <style jsx>
         {`
@@ -54,6 +90,12 @@ export default function SignIn({
             margin-top: -50px;
             margin-left: 35px;
           }
+          .error {
+            background-color: #f00;
+            color: #fff;
+            padding: 8px;
+            border-radius: 6px;
+          }
         `}
       </style>
       <style jsx global>
@@ -63,10 +105,13 @@ export default function SignIn({
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(
+  ctx: NextPageContext & { locale: string }
+) {
   const providers = await getProviders()
+  const translation = await loadTranslation(ctx.locale!)
 
   return {
-    props: { providers }
+    props: { providers, translation }
   }
 }

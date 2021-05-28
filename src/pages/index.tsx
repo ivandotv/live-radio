@@ -2,6 +2,7 @@ import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
+import { loadTranslation } from 'lib/translations'
 import { useClientUrl } from 'lib/utils'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/client'
@@ -19,7 +20,7 @@ export default function Index() {
     <>
       <div className="page-wrap">
         <PageTitle title={t`Welcome to Live Radio App`} />
-        <h1>Live Radio</h1>
+        <h1>{t`Live Radio`}</h1>
         <div className="banner-wrapper">
           <img width="450" height="326" src="/images/landing-page.svg" />
         </div>
@@ -118,12 +119,16 @@ export default function Index() {
 }
 
 // Export the `session` prop to use sessions with Server Side Rendering
-export async function getServerSideProps(context: NextPageContext) {
-  const session = await getSession(context)
+export async function getServerSideProps(
+  ctx: NextPageContext & { locale: string }
+) {
+  const session = await getSession(ctx)
+  const translation = await loadTranslation(ctx.locale!)
 
   return {
     props: {
-      session
+      session,
+      translation
     }
   }
 }

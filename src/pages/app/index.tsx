@@ -6,7 +6,6 @@ import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react'
 import { getStaticTranslations } from 'lib/translations'
-import { LocationStoreProvider } from 'components/providers/LocationStoreProvider'
 import { useRouter } from 'next/router'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { PlayFromShareModal } from 'components/PlayFromShareModal'
@@ -46,9 +45,7 @@ export default function Search() {
   return (
     <div style={{ overflowY: 'auto' }}>
       <PageTitle title={t`Search For Radio Stations`} />
-      <LocationStoreProvider>
-        <LocationModal open={dialogOpen} onClose={handleCloseDialog} />
-      </LocationStoreProvider>
+      <LocationModal open={dialogOpen} onClose={handleCloseDialog} />
       <List>
         <AppMenuItem
           onClick={(e: SyntheticEvent) => {

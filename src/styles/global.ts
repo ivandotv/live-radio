@@ -18,6 +18,7 @@ export default css.global`
     border-radius: 6px;
     color: #fff;
     text-decoration: none;
+    text-align: center;
     cursor: pointer;
   }
 
