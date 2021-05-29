@@ -15,7 +15,7 @@ export default function Favorites() {
 
   return (
     <>
-      <PageTitle title={t`Your favorite Radio Stations`} />
+      <PageTitle title={t`Your Favorite Radio Stations`} />
       <FilterDataStoreProvider
         initialState={[...favoriteStations.stations]}
         uuid="id"

@@ -8,14 +8,13 @@ import { useRootStore } from 'components/providers/RootStoreProvider'
 
 export { getStaticTranslations as getStaticProps }
 
-// should not be wrapper in to observable!
 export default function RecentStations() {
   const { recentStations } = useRootStore()
-  const noDataTitle = t`Your recent stations will appear here`
+  const noDataTitle = t`Your recently played stations will appear here`
 
   return (
     <>
-      <PageTitle title={t`Recently listened stations`} />
+      <PageTitle title={t`Your Recently Listened Stations`} />
       <FilterDataStoreProvider
         initialState={[...recentStations.stations]}
         uuid="id"
