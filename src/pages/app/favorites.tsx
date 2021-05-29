@@ -11,6 +11,7 @@ export { getStaticTranslations as getStaticProps }
 // should not be wrapper in to observable!
 export default function Favorites() {
   const { favoriteStations } = useRootStore()
+  const noDataTitle = t`Your favorite stations will appear here`
 
   return (
     <>
@@ -20,7 +21,10 @@ export default function Favorites() {
         uuid="id"
         indexes={['language', 'country', 'tags', 'continent', 'name']}
       >
-        <RemovableItemsList store={favoriteStations} />
+        <RemovableItemsList
+          noDataTitle={noDataTitle}
+          store={favoriteStations}
+        />
       </FilterDataStoreProvider>
     </>
   )

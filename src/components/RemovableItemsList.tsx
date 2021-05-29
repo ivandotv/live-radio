@@ -32,9 +32,11 @@ export const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const RemovableItemsList = observer(function RemovableItemsList({
-  store
+  store,
+  noDataTitle
 }: {
   store: RadioStore
+  noDataTitle: string
 }) {
   const filterStore = useFilterDataStore()
 
@@ -80,9 +82,7 @@ export const RemovableItemsList = observer(function RemovableItemsList({
       dataRow={createStationListRow({ store: store })}
       noData={
         <div className={classes.noDataWrap}>
-          <p className={classes.noDataText}>
-            <Trans>Your stations will appear here</Trans>
-          </p>
+          <p className={classes.noDataText}>{noDataTitle}</p>
           <img
             width="500"
             height="500"

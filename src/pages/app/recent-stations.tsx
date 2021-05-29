@@ -11,6 +11,7 @@ export { getStaticTranslations as getStaticProps }
 // should not be wrapper in to observable!
 export default function RecentStations() {
   const { recentStations } = useRootStore()
+  const noDataTitle = t`Your recent stations will appear here`
 
   return (
     <>
@@ -20,7 +21,7 @@ export default function RecentStations() {
         uuid="id"
         indexes={['language', 'country', 'tags', 'continent', 'name']}
       >
-        <RemovableItemsList store={recentStations} />
+        <RemovableItemsList noDataTitle={noDataTitle} store={recentStations} />
       </FilterDataStoreProvider>
     </>
   )

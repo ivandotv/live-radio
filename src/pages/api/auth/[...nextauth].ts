@@ -1,6 +1,6 @@
 import { auth, db } from 'app-config'
 // import { NextApiRequest, NextApiResponse } from 'next'
-import NextAuth, { User } from 'next-auth'
+import NextAuth, { Account, Profile, User } from 'next-auth'
 import Providers from 'next-auth/providers'
 
 // For more information on each option (and a full list of options) go to
@@ -56,7 +56,15 @@ export default NextAuth({
 
       return Promise.resolve(session)
     },
-    jwt: async (token: any, user: User) => {
+    jwt: async (
+      token: any,
+      user: User,
+      _account: Account,
+      _profile: Profile,
+      _isNewUser: boolean
+    ) => {
+      console.log(token)
+      console.log(user)
       if (user) {
         //first sign in
         // add user id

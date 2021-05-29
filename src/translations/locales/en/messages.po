@@ -142,8 +142,8 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/pages/auth/sign-in.tsx:69
-#: src/pages/index.tsx:59
+#: src/pages/auth/sign-in.tsx:71
+#: src/pages/index.tsx:60
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
@@ -426,7 +426,7 @@ msgstr "Chechen"
 msgid "Check out this groovy station"
 msgstr "Check out this groovy station"
 
-#: src/pages/auth/sign-in.tsx:22
+#: src/pages/auth/sign-in.tsx:24
 msgid "Check your email address."
 msgstr "Check your email address."
 
@@ -1249,9 +1249,9 @@ msgstr "Lithuania"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
-#: src/pages/app/index.tsx:29
-#~ msgid "Live Radio"
-#~ msgstr "Live Radio"
+#: src/pages/index.tsx:23
+msgid "Live Radio"
+msgstr "Live Radio"
 
 #: src/pages/app/index.tsx:55
 msgid "Local Radio"
@@ -1681,7 +1681,7 @@ msgstr "Recent"
 msgid "Recent Stations"
 msgstr "Recent Stations"
 
-#: src/pages/app/recent-stations.tsx:17
+#: src/pages/app/recent-stations.tsx:18
 msgid "Recently listened stations"
 msgstr "Recently listened stations"
 
@@ -1907,19 +1907,19 @@ msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
 #: src/components/UserProfileDropdown.tsx:90
-#: src/pages/auth/sign-in.tsx:43
+#: src/pages/auth/sign-in.tsx:45
 msgid "Sign in"
 msgstr "Sign in"
 
-#: src/pages/auth/sign-in.tsx:23
+#: src/pages/auth/sign-in.tsx:25
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr "Sign in failed. Check the details you provided are correct."
 
-#: src/pages/index.tsx:33
+#: src/pages/index.tsx:34
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
-#: src/pages/auth/sign-in.tsx:63
+#: src/pages/auth/sign-in.tsx:65
 msgid "Sign in with"
 msgstr "Sign in with"
 
@@ -2163,7 +2163,7 @@ msgstr "Thailand"
 #~ msgid "There was an error trying to load your favorite stations."
 #~ msgstr "There was an error trying to load your favorite stations."
 
-#: src/components/RemovableItemsList.tsx:68
+#: src/components/RemovableItemsList.tsx:70
 msgid "There was an error trying to load your stations."
 msgstr "There was an error trying to load your stations."
 
@@ -2179,7 +2179,7 @@ msgstr "Tibetan"
 msgid "Tigrinya"
 msgstr "Tigrinya"
 
-#: src/pages/auth/sign-in.tsx:21
+#: src/pages/auth/sign-in.tsx:23
 msgid "To confirm your identity, sign in with the same account you used originally."
 msgstr "To confirm your identity, sign in with the same account you used originally."
 
@@ -2216,12 +2216,12 @@ msgstr "Try again"
 msgid "Try playing this station again"
 msgstr "Try playing this station again"
 
-#: src/pages/auth/sign-in.tsx:15
-#: src/pages/auth/sign-in.tsx:16
 #: src/pages/auth/sign-in.tsx:17
 #: src/pages/auth/sign-in.tsx:18
 #: src/pages/auth/sign-in.tsx:19
 #: src/pages/auth/sign-in.tsx:20
+#: src/pages/auth/sign-in.tsx:21
+#: src/pages/auth/sign-in.tsx:22
 msgid "Try signing with a different account."
 msgstr "Try signing with a different account."
 
@@ -2285,7 +2285,7 @@ msgstr "Ukraine"
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#: src/pages/auth/sign-in.tsx:24
+#: src/pages/auth/sign-in.tsx:26
 msgid "Unable to sign in."
 msgstr "Unable to sign in."
 
@@ -2357,11 +2357,11 @@ msgstr "Wallis and Futuna"
 msgid "Walloon"
 msgstr "Walloon"
 
-#: src/pages/index.tsx:33
+#: src/pages/index.tsx:34
 msgid "Welcome Back"
 msgstr "Welcome Back"
 
-#: src/pages/index.tsx:21
+#: src/pages/index.tsx:22
 msgid "Welcome to Live Radio App"
 msgstr "Welcome to Live Radio App"
 
@@ -2405,21 +2405,25 @@ msgstr "Yiddish"
 msgid "Yoruba"
 msgstr "Yoruba"
 
-#: src/pages/app/favorites.tsx:17
+#: src/pages/app/favorites.tsx:18
 msgid "Your favorite Radio Stations"
 msgstr "Your favorite Radio Stations"
 
-#: src/components/FavoritesList.tsx:63
-#~ msgid "Your favorite stations will appear here"
-#~ msgstr "Your favorite stations will appear here"
+#: src/pages/app/favorites.tsx:14
+msgid "Your favorite stations will appear here"
+msgstr "Your favorite stations will appear here"
 
 #: src/components/locationModal/LocationModal.tsx:102
 msgid "Your location is"
 msgstr "Your location is"
 
+#: src/pages/app/recent-stations.tsx:14
+msgid "Your recent stations will appear here"
+msgstr "Your recent stations will appear here"
+
 #: src/components/RemovableItemsList.tsx:84
-msgid "Your stations will appear here"
-msgstr "Your stations will appear here"
+#~ msgid "Your stations will appear here"
+#~ msgstr "Your stations will appear here"
 
 #: src/generated/countries.js:329
 msgid "Zambia"
