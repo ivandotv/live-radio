@@ -282,14 +282,10 @@ export class MusicPlayerStore {
   }
 
   async getStationInfo(id: string) {
-    const response = await fetch(
+    const [data] = await client<RadioStation[]>(
       `/api/station-info?play=${encodeURIComponent(id)}`
     )
 
-    if (response.ok) {
-      return response.json()
-    } else {
-      throw new Error()
-    }
+    return data
   }
 }

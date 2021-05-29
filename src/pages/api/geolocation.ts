@@ -1,6 +1,6 @@
 import { countryDataByKey } from 'lib/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchJson } from 'nice-fetch/dist/types'
+import { fetchJson } from 'nice-fetch'
 import requestIp from 'request-ip'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {

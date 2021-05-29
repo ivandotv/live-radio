@@ -10,9 +10,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { fetchJson } from 'nice-fetch'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useAsyncFn } from 'react-use'
+import { client } from 'lib/utils'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -48,14 +48,14 @@ export const LocationModal = observer(function LocationModal({
   const router = useRouter()
 
   const [state, doFetch] = useAsyncFn(async () => {
-    const data = await fetchJson<{
+    const [data] = await client<{
       cont: string
       code: string
       flag: string
       name: string
     }>('/api/geolocation')
 
-    return data[0]
+    return data
   })
 
   useEffect(() => {
