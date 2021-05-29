@@ -16,7 +16,7 @@ export type Sync<T = any> = {
 export abstract class RadioStore {
   protected stationsById: Map<string, RadioStation> = new Map()
 
-  loadStatus: 'resolved' | 'rejected' | 'pending' | null = null
+  loadStatus: 'resolved' | 'rejected' | 'pending' | 'idle' = 'idle'
 
   loadError: unknown = null
 
