@@ -37,7 +37,7 @@ export class AppStorage {
   private static instance: AppStorage
 
   constructor(
-    protected guestDB: LocalStorage,
+    protected local: LocalStorage,
     protected remote: RemoteStorage,
     protected authService: AuthService
   ) {}
@@ -58,7 +58,7 @@ export class AppStorage {
     if (authenticated) {
       return this.remote
     } else {
-      return this.guestDB
+      return this.local
     }
   }
 

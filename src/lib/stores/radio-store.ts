@@ -13,7 +13,7 @@ export type Sync<T = any> = {
   data: T
 }
 
-export class RadioStore {
+export abstract class RadioStore {
   protected stationsById: Map<string, RadioStation> = new Map()
 
   loadStatus: 'resolved' | 'rejected' | 'pending' | null = null
@@ -24,6 +24,8 @@ export class RadioStore {
     add: new Map<string, Sync<boolean>>(),
     remove: new Map()
   }
+
+  protected abstract resolveStations(): Promise<RadioStation[]>
 
   constructor(protected rootStore: RootStore, protected storage: AppStorage) {
     makeObservable<RadioStore, 'stationsById'>(this, {
@@ -50,7 +52,7 @@ export class RadioStore {
     this.loadError = null
 
     try {
-      const stations = await this.storage.getFavoriteStations()
+      const stations = await this.resolveStations()
       runInAction(() => {
         stations.forEach((station) => {
           this.stationsById.set(station.id, station)
