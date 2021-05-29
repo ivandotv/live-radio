@@ -19,7 +19,7 @@ export class LocalStorage implements AppStorageService {
   constructor(public dbName: string) {}
 
   async getFavoriteStations(): Promise<RadioStation[]> {
-    return this.getAll('favorites')
+    return (await this.getAll('favorites')).reverse()
   }
 
   async addFavoriteStation(station: RadioStation) {
@@ -31,7 +31,7 @@ export class LocalStorage implements AppStorageService {
   }
 
   async getRecentStations(): Promise<RadioStation[]> {
-    return this.getAll('history')
+    return (await this.getAll('history')).reverse()
   }
 
   addRecentStation(station: RadioStation) {

@@ -57,7 +57,7 @@ export function getStations(collection: 'favorites' | 'recent') {
             __order: { $indexOfArray: [user[collection], '$_id'] }
           }
         },
-        { $sort: { __order: -1 } },
+        { $sort: { __order: 1 } },
         { $project: { _id: 0, __order: 0 } }
       ]
 
