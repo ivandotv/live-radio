@@ -44,7 +44,7 @@ export default function SignIn({
     <div className="page-wrap">
       <PageTitle title={t`Sign in`} />
       <div className="banner-wrapper">
-        <img width="450" height="326" src="/images/landing-page.svg" />
+        <img width="450" height="326" src="/images/landing-page.png" />
       </div>
       {errorMessage ? (
         <div className="btn-wrap">
@@ -86,7 +86,7 @@ export default function SignIn({
             flex-direction: column;
           }
           .banner-wrapper {
-            width: 150px;
+            width: 180px;
             margin-top: -50px;
             margin-left: 35px;
           }

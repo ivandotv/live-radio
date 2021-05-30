@@ -4,7 +4,7 @@ export default css.global`
   img {
     width: 100%;
     height: auto;
-    aspect-ratio: attr(width) / attr(height);
+    aspect-ratio: auto;
   }
   body {
     font-family: 'Roboto', sans-serif;

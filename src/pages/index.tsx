@@ -22,7 +22,7 @@ export default function Index() {
         <PageTitle title={t`Welcome to Live Radio App`} />
         <h1>{t`Live Radio`}</h1>
         <div className="banner-wrapper">
-          <img width="450" height="326" src="/images/landing-page.svg" />
+          <img width="450" height="326" src="/images/landing-page.png" />
         </div>
         <div className="btn-wrap">
           <Link
