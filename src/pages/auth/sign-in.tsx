@@ -62,6 +62,10 @@ export default function SignIn({
               })
             }
           >
+            <img
+              className="login-icon"
+              src={`/images/${provider.name.toLowerCase()}-login.png`}
+            ></img>
             {t`Sign in with`} {provider.name}
           </a>
         ))}
@@ -95,6 +99,15 @@ export default function SignIn({
             color: #fff;
             padding: 8px;
             border-radius: 6px;
+          }
+          .app-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .login-icon {
+            max-width: 20px;
+            margin-right: 8px;
           }
         `}
       </style>
