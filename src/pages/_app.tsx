@@ -2,6 +2,7 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
 import { url } from 'app-config'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { PWAIcons } from 'components/PWAIcons'
 import { initTranslations } from 'lib/translations'
 import { NextPage } from 'next'
@@ -10,6 +11,7 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useRef } from 'react'
+import { Workbox } from 'workbox-window'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
@@ -27,6 +29,8 @@ export default function MyApp(props: AppProps) {
   }: { Component: NextApplicationPage; pageProps: any } = props
 
   const router = useRouter()
+  const { serviceWorkerStore } = useRootStore()
+
   const locale = router.locale || router.defaultLocale!
   const firstRender = useRef(true)
 
@@ -46,6 +50,21 @@ export default function MyApp(props: AppProps) {
     }
     firstRender.current = false
   }, [locale, pageProps.translation])
+
+  useEffect(() => {
+    // if (
+    //   ("serviceWorker" in navigator) ||
+    //   process.env.NODE_ENV !== "production"
+    // ) {
+    //   console.warn("Progressive Web App support is disabled");
+    //   return;
+    // }
+
+    if ('serviceWorker' in navigator) {
+      const wb = new Workbox('sw.js', { scope: '/app/' })
+      serviceWorkerStore.register(wb)
+    }
+  }, [serviceWorkerStore])
 
   return (
     <>

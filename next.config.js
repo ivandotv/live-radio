@@ -1,9 +1,9 @@
 const withPlugins = require('next-compose-plugins')
+const withWorkbox = require('./workbox.webpack.config')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
-const withPWA = require('next-pwa')
 
 const locales = ['en', 'sr', 'xx']
 
@@ -15,15 +15,14 @@ const nextConfig = {
   // reactStrictMode: true,
   future: { webpack5: true },
   i18n: {
-    // These are all the locales you want to support in
-    // your application
     locales,
     defaultLocale: 'en'
   },
-  pwa: {
-    dest: 'public',
-    scope: '/app',
-    disable: process.env.NODE_ENV !== 'production'
+  workbox: {
+    // disable: process.env.NODE_ENV !== 'production',
+    disable: false,
+    swSrc: 'src/service-worker/sw.ts',
+    swDest: 'sw.js'
   },
   typescript: {
     // !! WARN !!
@@ -35,4 +34,4 @@ const nextConfig = {
   }
 }
 
-module.exports = withPlugins([withBundleAnalyzer, withPWA], nextConfig)
+module.exports = withPlugins([withBundleAnalyzer, withWorkbox], nextConfig)

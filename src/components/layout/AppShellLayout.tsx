@@ -18,6 +18,7 @@ import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigati
 import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
 import { AppToolbar } from 'components/layout/AppToolbar'
 import { OfflineIndicator } from 'components/OfflineIndicator'
+import PWABanner from 'components/pwa-prompt/PwaBanner'
 
 // todo - make the values dynamic
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
@@ -61,9 +62,10 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 1
     },
     offlineIndicator: {
-      position: 'absolute',
+      // position: 'absolute',
       width: '100%',
-      top: '-27px' //magic!
+      // top: '-27px', //magic!
+      zIndex: 2
     },
     contentSpacer: {
       [theme.breakpoints.up('md')]: {
@@ -104,6 +106,7 @@ export const AppShellLayout = observer(function AppShellLayout({
         className={classes.root}
       >
         <AppToolbar />
+        <PWABanner />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">
             <DesktopNavigation />

@@ -11,6 +11,8 @@ import csso from 'csso'
 
 export default class MyDocument extends Document {
   render() {
+    console.log('_document render')
+
     return (
       <Html>
         <Head>
@@ -32,6 +34,7 @@ export default class MyDocument extends Document {
 
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Render app and page and get the context of the page with collected side effects.
+  console.log('_document initial props')
   const sheets = new ServerStyleSheets()
   const originalRenderPage = ctx.renderPage
 
