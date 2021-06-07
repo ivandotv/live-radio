@@ -2,7 +2,6 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
 import { url } from 'app-config'
-import { useRootStore } from 'components/providers/RootStoreProvider'
 import { PWAIcons } from 'components/PWAIcons'
 import { initTranslations } from 'lib/translations'
 import { NextPage } from 'next'
@@ -11,7 +10,6 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useRef } from 'react'
-import { Workbox } from 'workbox-window'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
@@ -29,9 +27,9 @@ export default function MyApp(props: AppProps) {
   }: { Component: NextApplicationPage; pageProps: any } = props
 
   const router = useRouter()
-  const { serviceWorkerStore } = useRootStore()
 
   const locale = router.locale || router.defaultLocale!
+
   const firstRender = useRef(true)
 
   if (firstRender.current) {
@@ -42,34 +40,22 @@ export default function MyApp(props: AppProps) {
   }
 
   useEffect(() => {
-    console.log('use effect ', locale)
     if (pageProps.translation && !firstRender.current) {
-      console.log('load ', locale)
       i18n.load(locale, pageProps.translation)
       i18n.activate(locale)
     }
     firstRender.current = false
   }, [locale, pageProps.translation])
 
-  useEffect(() => {
-    // if (
-    //   ("serviceWorker" in navigator) ||
-    //   process.env.NODE_ENV !== "production"
-    // ) {
-    //   console.warn("Progressive Web App support is disabled");
-    //   return;
-    // }
-
-    if ('serviceWorker' in navigator) {
-      const wb = new Workbox('sw.js', { scope: '/app/' })
-      serviceWorkerStore.register(wb)
-    }
-  }, [serviceWorkerStore])
-
   return (
     <>
       <Head>
-        <link rel="manifest" href="/manifest.json" />
+        <link
+          rel="manifest"
+          key="manifest"
+          crossOrigin="use-credentials"
+          href={'/api/get-manifest'}
+        />
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

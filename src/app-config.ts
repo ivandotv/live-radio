@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro'
-
+import linguiConfig from '../lingui.config'
 export const userAgentName = 'Live Radio'
 export const isProduction = process.env.NODE_ENV === 'production'
 export const url =
@@ -10,6 +10,16 @@ export const url =
 export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
 export const vercelEnv = process.env.VERCEL_ENV ?? ''
+
+// export const serviceWorkerEnabled =
+//   isProduction || process.env.SERVICE_WORKER === 'true'
+
+export const serviceWorkerEnabled = true
+
+export const locales = [...linguiConfig.locales]
+
+console.log('===== APP CONFIG ======')
+console.log({ locales })
 
 export const db = {
   uri: process.env.MONGODB_URI,
