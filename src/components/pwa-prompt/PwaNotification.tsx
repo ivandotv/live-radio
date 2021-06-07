@@ -1,12 +1,16 @@
-import clsx from 'clsx'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
+import Slide from '@material-ui/core/Slide'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Close from '@material-ui/icons/Cancel'
-import { forwardRef } from 'react'
+import { forwardRef, ReactNode } from 'react'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapper: {
+      position: 'absolute',
+      width: '100%',
+      top: 0,
+      zIndex: 1101,
       backgroundColor: '#2e0d66',
       color: '#fff',
       padding: theme.spacing(1),
@@ -36,39 +40,49 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const PwaNotification = forwardRef<
   HTMLDivElement,
-  { className: string; onClose: () => void; installFn: () => void }
->(function PwaNotification(props, ref) {
+  {
+    // className: string
+    onCancel: () => void
+    onOk: () => void
+    okText: string
+    title: string
+    show: boolean
+    children: ReactNode
+  }
+>(function PwaNotification(
+  { show, okText, children, onCancel, onOk, title },
+  ref
+) {
   const classes = useStyles()
 
   return (
-    <div ref={ref} className={clsx(props.className, classes.wrapper)}>
-      <div>
-        <IconButton
-          aria-label="close"
-          className={classes.closeBtn}
-          onClick={props.onClose}
-        >
-          <Close className={classes.icon} />
-        </IconButton>
+    <Slide direction="down" in={show} mountOnEnter unmountOnExit>
+      <div ref={ref} className={classes.wrapper}>
+        <div>
+          <IconButton
+            aria-label="close"
+            className={classes.closeBtn}
+            onClick={onCancel}
+          >
+            <Close className={classes.icon} />
+          </IconButton>
+        </div>
+        <div className={classes.text}>
+          {title ? <h6 className={classes.title}>{title}</h6> : null}
+          {children}
+        </div>
+        <div>
+          <Button
+            onClick={onOk}
+            variant="contained"
+            color="primary"
+            disableElevation
+          >
+            {okText}
+          </Button>
+        </div>
       </div>
-      <div className={classes.text}>
-        <p className={classes.title}>Install</p>
-        <p>
-          Installing this app uses almost no storage and provides a quick way to
-          launch it from the home screen.
-        </p>
-      </div>
-      <div>
-        <Button
-          onClick={props.installFn}
-          variant="contained"
-          color="primary"
-          disableElevation
-        >
-          Install
-        </Button>
-      </div>
-    </div>
+    </Slide>
   )
 })
 

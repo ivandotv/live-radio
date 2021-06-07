@@ -1,3 +1,4 @@
+import { ExpirationPlugin } from 'workbox-expiration'
 import {
   cleanupOutdatedCaches,
   precacheAndRoute,
@@ -6,15 +7,16 @@ import {
 import {
   googleFontsCache,
   imageCache,
-  staticResourceCache
+  staticResourceCache,
+  warmStrategyCache
 } from 'workbox-recipes'
 import { registerRoute } from 'workbox-routing'
-import { NetworkOnly } from 'workbox-strategies'
+import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies'
 
 declare const self: ServiceWorkerGlobalScope
 export {}
 
-console.log('hello from service worker!')
+console.log('hello from service worker')
 
 cleanupOutdatedCaches()
 
@@ -26,9 +28,39 @@ imageCache()
 
 googleFontsCache()
 
+/**
+ * Next.js dynamic data (json)
+ *  */
+registerRoute(
+  /\/_next\/data\/.+\/.+\.json$/i,
+  new StaleWhileRevalidate({
+    cacheName: 'next-data',
+    plugins: [
+      new ExpirationPlugin({
+        maxEntries: 120,
+        maxAgeSeconds: 24 * 60 * 60, // 24 hours
+        purgeOnQuotaError: true
+      })
+    ]
+  })
+)
+/**
+ * Roboto font needed for the app (material design) is requested before the
+ * service worker is installed, so this needs to be done "manually" so it can
+ * be available offline
+ *  */
+warmStrategyCache({
+  urls: [
+    'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
+  ],
+  strategy: new StaleWhileRevalidate({
+    cacheName: 'roboto-font'
+  })
+})
+
 registerRoute(
   ({ request }) => request.mode === 'navigate',
-  new NetworkOnly({
+  new NetworkFirst({
     plugins: [
       new PrecacheFallbackPlugin({
         fallbackURL: '/offline.html'

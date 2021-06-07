@@ -4,7 +4,9 @@ import { MusicPlayerStore } from 'lib/stores/music-player-store'
 import { appShellFactory } from './factories/app-shell-factory'
 import { favoritesFactory } from './factories/favorites-factory'
 import { recentStationsFactory } from './factories/radio-store-factory'
+import { serviceWorkerFactory } from './factories/service-worker-factory'
 import { RadioStore } from './radio-store'
+import { ServiceWorkerStore } from './service-worker-store'
 
 export class RootStore {
   appShell: AppShellStore
@@ -15,12 +17,14 @@ export class RootStore {
 
   recentStations: RadioStore
 
+  serviceWorker: ServiceWorkerStore
+
   constructor() {
-    console.log('root store constructor')
     this.appShell = appShellFactory(this)
     this.musicPlayer = musicPlayerFactory(this)
     this.favoriteStations = favoritesFactory(this)
     this.recentStations = recentStationsFactory(this)
-    this.serviceWorket = new ServiceWorker()
+    this.serviceWorker = serviceWorkerFactory(this)
+    console.log('root store constructor')
   }
 }

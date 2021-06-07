@@ -8,17 +8,19 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import { observer } from 'mobx-react-lite'
-import Head from 'next/head'
-import { ReactElement, ReactNode } from 'react'
-import { layout } from 'app-config'
+import { layout, enableServiceWorker } from 'app-config'
+import { AppToolbar } from 'components/layout/AppToolbar'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
-import { useRootStore } from 'components/providers/RootStoreProvider'
 import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigation'
 import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
-import { AppToolbar } from 'components/layout/AppToolbar'
 import { OfflineIndicator } from 'components/OfflineIndicator'
-import PWABanner from 'components/pwa-prompt/PwaBanner'
+import { useRootStore } from 'components/providers/RootStoreProvider'
+import InstallBanner from 'components/pwa-prompt/InstallBanner'
+import UpdateBanner from 'components/pwa-prompt/UpdateBanner'
+import { observer } from 'mobx-react-lite'
+import Head from 'next/head'
+import { ReactElement, ReactNode, useEffect } from 'react'
+import { Workbox } from 'workbox-window'
 
 // todo - make the values dynamic
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
@@ -76,14 +78,23 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export const AppShellLayout = observer(function AppShellLayout({
+export const AppShell = observer(function AppShell({
   children
 }: {
   children: ReactNode
 }) {
-  const { appShell } = useRootStore()
+  const { appShell, serviceWorker } = useRootStore()
   const theme = useTheme()
   const classes = useStyles()
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      if (enableServiceWorker && !serviceWorker.wb) {
+        const wb = new Workbox('/sw.js', { scope: '/' })
+        serviceWorker.register(wb)
+      }
+    }
+  }, [serviceWorker])
 
   return (
     <>
@@ -99,6 +110,14 @@ export const AppShellLayout = observer(function AppShellLayout({
             }
           />
         ) : null}
+
+        <link
+          key="font-roboto"
+          rel="stylesheet"
+          as="font"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+          crossOrigin="anonymous"
+        />
       </Head>
       <CssBaseline />
       <div
@@ -106,7 +125,8 @@ export const AppShellLayout = observer(function AppShellLayout({
         className={classes.root}
       >
         <AppToolbar />
-        <PWABanner />
+        <InstallBanner />
+        <UpdateBanner />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">
             <DesktopNavigation />

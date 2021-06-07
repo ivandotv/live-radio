@@ -1,9 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import parser from 'accept-language-parser'
-import getConfig from 'next/config'
+import { locales } from 'app-config'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const config = getConfig()
   const play = req.query?.play as string
 
   res.status(301)
@@ -17,10 +16,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const playEncoded = `?play=${encodeURIComponent(play)}`
 
-  let language = parser.pick(
-    config.serverRuntimeConfig.locales,
-    req.headers['accept-language'] || ''
-  )
+  let language = parser.pick(locales, req.headers['accept-language'] || '')
 
   if (!language) {
     // default language

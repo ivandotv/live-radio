@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core'
-import { locales } from 'app-config'
+import { locales, defaultLocale } from 'app-config'
 import { loadTranslation } from 'lib/translations'
 import { en, sr } from 'make-plural/plurals'
 import createManifest from 'lib/create-manifest'
@@ -35,7 +35,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const pathToLocale = regexp.exec(url.pathname)
 
-  let locale = 'en'
+  let locale = defaultLocale
   if (pathToLocale) {
     const path = pathToLocale[1]
     if (locales.includes(path)) {

@@ -9,6 +9,7 @@ import { getSession, signOut, useSession } from 'next-auth/client'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
+import Head from 'next/head'
 
 export default function Index() {
   const [session] = useSession()
@@ -18,9 +19,18 @@ export default function Index() {
 
   return (
     <>
+      <Head>
+        <link
+          key="font-rancho"
+          rel="stylesheet"
+          as="font"
+          href="https://fonts.googleapis.com/css?family=Rancho&display=swap"
+          crossOrigin="anonymous"
+        />
+      </Head>
       <div className="page-wrap">
         <PageTitle title={t`Welcome to Live Radio App`} />
-        <h1>{t`Live Radio`}</h1>
+        <h1 className="home-title">{t`Live Radio`}</h1>
         <div className="banner-wrapper">
           <img width="450" height="326" src="/images/landing-page.png" />
         </div>
@@ -72,10 +82,15 @@ export default function Index() {
               align-items: center;
             }
             h1 {
-              font-size: 4rem;
+              font-size: 6rem;
               margin-top: 8px;
               margin-bottom: 16px;
               text-align: center;
+              font-family: Rancho, system-ui;
+              text-shadow: 0px 1px 0px #ffffff, 0px 2px 0px #3869b3,
+                0px 3px 0px #215358, 0px 4px 0px #8a8c8e, 0px 5px 0px #77787b,
+                0px 6px 0px #636466, 0px 7px 0px #4d4d4f, 0px 8px 7px #001135;
+              color: #215158;
             }
             .banner-wrapper {
               width: 100%;

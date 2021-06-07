@@ -7,13 +7,13 @@ export default css.global`
     aspect-ratio: auto;
   }
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: system-ui, sans-serif;
     margin: 0;
   }
 
   a.app-btn {
     margin-top: 14px;
-    padding: 10px;
+    padding: 8px;
     background-color: blue;
     border-radius: 6px;
     color: #fff;

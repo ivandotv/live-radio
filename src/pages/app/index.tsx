@@ -1,14 +1,14 @@
-import List from '@material-ui/core/List'
 import { t } from '@lingui/macro'
+import List from '@material-ui/core/List'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationModal } from 'components/locationModal/LocationModal'
 import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
-import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react'
+import { PlayFromShareModal } from 'components/PlayFromShareModal'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { getStaticTranslations } from 'lib/translations'
 import { useRouter } from 'next/router'
-import { useRootStore } from 'components/providers/RootStoreProvider'
-import { PlayFromShareModal } from 'components/PlayFromShareModal'
+import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react'
 
 export { getStaticTranslations as getStaticProps }
 

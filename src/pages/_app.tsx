@@ -54,22 +54,13 @@ export default function MyApp(props: AppProps) {
           rel="manifest"
           key="manifest"
           crossOrigin="use-credentials"
-          href={'/api/get-manifest'}
+          href={'/api/manifest'}
         />
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-          key="viewport"
-        />
-        <meta name="robots" content="noindex" />
-        <meta charSet="utf-8" />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta
           name="description"
           content={t`Listen live radio online`}
           key="description"
         />
-        <meta name="keywords" content={t`pwa,radio,live`} key="keywords" />
         <PWAIcons />
         {router.locales!.concat('x-default').map((locale) => {
           const localePath = locale === 'x-default' ? '' : `/${locale}`

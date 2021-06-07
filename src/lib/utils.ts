@@ -96,3 +96,11 @@ export function client<T>(endpoint: string, customConfig: ClientRequest = {}) {
 
   return niceFetch(endpoint, config) as Promise<[T, Response]>
 }
+
+export function booleanEnv(env: string | undefined, initial: boolean) {
+  if (env) {
+    return env === 'true'
+  }
+
+  return initial
+}

@@ -1,4 +1,5 @@
 import { t } from '@lingui/macro'
+import { booleanEnv } from 'lib/utils'
 import linguiConfig from '../lingui.config'
 export const userAgentName = 'Live Radio'
 export const isProduction = process.env.NODE_ENV === 'production'
@@ -9,17 +10,21 @@ export const url =
 
 export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
-export const vercelEnv = process.env.VERCEL_ENV ?? ''
-
-// export const serviceWorkerEnabled =
-//   isProduction || process.env.SERVICE_WORKER === 'true'
-
-export const serviceWorkerEnabled = true
+export const enableServiceWorker = booleanEnv(
+  process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER,
+  true
+)
+export const enablePWAInstallBanner = booleanEnv(
+  process.env.NEXT_PUBLIC_ENABLE_PWA_INSTALL,
+  false
+)
+export const enableReloadBanner = booleanEnv(
+  process.env.NEXT_PUBLIC_ENABLE_RELOAD_BANNER,
+  true
+)
 
 export const locales = [...linguiConfig.locales]
-
-console.log('===== APP CONFIG ======')
-console.log({ locales })
+export const defaultLocale = linguiConfig.fallbackLocales.default
 
 export const db = {
   uri: process.env.MONGODB_URI,

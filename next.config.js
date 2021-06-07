@@ -1,11 +1,13 @@
 const withPlugins = require('next-compose-plugins')
 const withWorkbox = require('./workbox.webpack.config')
+const linguiConfig = require('./lingui.config')
 
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 })
 
-const locales = ['en', 'sr', 'xx']
+const locales = linguiConfig.locales
+const defaultLocale = linguiConfig.fallbackLocales.default
 
 // @ts-check
 /**
@@ -16,7 +18,7 @@ const nextConfig = {
   future: { webpack5: true },
   i18n: {
     locales,
-    defaultLocale: 'en'
+    defaultLocale
   },
   workbox: {
     // disable: process.env.NODE_ENV !== 'production',
@@ -29,8 +31,18 @@ const nextConfig = {
     // TEMP: Remove for production
     ignoreBuildErrors: false
   },
-  serverRuntimeConfig: {
-    locales
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Service-Worker-Allowed',
+            value: '/'
+          }
+        ]
+      }
+    ]
   }
 }
 

@@ -16,12 +16,15 @@ export default class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link
-            rel="stylesheet"
-            as="font"
-            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-            crossOrigin="anonymous"
+          <link rel="preconnect" href="https://fonts.com" />
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+            key="viewport"
           />
+          <meta name="robots" content="noindex" />
+          <meta name="keywords" content="pwa,radio,live" />
+          <meta charSet="utf-8" />
         </Head>
         <body>
           <Main />
@@ -34,7 +37,6 @@ export default class MyDocument extends Document {
 
 MyDocument.getInitialProps = async (ctx: DocumentContext) => {
   // Render app and page and get the context of the page with collected side effects.
-  console.log('_document initial props')
   const sheets = new ServerStyleSheets()
   const originalRenderPage = ctx.renderPage
 

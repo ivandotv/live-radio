@@ -1,5 +1,6 @@
-import { action, makeObservable, observable } from 'mobx'
+import { enablePWAInstallBanner } from 'app-config'
 import { RootStore } from 'lib/stores/root-store'
+import { action, makeObservable, observable } from 'mobx'
 
 export type AppTheme = 'light' | 'dark'
 export class AppShellStore {
@@ -19,6 +20,8 @@ export class AppShellStore {
 
   beforeInstallPrompt: BeforeInstallPromptEvent | undefined
 
+  userChoice: 'dismissed' | 'accepted' | undefined = undefined
+
   constructor(protected rootStore: RootStore) {
     makeObservable<this, 'handleBeforePWAInstall' | 'handleAppInstalled'>(
       this,
@@ -28,6 +31,7 @@ export class AppShellStore {
         desktopDrawerIsOpen: observable,
         userIsSignedIn: observable,
         showInstallPrompt: observable,
+        userChoice: observable,
         readyToShow: action,
         setDesktopDrawer: action,
         setTheme: action,
@@ -51,9 +55,14 @@ export class AppShellStore {
 
   protected handleBeforePWAInstall(e: Event) {
     e.preventDefault()
+    console.log('before install prompt')
+    console.log(e)
     // Stash the event so it can be triggered later.
     this.beforeInstallPrompt = e as BeforeInstallPromptEvent
-    this.showInstallPrompt = true
+    //guard: sometimes this event fires when user clicks "cancel" in chrome ui (linux)
+    if (enablePWAInstallBanner && !this.userChoice) {
+      this.showInstallPrompt = true
+    }
   }
 
   protected handleAppInstalled() {
@@ -70,9 +79,11 @@ export class AppShellStore {
     this.beforeInstallPrompt.prompt()
     const { outcome } = await this.beforeInstallPrompt.userChoice
 
+    this.userChoice = outcome
+
     // TODO - track outcome in analytics
     console.log('user choice: ', outcome)
-
+    this.hideInstallPrompt()
     this.beforeInstallPrompt = undefined
   }
 

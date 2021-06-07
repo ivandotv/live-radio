@@ -60,6 +60,7 @@ export const LocationModal = observer(function LocationModal({
 
   useEffect(() => {
     if (open) {
+      console.log('do fetch')
       doFetch()
     }
   }, [open, doFetch])

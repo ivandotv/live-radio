@@ -69,7 +69,7 @@ msgstr "<0>Search service is not available at the moment. Sorry for the inconven
 msgid "Abkhaz"
 msgstr "Abkhaz"
 
-#: src/app-config.ts:50
+#: src/app-config.ts:60
 #: src/components/navigation/desktop/Menu.tsx:36
 msgid "About"
 msgstr "About"
@@ -142,7 +142,7 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/pages/auth/sign-in.tsx:71
+#: src/pages/auth/sign-in.tsx:75
 #: src/pages/index.tsx:60
 msgid "Anonymous User"
 msgstr "Anonymous User"
@@ -360,21 +360,21 @@ msgstr "Burmese"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/app-config.ts:48
+#: src/app-config.ts:58
 #: src/pages/app/by-genre/[genre].tsx:88
 #: src/pages/app/by-genre/index.tsx:22
 #: src/pages/app/index.tsx:65
 msgid "By Genre"
 msgstr "By Genre"
 
-#: src/app-config.ts:47
+#: src/app-config.ts:57
 #: src/pages/app/by-language/[language].tsx:85
 #: src/pages/app/by-language/index.tsx:54
 #: src/pages/app/index.tsx:63
 msgid "By Language"
 msgstr "By Language"
 
-#: src/app-config.ts:46
+#: src/app-config.ts:56
 #: src/pages/app/by-location/[continent]/[country].tsx:95
 #: src/pages/app/by-location/[continent]/index.tsx:83
 #: src/pages/app/by-location/index.tsx:40
@@ -522,7 +522,7 @@ msgstr "Currently there is no data for <0> ${0}</0>."
 #~ msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 #~ msgstr "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 
-#: src/app-config.ts:44
+#: src/app-config.ts:54
 #: src/pages/app/custom.tsx:18
 #: src/pages/app/index.tsx:68
 msgid "Custom Search"
@@ -701,9 +701,10 @@ msgstr "Faroe Islands"
 msgid "Faroese"
 msgstr "Faroese"
 
-#: src/app-config.ts:43
+#: src/app-config.ts:53
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:84
+#: src/manifest.ts:37
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -831,6 +832,14 @@ msgstr "Ghana"
 #: src/generated/countries.js:32
 msgid "Gibraltar"
 msgstr "Gibraltar"
+
+#: src/manifest.ts:36
+msgid "Go to Favorites"
+msgstr "Go to Favorites"
+
+#: src/manifest.ts:29
+msgid "Go to Settings"
+msgstr "Go to Settings"
 
 #: src/components/music-player/MusicPlayer.tsx:190
 msgid "Go to station website"
@@ -1237,9 +1246,13 @@ msgstr "Limburgish"
 msgid "Lingala"
 msgstr "Lingala"
 
-#: src/pages/_app.tsx:64
+#: src/pages/_app.tsx:66
 msgid "Listen live radio online"
 msgstr "Listen live radio online"
+
+#: src/manifest.ts:11
+msgid "Listen to live radio"
+msgstr "Listen to live radio"
 
 #: src/generated/countries.js:42
 msgid "Lithuania"
@@ -1249,6 +1262,8 @@ msgstr "Lithuania"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
+#: src/manifest.ts:9
+#: src/manifest.ts:10
 #: src/pages/index.tsx:23
 msgid "Live Radio"
 msgstr "Live Radio"
@@ -1316,6 +1331,18 @@ msgstr "Malta"
 #: src/generated/languages.js:115
 msgid "Maltese"
 msgstr "Maltese"
+
+#: src/manifest.ts:31
+msgid "Manage application settings"
+msgstr "Manage application settings"
+
+#: src/manifest.ts:38
+msgid "Manage your favorite stations"
+msgstr "Manage your favorite stations"
+
+#: src/manifest.ts:45
+msgid "Manage your recent stations"
+msgstr "Manage your recent stations"
 
 #: src/generated/languages.js:61
 msgid "Manx"
@@ -1673,17 +1700,22 @@ msgid "Rap"
 msgstr "Rap"
 
 #: src/components/navigation/mobile/MobileNavigation.tsx:89
+#: src/manifest.ts:44
 msgid "Recent"
 msgstr "Recent"
 
-#: src/app-config.ts:45
+#: src/app-config.ts:55
 #: src/components/navigation/desktop/Menu.tsx:26
 msgid "Recent Stations"
 msgstr "Recent Stations"
 
 #: src/pages/app/recent-stations.tsx:18
-msgid "Recently listened stations"
-msgstr "Recently listened stations"
+#~ msgid "Recently listened stations"
+#~ msgstr "Recently listened stations"
+
+#: src/manifest.ts:43
+msgid "Recently played"
+msgstr "Recently played"
 
 #: src/generated/genres.js:50
 msgid "Reggae"
@@ -1821,7 +1853,7 @@ msgstr "Saudi Arabia"
 msgid "Scottish Gaelic"
 msgstr "Scottish Gaelic"
 
-#: src/app-config.ts:42
+#: src/app-config.ts:52
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:79
 #: src/pages/app/by-genre/[genre].tsx:84
@@ -1878,10 +1910,11 @@ msgstr "Serbia"
 msgid "Serbian"
 msgstr "Serbian"
 
-#: src/app-config.ts:49
+#: src/app-config.ts:59
 #: src/components/UserProfileDropdown.tsx:73
 #: src/components/navigation/desktop/Menu.tsx:31
 #: src/components/navigation/mobile/MobileNavigation.tsx:94
+#: src/manifest.ts:30
 msgid "Settings"
 msgstr "Settings"
 
@@ -1919,7 +1952,7 @@ msgstr "Sign in failed. Check the details you provided are correct."
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
-#: src/pages/auth/sign-in.tsx:65
+#: src/pages/auth/sign-in.tsx:69
 msgid "Sign in with"
 msgstr "Sign in with"
 
@@ -2406,8 +2439,16 @@ msgid "Yoruba"
 msgstr "Yoruba"
 
 #: src/pages/app/favorites.tsx:18
-msgid "Your favorite Radio Stations"
-msgstr "Your favorite Radio Stations"
+msgid "Your Favorite Radio Stations"
+msgstr "Your Favorite Radio Stations"
+
+#: src/pages/app/recent-stations.tsx:17
+msgid "Your Recently Listened Stations"
+msgstr "Your Recently Listened Stations"
+
+#: src/pages/app/favorites.tsx:18
+#~ msgid "Your favorite Radio Stations"
+#~ msgstr "Your favorite Radio Stations"
 
 #: src/pages/app/favorites.tsx:14
 msgid "Your favorite stations will appear here"
@@ -2418,8 +2459,12 @@ msgid "Your location is"
 msgstr "Your location is"
 
 #: src/pages/app/recent-stations.tsx:14
-msgid "Your recent stations will appear here"
-msgstr "Your recent stations will appear here"
+#~ msgid "Your recent stations will appear here"
+#~ msgstr "Your recent stations will appear here"
+
+#: src/pages/app/recent-stations.tsx:13
+msgid "Your recently played stations will appear here"
+msgstr "Your recently played stations will appear here"
 
 #: src/components/RemovableItemsList.tsx:84
 #~ msgid "Your stations will appear here"
@@ -2454,7 +2499,7 @@ msgstr "play"
 #~ msgid "pwa,nextjs,material,design"
 #~ msgstr "pwa,nextjs,material,design"
 
-#: src/pages/_app.tsx:67
+#: src/pages/_app.tsx:69
 msgid "pwa,radio,live"
 msgstr "pwa,radio,live"
 
