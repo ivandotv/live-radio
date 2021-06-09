@@ -1,7 +1,8 @@
-import useOnlineStatus from '@rehooks/online-status'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { Trans } from '@lingui/macro'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import WarningIcon from '@material-ui/icons/Warning'
+import { observer } from 'mobx-react-lite'
+import { useRootStore } from './providers/RootStoreProvider'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,13 +25,17 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export function OfflineIndicator({ className }: { className: string }) {
-  const isOnline = useOnlineStatus()
+const OfflineIndicator = observer(function OfflineIndicator({
+  className
+}: {
+  className: string
+}) {
+  const { appShell } = useRootStore()
   const classes = useStyles()
 
   return (
     <div className={className}>
-      {!isOnline ? (
+      {!appShell.isOnLine ? (
         <p className={classes.indicator}>
           <WarningIcon />
           <span className={classes.text}>
@@ -41,4 +46,5 @@ export function OfflineIndicator({ className }: { className: string }) {
       ) : null}
     </div>
   )
-}
+})
+export { OfflineIndicator }

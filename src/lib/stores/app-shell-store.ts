@@ -22,6 +22,8 @@ export class AppShellStore {
 
   userChoice: 'dismissed' | 'accepted' | undefined = undefined
 
+  isOnLine = true
+
   constructor(protected rootStore: RootStore) {
     makeObservable<this, 'handleBeforePWAInstall' | 'handleAppInstalled'>(
       this,
@@ -32,6 +34,7 @@ export class AppShellStore {
         userIsSignedIn: observable,
         showInstallPrompt: observable,
         userChoice: observable,
+        isOnLine: observable,
         readyToShow: action,
         setDesktopDrawer: action,
         setTheme: action,
@@ -50,7 +53,23 @@ export class AppShellStore {
         'appinstalled',
         this.handleAppInstalled.bind(this)
       )
+
+      if ('onLine' in window.navigator) {
+        console.log('setup online')
+        this.setIsOnline(window.navigator.onLine)
+
+        window.addEventListener('offline', (_e: Event) => {
+          this.setIsOnline(false)
+        })
+        window.addEventListener('online', (_e: Event) => {
+          this.setIsOnline(true)
+        })
+      }
     }
+  }
+
+  protected setIsOnline(online: boolean) {
+    this.isOnLine = online
   }
 
   protected handleBeforePWAInstall(e: Event) {
