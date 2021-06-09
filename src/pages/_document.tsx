@@ -17,14 +17,6 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="preconnect" href="https://fonts.com" />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-            key="viewport"
-          />
-          <meta name="robots" content="noindex" />
-          <meta name="keywords" content="pwa,radio,live" />
-          <meta charSet="utf-8" />
         </Head>
         <body>
           <Main />

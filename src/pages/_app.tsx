@@ -61,6 +61,14 @@ export default function MyApp(props: AppProps) {
           content={t`Listen live radio online`}
           key="description"
         />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+          key="viewport"
+        />
+        <meta name="robots" content="noindex" />
+        <meta name="keywords" content="pwa,radio,live" />
+        <meta charSet="utf-8" />
         <PWAIcons />
         {router.locales!.concat('x-default').map((locale) => {
           const localePath = locale === 'x-default' ? '' : `/${locale}`
