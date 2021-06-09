@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme: Theme) =>
       color: '#fff',
       margin: 0,
       fontSize: '1.2rem',
-      padding: `0 ${theme.spacing(1)}px`
+      padding: `${theme.spacing(1)}px`,
+      position: 'absolute',
+      top: '-43px'
     },
     text: {
       margin: `0 ${theme.spacing(1)}px`
