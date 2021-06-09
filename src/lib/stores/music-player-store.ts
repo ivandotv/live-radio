@@ -135,6 +135,8 @@ export class MusicPlayerStore {
       console.log('radio playing')
       this.songInfoService.start(station.url, this.songServiceCb.bind(this))
       this.firstTryLoad = true
+      window.navigator.mediaSession!.playbackState = 'playing'
+
       clearTimeout(this.stationClickTimeoutId)
       this.stationClickTimeoutId = window.setTimeout(() => {
         runInAction(() => {
@@ -168,6 +170,7 @@ export class MusicPlayerStore {
       runInAction(() => {
         this.status = PlayerStatus.PAUSED
       })
+      window.navigator.mediaSession!.playbackState = 'paused'
     })
 
     this.player.on('load', () => {
@@ -192,6 +195,8 @@ export class MusicPlayerStore {
         console.log('trying new url ', url)
         this.initPlayer(this.station, url)
 
+        window.navigator.mediaSession!.playbackState = 'paused'
+
         return
       }
       runInAction(() => {
@@ -215,6 +220,8 @@ export class MusicPlayerStore {
         this.errorStations[station.id] = true
         console.log(this.playerError)
       })
+
+      window.navigator.mediaSession!.playbackState = 'paused'
     })
 
     this.player.play()
@@ -243,6 +250,7 @@ export class MusicPlayerStore {
     this.prevSongInfo = undefined
     this.songInfo = undefined
     this.stationChecked = false
+    this.player!.unload()
     this.disposePlayer()
   }
 
