@@ -8,7 +8,7 @@ import SearchIcon from '@material-ui/icons/Search'
 import SettingsIcon from '@material-ui/icons/Settings'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,13 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
     selected: {}
   })
 )
-
-const menuPaths = [
-  '/app',
-  '/app/favorites',
-  '/app/recent-stations',
-  '/app/settings'
-]
 
 function getSelected(path: string, paths: string[]) {
   //get for first item in menuPaths
@@ -55,13 +48,34 @@ export const MobileNavigation = observer(function MobileNavigation() {
   const router = useRouter()
   const [selected, setSelected] = useState(-1)
 
+  const menuItems = useMemo(
+    () => [
+      {
+        label: t`Search`,
+        icon: <SearchIcon />,
+        path: '/app'
+      },
+      { label: t`Favorites`, icon: <FavoriteIcon />, path: '/app/favorites' },
+      {
+        label: t`Recent`,
+        icon: <RestoreIcon />,
+        path: '/app/recent-stations'
+      },
+      { label: t`Settings`, icon: <SettingsIcon />, path: '/app/settings' }
+    ],
+    []
+  )
+
   useEffect(() => {
-    const currSelected = getSelected(router.asPath, menuPaths)
+    const currSelected = getSelected(
+      router.asPath,
+      menuItems.map((item) => item.path)
+    )
     console.log('curr selected ', currSelected)
     if (currSelected !== -1) {
       setSelected(currSelected)
     }
-  }, [router.asPath])
+  }, [router.asPath, menuItems])
 
   return (
     <BottomNavigation
@@ -69,31 +83,19 @@ export const MobileNavigation = observer(function MobileNavigation() {
       onChange={(_event, newValue) => {
         //navigate
         setSelected(newValue)
-        router.push(menuPaths[newValue])
+        router.push(menuItems[newValue].path)
       }}
       showLabels
       // className={classes.root}
     >
-      <BottomNavigationAction
-        classes={{ ...classes }}
-        label={t`Search`}
-        icon={<SearchIcon />}
-      />
-      <BottomNavigationAction
-        classes={{ ...classes }}
-        label={t`Favorites`}
-        icon={<FavoriteIcon />}
-      />
-      <BottomNavigationAction
-        classes={{ ...classes }}
-        label={t`Recent`}
-        icon={<RestoreIcon />}
-      />
-      <BottomNavigationAction
-        classes={{ ...classes }}
-        label={t`Settings`}
-        icon={<SettingsIcon />}
-      />
+      {menuItems.map((item) => (
+        <BottomNavigationAction
+          key={item.path}
+          classes={classes}
+          label={item.label}
+          icon={item.icon}
+        />
+      ))}
     </BottomNavigation>
   )
 })
