@@ -6749,10 +6749,10 @@ queue-microtask@^1.2.2:
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
 
-radio-browser-api@^2.2.4:
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/radio-browser-api/-/radio-browser-api-2.2.4.tgz#264f4d2fe8a067e6fb8c66c6265bd6e4ee1dfb8a"
-  integrity sha512-qgAqmWn+s7HcpLeqbu3GLJaUSpyeQN6gdwvSVwqzrF26/cTBat7Di0bcNkmDxXAD9GPgctQlkVzgzGkhJGtnag==
+radio-browser-api@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/radio-browser-api/-/radio-browser-api-3.0.0.tgz#e1aa66e55478d003dfa233db07fbf6023a581318"
+  integrity sha512-WboOmcHMvCCFBaJwg5BeLHqlga0xBI4EcfSpqn8zG3tN/umEnDD0pYuyzwaKzRYSbBV9PjCqcb5Di9Cd0T1imQ==
 
 raf@^3.4.1:
   version "3.4.1"

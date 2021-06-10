@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const api = new RadioBrowserApi(fetch, userAgentName)
+  const api = new RadioBrowserApi(userAgentName)
 
   try {
     const stationId = req.query.play as string

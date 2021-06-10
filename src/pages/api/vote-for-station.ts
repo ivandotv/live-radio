@@ -6,7 +6,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const payload = req.body.id
 
-    const radioApi = new RadioBrowserApi(fetch, userAgentName, true)
+    const radioApi = new RadioBrowserApi(userAgentName, true)
 
     const response = await radioApi.sendStationClick(payload)
     console.log(response)

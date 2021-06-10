@@ -19,8 +19,8 @@ export class CustomSearchStore {
 
   searchInProgress = false
 
-  constructor(transport: typeof fetch) {
-    this.api = new RadioBrowserApi(transport, userAgentName)
+  constructor() {
+    this.api = new RadioBrowserApi(userAgentName)
 
     makeObservable<CustomSearchStore, 'searchData'>(this, {
       search: action,
