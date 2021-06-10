@@ -61,6 +61,7 @@ export class MusicPlayerStore {
       playerError: observable,
       songInfo: observable,
       prevSongInfo: observable,
+      initialized: observable,
       errorStations: observable.shallow,
       songServiceCb: action,
       play: action,
@@ -76,8 +77,6 @@ export class MusicPlayerStore {
 
   async init() {
     if (this.initialized) return Promise.resolve()
-    this.initialized = true
-
     try {
       const station = await this.storage.getLastPlayedStation()
       runInAction(() => {
@@ -86,8 +85,11 @@ export class MusicPlayerStore {
         }
       })
     } catch {
-      //noop
+      //TODO -log
     }
+    runInAction(() => {
+      this.initialized = true
+    })
   }
 
   protected songServiceCb(

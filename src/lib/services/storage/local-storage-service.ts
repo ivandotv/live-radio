@@ -35,6 +35,8 @@ export class LocalStorage implements AppStorageService {
   }
 
   addRecentStation(station: RadioStation) {
+    localStorage.setItem('lastPlayed', JSON.stringify(station))
+
     return this.put('history', station)
   }
 
@@ -43,6 +45,10 @@ export class LocalStorage implements AppStorageService {
   }
 
   async getLastPlayedStation(): Promise<RadioStation | null> {
+    const station = localStorage.getItem('lastPlayed')
+    if (station) {
+      return JSON.parse(station)
+    }
     const stations = await this.getAll('history')
 
     return stations.length ? stations[0] : null

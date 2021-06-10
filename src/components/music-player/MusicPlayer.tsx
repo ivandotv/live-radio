@@ -176,7 +176,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   return (
     <div className={classes.root}>
       <div className={classes.uiWrap}>
-        {musicPlayer.station ? (
+        {musicPlayer.initialized ? (
           <div className={classes.column}>
             <PlayerToggleBtn fontSize="3.3rem" />
             <AddTofavoritesBtn
