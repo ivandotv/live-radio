@@ -12,7 +12,7 @@ export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
 export const enableServiceWorker = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER,
-  true
+  isProduction
 )
 export const enablePWAInstallBanner = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_PWA_INSTALL,
