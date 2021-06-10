@@ -250,7 +250,6 @@ export class MusicPlayerStore {
     this.prevSongInfo = undefined
     this.songInfo = undefined
     this.stationChecked = false
-    this.player!.unload()
     this.disposePlayer()
   }
 
