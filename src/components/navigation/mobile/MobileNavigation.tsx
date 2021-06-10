@@ -59,7 +59,7 @@ export const MobileNavigation = observer(function MobileNavigation() {
       {
         label: t`Recent`,
         icon: <RestoreIcon />,
-        path: '/app/recent-stations'
+        path: '/app/recent'
       },
       { label: t`Settings`, icon: <SettingsIcon />, path: '/app/settings' }
     ],

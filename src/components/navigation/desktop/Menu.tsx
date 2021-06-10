@@ -22,9 +22,9 @@ export const Menu = observer(function Menu() {
       selected: router.asPath.startsWith('/app/favorites')
     },
     {
-      link: '/app/recent-stations',
+      link: '/app/recent',
       text: t`Recent Stations`,
-      selected: router.asPath.startsWith('/app/recent-stations')
+      selected: router.asPath.startsWith('/app/recent')
     },
     {
       link: '/app/settings',
