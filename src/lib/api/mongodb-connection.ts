@@ -44,6 +44,4 @@ export async function connectToDatabase(): Promise<{
     cached.promise = null
     throw e
   }
-
-  // return cached.conn
 }

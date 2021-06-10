@@ -15,4 +15,8 @@ export class FavoriteStationsStore extends RadioStore {
   protected resolveStations() {
     return this.storage.getFavoriteStations()
   }
+
+  protected removeStation(id: string) {
+    return this.storage.removeFavoriteStation(id)
+  }
 }

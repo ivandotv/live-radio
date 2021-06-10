@@ -5,22 +5,19 @@ import { getSession } from 'next-auth/client'
 import { Session } from 'next-auth'
 import { NextHandler } from 'next-connect'
 
-// export type SessionWithUserId = Session & { id: string }
-
-// export type NextApiRequestWithSession = NextApiRequest & SessionWithUserId
-
 export type NextApiRequestWithSession = NextApiRequest & {
   session?: Session
 }
 
+/**
+ * Check if user is authenticated
+ */
 export async function setupSession(
   req: NextApiRequestWithSession,
   res: NextApiResponse,
   next: NextHandler
 ) {
   const session = await getSession({ req })
-  console.log('has session ???')
-  console.log('session ')
   if (!session) {
     return res.status(401).json({ msg: 'Unauthorized' })
   }
@@ -28,6 +25,7 @@ export async function setupSession(
   next()
 }
 
+// schema for validating the station payload
 const stationSchema = Joi.object().keys({
   id: Joi.string().required(),
   name: Joi.string().required(),
@@ -43,6 +41,13 @@ const stationSchema = Joi.object().keys({
   countryCode: Joi.string().required().allow('')
 })
 
+/**
+ * Validates station payload
+ * @param req
+ * @param res
+ * @param next
+ * @returns
+ */
 export function validateStation(
   req: NextApiRequest,
   res: NextApiResponse,

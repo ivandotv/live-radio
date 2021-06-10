@@ -1,11 +1,17 @@
 import { isProduction } from 'app-config'
-import { ObjectId } from 'mongodb'
+import { RadioStation } from 'lib/station-utils'
+import { Db, ObjectId } from 'mongodb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { NextApiRequestWithSession } from './middleware'
 import { connectToDatabase } from './mongodb-connection'
 
-export type DBCollections = 'favorites' | 'recent'
+export type StationCollection = 'favorites' | 'recent'
 
+type UserStationData = { date: string; id: string }
+
+/**
+ * Handle uncaught api errors
+ */
 export function onError(err: any, req: NextApiRequest, res: NextApiResponse) {
   console.log(err)
   res.status(500).json({
@@ -14,6 +20,9 @@ export function onError(err: any, req: NextApiRequest, res: NextApiResponse) {
   })
 }
 
+/**
+ * Handle 404 api requests
+ */
 export function onNoMatch(req: NextApiRequest, res: NextApiResponse) {
   res.status(404).json({
     msg: 'Resource not found',
@@ -28,18 +37,20 @@ export function onNoMatch(req: NextApiRequest, res: NextApiResponse) {
   })
 }
 
+/**
+ * Gets stations for a particular collection
+ * @param collection
+ * @returns
+ */
 export function getStations(collection: 'favorites' | 'recent') {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     const { db } = await connectToDatabase()
 
-    if (!req.session) {
-      return res.status(401).json({ msg: 'Unauthorized' })
-    }
-
+    // find the user via session ID (if we are here, session is present)
     const user = await db
       .collection('users')
       .findOne(
-        { _id: new ObjectId(req.session.user.id) },
+        { _id: new ObjectId(req.session!.user.id) },
         { projection: { [collection]: 1 } }
       )
 
@@ -48,22 +59,34 @@ export function getStations(collection: 'favorites' | 'recent') {
     }
 
     let stations = []
+
     if (user[collection]) {
+      // sort the collection by date added
+      const sorted = user[collection]
+        .sort(
+          (a: UserStationData, b: UserStationData) =>
+            new Date(a.date).getTime() - new Date(b.date).getTime()
+        )
+        .map(function (obj: UserStationData) {
+          return obj.id
+        })
+
+      // query the stations collection for user stations
       let query = [
-        { $match: { _id: { $in: user[collection] } } },
+        { $match: { _id: { $in: sorted } } },
         {
           $addFields: {
-            id: '$_id',
-            __order: { $indexOfArray: [user[collection], '$_id'] }
+            __order: { $indexOfArray: [sorted, '$_id'] }
           }
         },
         { $sort: { __order: 1 } },
-        { $project: { _id: 0, __order: 0 } }
+        { $project: { __order: 0 } }
       ]
 
       const cursor = db.collection('stations').aggregate(query)
 
       stations = await cursor.toArray()
+
       await cursor.close() //no need to wait
     }
 
@@ -71,30 +94,24 @@ export function getStations(collection: 'favorites' | 'recent') {
   }
 }
 
-export function saveStation(collection: DBCollections) {
+/**
+ * Handle saving stations to particular collections
+ * @param collection - where to save the station
+ */
+export function handleSaveStation(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     const { db, client } = await connectToDatabase()
-    const { id: stationId } = req.body
-    delete req.body.id
-
-    if (!req.session) {
-      return res.status(401).json({ msg: 'Not authorized' })
-    }
 
     const session = client.startSession()
+
     try {
       await session.withTransaction(async () => {
-        await db
-          .collection('stations')
-          .updateOne({ _id: stationId }, { $set: req.body }, { upsert: true })
+        if (collection === 'recent') {
+          saveRecentStation(db, req.body, req.session!.user.id)
+        } else {
+          saveFavoriteStation(db, req.body, req.session!.user.id)
+        }
       })
-      await db.collection('users').updateOne(
-        {
-          _id: new ObjectId(req.session.user.id),
-          [collection]: { $ne: stationId }
-        },
-        { $push: { [collection]: stationId } }
-      )
     } finally {
       session.endSession()
     }
@@ -103,28 +120,84 @@ export function saveStation(collection: DBCollections) {
   }
 }
 
-export function deleteStation(collection: DBCollections) {
+/**
+ * Deletes station from a particular collection
+ * @param collection - name of the collection
+ */
+export function deleteStation(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     const { db } = await connectToDatabase()
 
-    console.log({ body: req.body })
-    // const id = JSON.parse(req.body.id)
-    const { id } = req.body
+    const { id } = req.query
 
     if (!id) {
       return res.status(400).json({ msg: 'Station ID expected' })
     }
-
-    if (!req.session) {
-      return res.status(401).json({ msg: 'Unauthorized' })
-    }
     await db
       .collection('users')
       .updateOne(
-        { _id: new ObjectId(req.session.user.id) },
-        { $pull: { [collection]: id } }
+        { _id: new ObjectId(req.session!.user.id) },
+        { $pull: { [collection]: { id } } }
       )
 
     return res.status(200).json({ msg: 'Deleted' })
   }
+}
+
+/**
+ * Saves station to stations collection
+ * @param db - database collection
+ * @param station - station payload
+ */
+async function saveStation(db: Db, station: RadioStation) {
+  return await db
+    .collection('stations')
+    .updateOne({ _id: station.id }, { $set: station }, { upsert: true })
+}
+
+/**
+ * Saves recent station
+ * @param db - database connection
+ * @param station - station payload
+ * @param userId  - user id
+ */
+async function saveRecentStation(
+  db: Db,
+  station: RadioStation,
+  userId: string
+) {
+  await saveStation(db, station)
+
+  return await db.collection('users').update(
+    {
+      _id: new ObjectId(userId)
+    },
+    {
+      $addToSet: { favorites: { id: station.id, date: new Date() } },
+      $set: { lastPlayed: station.id }
+    }
+  )
+}
+
+/**
+ * Saves favorite station
+ * @param db - database connection
+ * @param station - station payload
+ * @param userId - user id
+ */
+async function saveFavoriteStation(
+  db: Db,
+  station: RadioStation,
+  userId: string
+) {
+  await saveStation(db, station)
+
+  return await db.collection('users').update(
+    {
+      _id: new ObjectId(userId)
+    },
+    {
+      $addToSet: { recent: { id: station.id, date: new Date() } }
+    }
+  )
 }

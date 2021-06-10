@@ -122,7 +122,7 @@ export abstract class RadioStore {
     }
     this.syncs.remove.set(id, { status: 'pending' })
     try {
-      const data = await this.storage.removeFavoriteStation(id)
+      const data = await this.removeStation(id)
       runInAction(() => {
         this.syncs.remove.set(id, { status: 'resolved', data })
       })
@@ -139,4 +139,6 @@ export abstract class RadioStore {
       throw e
     }
   }
+
+  protected abstract removeStation(id: string): Promise<any>
 }
