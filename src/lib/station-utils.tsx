@@ -20,7 +20,7 @@ export type RadioStation = {
   continentCode: string
   flag: string
 }
-//todo - rename to dataToRadioStations
+
 export function dataToRadioStations(stations: Station[]): RadioStation[] {
   const result = []
 
@@ -66,14 +66,12 @@ export function createStationListRow(opts?: {
   showTags?: boolean
   store?: RadioStore
 }) {
-  Object.assign(
-    {
-      showCountry: true,
-      showFlag: true,
-      showTags: true
-    },
-    opts
-  )
+  const options = {
+    showCountry: true,
+    showFlag: true,
+    showTags: true,
+    ...opts
+  }
 
   return (stations: RadioStation[]) => {
     return function DataRow(index: number) {
@@ -81,12 +79,7 @@ export function createStationListRow(opts?: {
 
       return (
         <StationRowItem
-          {...opts}
-          // showCountry={opts?.showCountry}
-          // showFlag={opts?.showFlag}
-          // showTags={opts?.showTags}
-          // removeBtnFn={opts!.removeBtnFn}
-          // store={opts.store}
+          {...options}
           key={station.id}
           station={station}
         ></StationRowItem>

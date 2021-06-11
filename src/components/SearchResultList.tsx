@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) => {
   })
 })
 
-export const FilterList = observer(function FilterList({
+export const SearchResultList = observer(function SearchResultList({
   dataRow
 }: {
   dataRow: (data: any) => (index: number) => ReactElement
