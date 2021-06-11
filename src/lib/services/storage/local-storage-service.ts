@@ -62,8 +62,8 @@ export class LocalStorage implements AppStorageService {
         console.log({ newVersion })
         console.log({ transaction })
         if (oldVersion === 0) {
-          db.createObjectStore('favorites', { keyPath: 'id' })
-          db.createObjectStore('history', { keyPath: 'id' })
+          db.createObjectStore('favorites', { keyPath: '_id' })
+          db.createObjectStore('history', { keyPath: '_id' })
         }
       },
       blocked() {
