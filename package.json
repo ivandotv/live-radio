@@ -15,7 +15,7 @@
     "lang:extract": "NODE_ENV=development lingui extract",
     "lang:compile": "lingui compile",
     "lang": "yarn lang:extract && yarn lang:compile",
-    "type:check": "tsc",
+    "type:check": "tsc && tsc -b src/service-worker/tsconfig.json",
     "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky install",
     "postinstall": "patch-package"
