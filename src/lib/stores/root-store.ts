@@ -24,7 +24,6 @@ export class RootStore {
     this.musicPlayer = musicPlayerFactory(this)
     this.favoriteStations = favoritesFactory(this)
     this.recentStations = recentStationsFactory(this)
-    this.serviceWorker = serviceWorkerFactory(this)
-    console.log('root store constructor')
+    this.serviceWorker = serviceWorkerFactory()
   }
 }

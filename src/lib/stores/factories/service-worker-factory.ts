@@ -1,12 +1,11 @@
 import { ServiceWorkerStore } from 'lib/stores/service-worker-store'
-import { RootStore } from '../root-store'
 
 let store: ServiceWorkerStore
 
-export function serviceWorkerFactory(root: RootStore) {
+export function serviceWorkerFactory() {
   const isSSR = typeof window === 'undefined'
 
-  const _store = store ?? new ServiceWorkerStore(root)
+  const _store = store ?? new ServiceWorkerStore()
 
   if (isSSR) return _store
 

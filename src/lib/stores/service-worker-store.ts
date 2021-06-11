@@ -29,6 +29,7 @@ export class ServiceWorkerStore {
     console.log('register worker')
   }
 
+  // https://github.com/GoogleChrome/workbox/issues/2860
   protected onWaiting(_evt: any) {
     this.showUpdatePrompt = true
   }

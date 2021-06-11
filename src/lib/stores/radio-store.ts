@@ -84,6 +84,7 @@ export abstract class RadioStore {
       const data = await this.storage.addFavoriteStation(station)
 
       runInAction(() => {
+        // @ts-expect-error
         this.syncs.add.set(station._id, { status: 'resolved', data })
         if (!optimistic) {
           this.stationsById.set(station._id, station)
