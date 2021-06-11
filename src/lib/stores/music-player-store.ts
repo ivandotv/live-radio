@@ -132,6 +132,7 @@ export class MusicPlayerStore {
     this.station = station
 
     console.log('trying ', url ?? station.url)
+    console.log('station to play ', station)
 
     this.player.on('play', () => {
       console.log('radio playing')
@@ -146,7 +147,7 @@ export class MusicPlayerStore {
             this.status === PlayerStatus.PLAYING ||
             this.status === PlayerStatus.BUFFERING
           ) {
-            client('/api/station-click', { data: { id: station.id } }).catch(
+            client('/api/station-click', { data: { id: station._id } }).catch(
               (_e: Error) => {
                 //todo - log error
               }
@@ -160,10 +161,9 @@ export class MusicPlayerStore {
         this.stationChecked = false
         this.status = PlayerStatus.PLAYING
         this.playerError = null
-        this.errorStations[station.id] = false
+        this.errorStations[station._id] = false
       })
 
-      // this.storage.setLastPlayedStation(this.station)
       this.storage.addRecentStation(this.station)
     })
 
@@ -207,7 +207,7 @@ export class MusicPlayerStore {
           data: errorData
         }
         this.status = PlayerStatus.ERROR
-        this.errorStations[station.id] = true
+        this.errorStations[station._id] = true
         console.log(this.playerError)
       })
     })
@@ -219,7 +219,7 @@ export class MusicPlayerStore {
           data: errorData
         }
         this.status = PlayerStatus.ERROR
-        this.errorStations[station.id] = true
+        this.errorStations[station._id] = true
         console.log(this.playerError)
       })
 
@@ -266,7 +266,7 @@ export class MusicPlayerStore {
       throw new Error('Player has no station to play')
     }
 
-    if (this.station?.id === station.id) {
+    if (this.station?._id === station._id) {
       // same station
       if (
         this.status === PlayerStatus.STOPPED ||

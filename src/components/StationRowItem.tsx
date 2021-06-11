@@ -80,7 +80,7 @@ export const StationRowItem = observer(function StationRowItem({
     [musicPlayer, station]
   )
 
-  const stationError = musicPlayer.errorStations[station.id]
+  const stationError = musicPlayer.errorStations[station._id]
   const [show, setShow] = useState(true)
 
   return (
@@ -89,7 +89,7 @@ export const StationRowItem = observer(function StationRowItem({
         collapsedHeight="0.5px"
         onExited={() => {
           console.log('on exit ')
-          store!.removeLocal(station.id)
+          store!.removeLocal(station._id)
         }}
         in={show}
       >
@@ -98,7 +98,7 @@ export const StationRowItem = observer(function StationRowItem({
           onClick={togglePlay}
           className={clsx(classes.root, {
             [classes.stationSelected]:
-              musicPlayer.station?.id === station.id &&
+              musicPlayer.station?._id === station._id &&
               musicPlayer.status !== PlayerStatus.ERROR,
             [classes.stationError]: stationError
           })}
@@ -108,7 +108,7 @@ export const StationRowItem = observer(function StationRowItem({
             <div className={classes.title}>
               <PlayerStateIcon
                 className={classes.playerStateIcon}
-                stationId={station.id}
+                stationId={station._id}
                 fontSize="1.3rem"
               />
               {`${station.name}`}
@@ -127,7 +127,7 @@ export const StationRowItem = observer(function StationRowItem({
                 <StationRowRemoveBtn
                   className={classes.btnRemove}
                   store={store}
-                  id={station.id}
+                  id={station._id}
                   setShow={setShow}
                 />
               ) : null}

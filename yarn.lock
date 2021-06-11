@@ -5832,11 +5832,6 @@ next@10.2.2:
     vm-browserify "1.1.2"
     watchpack "2.1.1"
 
-nice-fetch@^1.0.4:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/nice-fetch/-/nice-fetch-1.1.0.tgz#c98ca78c6d1628231716bf09bd675feda087ba9a"
-  integrity sha512-0fQin0aO1Hf48nJp26Fzc1UAX8bPk/uGRD77BBGYpPJelZ/AQE9DE93OGUqpSiggQognzkLL/FQzCfgarp8pzg==
-
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"

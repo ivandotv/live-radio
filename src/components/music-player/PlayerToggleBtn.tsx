@@ -70,7 +70,7 @@ export const PlayerToggleBtn = observer(function PlayerToggleBtn({
 
   if (
     !stationId ||
-    (musicPlayer.station && stationId === musicPlayer.station.id)
+    (musicPlayer.station && stationId === musicPlayer.station._id)
   ) {
     if (musicPlayer.status === PlayerStatus.PLAYING) {
       btn = (

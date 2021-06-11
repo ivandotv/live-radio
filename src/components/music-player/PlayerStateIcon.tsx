@@ -49,7 +49,7 @@ export const PlayerStateIcon = observer(function PlayerStateIcon({
 
   if (
     !stationId ||
-    (musicPlayer.station && stationId === musicPlayer.station.id)
+    (musicPlayer.station && stationId === musicPlayer.station._id)
   ) {
     if (musicPlayer.status === PlayerStatus.PLAYING) {
       btn = <Stop className={classes.button}></Stop>

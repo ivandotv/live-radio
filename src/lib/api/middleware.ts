@@ -27,7 +27,7 @@ export async function setupSession(
 
 // schema for validating the station payload
 const stationSchema = Joi.object().keys({
-  id: Joi.string().required(),
+  _id: Joi.string().required(),
   name: Joi.string().required(),
   url: Joi.string().required(),
   homepage: Joi.string().required(),

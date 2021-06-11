@@ -6,7 +6,7 @@ export class FavoriteStationsStore extends RadioStore {
   async add(station: RadioStation, optimistic = false) {
     await super.add(station, optimistic)
     try {
-      await client('/api/vote-for-station', { data: { id: station.id } })
+      await client('/api/vote-for-station', { data: { id: station._id } })
     } catch (e) {
       //TODO -log error
     }

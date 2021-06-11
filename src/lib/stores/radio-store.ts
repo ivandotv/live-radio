@@ -55,12 +55,11 @@ export abstract class RadioStore {
       const stations = await this.resolveStations()
       runInAction(() => {
         stations.forEach((station) => {
-          this.stationsById.set(station.id, station)
+          this.stationsById.set(station._id, station)
         })
         this.loadStatus = 'resolved'
       })
     } catch (e) {
-      console.log('catch UT3!')
       runInAction(() => {
         this.loadStatus = 'rejected'
         this.loadError = e
@@ -69,37 +68,37 @@ export abstract class RadioStore {
   }
 
   get stations() {
-    return [...this.stationsById.values()].reverse()
+    return [...this.stationsById.values()]
   }
 
   async add(station: RadioStation, optimistic = false) {
-    const favStation = this.stationsById.get(station.id)
+    const favStation = this.stationsById.get(station._id)
     if (favStation) return
 
     if (optimistic) {
-      this.stationsById.set(station.id, station)
+      this.stationsById.set(station._id, station)
     }
 
-    this.syncs.add.set(station.id, { status: 'pending', data: true })
+    this.syncs.add.set(station._id, { status: 'pending', data: true })
     try {
       const data = await this.storage.addFavoriteStation(station)
 
       runInAction(() => {
-        this.syncs.add.set(station.id, { status: 'resolved', data })
+        this.syncs.add.set(station._id, { status: 'resolved', data })
         if (!optimistic) {
-          this.stationsById.set(station.id, station)
+          this.stationsById.set(station._id, station)
         }
       })
 
       return data
     } catch (e) {
       runInAction(() => {
-        this.syncs.add.set(station.id, { status: 'rejected', data: e })
+        this.syncs.add.set(station._id, { status: 'rejected', data: e })
       })
       if (optimistic) {
         // remove the item from the collection
         runInAction(() => {
-          this.stationsById.delete(station.id)
+          this.stationsById.delete(station._id)
         })
       }
       throw e

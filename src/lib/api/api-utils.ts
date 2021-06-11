@@ -128,16 +128,16 @@ export function deleteStation(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     const { db } = await connectToDatabase()
 
-    const { id } = req.query
+    const { _id } = req.query
 
-    if (!id) {
+    if (!_id) {
       return res.status(400).json({ msg: 'Station ID expected' })
     }
     await db
       .collection('users')
       .updateOne(
         { _id: new ObjectId(req.session!.user.id) },
-        { $pull: { [collection]: { id } } }
+        { $pull: { [collection]: { id: _id } } }
       )
 
     return res.status(200).json({ msg: 'Deleted' })
@@ -152,7 +152,7 @@ export function deleteStation(collection: StationCollection) {
 async function saveStation(db: Db, station: RadioStation) {
   return await db
     .collection('stations')
-    .updateOne({ _id: station.id }, { $set: station }, { upsert: true })
+    .updateOne({ _id: station._id }, { $set: station }, { upsert: true })
 }
 
 /**
@@ -173,8 +173,8 @@ async function saveRecentStation(
       _id: new ObjectId(userId)
     },
     {
-      $addToSet: { favorites: { id: station.id, date: new Date() } },
-      $set: { lastPlayed: station.id }
+      $addToSet: { favorites: { id: station._id, date: new Date() } },
+      $set: { lastPlayed: station._id }
     }
   )
 }
@@ -197,7 +197,39 @@ async function saveFavoriteStation(
       _id: new ObjectId(userId)
     },
     {
-      $addToSet: { recent: { id: station.id, date: new Date() } }
+      $addToSet: { recent: { id: station._id, date: new Date() } }
     }
   )
+}
+
+/**
+ * Gets last played station for user
+ * @param collection
+ * @returns
+ */
+export async function getLastPlayed(
+  req: NextApiRequestWithSession,
+  res: NextApiResponse
+) {
+  const { db } = await connectToDatabase()
+
+  let lastPlayed = null
+  const user = await db
+    .collection('users')
+    .findOne(
+      { _id: new ObjectId(req.session!.user.id) },
+      { projection: { lastPlayed: 1 } }
+    )
+
+  if (!user) {
+    return res.status(401).json({ msg: 'Not authorized' })
+  }
+
+  if (user.lastPlayed) {
+    lastPlayed = await db
+      .collection('stations')
+      .findOne({ _id: user.lastPlayed })
+  }
+
+  return res.json([lastPlayed])
 }

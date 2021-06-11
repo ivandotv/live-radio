@@ -9,10 +9,9 @@ export type RadioStation = {
   tags: string[]
   name: string
   url: string
-  id: string
-  // favicon: string
+  _id: string //match mongoDB
   homepage: string
-  country: string // country code?
+  country: string
   countryCode: string
   language: string[]
   codec: string
@@ -43,7 +42,7 @@ export function dataToRadioStations(stations: Station[]): RadioStation[] {
       tags: station.tags.slice(0, 10),
       name: station.name,
       url: station.urlResolved,
-      id: station.id,
+      _id: station.id,
       homepage: station.homepage,
       country: station.country,
       countryCode: station.countryCode,
@@ -80,7 +79,7 @@ export function createStationListRow(opts?: {
       return (
         <StationRowItem
           {...options}
-          key={station.id}
+          key={station._id}
           station={station}
         ></StationRowItem>
       )
@@ -88,9 +87,9 @@ export function createStationListRow(opts?: {
   }
 }
 
-export function getDefaultStation() {
+export function getDefaultStation(): RadioStation {
   return {
-    id: '961173b5-0601-11e8-ae97-52543be04c81',
+    _id: '961173b5-0601-11e8-ae97-52543be04c81',
     name: 'SomaFM Lush',
     url: 'https://ice.somafm.com/lush-128-mp3',
     homepage: 'https://www.somafm.com/',

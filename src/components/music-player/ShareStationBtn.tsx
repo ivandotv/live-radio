@@ -29,7 +29,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const { musicPlayer } = useRootStore()
 
   const shareUrl = `${encodeURI(url)}/api/share?play=${encodeURIComponent(
-    musicPlayer.station.id
+    musicPlayer.station._id
   )}`
   const shareTitle = t`Share Station -- `
   const shareText = t`Check out this groovy station`

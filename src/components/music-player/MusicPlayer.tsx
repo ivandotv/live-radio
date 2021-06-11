@@ -76,8 +76,8 @@ export const MusicPlayer = observer(function MusicPlayer() {
   const { enqueueSnackbar } = useSnackbar()
   const mounted = usePromise()
 
-  const addFavSync = favoriteStations.syncs.add.get(musicPlayer.station.id)
-  const removeFavSync = favoriteStations.syncs.add.get(musicPlayer.station.id)
+  const addFavSync = favoriteStations.syncs.add.get(musicPlayer.station._id)
+  const removeFavSync = favoriteStations.syncs.add.get(musicPlayer.station._id)
 
   console.log('station name ', musicPlayer.station.name)
   /* This is safe beacause the code disappears in the production build
@@ -131,7 +131,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   const inFavorites = Boolean(
     musicPlayer.station &&
       favoriteStations.stations.find(
-        (station) => musicPlayer.station.id === station.id
+        (station) => musicPlayer.station._id === station._id
       )
   )
 
@@ -147,7 +147,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
     console.log('toggle favorites action!!!!')
     try {
       if (inFavorites) {
-        await mounted(favoriteStations.remove(station.id))
+        await mounted(favoriteStations.remove(station._id))
       } else {
         await mounted(favoriteStations.add(station, true))
       }

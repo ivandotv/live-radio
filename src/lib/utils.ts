@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { countries } from 'generated/countries'
-import niceFetch from 'nice-fetch'
 import { useEffect, useState } from 'react'
 
 export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
@@ -68,7 +67,7 @@ export function useClientUrl(path: string = '') {
   const [url, setUrl] = useState('')
   useEffect(() => {
     setUrl(`${window.location.origin.replace(/\/$/, '')}${path}`)
-  }, [url, path])
+  }, [path])
 
   return url
 }
@@ -78,7 +77,10 @@ export type ClientRequest = RequestInit & {
   data?: Record<string, unknown>
 }
 
-export function client<T>(endpoint: string, customConfig: ClientRequest = {}) {
+export async function client<T>(
+  endpoint: string,
+  customConfig: ClientRequest = {}
+): Promise<T> {
   const { data, token, headers: customHeaders, ...rest } = customConfig
 
   const config: RequestInit = {
@@ -94,7 +96,16 @@ export function client<T>(endpoint: string, customConfig: ClientRequest = {}) {
     ...rest
   }
 
-  return niceFetch(endpoint, config) as Promise<[T, Response]>
+  try {
+    const response = await fetch(endpoint, config)
+    if (response.ok) {
+      return await response.json()
+    } else {
+      throw response
+    }
+  } catch (e) {
+    throw e
+  }
 }
 
 export function booleanEnv(env: string | undefined, initial: boolean) {
