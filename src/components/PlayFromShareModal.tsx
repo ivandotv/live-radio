@@ -49,7 +49,7 @@ export function PlayFromShareModal({
     }
   }, [open, doFetch, play])
 
-  const station = state.value ? state.value[0] : undefined
+  const station = state.value ? state.value : undefined
 
   function playStation() {
     musicPlayer.play(station!)
