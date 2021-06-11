@@ -1,7 +1,6 @@
 import { isProduction } from 'app-config'
 import { countryDataByKey } from 'lib/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { fetchJson } from 'nice-fetch'
 import requestIp from 'request-ip'
 
 /**
@@ -18,9 +17,13 @@ export default async function getGeoLocation(
     detectedIp === '::1' || detectedIp === '127.0.0.1' ? '' : detectedIp
 
   try {
-    const [data] = await fetchJson(`http://ip-api.com/json/${queryIp}`)
-    console.log(data)
-    const countryData = countryDataByKey('code', data.countryCode)
+    const response = await fetch(`http://ip-api.com/json/${queryIp}`)
+    let data: { countryCode: string }
+    let countryData
+    if (response.ok) {
+      data = response.json() as unknown as { countryCode: string }
+      countryData = countryDataByKey('code', data.countryCode)
+    }
 
     if (!countryData) {
       throw new Error(`Can't parse location data`)

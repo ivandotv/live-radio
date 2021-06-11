@@ -48,7 +48,7 @@ export const LocationModal = observer(function LocationModal({
   const router = useRouter()
 
   const [state, doFetch] = useAsyncFn(async () => {
-    const [data] = await client<{
+    const data = await client<{
       cont: string
       code: string
       flag: string
