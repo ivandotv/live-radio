@@ -1,9 +1,16 @@
+import { isProduction } from 'app-config'
 import { countryDataByKey } from 'lib/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { fetchJson } from 'nice-fetch'
 import requestIp from 'request-ip'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+/**
+ * Determine country via ip address
+ *  */
+export default async function getGeoLocation(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const detectedIp = requestIp.getClientIp(req)
 
   // if localhost is detected , send empty string
@@ -20,8 +27,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     res.status(200).json(countryData)
-  } catch (e: unknown) {
-    const message = e instanceof Error ? e.message : 'Error locating IP'
-    res.status(503).json({ message })
+  } catch (err: any) {
+    const message = err.message ? err.message : 'Error locating IP'
+    res
+      .status(503)
+      .json({ message, debug: isProduction ? undefined : err.toString() })
   }
 }

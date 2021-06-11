@@ -11,6 +11,7 @@ import nc from 'next-connect'
 
 const collectionName = 'favorites'
 
+/* Handle CRUD for favorite stations route */
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
   .use(setupSession)
   .get(getStations(collectionName))

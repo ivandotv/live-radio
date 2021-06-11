@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getStationInfo, StreamSource } from 'node-internet-radio'
 import { promisify } from 'util'
 
+// promisify the function
 getStationInfo[promisify.custom] = (url: string, stream: string) => {
   return new Promise((resolve, reject) => {
     getStationInfo(
@@ -21,7 +22,16 @@ getStationInfo[promisify.custom] = (url: string, stream: string) => {
 
 const getStationInfoAsync = promisify(getStationInfo)
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+/**
+ * Return currently playing artist and song title for a given url
+ *  */
+export default async function getSongInfo(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (!req.body.url) {
+    res.status(400).json({ msg: 'station url missing' })
+  }
   try {
     const response: { title: string } = await getStationInfoAsync(
       req.body.url,

@@ -2,7 +2,13 @@ import { userAgentName } from 'app-config'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+/**
+ * Sends station click to radio browser api.
+ */
+export default async function sendStationClick(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     const payload = req.body.id
 

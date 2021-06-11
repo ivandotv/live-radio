@@ -30,7 +30,10 @@ const cacheManifest: Record<string, {}> = {}
  * TODO - separate translation files from the app (save on size)
  *  */
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async function generateManifest(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const url = new URL(req.headers.referer || '')
 
   const pathToLocale = regexp.exec(url.pathname)
@@ -43,6 +46,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
+  //cache generated manifest
   if (cacheManifest[locale]) {
     res.send(cacheManifest[locale])
 
