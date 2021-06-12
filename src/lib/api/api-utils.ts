@@ -2,6 +2,7 @@ import { isProduction } from 'app-config'
 import { RadioStation } from 'lib/station-utils'
 import { Db, ObjectId } from 'mongodb'
 import { NextApiRequest, NextApiResponse } from 'next'
+import { NextHandler } from 'next-connect'
 import { NextApiRequestWithSession } from './middleware'
 import { connectToDatabase } from './mongodb-connection'
 
@@ -99,24 +100,30 @@ export function getStations(collection: 'favorites' | 'recent') {
  * @param collection - where to save the station
  */
 export function handleSaveStation(collection: StationCollection) {
-  return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
+  return async (
+    req: NextApiRequestWithSession,
+    res: NextApiResponse,
+    next: NextHandler
+  ) => {
     const { db, client } = await connectToDatabase()
 
     const session = client.startSession()
-
     try {
       await session.withTransaction(async () => {
         if (collection === 'recent') {
-          saveRecentStation(db, req.body, req.session!.user.id)
+          await saveRecentStation(db, req.body, req.session!.user.id)
         } else {
-          saveFavoriteStation(db, req.body, req.session!.user.id)
+          await saveFavoriteStation(db, req.body, req.session!.user.id)
         }
       })
+
+      return res.status(201).json({ msg: 'Saved' })
+    } catch (e) {
+      next(e)
+      // TODO - log
     } finally {
       session.endSession()
     }
-
-    return res.status(201).json({ msg: 'Saved' })
   }
 }
 
@@ -128,19 +135,19 @@ export function deleteStation(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     const { db } = await connectToDatabase()
 
-    const { _id } = req.query
+    const { id } = req.query
 
-    if (!_id) {
+    if (!id) {
       return res.status(400).json({ msg: 'Station ID expected' })
     }
     await db
       .collection('users')
       .updateOne(
         { _id: new ObjectId(req.session!.user.id) },
-        { $pull: { [collection]: { id: _id } } }
+        { $pull: { [collection]: { id: id } } }
       )
 
-    return res.status(200).json({ msg: 'Deleted' })
+    return res.status(200).json({ msg: 'deleted' })
   }
 }
 
@@ -173,7 +180,7 @@ async function saveRecentStation(
       _id: new ObjectId(userId)
     },
     {
-      $addToSet: { favorites: { id: station._id, date: new Date() } },
+      $addToSet: { recent: { id: station._id, date: new Date() } },
       $set: { lastPlayed: station._id }
     }
   )
@@ -190,14 +197,15 @@ async function saveFavoriteStation(
   station: RadioStation,
   userId: string
 ) {
-  await saveStation(db, station)
+  await saveStation(db, station) //todo -move outside
 
-  return await db.collection('users').update(
+  throw new Error('fav error')
+  await db.collection('users').update(
     {
       _id: new ObjectId(userId)
     },
     {
-      $addToSet: { recent: { id: station._id, date: new Date() } }
+      $addToSet: { favorites: { id: station._id, date: new Date() } }
     }
   )
 }

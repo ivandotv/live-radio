@@ -22,12 +22,8 @@ export class RemoteStorage implements AppStorageService {
   }
 
   async removeFavoriteStation(id: string) {
-    return await this.transport(`/api/favorites`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ id })
+    return await this.transport(`/api/favorites?id=${id}`, {
+      method: 'DELETE'
     })
   }
 
