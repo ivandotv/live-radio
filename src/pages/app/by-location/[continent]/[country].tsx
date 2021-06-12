@@ -95,7 +95,7 @@ export default function CountryStations({
       text: t`By Location`
     },
     {
-      href: '/app/by-location/[continent.raw]',
+      href: '/app/by-location/[continent]',
       as: `/app/by-location/${continentCode}`,
       text: `${continentName.t}`
     },

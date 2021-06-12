@@ -38,6 +38,7 @@ export function LocationBreadcrumbs({
           href={link.href}
           as={link.as ?? link.href}
           passHref
+          prefetch={false}
         >
           <MaterialLink color="inherit" href={link.href}>
             {link.text}
