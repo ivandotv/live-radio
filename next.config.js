@@ -27,9 +27,13 @@ const nextConfig = {
     swDest: 'sw.js'
   },
   typescript: {
-    // !! WARN !!
-    // TEMP: Remove for production
-    ignoreBuildErrors: false
+    /**
+     * I've added custom type  check task (type:check) before build
+     * I have a nested TS configuration (service-worker)
+     * And top level TS check (nextjs default task) is skippng the configuration
+     * in the service-worker directory.
+     *  */
+    ignoreBuildErrors: true
   },
   async headers() {
     return [
