@@ -69,7 +69,7 @@ msgstr "<0>Search service is not available at the moment. Sorry for the inconven
 msgid "Abkhaz"
 msgstr "Abkhaz"
 
-#: src/app-config.ts:60
+#: src/app-config.ts:66
 #: src/components/navigation/desktop/Menu.tsx:36
 msgid "About"
 msgstr "About"
@@ -90,7 +90,7 @@ msgstr "Afar"
 msgid "Afghanistan"
 msgstr "Afghanistan"
 
-#: src/lib/utils.ts:25
+#: src/lib/utils.ts:24
 msgid "Africa"
 msgstr "Africa"
 
@@ -143,12 +143,12 @@ msgid "Anguilla"
 msgstr "Anguilla"
 
 #: src/pages/auth/sign-in.tsx:75
-#: src/pages/index.tsx:60
+#: src/pages/index.tsx:72
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
 #: src/generated/countries.js:333
-#: src/lib/utils.ts:29
+#: src/lib/utils.ts:28
 msgid "Antarctica"
 msgstr "Antarctica"
 
@@ -184,7 +184,7 @@ msgstr "Armenian"
 msgid "Aruba"
 msgstr "Aruba"
 
-#: src/lib/utils.ts:33
+#: src/lib/utils.ts:32
 msgid "Asia"
 msgstr "Asia"
 
@@ -360,21 +360,21 @@ msgstr "Burmese"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/app-config.ts:58
+#: src/app-config.ts:64
 #: src/pages/app/by-genre/[genre].tsx:88
 #: src/pages/app/by-genre/index.tsx:22
 #: src/pages/app/index.tsx:65
 msgid "By Genre"
 msgstr "By Genre"
 
-#: src/app-config.ts:57
+#: src/app-config.ts:63
 #: src/pages/app/by-language/[language].tsx:85
 #: src/pages/app/by-language/index.tsx:54
 #: src/pages/app/index.tsx:63
 msgid "By Language"
 msgstr "By Language"
 
-#: src/app-config.ts:56
+#: src/app-config.ts:62
 #: src/pages/app/by-location/[continent]/[country].tsx:95
 #: src/pages/app/by-location/[continent]/index.tsx:83
 #: src/pages/app/by-location/index.tsx:40
@@ -522,7 +522,7 @@ msgstr "Currently there is no data for <0> ${0}</0>."
 #~ msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 #~ msgstr "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
 
-#: src/app-config.ts:54
+#: src/app-config.ts:60
 #: src/pages/app/custom.tsx:18
 #: src/pages/app/index.tsx:68
 msgid "Custom Search"
@@ -580,7 +580,7 @@ msgstr "Denmark"
 msgid "Depending on your browser this station might not load beacuse it is not served over a secure (https) connection."
 msgstr "Depending on your browser this station might not load beacuse it is not served over a secure (https) connection."
 
-#: src/components/locationModal/LocationModal.tsx:106
+#: src/components/locationModal/LocationModal.tsx:107
 msgid "Determinig your location"
 msgstr "Determinig your location"
 
@@ -640,7 +640,7 @@ msgstr "Electro"
 msgid "Electronic"
 msgstr "Electronic"
 
-#: src/components/LanguageSwitcher.tsx:28
+#: src/components/LanguageSwitcher.tsx:29
 #: src/generated/languages.js:44
 msgid "English"
 msgstr "English"
@@ -681,7 +681,7 @@ msgstr "Estonian"
 msgid "Ethiopia"
 msgstr "Ethiopia"
 
-#: src/lib/utils.ts:37
+#: src/lib/utils.ts:36
 msgid "Europe"
 msgstr "Europe"
 
@@ -701,10 +701,10 @@ msgstr "Faroe Islands"
 msgid "Faroese"
 msgstr "Faroese"
 
-#: src/app-config.ts:53
+#: src/app-config.ts:59
 #: src/components/navigation/desktop/Menu.tsx:21
-#: src/components/navigation/mobile/MobileNavigation.tsx:84
-#: src/manifest.ts:37
+#: src/components/navigation/mobile/MobileNavigation.tsx:58
+#: src/lib/create-manifest.ts:38
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -833,11 +833,11 @@ msgstr "Ghana"
 msgid "Gibraltar"
 msgstr "Gibraltar"
 
-#: src/manifest.ts:36
+#: src/lib/create-manifest.ts:37
 msgid "Go to Favorites"
 msgstr "Go to Favorites"
 
-#: src/manifest.ts:29
+#: src/lib/create-manifest.ts:30
 msgid "Go to Settings"
 msgstr "Go to Settings"
 
@@ -1009,6 +1009,19 @@ msgstr "Indonesia"
 msgid "Indonesian"
 msgstr "Indonesian"
 
+#: src/components/pwa-prompt/InstallBanner.tsx:14
+#: src/components/pwa-prompt/InstallBanner.tsx:15
+msgid "Install"
+msgstr "Install"
+
+#: src/components/pwa-prompt/InstallBanner.tsx:18
+msgid ""
+"Installing Live Radio uses almost no storage and provides a quick way to\n"
+"launch it from the home screen."
+msgstr ""
+"Installing Live Radio uses almost no storage and provides a quick way to\n"
+"launch it from the home screen."
+
 #: src/generated/genres.js:35
 msgid "Instrumental"
 msgstr "Instrumental"
@@ -1053,7 +1066,7 @@ msgstr "Isle of Man"
 msgid "Israel"
 msgstr "Israel"
 
-#: src/components/OfflineIndicator.tsx:35
+#: src/components/OfflineIndicator.tsx:42
 msgid "It appears that you are offline"
 msgstr "It appears that you are offline"
 
@@ -1218,11 +1231,11 @@ msgstr "Lebanon"
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: src/components/locationModal/LocationModal.tsx:131
+#: src/components/locationModal/LocationModal.tsx:132
 msgid "Let me choose different location"
 msgstr "Let me choose different location"
 
-#: src/components/locationModal/LocationModal.tsx:133
+#: src/components/locationModal/LocationModal.tsx:134
 msgid "Let me choose the location"
 msgstr "Let me choose the location"
 
@@ -1246,11 +1259,11 @@ msgstr "Limburgish"
 msgid "Lingala"
 msgstr "Lingala"
 
-#: src/pages/_app.tsx:66
+#: src/pages/_app.tsx:68
 msgid "Listen live radio online"
 msgstr "Listen live radio online"
 
-#: src/manifest.ts:11
+#: src/lib/create-manifest.ts:12
 msgid "Listen to live radio"
 msgstr "Listen to live radio"
 
@@ -1262,11 +1275,15 @@ msgstr "Lithuania"
 msgid "Lithuanian"
 msgstr "Lithuanian"
 
-#: src/manifest.ts:9
-#: src/manifest.ts:10
-#: src/pages/index.tsx:23
+#: src/lib/create-manifest.ts:10
+#: src/lib/create-manifest.ts:11
+#: src/pages/index.tsx:33
 msgid "Live Radio"
 msgstr "Live Radio"
+
+#: src/components/GlobalErrorFallback.tsx:10
+msgid "Live Radio ecountered an error. Please reload the page."
+msgstr "Live Radio ecountered an error. Please reload the page."
 
 #: src/pages/app/index.tsx:55
 msgid "Local Radio"
@@ -1332,15 +1349,15 @@ msgstr "Malta"
 msgid "Maltese"
 msgstr "Maltese"
 
-#: src/manifest.ts:31
+#: src/lib/create-manifest.ts:32
 msgid "Manage application settings"
 msgstr "Manage application settings"
 
-#: src/manifest.ts:38
+#: src/lib/create-manifest.ts:39
 msgid "Manage your favorite stations"
 msgstr "Manage your favorite stations"
 
-#: src/manifest.ts:45
+#: src/lib/create-manifest.ts:46
 msgid "Manage your recent stations"
 msgstr "Manage your recent stations"
 
@@ -1465,6 +1482,10 @@ msgstr "Netherlands"
 msgid "New Caledonia"
 msgstr "New Caledonia"
 
+#: src/components/pwa-prompt/UpdateBanner.tsx:16
+msgid "New Version"
+msgstr "New Version"
+
 #: src/generated/genres.js:42
 msgid "New Wave"
 msgstr "New Wave"
@@ -1472,6 +1493,10 @@ msgstr "New Wave"
 #: src/generated/countries.js:399
 msgid "New Zealand"
 msgstr "New Zealand"
+
+#: src/components/pwa-prompt/UpdateBanner.tsx:20
+msgid "New version of the application is available. Reload to update."
+msgstr "New version of the application is available. Reload to update."
 
 #: src/pages/_app.tsx:37
 #~ msgid "Next.js PWA application made with metrial-ui"
@@ -1502,7 +1527,7 @@ msgstr "No Data"
 msgid "Norfolk Island"
 msgstr "Norfolk Island"
 
-#: src/lib/utils.ts:41
+#: src/lib/utils.ts:40
 msgid "North America"
 msgstr "North America"
 
@@ -1550,15 +1575,19 @@ msgstr "Nuosu"
 msgid "Occitan"
 msgstr "Occitan"
 
-#: src/lib/utils.ts:45
+#: src/lib/utils.ts:44
 msgid "Oceania"
 msgstr "Oceania"
+
+#: src/components/GlobalErrorFallback.tsx:7
+msgid "Oh My!"
+msgstr "Oh My!"
 
 #: src/generated/languages.js:129
 msgid "Ojibwe"
 msgstr "Ojibwe"
 
-#: src/components/locationModal/LocationModal.tsx:140
+#: src/components/locationModal/LocationModal.tsx:141
 msgid "Okay, let's go"
 msgstr "Okay, let's go"
 
@@ -1663,7 +1692,7 @@ msgstr "Progressive House"
 msgid "Progressive Rock"
 msgstr "Progressive Rock"
 
-#: src/components/LanguageSwitcher.tsx:32
+#: src/components/LanguageSwitcher.tsx:33
 msgid "Pseudo"
 msgstr "Pseudo"
 
@@ -1699,12 +1728,12 @@ msgstr "Quechua"
 msgid "Rap"
 msgstr "Rap"
 
-#: src/components/navigation/mobile/MobileNavigation.tsx:89
-#: src/manifest.ts:44
+#: src/components/navigation/mobile/MobileNavigation.tsx:60
+#: src/lib/create-manifest.ts:45
 msgid "Recent"
 msgstr "Recent"
 
-#: src/app-config.ts:55
+#: src/app-config.ts:61
 #: src/components/navigation/desktop/Menu.tsx:26
 msgid "Recent Stations"
 msgstr "Recent Stations"
@@ -1713,7 +1742,7 @@ msgstr "Recent Stations"
 #~ msgid "Recently listened stations"
 #~ msgstr "Recently listened stations"
 
-#: src/manifest.ts:43
+#: src/lib/create-manifest.ts:44
 msgid "Recently played"
 msgstr "Recently played"
 
@@ -1724,6 +1753,10 @@ msgstr "Reggae"
 #: src/generated/genres.js:51
 msgid "Reggaeton"
 msgstr "Reggaeton"
+
+#: src/components/pwa-prompt/UpdateBanner.tsx:17
+msgid "Reload"
+msgstr "Reload"
 
 #: src/components/StationRowItem.tsx:87
 #~ msgid "Remove from favorites"
@@ -1853,9 +1886,9 @@ msgstr "Saudi Arabia"
 msgid "Scottish Gaelic"
 msgstr "Scottish Gaelic"
 
-#: src/app-config.ts:52
+#: src/app-config.ts:58
 #: src/components/navigation/desktop/Menu.tsx:13
-#: src/components/navigation/mobile/MobileNavigation.tsx:79
+#: src/components/navigation/mobile/MobileNavigation.tsx:54
 #: src/pages/app/by-genre/[genre].tsx:84
 #: src/pages/app/by-genre/index.tsx:18
 #: src/pages/app/by-language/[language].tsx:81
@@ -1905,16 +1938,16 @@ msgstr "Senegal"
 msgid "Serbia"
 msgstr "Serbia"
 
-#: src/components/LanguageSwitcher.tsx:29
+#: src/components/LanguageSwitcher.tsx:30
 #: src/generated/languages.js:156
 msgid "Serbian"
 msgstr "Serbian"
 
-#: src/app-config.ts:59
+#: src/app-config.ts:65
 #: src/components/UserProfileDropdown.tsx:73
 #: src/components/navigation/desktop/Menu.tsx:31
-#: src/components/navigation/mobile/MobileNavigation.tsx:94
-#: src/manifest.ts:30
+#: src/components/navigation/mobile/MobileNavigation.tsx:64
+#: src/lib/create-manifest.ts:31
 msgid "Settings"
 msgstr "Settings"
 
@@ -1948,7 +1981,7 @@ msgstr "Sign in"
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr "Sign in failed. Check the details you provided are correct."
 
-#: src/pages/index.tsx:34
+#: src/pages/index.tsx:44
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
@@ -2012,7 +2045,7 @@ msgstr "Somali"
 msgid "Somalia"
 msgstr "Somalia"
 
-#: src/components/locationModal/LocationModal.tsx:104
+#: src/components/locationModal/LocationModal.tsx:105
 msgid "Sorry, couldn't get your location"
 msgstr "Sorry, couldn't get your location"
 
@@ -2028,7 +2061,7 @@ msgstr "Soul"
 msgid "South Africa"
 msgstr "South Africa"
 
-#: src/lib/utils.ts:49
+#: src/lib/utils.ts:48
 msgid "South America"
 msgstr "South America"
 
@@ -2390,11 +2423,11 @@ msgstr "Wallis and Futuna"
 msgid "Walloon"
 msgstr "Walloon"
 
-#: src/pages/index.tsx:34
+#: src/pages/index.tsx:44
 msgid "Welcome Back"
 msgstr "Welcome Back"
 
-#: src/pages/index.tsx:22
+#: src/pages/index.tsx:32
 msgid "Welcome to Live Radio App"
 msgstr "Welcome to Live Radio App"
 
@@ -2442,7 +2475,7 @@ msgstr "Yoruba"
 msgid "Your Favorite Radio Stations"
 msgstr "Your Favorite Radio Stations"
 
-#: src/pages/app/recent-stations.tsx:17
+#: src/pages/app/recent.tsx:17
 msgid "Your Recently Listened Stations"
 msgstr "Your Recently Listened Stations"
 
@@ -2454,7 +2487,7 @@ msgstr "Your Recently Listened Stations"
 msgid "Your favorite stations will appear here"
 msgstr "Your favorite stations will appear here"
 
-#: src/components/locationModal/LocationModal.tsx:102
+#: src/components/locationModal/LocationModal.tsx:103
 msgid "Your location is"
 msgstr "Your location is"
 
@@ -2462,7 +2495,7 @@ msgstr "Your location is"
 #~ msgid "Your recent stations will appear here"
 #~ msgstr "Your recent stations will appear here"
 
-#: src/pages/app/recent-stations.tsx:13
+#: src/pages/app/recent.tsx:13
 msgid "Your recently played stations will appear here"
 msgstr "Your recently played stations will appear here"
 
@@ -2487,7 +2520,7 @@ msgid "Zulu"
 msgstr "Zulu"
 
 #: src/components/PlayFromShareModal.tsx:87
-#: src/components/locationModal/LocationModal.tsx:124
+#: src/components/locationModal/LocationModal.tsx:125
 msgid "close"
 msgstr "close"
 
@@ -2500,8 +2533,12 @@ msgstr "play"
 #~ msgstr "pwa,nextjs,material,design"
 
 #: src/pages/_app.tsx:69
-msgid "pwa,radio,live"
-msgstr "pwa,radio,live"
+#~ msgid "pwa,radio,live"
+#~ msgstr "pwa,radio,live"
+
+#: src/components/GlobalErrorFallback.tsx:13
+msgid "reload"
+msgstr "reload"
 
 #: src/components/StationRowRemoveBtn.tsx:91
 #: src/components/StationRowRemoveBtn.tsx:102

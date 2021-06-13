@@ -115,3 +115,8 @@ export function booleanEnv(env: string | undefined, initial: boolean) {
 
   return initial
 }
+
+export function globalErrorHandler(e: any) {
+  //TODO -log
+  console.log('global error: ', e)
+}

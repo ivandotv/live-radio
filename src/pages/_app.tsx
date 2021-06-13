@@ -2,14 +2,18 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
 import { url } from 'app-config'
+import GlobalError from 'components/GlobalErrorFallback'
+import GlobalErrorHandler from 'components/GlobalErrorHandler'
 import { PWAIcons } from 'components/PWAIcons'
 import { initTranslations } from 'lib/translations'
+import { globalErrorHandler } from 'lib/utils'
 import { NextPage } from 'next'
 import { Provider as AuthProvider } from 'next-auth/client'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useRef } from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 
 export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
   desktopSidebar?: (
@@ -27,9 +31,7 @@ export default function MyApp(props: AppProps) {
   }: { Component: NextApplicationPage; pageProps: any } = props
 
   const router = useRouter()
-
   const locale = router.locale || router.defaultLocale!
-
   const firstRender = useRef(true)
 
   if (firstRender.current) {
@@ -48,7 +50,7 @@ export default function MyApp(props: AppProps) {
   }, [locale, pageProps.translation])
 
   return (
-    <>
+    <I18nProvider i18n={i18n}>
       <Head>
         <link
           rel="manifest"
@@ -79,8 +81,11 @@ export default function MyApp(props: AppProps) {
           )
         })}
       </Head>
-
-      <I18nProvider i18n={i18n}>
+      <ErrorBoundary
+        FallbackComponent={GlobalError}
+        onError={globalErrorHandler}
+      >
+        <GlobalErrorHandler />
         <AuthProvider
           options={{
             clientMaxAge: 0 //60 * 60
@@ -93,7 +98,7 @@ export default function MyApp(props: AppProps) {
             <Component {...pageProps} />
           )}
         </AuthProvider>
-      </I18nProvider>
-    </>
+      </ErrorBoundary>
+    </I18nProvider>
   )
 }
