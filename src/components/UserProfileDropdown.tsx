@@ -99,13 +99,9 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
       ]
 
   return (
-    <div>
-      <div className={classes.avatarWrap} ref={anchorRef}>
-        {session?.user?.name ? (
-          <p>{session.user.name}</p>
-        ) : (
-          <p>{t`Anonymous`}</p>
-        )}
+    <div className={classes.avatarWrap}>
+      {session?.user?.name ? <p>{session.user.name}</p> : <p>{t`Anonymous`}</p>}
+      <div ref={anchorRef}>
         <Avatar
           alt={session?.user?.name ?? '?'}
           className={classes.avatar}
