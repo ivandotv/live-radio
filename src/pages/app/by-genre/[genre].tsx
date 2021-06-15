@@ -11,7 +11,7 @@ import {
   dataToRadioStations,
   RadioStation
 } from 'lib/station-utils'
-import { loadTranslation, paramsWithLocales } from 'lib/translations'
+import { loadTranslations, paramsWithLocales } from 'lib/translations'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -37,7 +37,7 @@ export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
 export const getStaticProps: GetStaticProps = async function (ctx) {
   const genre = (ctx.params!.genre as string).replace(/-/g, ' ')
 
-  const translation = await loadTranslation(ctx.locale!)
+  const translation = await loadTranslations(ctx.locale!)
 
   const api = new RadioBrowserApi(userAgentName)
   const stations = await api.searchStations(

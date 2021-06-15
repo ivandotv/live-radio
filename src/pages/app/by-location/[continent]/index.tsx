@@ -6,7 +6,7 @@ import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { countries } from 'generated/countries'
-import { loadTranslation, paramsWithLocales } from 'lib/translations'
+import { loadTranslations, paramsWithLocales } from 'lib/translations'
 import { continentsByCode } from 'lib/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   const continent = (ctx.params?.continent as string).replace(/-/g, ' ')
 
   console.log('get static PROPS ', ctx.locale)
-  const translation = await loadTranslation(ctx.locale!)
+  const translation = await loadTranslations(ctx.locale!)
 
   return {
     props: {

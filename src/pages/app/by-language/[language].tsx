@@ -5,7 +5,7 @@ import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { languages } from 'generated/languages'
-import { loadTranslation, paramsWithLocales } from 'lib/translations'
+import { loadTranslations, paramsWithLocales } from 'lib/translations'
 import { userAgentName } from 'app-config'
 import { createStationListRow, dataToRadioStations } from 'lib/station-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -35,7 +35,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
     .replace(/-/g, ' ')
     .toLowerCase()
 
-  const translation = await loadTranslation(ctx.locale!)
+  const translation = await loadTranslations(ctx.locale!)
 
   const api = new RadioBrowserApi(userAgentName)
   const stations = await api.searchStations(

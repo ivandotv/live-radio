@@ -1,6 +1,6 @@
 import { i18n } from '@lingui/core'
 import { locales, defaultLocale } from 'app-config'
-import { loadTranslation } from 'lib/translations'
+import { loadTranslations } from 'lib/translations'
 import { en, sr } from 'make-plural/plurals'
 import createManifest from 'lib/create-manifest'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -53,7 +53,7 @@ export default async function generateManifest(
     return
   }
 
-  const translations = await loadTranslation(locale)
+  const translations = await loadTranslations(locale)
   cacheManifest[locale] = translations
   i18n.load(locale, translations)
   i18n.activate(locale)

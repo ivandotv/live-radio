@@ -1,7 +1,7 @@
 import { I18n } from '@lingui/core'
+import { isProduction } from 'app-config'
 import { en, sr } from 'make-plural/plurals'
 import { GetStaticProps } from 'next'
-import defaultCatalog from 'translations/locales/en/messages'
 
 export function initTranslations(i18n: I18n) {
   i18n.loadLocaleData({
@@ -9,16 +9,13 @@ export function initTranslations(i18n: I18n) {
     sr: { plurals: sr },
     xx: { plurals: en } // english plurals for pseudo
   })
-
-  i18n.load('en', defaultCatalog.messages)
-  i18n.activate('en')
 }
 
 export const getStaticTranslations: GetStaticProps<
   { translation: any },
   { locale: string }
 > = async function getStaticTranslations({ locale }) {
-  const messages = await loadTranslation(locale!)
+  const messages = await loadTranslations(locale!)
 
   return {
     props: {
@@ -27,12 +24,18 @@ export const getStaticTranslations: GetStaticProps<
   }
 }
 
-export async function loadTranslation(locale: string): Promise<any> {
-  const { messages } = await import(
-    `@lingui/loader!translations/locales/${locale}/messages.po`
-  )
+export async function loadTranslations(locale: string) {
+  let data
+  if (isProduction) {
+    data = await import(`../translations/locales/${locale}/messages`)
+  } else {
+    console.log('wep back')
+    data = await import(
+      `@lingui/loader!../translations/locales/${locale}/messages.po`
+    )
+  }
 
-  return messages
+  return data.messages
 }
 
 export function paramsWithLocales<T = any>(

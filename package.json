@@ -12,7 +12,7 @@
     "gen:languages": "node scripts/generate-languages.js",
     "gen:genres": "node scripts/generate-genres.js",
     "generate": "npm-run-all gen:*",
-    "lang:extract": "NODE_ENV=development lingui extract",
+    "lang:extract": "NODE_ENV=development lingui extract --clean",
     "lang:compile": "lingui compile",
     "lang": "yarn lang:extract && yarn lang:compile",
     "type:check": "tsc && tsc -b src/service-worker/tsconfig.json",

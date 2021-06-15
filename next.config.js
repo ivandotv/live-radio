@@ -33,7 +33,7 @@ const nextConfig = {
      * And top level TS check (nextjs default task) is skippng the configuration
      * in the service-worker directory.
      *  */
-    ignoreBuildErrors: true
+    ignoreBuildErrors: false
   },
   async headers() {
     return [

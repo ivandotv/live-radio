@@ -5,7 +5,7 @@ import { useClientUrl } from 'lib/utils'
 import { ClientSafeProvider, getProviders, signIn } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
-import { loadTranslation } from 'lib/translations'
+import { loadTranslations } from 'lib/translations'
 import { NextPageContext } from 'next'
 
 export default function SignIn({
@@ -122,7 +122,7 @@ export async function getServerSideProps(
   ctx: NextPageContext & { locale: string }
 ) {
   const providers = await getProviders()
-  const translation = await loadTranslation(ctx.locale!)
+  const translation = await loadTranslations(ctx.locale!)
 
   return {
     props: { providers, translation }

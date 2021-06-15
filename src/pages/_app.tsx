@@ -34,11 +34,10 @@ export default function MyApp(props: AppProps) {
   const locale = router.locale || router.defaultLocale!
   const firstRender = useRef(true)
 
-  if (firstRender.current) {
-    if (pageProps.translation) {
-      i18n.load(locale, pageProps.translation)
-      i18n.activate(locale)
-    }
+  if (firstRender.current && pageProps.translation) {
+    i18n.load(locale, pageProps.translation)
+    i18n.activate(locale)
+    firstRender.current = false
   }
 
   useEffect(() => {
@@ -46,7 +45,6 @@ export default function MyApp(props: AppProps) {
       i18n.load(locale, pageProps.translation)
       i18n.activate(locale)
     }
-    firstRender.current = false
   }, [locale, pageProps.translation])
 
   return (

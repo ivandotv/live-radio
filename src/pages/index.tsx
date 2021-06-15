@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
-import { loadTranslation } from 'lib/translations'
+import { loadTranslations } from 'lib/translations'
 import { useClientUrl } from 'lib/utils'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/client'
@@ -138,7 +138,7 @@ export async function getServerSideProps(
   ctx: NextPageContext & { locale: string }
 ) {
   const session = await getSession(ctx)
-  const translation = await loadTranslation(ctx.locale!)
+  const translation = await loadTranslations(ctx.locale!)
 
   return {
     props: {

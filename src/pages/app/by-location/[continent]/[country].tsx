@@ -7,7 +7,7 @@ import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import getFlag from 'country-code-emoji'
 import { countries } from 'generated/countries'
-import { loadTranslation, paramsWithLocales } from 'lib/translations'
+import { loadTranslations, paramsWithLocales } from 'lib/translations'
 import { userAgentName } from 'app-config'
 import { createStationListRow, dataToRadioStations } from 'lib/station-utils'
 import { continentsByCode } from 'lib/utils'
@@ -31,7 +31,7 @@ export const getStaticPaths: GetStaticPaths = async function (ctx) {
 }
 
 export const getStaticProps: GetStaticProps = async function (ctx) {
-  const translation = await loadTranslation(ctx.locale!)
+  const translation = await loadTranslations(ctx.locale!)
 
   const countryCode = ctx.params?.country as string
   const continent = ctx.params?.continent as string

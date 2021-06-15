@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2020-12-24 21:48+0100\n"
+"POT-Creation-Date: 2021-06-13 22:33+0200\n"
 "Mime-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,21 +13,9 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/app/index.tsx:30
-#~ msgid "<0>App Root = ovde staviti recent i ostale varijante</0>"
-#~ msgstr "<0>App Root = ovde staviti recent i ostale varijante</0>"
-
 #: src/pages/app/by-language/[language].tsx:103
 msgid "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for <1> {0}</1>.</0>"
-
-#: src/pages/app/by-language/[language].tsx:103
-#~ msgid "<0>Currently there is no data for <1>{0}</1>. Sorry for the inconvenience.</0>"
-#~ msgstr "<0>Currently there is no data for <1>{0}</1>. Sorry for the inconvenience.</0>"
-
-#: src/components/CustomSearchResults.tsx:65
-#~ msgid "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
-#~ msgstr "<0>Currently there is no data for your query. Sorry for the inconvenience.</0>"
 
 #: src/components/CustomSearchResults.tsx:65
 msgid "<0>Currently there is no data for your query.</0>"
@@ -37,18 +25,6 @@ msgstr "<0>Currently there is no data for your query.</0>"
 msgid "<0>Currently there is no data for<1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for<1> {0}</1>.</0>"
 
-#: src/pages/app/by-location/[continent]/[country].tsx:118
-#~ msgid "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
-#~ msgstr "<0>Currently there is no data!!! for<1>{0}</1>. Sorry for the inconvenience.</0>"
-
-#: src/components/FavoritesList.tsx:34
-#~ msgid "<0>No favorites</0>"
-#~ msgstr "<0>No favorites</0>"
-
-#: src/components/RecentStationsList.tsx:34
-#~ msgid "<0>No recent history</0>"
-#~ msgstr "<0>No recent history</0>"
-
 #: src/components/FilterList.tsx:32
 msgid "<0>No results</0>"
 msgstr "<0>No results</0>"
@@ -57,19 +33,11 @@ msgstr "<0>No results</0>"
 msgid "<0>Search service is not available at the moment. Sorry for the inconvenience.</0>"
 msgstr "<0>Search service is not available at the moment. Sorry for the inconvenience.</0>"
 
-#: src/components/FavoritesList.tsx:58
-#~ msgid "<0>Your favorite stations will appear here</0>"
-#~ msgstr "<0>Your favorite stations will appear here</0>"
-
-#: src/components/RecentStationsList.tsx:38
-#~ msgid "<0>Your recent stations will appear here</0>"
-#~ msgstr "<0>Your recent stations will appear here</0>"
-
 #: src/generated/languages.js:8
 msgid "Abkhaz"
 msgstr "Abkhaz"
 
-#: src/app-config.ts:66
+#: src/app-config.ts:67
 #: src/components/navigation/desktop/Menu.tsx:36
 msgid "About"
 msgstr "About"
@@ -77,10 +45,6 @@ msgstr "About"
 #: src/components/music-player/AddToFavoritesBtn.tsx:40
 msgid "Add station to favorites"
 msgstr "Add station to favorites"
-
-#: src/components/music-player/MusicPlayer.tsx:160
-#~ msgid "Added to favorites"
-#~ msgstr "Added to favorites"
 
 #: src/generated/languages.js:7
 msgid "Afar"
@@ -143,7 +107,7 @@ msgid "Anguilla"
 msgstr "Anguilla"
 
 #: src/pages/auth/sign-in.tsx:75
-#: src/pages/index.tsx:72
+#: src/pages/index.tsx:70
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
@@ -360,21 +324,21 @@ msgstr "Burmese"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/app-config.ts:64
+#: src/app-config.ts:65
 #: src/pages/app/by-genre/[genre].tsx:88
 #: src/pages/app/by-genre/index.tsx:22
 #: src/pages/app/index.tsx:65
 msgid "By Genre"
 msgstr "By Genre"
 
-#: src/app-config.ts:63
+#: src/app-config.ts:64
 #: src/pages/app/by-language/[language].tsx:85
 #: src/pages/app/by-language/index.tsx:54
 #: src/pages/app/index.tsx:63
 msgid "By Language"
 msgstr "By Language"
 
-#: src/app-config.ts:62
+#: src/app-config.ts:63
 #: src/pages/app/by-location/[continent]/[country].tsx:95
 #: src/pages/app/by-location/[continent]/index.tsx:83
 #: src/pages/app/by-location/index.tsx:40
@@ -518,11 +482,7 @@ msgstr "Curacao"
 msgid "Currently there is no data for <0> ${0}</0>."
 msgstr "Currently there is no data for <0> ${0}</0>."
 
-#: src/pages/app/by-genre/[genre].tsx:96
-#~ msgid "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
-#~ msgstr "Currently there is no data for <0>${0}</0>. Sorry for the inconvenience."
-
-#: src/app-config.ts:60
+#: src/app-config.ts:61
 #: src/pages/app/custom.tsx:18
 #: src/pages/app/index.tsx:68
 msgid "Custom Search"
@@ -567,14 +527,6 @@ msgstr "Democratic Republic of the Congo"
 #: src/generated/countries.js:24
 msgid "Denmark"
 msgstr "Denmark"
-
-#: src/components/StationRowItem.tsx:61
-#~ msgid "Depending on your brower this station might not load beacuse it is not served over a secure connection"
-#~ msgstr "Depending on your brower this station might not load beacuse it is not served over a secure connection"
-
-#: src/components/StationRowItem.tsx:82
-#~ msgid "Depending on your browser this station might not load beacuse it is not served over a secure (https) connection"
-#~ msgstr "Depending on your browser this station might not load beacuse it is not served over a secure (https) connection"
 
 #: src/components/StationRowItem.tsx:121
 msgid "Depending on your browser this station might not load beacuse it is not served over a secure (https) connection."
@@ -701,7 +653,7 @@ msgstr "Faroe Islands"
 msgid "Faroese"
 msgstr "Faroese"
 
-#: src/app-config.ts:59
+#: src/app-config.ts:60
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:58
 #: src/lib/create-manifest.ts:38
@@ -723,10 +675,6 @@ msgstr "Filter Countries"
 #: src/pages/app/by-genre/index.tsx:63
 msgid "Filter Genres"
 msgstr "Filter Genres"
-
-#: src/components/ListStations.tsx:32
-#~ msgid "Filter Languages"
-#~ msgstr "Filter Languages"
 
 #: src/components/ListStations.tsx:53
 #: src/pages/app/by-location/[continent]/[country].tsx:115
@@ -1219,10 +1167,6 @@ msgstr "Latvia"
 msgid "Latvian"
 msgstr "Latvian"
 
-#: src/pages/index.tsx:20
-#~ msgid "Launch Application"
-#~ msgstr "Launch Application"
-
 #: src/generated/countries.js:124
 msgid "Lebanon"
 msgstr "Lebanon"
@@ -1259,7 +1203,7 @@ msgstr "Limburgish"
 msgid "Lingala"
 msgstr "Lingala"
 
-#: src/pages/_app.tsx:68
+#: src/pages/_app.tsx:61
 msgid "Listen live radio online"
 msgstr "Listen live radio online"
 
@@ -1498,10 +1442,6 @@ msgstr "New Zealand"
 msgid "New version of the application is available. Reload to update."
 msgstr "New version of the application is available. Reload to update."
 
-#: src/pages/_app.tsx:37
-#~ msgid "Next.js PWA application made with metrial-ui"
-#~ msgstr "Next.js PWA application made with metrial-ui"
-
 #: src/generated/countries.js:204
 msgid "Nicaragua"
 msgstr "Nicaragua"
@@ -1733,14 +1673,10 @@ msgstr "Rap"
 msgid "Recent"
 msgstr "Recent"
 
-#: src/app-config.ts:61
+#: src/app-config.ts:62
 #: src/components/navigation/desktop/Menu.tsx:26
 msgid "Recent Stations"
 msgstr "Recent Stations"
-
-#: src/pages/app/recent-stations.tsx:18
-#~ msgid "Recently listened stations"
-#~ msgstr "Recently listened stations"
 
 #: src/lib/create-manifest.ts:44
 msgid "Recently played"
@@ -1758,10 +1694,6 @@ msgstr "Reggaeton"
 msgid "Reload"
 msgstr "Reload"
 
-#: src/components/StationRowItem.tsx:87
-#~ msgid "Remove from favorites"
-#~ msgstr "Remove from favorites"
-
 #: src/components/StationRowRemoveBtn.tsx:100
 msgid "Remove station"
 msgstr "Remove station"
@@ -1769,14 +1701,6 @@ msgstr "Remove station"
 #: src/components/music-player/AddToFavoritesBtn.tsx:39
 msgid "Remove station from favorites"
 msgstr "Remove station from favorites"
-
-#: src/components/music-player/MusicPlayer.tsx:160
-#~ msgid "Removed from favorites"
-#~ msgstr "Removed from favorites"
-
-#: src/components/music-player/MusicPlayer.tsx:132
-#~ msgid "Removed from favourites"
-#~ msgstr "Removed from favourites"
 
 #: src/generated/countries.js:266
 msgid "Republic of the Congo"
@@ -1801,10 +1725,6 @@ msgstr "Romanian"
 #: src/generated/languages.js:139
 msgid "Romansh"
 msgstr "Romansh"
-
-#: src/lib/appSettings.ts:15
-#~ msgid "Rsecent Stations"
-#~ msgstr "Rsecent Stations"
 
 #: src/generated/countries.js:61
 msgid "Russia"
@@ -1886,7 +1806,7 @@ msgstr "Saudi Arabia"
 msgid "Scottish Gaelic"
 msgstr "Scottish Gaelic"
 
-#: src/app-config.ts:58
+#: src/app-config.ts:59
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:54
 #: src/pages/app/by-genre/[genre].tsx:84
@@ -1943,7 +1863,7 @@ msgstr "Serbia"
 msgid "Serbian"
 msgstr "Serbian"
 
-#: src/app-config.ts:65
+#: src/app-config.ts:66
 #: src/components/UserProfileDropdown.tsx:73
 #: src/components/navigation/desktop/Menu.tsx:31
 #: src/components/navigation/mobile/MobileNavigation.tsx:64
@@ -2020,10 +1940,6 @@ msgstr "Slovak"
 #: src/generated/countries.js:70
 msgid "Slovakia"
 msgstr "Slovakia"
-
-#: src/generated/languages.js:151
-#~ msgid "Slovene"
-#~ msgstr "Slovene"
 
 #: src/generated/countries.js:63
 msgid "Slovenia"
@@ -2225,10 +2141,6 @@ msgstr "Thai"
 msgid "Thailand"
 msgstr "Thailand"
 
-#: src/components/FavoritesList.tsx:52
-#~ msgid "There was an error trying to load your favorite stations."
-#~ msgstr "There was an error trying to load your favorite stations."
-
 #: src/components/RemovableItemsList.tsx:70
 msgid "There was an error trying to load your stations."
 msgstr "There was an error trying to load your stations."
@@ -2236,10 +2148,6 @@ msgstr "There was an error trying to load your stations."
 #: src/generated/languages.js:26
 msgid "Tibetan"
 msgstr "Tibetan"
-
-#: src/generated/languages.js:26
-#~ msgid "Tibetan Standard"
-#~ msgstr "Tibetan Standard"
 
 #: src/generated/languages.js:166
 msgid "Tigrinya"
@@ -2431,10 +2339,6 @@ msgstr "Welcome Back"
 msgid "Welcome to Live Radio App"
 msgstr "Welcome to Live Radio App"
 
-#: src/pages/index.tsx:13
-#~ msgid "Welcome to Next Radio App"
-#~ msgstr "Welcome to Next Radio App"
-
 #: src/generated/languages.js:37
 msgid "Welsh"
 msgstr "Welsh"
@@ -2479,10 +2383,6 @@ msgstr "Your Favorite Radio Stations"
 msgid "Your Recently Listened Stations"
 msgstr "Your Recently Listened Stations"
 
-#: src/pages/app/favorites.tsx:18
-#~ msgid "Your favorite Radio Stations"
-#~ msgstr "Your favorite Radio Stations"
-
 #: src/pages/app/favorites.tsx:14
 msgid "Your favorite stations will appear here"
 msgstr "Your favorite stations will appear here"
@@ -2491,17 +2391,9 @@ msgstr "Your favorite stations will appear here"
 msgid "Your location is"
 msgstr "Your location is"
 
-#: src/pages/app/recent-stations.tsx:14
-#~ msgid "Your recent stations will appear here"
-#~ msgstr "Your recent stations will appear here"
-
 #: src/pages/app/recent.tsx:13
 msgid "Your recently played stations will appear here"
 msgstr "Your recently played stations will appear here"
-
-#: src/components/RemovableItemsList.tsx:84
-#~ msgid "Your stations will appear here"
-#~ msgstr "Your stations will appear here"
 
 #: src/generated/countries.js:329
 msgid "Zambia"
@@ -2527,14 +2419,6 @@ msgstr "close"
 #: src/components/PlayFromShareModal.tsx:92
 msgid "play"
 msgstr "play"
-
-#: src/pages/_app.tsx:38
-#~ msgid "pwa,nextjs,material,design"
-#~ msgstr "pwa,nextjs,material,design"
-
-#: src/pages/_app.tsx:69
-#~ msgid "pwa,radio,live"
-#~ msgstr "pwa,radio,live"
 
 #: src/components/GlobalErrorFallback.tsx:13
 msgid "reload"
