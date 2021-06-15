@@ -199,7 +199,6 @@ async function saveFavoriteStation(
 ) {
   await saveStation(db, station) //todo -move outside
 
-  throw new Error('fav error')
   await db.collection('users').update(
     {
       _id: new ObjectId(userId)
