@@ -4,12 +4,16 @@ import { useErrorHandler } from 'react-error-boundary'
 export default function GlobalErrorHandler() {
   const handleError = useErrorHandler()
   useEffect(() => {
-    // window.addEventListener('unhandledrejection', (event) => {
-    //   handleError(event)
-    // })
-    // window.addEventListener('error', (event) => {
-    //   handleError(event)
-    // })
+    window.addEventListener('unhandledrejection', (event) => {
+      // handleError(event)
+      console.log('unhandledrejection', event)
+      //todo - log to third party
+    })
+    window.addEventListener('error', (event) => {
+      // handleError(event)
+      console.log('error', event)
+      //todo - log to third party
+    })
   }, [handleError])
 
   return null
