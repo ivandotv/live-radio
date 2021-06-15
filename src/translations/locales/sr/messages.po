@@ -37,7 +37,7 @@ msgstr ""
 msgid "Abkhaz"
 msgstr ""
 
-#: src/app-config.ts:67
+#: src/app-config.ts:66
 #: src/components/navigation/desktop/Menu.tsx:36
 msgid "About"
 msgstr ""
@@ -104,6 +104,10 @@ msgstr ""
 
 #: src/generated/countries.js:161
 msgid "Anguilla"
+msgstr ""
+
+#: src/components/UserProfileDropdown.tsx:103
+msgid "Anonymous"
 msgstr ""
 
 #: src/pages/auth/sign-in.tsx:75
@@ -324,21 +328,21 @@ msgstr ""
 msgid "Burundi"
 msgstr ""
 
-#: src/app-config.ts:65
+#: src/app-config.ts:64
 #: src/pages/app/by-genre/[genre].tsx:88
 #: src/pages/app/by-genre/index.tsx:22
 #: src/pages/app/index.tsx:65
 msgid "By Genre"
 msgstr ""
 
-#: src/app-config.ts:64
+#: src/app-config.ts:63
 #: src/pages/app/by-language/[language].tsx:85
 #: src/pages/app/by-language/index.tsx:54
 #: src/pages/app/index.tsx:63
 msgid "By Language"
 msgstr ""
 
-#: src/app-config.ts:63
+#: src/app-config.ts:62
 #: src/pages/app/by-location/[continent]/[country].tsx:95
 #: src/pages/app/by-location/[continent]/index.tsx:83
 #: src/pages/app/by-location/index.tsx:40
@@ -482,7 +486,7 @@ msgstr ""
 msgid "Currently there is no data for <0> ${0}</0>."
 msgstr ""
 
-#: src/app-config.ts:61
+#: src/app-config.ts:60
 #: src/pages/app/custom.tsx:18
 #: src/pages/app/index.tsx:68
 msgid "Custom Search"
@@ -653,7 +657,7 @@ msgstr ""
 msgid "Faroese"
 msgstr ""
 
-#: src/app-config.ts:60
+#: src/app-config.ts:59
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:58
 #: src/lib/create-manifest.ts:38
@@ -1671,7 +1675,7 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
-#: src/app-config.ts:62
+#: src/app-config.ts:61
 #: src/components/navigation/desktop/Menu.tsx:26
 msgid "Recent Stations"
 msgstr ""
@@ -1804,7 +1808,7 @@ msgstr ""
 msgid "Scottish Gaelic"
 msgstr ""
 
-#: src/app-config.ts:59
+#: src/app-config.ts:58
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:54
 #: src/pages/app/by-genre/[genre].tsx:84
@@ -1861,8 +1865,8 @@ msgstr ""
 msgid "Serbian"
 msgstr ""
 
-#: src/app-config.ts:66
-#: src/components/UserProfileDropdown.tsx:73
+#: src/app-config.ts:65
+#: src/components/UserProfileDropdown.tsx:80
 #: src/components/navigation/desktop/Menu.tsx:31
 #: src/components/navigation/mobile/MobileNavigation.tsx:64
 #: src/lib/create-manifest.ts:31
@@ -1890,7 +1894,7 @@ msgstr ""
 msgid "Sierra Leone"
 msgstr ""
 
-#: src/components/UserProfileDropdown.tsx:90
+#: src/components/UserProfileDropdown.tsx:97
 #: src/pages/auth/sign-in.tsx:45
 msgid "Sign in"
 msgstr ""
@@ -1907,7 +1911,7 @@ msgstr ""
 msgid "Sign in with"
 msgstr ""
 
-#: src/components/UserProfileDropdown.tsx:64
+#: src/components/UserProfileDropdown.tsx:71
 msgid "Sign out"
 msgstr ""
 

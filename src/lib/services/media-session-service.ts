@@ -1,5 +1,5 @@
-import { reaction } from 'mobx'
 import { MusicPlayerStore, PlayerStatus } from 'lib/stores/music-player-store'
+import { reaction } from 'mobx'
 
 export class MediaSessionService {
   constructor(
@@ -42,8 +42,8 @@ export class MediaSessionService {
         songInfo: MusicPlayerStore['songInfo']
         stationName: string
       }) => {
-        let artist = 'No Artist Data',
-          song
+        let artist = musicPlayer.station.name
+        let song = ''
         if (songInfo?.artist) {
           //set meta data
           artist = songInfo.artist
@@ -90,7 +90,7 @@ export class MediaSessionService {
     }
   }
 
-  setMetaData(data: {
+  protected setMetaData(data: {
     img?: string
     stationName?: string
     artist?: string

@@ -1,6 +1,6 @@
 import {
   deleteStation,
-  getStations,
+  getUserStations,
   onError,
   onNoMatch,
   handleSaveStation
@@ -14,7 +14,7 @@ const collectionName = 'favorites'
 /* Handle CRUD for favorite stations route */
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
   .use(setupSession)
-  .get(getStations(collectionName))
+  .get(getUserStations(collectionName))
   .post(validateStation, handleSaveStation(collectionName))
   .delete(deleteStation(collectionName))
 

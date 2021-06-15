@@ -1,10 +1,14 @@
 import { isProduction } from 'app-config'
-import { RadioStation } from 'lib/station-utils'
-import { Db, ObjectId } from 'mongodb'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { NextHandler } from 'next-connect'
+import {
+  deleteStationFromCollection,
+  getLastPlayedStation,
+  getStations,
+  getUserCollection,
+  saveToUserCollection
+} from './db-calls'
+import { connectToDatabase } from './db-connection'
 import { NextApiRequestWithSession } from './middleware'
-import { connectToDatabase } from './mongodb-connection'
 
 export type StationCollection = 'favorites' | 'recent'
 
@@ -40,21 +44,12 @@ export function onNoMatch(req: NextApiRequest, res: NextApiResponse) {
 
 /**
  * Gets stations for a particular collection
- * @param collection
- * @returns
+ * @param collection - user collection
  */
-export function getStations(collection: 'favorites' | 'recent') {
+export function getUserStations(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
-    const { db } = await connectToDatabase()
-
     // find the user via session ID (if we are here, session is present)
-    const user = await db
-      .collection('users')
-      .findOne(
-        { _id: new ObjectId(req.session!.user.id) },
-        { projection: { [collection]: 1 } }
-      )
-
+    const user = await getUserCollection(req.session!.user.id, collection)
     if (!user) {
       return res.status(401).json({ msg: 'Not authorized' })
     }
@@ -72,23 +67,7 @@ export function getStations(collection: 'favorites' | 'recent') {
           return obj.id
         })
 
-      // query the stations collection for user stations
-      let query = [
-        { $match: { _id: { $in: sorted } } },
-        {
-          $addFields: {
-            __order: { $indexOfArray: [sorted, '$_id'] }
-          }
-        },
-        { $sort: { __order: 1 } },
-        { $project: { __order: 0 } }
-      ]
-
-      const cursor = db.collection('stations').aggregate(query)
-
-      stations = await cursor.toArray()
-
-      await cursor.close() //no need to wait
+      stations = await getStations(sorted)
     }
 
     return res.json(stations)
@@ -100,30 +79,10 @@ export function getStations(collection: 'favorites' | 'recent') {
  * @param collection - where to save the station
  */
 export function handleSaveStation(collection: StationCollection) {
-  return async (
-    req: NextApiRequestWithSession,
-    res: NextApiResponse,
-    next: NextHandler
-  ) => {
-    const { db, client } = await connectToDatabase()
+  return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
+    await saveToUserCollection(req.session!.user.id, req.body, collection)
 
-    const session = client.startSession()
-    try {
-      await session.withTransaction(async () => {
-        if (collection === 'recent') {
-          await saveRecentStation(db, req.body, req.session!.user.id)
-        } else {
-          await saveFavoriteStation(db, req.body, req.session!.user.id)
-        }
-      })
-
-      return res.status(201).json({ msg: 'Saved' })
-    } catch (e) {
-      next(e)
-      // TODO - log
-    } finally {
-      session.endSession()
-    }
+    return res.status(201).json({ msg: 'Saved' })
   }
 }
 
@@ -133,86 +92,28 @@ export function handleSaveStation(collection: StationCollection) {
  */
 export function deleteStation(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
-    const { db } = await connectToDatabase()
-
-    const { id } = req.query
+    const id = req.query.id as string
 
     if (!id) {
       return res.status(400).json({ msg: 'Station ID expected' })
     }
-    await db
-      .collection('users')
-      .updateOne(
-        { _id: new ObjectId(req.session!.user.id) },
-        { $pull: { [collection]: { id: id } } }
-      )
 
-    return res.status(200).json({ msg: 'deleted' })
+    const result = await deleteStationFromCollection(
+      req.session!.user.id,
+      id,
+      collection
+    )
+    if (result.modifiedCount) {
+      return res.status(200).json({ msg: 'deleted' })
+    }
+
+    return res.status(404).json({ msg: 'not found' })
   }
 }
 
 /**
- * Saves station to stations collection
- * @param db - database collection
- * @param station - station payload
- */
-async function saveStation(db: Db, station: RadioStation) {
-  return await db
-    .collection('stations')
-    .updateOne({ _id: station._id }, { $set: station }, { upsert: true })
-}
-
-/**
- * Saves recent station
- * @param db - database connection
- * @param station - station payload
- * @param userId  - user id
- */
-async function saveRecentStation(
-  db: Db,
-  station: RadioStation,
-  userId: string
-) {
-  await saveStation(db, station)
-
-  return await db.collection('users').update(
-    {
-      _id: new ObjectId(userId)
-    },
-    {
-      $addToSet: { recent: { id: station._id, date: new Date() } },
-      $set: { lastPlayed: station._id }
-    }
-  )
-}
-
-/**
- * Saves favorite station
- * @param db - database connection
- * @param station - station payload
- * @param userId - user id
- */
-async function saveFavoriteStation(
-  db: Db,
-  station: RadioStation,
-  userId: string
-) {
-  await saveStation(db, station) //todo -move outside
-
-  await db.collection('users').update(
-    {
-      _id: new ObjectId(userId)
-    },
-    {
-      $addToSet: { favorites: { id: station._id, date: new Date() } }
-    }
-  )
-}
-
-/**
  * Gets last played station for user
- * @param collection
- * @returns
+ * @param collection - user collection
  */
 export async function getLastPlayed(
   req: NextApiRequestWithSession,
@@ -221,13 +122,7 @@ export async function getLastPlayed(
   const { db } = await connectToDatabase()
 
   let lastPlayed = null
-  const user = await db
-    .collection('users')
-    .findOne(
-      { _id: new ObjectId(req.session!.user.id) },
-      { projection: { lastPlayed: 1 } }
-    )
-
+  const user = await getLastPlayedStation(req.session!.user.id)
   if (!user) {
     return res.status(401).json({ msg: 'Not authorized' })
   }

@@ -54,7 +54,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     stationLink: {
       textDecoration: 'none',
-      color: 'inherit'
+      color: 'inherit',
+      '&:hover': {
+        textDecoration: 'underline'
+      }
     },
     snackbar: {
       bottom: `${layout.playerHeight + theme.spacing(1)}px`,
@@ -144,7 +147,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
     console.log('remove fav sync ', addFavSync?.status)
     if (addFavSync?.status === 'pending' || removeFavSync?.status === 'pending')
       return
-    console.log('toggle favorites action!!!!')
     try {
       if (inFavorites) {
         await mounted(favoriteStations.remove(station._id))
