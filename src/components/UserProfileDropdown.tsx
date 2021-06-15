@@ -16,9 +16,14 @@ import { signOut, useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 import { useRootStore } from './providers/RootStoreProvider'
-const useStyles = makeStyles((_theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
+    avatarWrap: {
+      display: 'flex',
+      alignItems: 'center'
+    },
     avatar: {
+      marginInlineStart: theme.spacing(1),
       '&:hover': {
         cursor: 'pointer'
       }
@@ -31,6 +36,8 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
   const classes = useStyles()
   const router = useRouter()
   const { musicPlayer } = useRootStore()
+
+  console.log('session ', session)
 
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
@@ -93,7 +100,12 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
 
   return (
     <div>
-      <div ref={anchorRef}>
+      <div className={classes.avatarWrap} ref={anchorRef}>
+        {session?.user?.name ? (
+          <p>{session.user.name}</p>
+        ) : (
+          <p>{t`Anonymous`}</p>
+        )}
         <Avatar
           alt={session?.user?.name ?? '?'}
           className={classes.avatar}
