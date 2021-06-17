@@ -36,6 +36,7 @@ module.exports = {
     'space-before-function-paren': 'off',
     'no-dupe-class-members': 'off',
     'no-useless-constructor': 'off',
+    'require-atomic-updates': 'error',
     '@typescript-eslint/no-useless-constructor': 'off',
     'prettier/prettier': ['error'],
     'lines-between-class-members': ['error', 'always'],
