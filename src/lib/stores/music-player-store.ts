@@ -25,8 +25,6 @@ export class MusicPlayerStore {
 
   // station!: RadioStation
 
-  initialized = false
-
   songInfo: { artist: string; title: string } | undefined = undefined
 
   prevSongInfo: { artist: string; title: string } | undefined = undefined
@@ -61,7 +59,6 @@ export class MusicPlayerStore {
       playerError: observable,
       songInfo: observable,
       prevSongInfo: observable,
-      initialized: observable,
       errorStations: observable.shallow,
       songServiceCb: action,
       setStation: action,
@@ -75,23 +72,6 @@ export class MusicPlayerStore {
 
     this.station = station
   }
-
-  // async init() {
-  //   if (this.initialized) return Promise.resolve()
-  //   try {
-  //     const station = await this.storage.getLastPlayedStation()
-  //     runInAction(() => {
-  //       if (station) {
-  //         this.station = station
-  //       }
-  //     })
-  //   } catch {
-  //     //TODO -log
-  //   }
-  //   runInAction(() => {
-  //     this.initialized = true
-  //   })
-  // }
 
   protected songServiceCb(
     error: Error | null,

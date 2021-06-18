@@ -2,14 +2,15 @@ import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
 import { RadioStation } from 'lib/station-utils'
 import { AppStorageService } from './app-storage-service'
 
+type DBValue = { station: RadioStation; date: Date; _id: string }
 interface LocalSchema extends DBSchema {
   favorites: {
     key: string
-    value: RadioStation
+    value: DBValue
   }
-  history: {
+  recent: {
     key: string
-    value: RadioStation
+    value: DBValue
   }
 }
 
@@ -18,12 +19,27 @@ export class LocalStorage implements AppStorageService {
 
   constructor(public dbName: string) {}
 
+  protected sortData(data: DBValue[]) {
+    return (
+      data
+        // @ts-expect-error - substracting dates is fine
+        .sort((a: DBValue, b: DBValue) => b.date - a.date)
+        .map((data: DBValue) => data.station)
+    )
+  }
+
   async getFavoriteStations(): Promise<RadioStation[]> {
-    return (await this.getAll('favorites')).reverse()
+    const data = await this.getAll('favorites')
+
+    return this.sortData(data)
   }
 
   async addFavoriteStation(station: RadioStation) {
-    return this.put('favorites', station)
+    return this.put('favorites', {
+      station,
+      date: new Date(),
+      _id: station._id
+    })
   }
 
   removeFavoriteStation(id: string) {
@@ -31,39 +47,25 @@ export class LocalStorage implements AppStorageService {
   }
 
   async getRecentStations(): Promise<RadioStation[]> {
-    return (await this.getAll('history')).reverse()
+    const data = await this.getAll('recent')
+
+    return this.sortData(data)
   }
 
   addRecentStation(station: RadioStation) {
-    localStorage.setItem('lastPlayed', JSON.stringify(station))
-
-    return this.put('history', station)
+    return this.put('recent', { station, date: new Date(), _id: station._id })
   }
 
   removeRecentStation(id: string) {
-    return this.delete('history', id)
-  }
-
-  async getLastPlayedStation(): Promise<RadioStation | null> {
-    const station = localStorage.getItem('lastPlayed')
-    if (station) {
-      return JSON.parse(station)
-    }
-    const stations = await this.getAll('history')
-
-    return stations.length ? stations[0] : null
+    return this.delete('recent', id)
   }
 
   async initDB() {
     const db = await openDB<LocalSchema>(this.dbName, 1, {
-      upgrade(db, oldVersion, newVersion, transaction) {
-        console.log({ db })
-        console.log({ oldVersion })
-        console.log({ newVersion })
-        console.log({ transaction })
+      upgrade(db, oldVersion, _newVersion, _transaction) {
         if (oldVersion === 0) {
           db.createObjectStore('favorites', { keyPath: '_id' })
-          db.createObjectStore('history', { keyPath: '_id' })
+          db.createObjectStore('recent', { keyPath: '_id' })
         }
       },
       blocked() {
@@ -88,14 +90,14 @@ export class LocalStorage implements AppStorageService {
     return this.db
   }
 
-  async get(
-    collection: StoreNames<LocalSchema>,
-    query: string | IDBKeyRange
-  ): Promise<RadioStation | undefined> {
-    const db = await this.getDB()
+  // async get(
+  //   collection: StoreNames<LocalSchema>,
+  //   query: string | IDBKeyRange
+  // ): Promise<RadioStation | undefined> {
+  //   const db = await this.getDB()
 
-    return await db.get(collection, query)
-  }
+  //   cons await db.get(collection, query)
+  // }
 
   async getAll(collection: StoreNames<LocalSchema>) {
     const db = await this.getDB()
@@ -103,20 +105,16 @@ export class LocalStorage implements AppStorageService {
     return await db.getAll(collection)
   }
 
-  async set(collection: StoreNames<LocalSchema>, station: RadioStation) {
+  // async set(collection: StoreNames<LocalSchema>, station: RadioStation) {
+  //   const db = await this.getDB()
+
+  //   return await db.add(collection, station)
+  // }
+
+  async put(collection: StoreNames<LocalSchema>, data: DBValue) {
     const db = await this.getDB()
 
-    return await db.add(collection, station)
-  }
-
-  async put(
-    collection: StoreNames<LocalSchema>,
-    station: RadioStation,
-    key?: string | IDBKeyRange | undefined
-  ) {
-    const db = await this.getDB()
-
-    return await db.put(collection, station, key)
+    return await db.put(collection, data)
   }
 
   async delete(collection: StoreNames<LocalSchema>, id: string) {

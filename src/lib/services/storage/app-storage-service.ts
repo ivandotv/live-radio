@@ -13,7 +13,6 @@ export type AppStorageService = {
   getRecentStations(): Promise<RadioStation[]>
   addRecentStation(station: RadioStation): Promise<any>
   removeRecentStation(id: string): Promise<any>
-  getLastPlayedStation(): Promise<RadioStation | null>
 }
 
 export function appStorageFactory() {
@@ -96,11 +95,5 @@ export class AppStorage {
     const storage = await this.resolveStorage()
 
     return storage.removeRecentStation(id)
-  }
-
-  async getLastPlayedStation() {
-    const storage = await this.resolveStorage()
-
-    return storage.getLastPlayedStation()
   }
 }

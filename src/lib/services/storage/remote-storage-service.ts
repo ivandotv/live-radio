@@ -50,10 +50,4 @@ export class RemoteStorage implements AppStorageService {
       method: 'DELETE'
     })
   }
-
-  async getLastPlayedStation() {
-    const station = await this.transport<RadioStation[]>('/api/last-played')
-
-    return station.length ? station[0] : null
-  }
 }
