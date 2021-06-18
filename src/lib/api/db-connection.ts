@@ -1,4 +1,4 @@
-import { db } from 'app-config'
+import { db, isProduction } from 'app-config'
 import { Db, MongoClient } from 'mongodb'
 
 /**
@@ -12,6 +12,13 @@ if (!cached) {
   cached = global.mongo = { conn: null, promise: null }
 }
 
+const opts = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  validateOptions: true,
+  retryWrites: isProduction
+}
+
 export async function connectToDatabase(): Promise<{
   client: MongoClient
   db: Db
@@ -22,12 +29,6 @@ export async function connectToDatabase(): Promise<{
 
   try {
     if (!cached.promise) {
-      const opts = {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        validateOptions: true
-      }
-
       cached.promise = MongoClient.connect(db.uri as string, opts).then(
         (client) => {
           return {
@@ -37,11 +38,13 @@ export async function connectToDatabase(): Promise<{
         }
       )
     }
-    cached.conn = await cached.promise
+    // eslint-disable-next-line
+    cached.conn = await cached.promise // https://github.com/eslint/eslint/issues/11899
 
     return cached.conn
   } catch (e) {
     cached.promise = null
+    cached.conn = null
     throw e
   }
 }

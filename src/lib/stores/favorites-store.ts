@@ -3,6 +3,10 @@ import { client } from 'lib/utils'
 import { RadioStore } from './radio-store'
 
 export class FavoriteStationsStore extends RadioStore {
+  protected addStation(station: RadioStation): Promise<any> {
+    return this.storage.addFavoriteStation(station)
+  }
+
   async add(station: RadioStation, optimistic = false) {
     await super.add(station, optimistic)
     try {

@@ -11,8 +11,9 @@ import { layout } from 'app-config'
 import { MediaSessionService } from 'lib/services/media-session-service'
 import { observer } from 'mobx-react-lite'
 import { useSnackbar } from 'notistack'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePromise } from 'react-use'
+import { reaction } from 'mobx'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -72,13 +73,15 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const MusicPlayer = observer(function MusicPlayer() {
-  const { favoriteStations, musicPlayer } = useRootStore()
+  const { favoriteStations, recentStations, musicPlayer } = useRootStore()
   const classes = useStyles({
     drawerWidth: layout.desktopDrawerWidth
   })
   const { enqueueSnackbar } = useSnackbar()
-  const mounted = usePromise()
-
+  const recentPromise = usePromise()
+  const favoritesPromise = usePromise()
+  const addToFavoritesPromise = usePromise()
+  const [initialized, setInitialized] = useState(false)
   const addFavSync = favoriteStations.syncs.add.get(musicPlayer.station._id)
   const removeFavSync = favoriteStations.syncs.add.get(musicPlayer.station._id)
 
@@ -95,22 +98,40 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   //todo - switch to mobx when
   useEffect(() => {
-    if (musicPlayer.playerError) {
-      enqueueSnackbar(t`Error playing radio station`, {
-        variant: 'error',
-        className: classes.snackbar,
-        autoHideDuration: 2000,
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'center'
+    return reaction(
+      () => musicPlayer.playerError,
+      () => {
+        if (musicPlayer.playerError) {
+          enqueueSnackbar(t`Error playing radio station`, {
+            variant: 'error',
+            className: classes.snackbar,
+            autoHideDuration: 2000,
+            anchorOrigin: {
+              vertical: 'bottom',
+              horizontal: 'center'
+            }
+          })
         }
-      })
-    }
+      }
+    )
   }, [musicPlayer.playerError, enqueueSnackbar, classes.snackbar])
 
   useEffect(() => {
-    favoriteStations.load()
-  }, [favoriteStations])
+    ;(async () => {
+      await favoritesPromise(favoriteStations.load())
+    })()
+  }, [favoriteStations, favoritesPromise])
+
+  useEffect(() => {
+    ;(async () => {
+      await recentPromise(recentStations.load())
+      console.log('recent loaded ', recentStations.stations)
+      if (recentStations.stations.length) {
+        musicPlayer.setStation(recentStations.stations[0])
+      }
+      setInitialized(true)
+    })()
+  }, [recentStations, musicPlayer, recentPromise])
 
   useEffect(() => {
     new MediaSessionService(musicPlayer, navigator)
@@ -120,7 +141,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   useEffect(() => {
     ;(async function () {
-      await mounted(musicPlayer.init())
+      // await mounted(musicPlayer.init())
       const signInInterrupt = sessionStorage.getItem('signInInterrupt')
       if (signInInterrupt) {
         // play immediately
@@ -129,7 +150,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
         musicPlayer.play(musicPlayer.station)
       }
     })()
-  }, [musicPlayer, mounted])
+  }, [musicPlayer, recentPromise])
 
   const inFavorites = Boolean(
     musicPlayer.station &&
@@ -149,9 +170,9 @@ export const MusicPlayer = observer(function MusicPlayer() {
       return
     try {
       if (inFavorites) {
-        await mounted(favoriteStations.remove(station._id))
+        await addToFavoritesPromise(favoriteStations.remove(station._id))
       } else {
-        await mounted(favoriteStations.add(station, true))
+        await addToFavoritesPromise(favoriteStations.add(station, true))
       }
     } catch {
       enqueueSnackbar(
@@ -169,16 +190,13 @@ export const MusicPlayer = observer(function MusicPlayer() {
           }
         }
       )
-    } finally {
-      // favoriteStations.cleanupSync('remove', station.id)
-      // favoriteStations.cleanupSync('add', station.id)
     }
   }
 
   return (
     <div className={classes.root}>
       <div className={classes.uiWrap}>
-        {musicPlayer.initialized ? (
+        {initialized ? (
           <div className={classes.column}>
             <PlayerToggleBtn fontSize="3.3rem" />
             <AddTofavoritesBtn

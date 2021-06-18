@@ -29,7 +29,9 @@ export const defaultLocale = linguiConfig.fallbackLocales.default
 
 export const db = {
   uri: process.env.MONGODB_URI,
-  dbName: process.env.MONGO_DB_NAME
+  dbName: process.env.MONGO_DB_NAME,
+  maxCollectionLimit: 100,
+  useTransactions: booleanEnv(process.env.DB_USE_TRANSACTIONS, false)
 }
 
 export const auth = {

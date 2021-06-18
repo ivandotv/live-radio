@@ -54,9 +54,16 @@ export abstract class RadioStore {
     try {
       const stations = await this.resolveStations()
       runInAction(() => {
-        stations.forEach((station) => {
+        const l = stations.length - 1
+        // reverse the array received, bacause it's storred in a map
+        // and it needs to be reversed again when adding and removing
+        for (let i = l; i >= 0; i--) {
+          const station = stations[i]
           this.stationsById.set(station._id, station)
-        })
+        }
+        // stations.forEach((station) => {
+        //   this.stationsById.set(station._id, station)
+        // })
         this.loadStatus = 'resolved'
       })
     } catch (e) {
@@ -68,12 +75,12 @@ export abstract class RadioStore {
   }
 
   get stations() {
-    return [...this.stationsById.values()]
+    return [...this.stationsById.values()].reverse()
   }
 
   async add(station: RadioStation, optimistic = false) {
-    const favStation = this.stationsById.get(station._id)
-    if (favStation) return
+    // const cachedStation = this.stationsById.get(station._id)
+    // if (cachedStation) return
 
     if (optimistic) {
       this.stationsById.set(station._id, station)
@@ -81,10 +88,9 @@ export abstract class RadioStore {
 
     this.syncs.add.set(station._id, { status: 'pending', data: true })
     try {
-      const data = await this.storage.addFavoriteStation(station)
+      const data = await this.addStation(station)
 
       runInAction(() => {
-        // @ts-expect-error
         this.syncs.add.set(station._id, { status: 'resolved', data })
         if (!optimistic) {
           this.stationsById.set(station._id, station)
@@ -141,4 +147,6 @@ export abstract class RadioStore {
   }
 
   protected abstract removeStation(id: string): Promise<any>
+
+  protected abstract addStation(station: RadioStation): Promise<any>
 }

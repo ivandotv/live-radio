@@ -42,12 +42,12 @@ export const RemovableItemsList = observer(function RemovableItemsList({
 
   const classes = useStyles()
 
-  useEffect(() => {
-    // do not load again on repeated client navigation
-    if (store.loadStatus !== 'resolved') {
-      store.load()
-    }
-  }, [store, filterStore])
+  // useEffect(() => {
+  //   // do not load again on repeated client navigation
+  //   if (store.loadStatus !== 'resolved') {
+  //     store.load()
+  //   }
+  // }, [store, filterStore])
 
   useEffect(
     () =>

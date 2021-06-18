@@ -2,12 +2,10 @@ import { isProduction } from 'app-config'
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
   deleteStationFromCollection,
-  getLastPlayedStation,
   getStations,
   getUserCollection,
   saveToUserCollection
 } from './db-calls'
-import { connectToDatabase } from './db-connection'
 import { NextApiRequestWithSession } from './middleware'
 
 export type StationCollection = 'favorites' | 'recent'
@@ -58,16 +56,22 @@ export function getUserStations(collection: StationCollection) {
 
     if (user[collection]) {
       // sort the collection by date added
-      const sorted = user[collection]
-        .sort(
-          (a: UserStationData, b: UserStationData) =>
-            new Date(a.date).getTime() - new Date(b.date).getTime()
-        )
-        .map(function (obj: UserStationData) {
-          return obj.id
-        })
+      // const sorted = user[collection]
+      //   .sort(
+      //     (a: UserStationData, b: UserStationData) =>
+      //       new Date(a.date).getTime() - new Date(b.date).getTime()
+      //   )
+      //   .map(function (obj: UserStationData) {
+      //     return obj.id
+      //   })
+      const temp = user[collection].map(
+        (stationData: UserStationData) => stationData.id
+      )
+      console.log('temp  ', collection, temp)
+      stations = await getStations(temp)
+      const tt = stations.map((station) => station._id)
 
-      stations = await getStations(sorted)
+      console.log('temp after', collection, tt)
     }
 
     return res.json(stations)
@@ -82,7 +86,7 @@ export function handleSaveStation(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     await saveToUserCollection(req.session!.user.id, req.body, collection)
 
-    return res.status(201).json({ msg: 'Saved' })
+    return res.status(201).json({ msg: 'saved' })
   }
 }
 
@@ -109,29 +113,4 @@ export function deleteStation(collection: StationCollection) {
 
     return res.status(404).json({ msg: 'not found' })
   }
-}
-
-/**
- * Gets last played station for user
- * @param collection - user collection
- */
-export async function getLastPlayed(
-  req: NextApiRequestWithSession,
-  res: NextApiResponse
-) {
-  const { db } = await connectToDatabase()
-
-  let lastPlayed = null
-  const user = await getLastPlayedStation(req.session!.user.id)
-  if (!user) {
-    return res.status(401).json({ msg: 'Not authorized' })
-  }
-
-  if (user.lastPlayed) {
-    lastPlayed = await db
-      .collection('stations')
-      .findOne({ _id: user.lastPlayed })
-  }
-
-  return res.json([lastPlayed])
 }

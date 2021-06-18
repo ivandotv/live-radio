@@ -63,8 +63,6 @@ export default NextAuth({
       _profile: Profile,
       _isNewUser: boolean
     ) => {
-      console.log(token)
-      console.log(user)
       if (user) {
         //first sign in
         // add user id

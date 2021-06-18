@@ -1,8 +1,15 @@
+import { db as dbSettings, isProduction } from 'app-config'
 import { RadioStation } from 'lib/station-utils'
-import { Db, ObjectId } from 'mongodb'
+import { ClientSession, Db, ObjectId } from 'mongodb'
 import { StationCollection } from './api-utils'
 import { connectToDatabase } from './db-connection'
 
+type MongoUser = {
+  _id: ObjectId
+  recent?: { id: string; date: Date }[]
+  favorites?: { id: string; date: Date }[]
+  lastPlayed?: string
+}
 /**
  * Gets user collection
  * @param id - user id
@@ -53,23 +60,69 @@ export async function getStations(ids: string[]) {
  * Saves station to user collection
  * @param userId  - user id
  * @param station  - station data object
- * @param collection  - user collection
+ * @param collectionName  - user collection
  */
 export async function saveToUserCollection(
   userId: string,
   station: RadioStation,
-  collection: StationCollection
+  collectionName: StationCollection
 ) {
   const { db, client } = await connectToDatabase()
 
   const session = client.startSession()
   try {
     await session.withTransaction(async () => {
-      if (collection === 'recent') {
-        await saveToRecentCollection(db, station, userId)
+      let localSession = isProduction ? session : undefined
+      await saveStation(db, station, localSession)
+
+      const user: MongoUser | null = await db.collection('users').findOne({
+        _id: new ObjectId(userId)
+      })
+
+      let collection
+      if (user) {
+        //check if recent array exists
+        const userCollection = user[collectionName]
+
+        collection =
+          typeof userCollection !== 'undefined'
+            ? (collection = [...userCollection])
+            : []
+
+        // find the station
+        const found = collection.find((elem) => elem.id === station._id)
+        if (found) {
+          //just update the date
+          found.date = new Date()
+        } else {
+          // station not in the recent add it
+          collection.push({ id: station._id, date: new Date() })
+        }
+
+        //sort by date  - newest first
+        collection.sort((a, b) => {
+          // @ts-ignore - substracting dates works just fine
+          return b.date - a.date
+        })
+
+        //limit to last 100
+        if (collection.length > dbSettings.maxCollectionLimit) {
+          collection.splice(0, dbSettings.maxCollectionLimit)
+        }
       } else {
-        await saveToFavoriteCollection(db, station, userId)
+        throw new Error('user not found')
       }
+
+      //save the data back
+      db.collection('users').updateOne(
+        {
+          _id: new ObjectId(userId)
+        },
+        {
+          $set: { [collectionName]: collection }
+        },
+        { session: localSession, upsert: true }
+      )
     })
   } catch (e) {
     throw e
@@ -83,58 +136,20 @@ export async function saveToUserCollection(
  * Saves station to stations collection
  * @param db - database collection
  * @param station - station payload
+ * @param session - mongodb client session
  */
-async function saveStation(db: Db, station: RadioStation) {
+async function saveStation(
+  db: Db,
+  station: RadioStation,
+  session?: ClientSession
+) {
   return await db
     .collection('stations')
-    .updateOne({ _id: station._id }, { $set: station }, { upsert: true })
-}
-
-/**
- * Saves station to user recent collection
- * @param db - database connection
- * @param station - station payload
- * @param userId  - user id
- */
-async function saveToRecentCollection(
-  db: Db,
-  station: RadioStation,
-  userId: string
-) {
-  await saveStation(db, station)
-
-  return await db.collection('users').update(
-    {
-      _id: new ObjectId(userId)
-    },
-    {
-      $addToSet: { recent: { id: station._id, date: new Date() } },
-      $set: { lastPlayed: station._id }
-    }
-  )
-}
-
-/**
- * Saves station to user favorite collection
- * @param db - database connection
- * @param station - station payload
- * @param userId - user id
- */
-async function saveToFavoriteCollection(
-  db: Db,
-  station: RadioStation,
-  userId: string
-) {
-  await saveStation(db, station) //todo -move outside
-
-  await db.collection('users').update(
-    {
-      _id: new ObjectId(userId)
-    },
-    {
-      $addToSet: { favorites: { id: station._id, date: new Date() } }
-    }
-  )
+    .updateOne(
+      { _id: station._id },
+      { $set: station },
+      { upsert: true, session }
+    )
 }
 
 /**
@@ -142,11 +157,13 @@ async function saveToFavoriteCollection(
  * @param userId - user id
  * @param stationId - station id
  * @param collection - user collection
+ * @param session - mongoDB client session
  */
 export async function deleteStationFromCollection(
   userId: string,
   stationId: string,
-  collection: StationCollection
+  collection: StationCollection,
+  session?: ClientSession
 ) {
   const { db } = await connectToDatabase()
 
@@ -154,18 +171,7 @@ export async function deleteStationFromCollection(
     .collection('users')
     .updateOne(
       { _id: new ObjectId(userId) },
-      { $pull: { [collection]: { id: stationId } } }
+      { $pull: { [collection]: { id: stationId } } },
+      { session }
     )
-}
-
-/**
- * Gets last played station by user
- * @param userId  - user id
- */
-export async function getLastPlayedStation(userId: string) {
-  const { db } = await connectToDatabase()
-
-  return await db
-    .collection('users')
-    .findOne({ _id: new ObjectId(userId) }, { projection: { lastPlayed: 1 } })
 }

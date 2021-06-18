@@ -64,6 +64,7 @@ export class MusicPlayerStore {
       initialized: observable,
       errorStations: observable.shallow,
       songServiceCb: action,
+      setStation: action,
       play: action,
       stop: action,
       pause: action,
@@ -72,25 +73,25 @@ export class MusicPlayerStore {
       initPlayer: action
     })
 
-    // this.station = defaultStation
+    this.station = station
   }
 
-  async init() {
-    if (this.initialized) return Promise.resolve()
-    try {
-      const station = await this.storage.getLastPlayedStation()
-      runInAction(() => {
-        if (station) {
-          this.station = station
-        }
-      })
-    } catch {
-      //TODO -log
-    }
-    runInAction(() => {
-      this.initialized = true
-    })
-  }
+  // async init() {
+  //   if (this.initialized) return Promise.resolve()
+  //   try {
+  //     const station = await this.storage.getLastPlayedStation()
+  //     runInAction(() => {
+  //       if (station) {
+  //         this.station = station
+  //       }
+  //     })
+  //   } catch {
+  //     //TODO -log
+  //   }
+  //   runInAction(() => {
+  //     this.initialized = true
+  //   })
+  // }
 
   protected songServiceCb(
     error: Error | null,
@@ -120,6 +121,10 @@ export class MusicPlayerStore {
     this.stationChecked = true
     this.prevSongInfo = this.songInfo
     this.songInfo = data
+  }
+
+  setStation(station: RadioStation) {
+    this.station = station
   }
 
   protected initPlayer(station: RadioStation, url?: string) {
@@ -164,7 +169,7 @@ export class MusicPlayerStore {
         this.errorStations[station._id] = false
       })
 
-      this.storage.addRecentStation(this.station)
+      this.rootStore.recentStations.add(this.station)
     })
 
     this.player.on('pause', () => {
