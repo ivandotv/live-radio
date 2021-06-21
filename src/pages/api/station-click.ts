@@ -12,7 +12,7 @@ export default async function sendStationClick(
   try {
     const payload = req.body.id
 
-    const radioApi = new RadioBrowserApi(userAgentName, true)
+    const radioApi = new RadioBrowserApi(userAgentName)
 
     const response = await radioApi.sendStationClick(payload)
     console.log(response)

@@ -12,7 +12,7 @@ export default async function voteForStation(
   try {
     const payload = req.body.id
 
-    const radioApi = new RadioBrowserApi(userAgentName, true)
+    const radioApi = new RadioBrowserApi(userAgentName)
 
     await radioApi.voteForStation(payload)
 
