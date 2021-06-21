@@ -5,6 +5,15 @@ import { RootStore } from 'lib/stores/root-store'
 enableStaticRendering(typeof window === 'undefined')
 
 let store: RootStore
+
+export function getRootStore() {
+  const isSSR = typeof window === 'undefined'
+  const _store = store ?? new RootStore()
+
+  if (isSSR) return _store
+
+  return (store = _store)
+}
 const RootStoreContext = createContext<RootStore | undefined>(undefined)
 RootStoreContext.displayName = 'RootStoreContext'
 
@@ -33,13 +42,4 @@ export function RootStoreProvider({ children }: { children: ReactNode }) {
       {children}
     </RootStoreContext.Provider>
   )
-}
-
-export function getRootStore() {
-  const isSSR = typeof window === 'undefined'
-  const _store = store ?? new RootStore()
-
-  if (isSSR) return _store
-
-  return (store = _store)
 }

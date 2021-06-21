@@ -37,8 +37,6 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
   const router = useRouter()
   const { musicPlayer } = useRootStore()
 
-  console.log('session ', session)
-
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
 

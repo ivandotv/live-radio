@@ -177,8 +177,8 @@ export const MusicPlayer = observer(function MusicPlayer() {
     } catch {
       enqueueSnackbar(
         action === 'add'
-          ? 'Error adding to  favorites'
-          : 'Error removing from favorites',
+          ? t`Error adding to  favorites`
+          : t`Error removing from favorites`,
         {
           variant: 'error',
           className: classes.snackbar,

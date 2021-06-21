@@ -32,7 +32,7 @@ export default function LanguageList() {
           link={{
             prefetch: false,
             href: {
-              pathname: `${router.pathname}/[raw]`
+              pathname: `${router.pathname}/[language]`
             },
             as: {
               pathname: `${router.pathname}/${raw.replace(/\s/g, '-')}`

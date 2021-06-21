@@ -29,7 +29,6 @@ export async function loadTranslations(locale: string) {
   if (isProduction) {
     data = await import(`../translations/locales/${locale}/messages`)
   } else {
-    console.log('wep back')
     data = await import(
       `@lingui/loader!../translations/locales/${locale}/messages.po`
     )

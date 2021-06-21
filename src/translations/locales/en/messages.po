@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/app/by-language/[language].tsx:103
+#: src/pages/app/by-language/[language].tsx:105
 msgid "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for <1> {0}</1>.</0>"
 
@@ -37,7 +37,7 @@ msgstr "<0>Search service is not available at the moment. Sorry for the inconven
 msgid "Abkhaz"
 msgstr "Abkhaz"
 
-#: src/app-config.ts:66
+#: src/app-config.ts:68
 #: src/components/navigation/desktop/Menu.tsx:36
 msgid "About"
 msgstr "About"
@@ -106,7 +106,7 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/components/UserProfileDropdown.tsx:103
+#: src/components/UserProfileDropdown.tsx:101
 msgid "Anonymous"
 msgstr "Anonymous"
 
@@ -328,21 +328,21 @@ msgstr "Burmese"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/app-config.ts:64
+#: src/app-config.ts:66
 #: src/pages/app/by-genre/[genre].tsx:88
 #: src/pages/app/by-genre/index.tsx:22
 #: src/pages/app/index.tsx:65
 msgid "By Genre"
 msgstr "By Genre"
 
-#: src/app-config.ts:63
-#: src/pages/app/by-language/[language].tsx:85
+#: src/app-config.ts:65
+#: src/pages/app/by-language/[language].tsx:87
 #: src/pages/app/by-language/index.tsx:54
 #: src/pages/app/index.tsx:63
 msgid "By Language"
 msgstr "By Language"
 
-#: src/app-config.ts:62
+#: src/app-config.ts:64
 #: src/pages/app/by-location/[continent]/[country].tsx:95
 #: src/pages/app/by-location/[continent]/index.tsx:83
 #: src/pages/app/by-location/index.tsx:40
@@ -486,7 +486,7 @@ msgstr "Curacao"
 msgid "Currently there is no data for <0> ${0}</0>."
 msgstr "Currently there is no data for <0> ${0}</0>."
 
-#: src/app-config.ts:60
+#: src/app-config.ts:62
 #: src/pages/app/custom.tsx:18
 #: src/pages/app/index.tsx:68
 msgid "Custom Search"
@@ -609,13 +609,21 @@ msgstr "Equatorial Guinea"
 msgid "Eritrea"
 msgstr "Eritrea"
 
+#: src/components/music-player/MusicPlayer.tsx:180
+msgid "Error adding to  favorites"
+msgstr "Error adding to  favorites"
+
 #: src/components/PageLoadError.tsx:39
 msgid "Error loading data"
 msgstr "Error loading data"
 
-#: src/components/music-player/MusicPlayer.tsx:96
+#: src/components/music-player/MusicPlayer.tsx:105
 msgid "Error playing radio station"
 msgstr "Error playing radio station"
+
+#: src/components/music-player/MusicPlayer.tsx:181
+msgid "Error removing from favorites"
+msgstr "Error removing from favorites"
 
 #: src/components/StationRowRemoveBtn.tsx:89
 msgid "Error removing the station, click to try again"
@@ -657,7 +665,7 @@ msgstr "Faroe Islands"
 msgid "Faroese"
 msgstr "Faroese"
 
-#: src/app-config.ts:59
+#: src/app-config.ts:61
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:58
 #: src/lib/create-manifest.ts:38
@@ -793,7 +801,7 @@ msgstr "Go to Favorites"
 msgid "Go to Settings"
 msgstr "Go to Settings"
 
-#: src/components/music-player/MusicPlayer.tsx:190
+#: src/components/music-player/MusicPlayer.tsx:210
 msgid "Go to station website"
 msgstr "Go to station website"
 
@@ -1207,7 +1215,7 @@ msgstr "Limburgish"
 msgid "Lingala"
 msgstr "Lingala"
 
-#: src/pages/_app.tsx:61
+#: src/pages/_app.tsx:63
 msgid "Listen live radio online"
 msgstr "Listen live radio online"
 
@@ -1677,7 +1685,7 @@ msgstr "Rap"
 msgid "Recent"
 msgstr "Recent"
 
-#: src/app-config.ts:61
+#: src/app-config.ts:63
 #: src/components/navigation/desktop/Menu.tsx:26
 msgid "Recent Stations"
 msgstr "Recent Stations"
@@ -1810,12 +1818,12 @@ msgstr "Saudi Arabia"
 msgid "Scottish Gaelic"
 msgstr "Scottish Gaelic"
 
-#: src/app-config.ts:58
+#: src/app-config.ts:60
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:54
 #: src/pages/app/by-genre/[genre].tsx:84
 #: src/pages/app/by-genre/index.tsx:18
-#: src/pages/app/by-language/[language].tsx:81
+#: src/pages/app/by-language/[language].tsx:83
 #: src/pages/app/by-language/index.tsx:50
 #: src/pages/app/by-location/[continent]/[country].tsx:91
 #: src/pages/app/by-location/[continent]/index.tsx:79
@@ -1845,7 +1853,7 @@ msgid "Search For Stations by Language"
 msgstr "Search For Stations by Language"
 
 #: src/pages/app/by-genre/[genre].tsx:101
-#: src/pages/app/by-language/[language].tsx:98
+#: src/pages/app/by-language/[language].tsx:100
 #: src/pages/app/by-location/[continent]/[country].tsx:113
 msgid "Search For Stations in {0}"
 msgstr "Search For Stations in {0}"
@@ -1867,8 +1875,8 @@ msgstr "Serbia"
 msgid "Serbian"
 msgstr "Serbian"
 
-#: src/app-config.ts:65
-#: src/components/UserProfileDropdown.tsx:80
+#: src/app-config.ts:67
+#: src/components/UserProfileDropdown.tsx:78
 #: src/components/navigation/desktop/Menu.tsx:31
 #: src/components/navigation/mobile/MobileNavigation.tsx:64
 #: src/lib/create-manifest.ts:31
@@ -1896,7 +1904,7 @@ msgstr "Shona"
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/components/UserProfileDropdown.tsx:97
+#: src/components/UserProfileDropdown.tsx:95
 #: src/pages/auth/sign-in.tsx:45
 msgid "Sign in"
 msgstr "Sign in"
@@ -1913,9 +1921,13 @@ msgstr "Sign in or Register"
 msgid "Sign in with"
 msgstr "Sign in with"
 
-#: src/components/UserProfileDropdown.tsx:71
+#: src/components/UserProfileDropdown.tsx:69
 msgid "Sign out"
 msgstr "Sign out"
+
+#: src/components/LoginNotification.tsx:51
+msgid "Signed in as {0}"
+msgstr "Signed in as {0}"
 
 #: src/generated/languages.js:146
 msgid "Sindhi"

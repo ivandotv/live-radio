@@ -75,9 +75,10 @@ export default function GenreStations({
     return <ListStationsFallback />
   }
 
-  const genreTrans = genres().find(
+  const genreTranslation = genres().find(
     (g) => genre.toLowerCase() === g.raw.toLowerCase()
   )!
+
   const breadcrumbs = [
     {
       href: '/app',
@@ -88,7 +89,7 @@ export default function GenreStations({
       text: t`By Genre`
     },
     {
-      text: `${genreTrans.t}`
+      text: `${genreTranslation.t}`
     }
   ]
 
@@ -98,14 +99,15 @@ export default function GenreStations({
       uuid="id"
       indexes={['tags', 'name', 'country', 'continent']}
     >
-      <PageTitle title={t`Search For Stations in ${genreTrans.t}`} />
+      <PageTitle title={t`Search For Stations in ${genreTranslation.t}`} />
       <ListStations
         breadcrumbs={breadcrumbs}
         dataRow={createStationListRow()}
         noData={
           <p>
             <Trans>
-              Currently there is no data for <strong> ${genreTrans.t}</strong>.
+              Currently there is no data for{' '}
+              <strong> ${genreTranslation.t}</strong>.
             </Trans>
           </p>
         }

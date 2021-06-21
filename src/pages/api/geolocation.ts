@@ -18,10 +18,11 @@ export default async function getGeoLocation(
 
   try {
     const response = await fetch(`http://ip-api.com/json/${queryIp}`)
+
     let data: { countryCode: string }
     let countryData
     if (response.ok) {
-      data = response.json() as unknown as { countryCode: string }
+      data = (await response.json()) as unknown as { countryCode: string }
       countryData = countryDataByKey('code', data.countryCode)
     }
 

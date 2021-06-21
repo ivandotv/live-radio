@@ -32,63 +32,66 @@ export default function MyApp(props: AppProps) {
 
   const router = useRouter()
   const locale = router.locale || router.defaultLocale!
-  const firstRender = useRef(true)
+  const browserFirstRender = useRef(true)
 
-  if (firstRender.current && pageProps.translation) {
+  if (browserFirstRender.current && pageProps.translation) {
+    // console.log('page props translation ', pageProps)
     i18n.load(locale, pageProps.translation)
     i18n.activate(locale)
-    firstRender.current = false
   }
 
   useEffect(() => {
-    if (pageProps.translation && !firstRender.current) {
+    if (pageProps.translation && !browserFirstRender.current) {
       i18n.load(locale, pageProps.translation)
       i18n.activate(locale)
     }
+    browserFirstRender.current = false
   }, [locale, pageProps.translation])
 
   return (
-    <I18nProvider i18n={i18n}>
-      <Head>
-        <link
-          rel="manifest"
-          key="manifest"
-          crossOrigin="use-credentials"
-          href={'/api/manifest'}
-        />
-        <meta
-          name="description"
-          content={t`Listen live radio online`}
-          key="description"
-        />
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-          key="viewport"
-        />
-        <meta name="robots" content="noindex" />
-        <meta name="keywords" content="pwa,radio,live" />
-        <meta charSet="utf-8" />
-        <PWAIcons />
-        {router.locales!.concat('x-default').map((locale) => {
-          const localePath = locale === 'x-default' ? '' : `/${locale}`
-          const href = `${url}${localePath}${router.asPath}`
+    <ErrorBoundary FallbackComponent={GlobalError} onError={globalErrorHandler}>
+      <I18nProvider i18n={i18n}>
+        <Head>
+          <link
+            rel="manifest"
+            key="manifest"
+            crossOrigin="use-credentials"
+            href={'/api/manifest'}
+          />
+          <meta
+            name="description"
+            content={t`Listen live radio online`}
+            key="description"
+          />
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+            key="viewport"
+          />
+          <meta name="robots" content="noindex" />
+          <meta name="keywords" content="pwa,radio,live" />
+          <meta charSet="utf-8" />
+          <PWAIcons />
+          {router.locales!.concat('x-default').map((locale) => {
+            const localePath = locale === 'x-default' ? '' : `/${locale}`
+            const href = `${url}${localePath}${router.asPath}`
 
-          return locale === 'xx' ? null : (
-            <link key={locale} rel="alternate" hrefLang={locale} href={href} />
-          )
-        })}
-      </Head>
-      <ErrorBoundary
-        FallbackComponent={GlobalError}
-        onError={globalErrorHandler}
-      >
+            return locale === 'xx' ? null : (
+              <link
+                key={locale}
+                rel="alternate"
+                hrefLang={locale}
+                href={href}
+              />
+            )
+          })}
+        </Head>
         <GlobalErrorHandler />
         <AuthProvider
           options={{
             clientMaxAge: 0 //60 * 60
           }}
-          session={pageProps.session}
+          session={pageProps.session} //in case of server side rendered routes
         >
           {Component.layout ? (
             Component.layout(Component, pageProps)
@@ -96,7 +99,7 @@ export default function MyApp(props: AppProps) {
             <Component {...pageProps} />
           )}
         </AuthProvider>
-      </ErrorBoundary>
-    </I18nProvider>
+      </I18nProvider>
+    </ErrorBoundary>
   )
 }
