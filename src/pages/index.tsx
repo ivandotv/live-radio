@@ -6,10 +6,10 @@ import { loadTranslations } from 'lib/translations'
 import { useClientUrl } from 'lib/utils'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/client'
+import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
-import Head from 'next/head'
 
 export default function Index() {
   const [session] = useSession()
@@ -54,6 +54,7 @@ export default function Index() {
           </Link>
           <Link passHref={true} prefetch={false} href="/app">
             <a
+              title={t`All data will be stored locally in your browser.`}
               onClick={(e: React.MouseEvent) => {
                 if (session) {
                   e.preventDefault()

@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro'
-import Link from 'next/link'
 import { PageTitle } from 'components/PageTitle'
+import { loadTranslations } from 'lib/translations'
 import { useClientUrl } from 'lib/utils'
+import { NextPageContext } from 'next'
 import { ClientSafeProvider, getProviders, signIn } from 'next-auth/client'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
-import { loadTranslations } from 'lib/translations'
-import { NextPageContext } from 'next'
 
 export default function SignIn({
   providers
@@ -72,7 +72,10 @@ export default function SignIn({
 
         {errorMessage ? (
           <Link href="/app" passHref={true}>
-            <a className="app-btn">{t`Anonymous User`}</a>
+            <a
+              title={t`All data will be stored locally in your browser.`}
+              className="app-btn"
+            >{t`Anonymous User`}</a>
           </Link>
         ) : null}
       </div>
