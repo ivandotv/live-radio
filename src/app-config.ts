@@ -13,7 +13,7 @@ export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
 export const enableServiceWorker = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER,
-  isProduction
+  false
 )
 export const enablePWAInstallBanner = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_PWA_INSTALL,
@@ -21,7 +21,7 @@ export const enablePWAInstallBanner = booleanEnv(
 )
 export const enableReloadBanner = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_RELOAD_BANNER,
-  true
+  false
 )
 
 export const locales = [...linguiConfig.locales]

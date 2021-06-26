@@ -1,9 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "lib": ["es2017", "WebWorker"],
-    "composite": true
-  },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules"]
-}

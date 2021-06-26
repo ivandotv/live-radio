@@ -1,9 +1,7 @@
+/// <reference lib="es2017" />
+/// <reference lib="WebWorker" />
 import { ExpirationPlugin } from 'workbox-expiration'
-import {
-  cleanupOutdatedCaches,
-  precacheAndRoute,
-  PrecacheFallbackPlugin
-} from 'workbox-precaching'
+import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
 import {
   googleFontsCache,
   imageCache,
@@ -12,11 +10,10 @@ import {
 } from 'workbox-recipes'
 import { registerRoute } from 'workbox-routing'
 import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies'
+import { OfflineFallbackWithLocale } from './OfflineFallbackWithLocale'
 
 declare const self: ServiceWorkerGlobalScope
 export {}
-
-console.log('hello from service worker')
 
 cleanupOutdatedCaches()
 
@@ -61,11 +58,7 @@ warmStrategyCache({
 registerRoute(
   ({ request }) => request.mode === 'navigate',
   new NetworkFirst({
-    plugins: [
-      new PrecacheFallbackPlugin({
-        fallbackURL: '/offline.html'
-      })
-    ]
+    plugins: [new OfflineFallbackWithLocale('offline/[locale]-offline.html')]
   })
 )
 

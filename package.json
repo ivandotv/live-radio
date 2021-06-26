@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
-    "build": "yarn type:check && yarn generate && yarn lang && next build",
+    "build": "yarn generate && yarn lang && next build",
     "start": "next start",
     "analyze": "env ANALYZE=true npm run build",
     "gen:countries": "node scripts/generate-countries.js",
@@ -15,7 +15,6 @@
     "lang:extract": "NODE_ENV=development lingui extract --clean",
     "lang:compile": "lingui compile",
     "lang": "yarn lang:extract && yarn lang:compile",
-    "type:check": "tsc && tsc -b src/service-worker/tsconfig.json",
     "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky install",
     "postinstall": "patch-package"

@@ -84,18 +84,18 @@ export const AppShell = observer(function AppShell({
 }: {
   children: ReactNode
 }) {
-  const { appShell, serviceWorker } = useRootStore()
+  const { appShell, serviceWorker: serviceWorkerStore } = useRootStore()
   const theme = useTheme()
   const classes = useStyles()
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
-      if (enableServiceWorker && !serviceWorker.wb) {
+      if (enableServiceWorker && !serviceWorkerStore.wb) {
         const wb = new Workbox('/sw.js', { scope: '/' })
-        serviceWorker.register(wb)
+        serviceWorkerStore.register(wb)
       }
     }
-  }, [serviceWorker])
+  }, [serviceWorkerStore])
 
   return (
     <>

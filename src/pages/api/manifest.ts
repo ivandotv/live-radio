@@ -54,12 +54,14 @@ export default async function generateManifest(
   }
 
   const translations = await loadTranslations(locale)
+  // eslint-disable-next-line
   cacheManifest[locale] = translations
   i18n.load(locale, translations)
   i18n.activate(locale)
 
   const manifest = createManifest(locale)
 
+  // eslint-disable-next-line
   cacheManifest[locale] = manifest
 
   res.send(manifest)

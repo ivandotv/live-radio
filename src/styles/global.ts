@@ -25,7 +25,7 @@ export default css.global`
   @media (prefers-color-scheme: dark) {
     body {
       background-color: #212121;
-      color: white;
+      color: #fff;
     }
   }
 `
