@@ -111,7 +111,6 @@ export const AppShell = observer(function AppShell({
             }
           />
         ) : null}
-
         <link
           key="font-roboto"
           rel="stylesheet"

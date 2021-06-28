@@ -7,6 +7,7 @@ import { useClientUrl } from 'lib/utils'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/client'
 import Head from 'next/head'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
@@ -32,7 +33,7 @@ export default function Index() {
         <PageTitle title={t`Welcome to Live Radio App`} />
         <h1 className="home-title">{t`Live Radio`}</h1>
         <div className="banner-wrapper">
-          <img width="450" height="326" src="/images/landing-page.png" />
+          <Image width="450" height="326" src="/images/landing-page.png" />
         </div>
         <div className="btn-wrap">
           <Link

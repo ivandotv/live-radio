@@ -13,11 +13,10 @@ module.exports = {
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
-    // 'prettier/standard',
     'prettier',
-    // 'standard',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended'
+    // 'plugin:@next/next/recommended'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {

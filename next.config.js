@@ -15,7 +15,7 @@ const defaultLocale = linguiConfig.fallbackLocales.default
  **/
 const nextConfig = {
   // reactStrictMode: true,
-  future: { webpack5: true },
+  webpack5: true,
   api: {
     bodyParser: {
       sizeLimit: '50kb'

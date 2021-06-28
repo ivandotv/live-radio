@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro'
+import Image from 'next/image'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ListStations } from 'components/ListStations'
 import { PageLoadError } from 'components/PageLoadError'
@@ -83,7 +84,7 @@ export const RemovableItemsList = observer(function RemovableItemsList({
       noData={
         <div className={classes.noDataWrap}>
           <p className={classes.noDataText}>{noDataTitle}</p>
-          <img
+          <Image
             width="500"
             height="500"
             className={classes.noDataImage}
