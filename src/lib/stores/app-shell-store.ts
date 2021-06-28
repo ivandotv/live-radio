@@ -38,24 +38,25 @@ export class AppShellStore {
   isOnLine = true
 
   constructor(protected rootStore: RootStore) {
-    makeObservable<this, 'handleBeforePWAInstall' | 'handleAppInstalled'>(
+    makeObservable<
       this,
-      {
-        showApp: observable,
-        theme: observable,
-        desktopDrawerIsOpen: observable,
-        userIsSignedIn: observable,
-        showInstallPrompt: observable,
-        userChoice: observable,
-        isOnLine: observable,
-        readyToShow: action,
-        setDesktopDrawer: action,
-        setTheme: action,
-        hideInstallPrompt: action,
-        handleBeforePWAInstall: action,
-        handleAppInstalled: action
-      }
-    )
+      'handleBeforePWAInstall' | 'handleAppInstalled' | 'setIsOnline'
+    >(this, {
+      showApp: observable,
+      theme: observable,
+      desktopDrawerIsOpen: observable,
+      userIsSignedIn: observable,
+      showInstallPrompt: observable,
+      userChoice: observable,
+      isOnLine: observable,
+      readyToShow: action,
+      setDesktopDrawer: action,
+      setTheme: action,
+      setIsOnline: action,
+      hideInstallPrompt: action,
+      handleBeforePWAInstall: action,
+      handleAppInstalled: action
+    })
 
     if (typeof window !== 'undefined') {
       window.addEventListener(
