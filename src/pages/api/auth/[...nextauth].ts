@@ -1,4 +1,4 @@
-import { auth, db } from 'app-config'
+import { auth, db } from 'server-config'
 // import { NextApiRequest, NextApiResponse } from 'next'
 import NextAuth, { Account, Profile, User } from 'next-auth'
 import Providers from 'next-auth/providers'

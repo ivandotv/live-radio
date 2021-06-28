@@ -8,7 +8,7 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import { layout, enableServiceWorker } from 'app-config'
+import { layout, enableServiceWorker } from 'browser-config'
 import { AppToolbar } from 'components/layout/AppToolbar'
 import LoginNotification from 'components/LoginNotification'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'

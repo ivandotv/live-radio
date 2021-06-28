@@ -9,7 +9,7 @@ import { ReactElement, ReactNode } from 'react'
 import { ListStationsFallback } from './ListStationsFallback'
 import { plural, t } from '@lingui/macro'
 
-import { layout } from 'app-config'
+import { layout } from 'browser-config'
 
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
   layout

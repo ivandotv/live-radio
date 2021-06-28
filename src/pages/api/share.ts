@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import parser from 'accept-language-parser'
-import { locales } from 'app-config'
+import { locales } from 'browser-config'
 /**
  * Special api route for redirecting "share" urls to
  * proper locale path

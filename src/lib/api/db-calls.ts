@@ -1,4 +1,4 @@
-import { db as dbSettings, isProduction } from 'app-config'
+import { db as dbSettings, isProduction } from 'server-config'
 import { RadioStation } from 'lib/station-utils'
 import { ClientSession, Db, ObjectId } from 'mongodb'
 import { StationCollection } from './api-utils'

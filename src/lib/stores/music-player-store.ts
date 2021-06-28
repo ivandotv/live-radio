@@ -1,4 +1,4 @@
-import { isProduction } from 'app-config'
+import { isProduction } from 'server-config'
 import { Howl } from 'howler'
 import { SongInfoService } from 'lib/services/song-info-service'
 import {

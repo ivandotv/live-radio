@@ -10,7 +10,7 @@ import clsx from 'clsx'
 import { Menu } from 'components/navigation/desktop/Menu'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { observer } from 'mobx-react-lite'
-import { layout } from 'app-config'
+import { layout } from 'browser-config'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -5,7 +5,7 @@ import Select from '@material-ui/core/Select'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 import { ChangeEvent } from 'react'
-import { isPreview } from 'app-config'
+import { isPreview } from 'browser-config'
 import { setCookie } from 'nookies'
 
 const useStyles = makeStyles((theme: Theme) =>

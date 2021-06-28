@@ -1,4 +1,4 @@
-import { isProduction } from 'app-config'
+import { isProduction } from 'server-config'
 import { NextApiRequest, NextApiResponse } from 'next'
 import {
   deleteStationFromCollection,

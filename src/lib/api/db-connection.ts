@@ -1,4 +1,4 @@
-import { db, isProduction } from 'app-config'
+import { db, isProduction } from 'server-config'
 import { Db, MongoClient } from 'mongodb'
 
 /**

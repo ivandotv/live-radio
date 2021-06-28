@@ -1,4 +1,4 @@
-import { userAgentName } from 'app-config'
+import { userAgentName } from 'browser-config'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 

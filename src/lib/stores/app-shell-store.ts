@@ -1,4 +1,4 @@
-import { enablePWAInstallBanner } from 'app-config'
+import { enablePWAInstallBanner } from 'browser-config'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'
 

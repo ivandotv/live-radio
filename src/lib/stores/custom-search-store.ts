@@ -2,7 +2,7 @@ import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { RadioStation } from 'lib/station-utils'
 import { dataToRadioStations } from 'lib/station-utils'
-import { userAgentName } from 'app-config'
+import { userAgentName } from 'browser-config'
 
 let store: CustomSearchStore
 

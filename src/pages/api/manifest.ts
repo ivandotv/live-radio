@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core'
-import { locales, defaultLocale } from 'app-config'
+import { locales, defaultLocale } from 'browser-config'
 import { loadTranslations } from 'lib/translations'
 import { en, sr } from 'make-plural/plurals'
 import createManifest from 'lib/create-manifest'

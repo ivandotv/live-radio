@@ -6,6 +6,7 @@
     "dev": "next dev",
     "debug": "NODE_OPTIONS='--inspect' next dev",
     "build": "yarn generate && yarn lang && next build",
+    "type:check": "tsc",
     "start": "next start",
     "analyze": "env ANALYZE=true npm run build",
     "gen:countries": "node scripts/generate-countries.js",

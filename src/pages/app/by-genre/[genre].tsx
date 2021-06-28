@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro'
-import { userAgentName } from 'app-config'
+import { userAgentName } from 'browser-config'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'

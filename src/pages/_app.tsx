@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
-import { url } from 'app-config'
+import { url } from 'server-config'
 import GlobalError from 'components/GlobalErrorFallback'
 import GlobalErrorHandler from 'components/GlobalErrorHandler'
 import { PWAIcons } from 'components/PWAIcons'

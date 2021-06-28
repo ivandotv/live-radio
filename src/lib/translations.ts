@@ -1,5 +1,5 @@
 import { I18n } from '@lingui/core'
-import { isProduction } from 'app-config'
+import { isProduction } from 'server-config'
 import { en, sr } from 'make-plural/plurals'
 import { GetStaticProps } from 'next'
 
