@@ -1,11 +1,38 @@
 import { isProduction } from 'app-config'
 import { Howl } from 'howler'
 import { SongInfoService } from 'lib/services/song-info-service'
-import { AppStorage } from 'lib/services/storage/app-storage-service'
-import { RadioStation } from 'lib/station-utils'
+import {
+  AppStorage,
+  appStorageFactory
+} from 'lib/services/storage/app-storage-service'
+import { getDefaultStation, RadioStation } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
 import { client } from 'lib/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
+
+let store: MusicPlayerStore
+
+export function musicPlayerFactory(root: RootStore) {
+  const isSSR = typeof window === 'undefined'
+
+  let _store
+  if (!store) {
+    const fetchImpl = isSSR ? fetch : fetch.bind(window)
+    const songInfoService = new SongInfoService(fetchImpl)
+
+    _store = new MusicPlayerStore(
+      root,
+      appStorageFactory(),
+      songInfoService,
+      getDefaultStation()
+    )
+  } else {
+    _store = store
+  }
+  if (isSSR) return _store
+
+  return (store = _store)
+}
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',

@@ -1,6 +1,18 @@
 import { action, makeObservable, observable } from 'mobx'
 import type { Workbox } from 'workbox-window'
 
+let store: ServiceWorkerStore
+
+export function serviceWorkerFactory() {
+  const isSSR = typeof window === 'undefined'
+
+  const _store = store ?? new ServiceWorkerStore()
+
+  if (isSSR) return _store
+
+  return (store = _store)
+}
+
 // follow
 // https://github.com/GoogleChrome/workbox/issues/2786
 // https://github.com/GoogleChrome/workbox/issues/2850

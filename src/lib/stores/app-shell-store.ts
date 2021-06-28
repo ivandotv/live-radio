@@ -3,6 +3,19 @@ import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'
 
 export type AppTheme = 'light' | 'dark'
+
+let store: AppShellStore
+
+export function appShellFactory(root: RootStore) {
+  const isSSR = typeof window === 'undefined'
+
+  const _store = store ?? new AppShellStore(root)
+
+  if (isSSR) return _store
+
+  return (store = _store)
+}
+
 export class AppShellStore {
   theme: AppTheme = 'light'
 

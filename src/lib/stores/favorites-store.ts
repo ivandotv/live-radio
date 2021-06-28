@@ -1,6 +1,20 @@
 import { RadioStation } from 'lib/station-utils'
 import { client } from 'lib/utils'
 import { RadioStore } from './radio-store'
+import { appStorageFactory } from 'lib/services/storage/app-storage-service'
+import { RootStore } from 'lib/stores/root-store'
+
+let store: FavoriteStationsStore
+
+export function favoritesFactory(root: RootStore) {
+  const isSSR = typeof window === 'undefined'
+
+  if (isSSR || !store) {
+    store = new FavoriteStationsStore(root, appStorageFactory())
+  }
+
+  return store
+}
 
 export class FavoriteStationsStore extends RadioStore {
   protected addStation(station: RadioStation): Promise<any> {
