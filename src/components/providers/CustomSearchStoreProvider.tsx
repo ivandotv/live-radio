@@ -7,8 +7,9 @@ import {
 
 enableStaticRendering(typeof window === 'undefined')
 
-const CustomSearchContext =
-  createContext<CustomSearchStore | undefined>(undefined)
+const CustomSearchContext = createContext<CustomSearchStore | undefined>(
+  undefined
+)
 CustomSearchContext.displayName = 'CustomSearchContext'
 
 export function useCustomSearch() {

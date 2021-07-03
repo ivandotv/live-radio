@@ -20,6 +20,7 @@ import InstallBanner from 'components/pwa-prompt/InstallBanner'
 import UpdateBanner from 'components/pwa-prompt/UpdateBanner'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { ReactElement, ReactNode, useEffect } from 'react'
 import { Workbox } from 'workbox-window'
 
@@ -87,6 +88,8 @@ export const AppShell = observer(function AppShell({
   const { appShell, serviceWorker: serviceWorkerStore } = useRootStore()
   const theme = useTheme()
   const classes = useStyles()
+  const router = useRouter()
+  const locale = router.locale || router.defaultLocale!
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -117,6 +120,12 @@ export const AppShell = observer(function AppShell({
           as="font"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           crossOrigin="anonymous"
+        />
+        <link
+          rel="manifest"
+          key="manifest"
+          crossOrigin="use-credentials"
+          href={`/api/manifest?locale=${locale}`}
         />
       </Head>
       <CssBaseline />

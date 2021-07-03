@@ -1,18 +1,15 @@
 import { i18n } from '@lingui/core'
-import { locales, defaultLocale } from 'browser-config'
+import { defaultLocale } from 'browser-config'
+import createManifest from 'lib/create-manifest'
 import { loadTranslations } from 'lib/translations'
 import { en, sr } from 'make-plural/plurals'
-import createManifest from 'lib/create-manifest'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { pathToRegexp } from 'path-to-regexp'
 
 i18n.loadLocaleData({
   en: { plurals: en },
   sr: { plurals: sr },
   xx: { plurals: en } // english plurals for pseudo
 })
-
-const regexp = pathToRegexp('/:locale/:bar*')
 
 // chache generated manifest by locale
 const cacheManifest: Record<string, {}> = {}
@@ -34,17 +31,7 @@ export default async function generateManifest(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const url = new URL(req.headers.referer || '')
-
-  const pathToLocale = regexp.exec(url.pathname)
-
-  let locale = defaultLocale
-  if (pathToLocale) {
-    const path = pathToLocale[1]
-    if (locales.includes(path)) {
-      locale = path
-    }
-  }
+  const locale = (req.query.locale as string) || defaultLocale
 
   //cache generated manifest
   if (cacheManifest[locale]) {
@@ -59,7 +46,7 @@ export default async function generateManifest(
   i18n.load(locale, translations)
   i18n.activate(locale)
 
-  const manifest = createManifest(locale)
+  const manifest = createManifest(`../${locale}`)
 
   // eslint-disable-next-line
   cacheManifest[locale] = manifest

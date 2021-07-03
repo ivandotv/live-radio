@@ -1,3 +1,7 @@
+/**
+ *  Modified webpack + workbox script
+ *  from: https://github.com/cansin/next-with-workbox
+ * */
 const path = require('path')
 const crypto = require('crypto')
 
