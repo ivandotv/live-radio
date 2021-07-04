@@ -6,7 +6,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { useRouter } from 'next/router'
 import { ChangeEvent } from 'react'
 import { isPreview } from 'browser-config'
-import { setCookie } from 'nookies'
+import Cookies from 'js-cookie'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,8 +39,8 @@ export function LanguageSwitcher() {
   const router = useRouter()
 
   const handleChange = (e: ChangeEvent<{ value: unknown }>) => {
-    setCookie(null, 'NEXT_LOCALE', e.target.value as string, {
-      maxAge: 31 * 24 * 60 * 60, //one month,
+    Cookies.set('NEXT_LOCALE', e.target.value as string, {
+      expires: 31, //one month,
       path: '/'
     })
     router.push(

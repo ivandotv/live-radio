@@ -20,11 +20,7 @@ const cacheManifest: Record<string, {}> = {}
  * 1. check the locale via referer header
  * 2. check for accept-language header
  * 3. check for NEXT_LOCALE cookie ( set by next.js)
- *
- * I'm using option 1 because next.js only checks for locale on the root of the site
- * so user could be looking at locale that is different than the "accept-languge" header
- * I' need to dynamically change manifest "start_url" depending on the path used
- * TODO - separate translation files from the app (save on size)
+ * 4. use a query parameter
  *  */
 
 export default async function generateManifest(
