@@ -27,8 +27,6 @@ export function PWAIcons() {
 
       <link rel="apple-touch-icon" href="/pwa-icons/apple-icon-180.png" />
 
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-
       <link
         rel="apple-touch-startup-image"
         href="/pwa-icons/apple-splash-2048-2732.png"

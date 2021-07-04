@@ -63,6 +63,12 @@ export default function MyApp(props: AppProps) {
             content={t`Listen live radio online`}
             key="description"
           />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="black-translucent"
+          />
+          <meta name="apple-mobile-web-app-title" content={t`Live Radio`} />
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width"
