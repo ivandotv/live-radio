@@ -1,10 +1,13 @@
 import { enablePWAInstallBanner } from 'browser-config'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'
+import Cookies from 'js-cookie'
 
 export type AppTheme = 'light' | 'dark'
 
 let store: AppShellStore
+
+const pwaInstallDismissedCookie = 'pwa_install_dismissed'
 
 export function appShellFactory(root: RootStore) {
   const isSSR = typeof window === 'undefined'
@@ -94,12 +97,18 @@ export class AppShellStore {
     this.beforeInstallPrompt = e as BeforeInstallPromptEvent
     //guard: sometimes this event fires when user clicks "cancel" in chrome ui (linux)
     if (enablePWAInstallBanner && !this.userChoice) {
-      this.showInstallPrompt = true
+      console.log(
+        'before install cookie ',
+        Cookies.get(pwaInstallDismissedCookie)
+      )
+      if (!Cookies.get(pwaInstallDismissedCookie)) {
+        this.showInstallPrompt = true
+      }
     }
   }
 
   protected handleAppInstalled() {
-    this.hideInstallPrompt()
+    this.hideInstallPrompt(true)
     // TODO - track in analytics
     console.log('app installed')
   }
@@ -116,13 +125,18 @@ export class AppShellStore {
 
     // TODO - track outcome in analytics
     console.log('user choice: ', outcome)
-    this.hideInstallPrompt()
+    this.hideInstallPrompt(outcome === 'accepted' ? true : false)
     this.beforeInstallPrompt = undefined
   }
 
-  hideInstallPrompt() {
+  hideInstallPrompt(accepted: boolean) {
     this.showInstallPrompt = false
     this.beforeInstallPrompt = undefined
+    if (!accepted) {
+      Cookies.set(pwaInstallDismissedCookie, '1', { expires: 1 })
+    } else {
+      Cookies.remove(pwaInstallDismissedCookie)
+    }
   }
 
   setTheme(value: AppTheme, persist: boolean = true) {

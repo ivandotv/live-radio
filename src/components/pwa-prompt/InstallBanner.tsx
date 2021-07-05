@@ -8,7 +8,7 @@ const InstallBanner = observer(function InstallBanner() {
 
   return (
     <PwaNotification
-      onCancel={appShell.hideInstallPrompt.bind(appShell)}
+      onCancel={() => appShell.hideInstallPrompt(false)}
       onOk={appShell.installPWA.bind(appShell)}
       show={appShell.showInstallPrompt}
       title={t`Install`}
