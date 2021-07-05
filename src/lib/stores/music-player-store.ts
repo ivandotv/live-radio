@@ -7,17 +7,17 @@ import {
 } from 'lib/services/storage/app-storage-service'
 import { getDefaultStation, RadioStation } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
-import { client } from 'lib/utils'
+import { client, isSSR } from 'lib/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 
 let store: MusicPlayerStore
 
 export function musicPlayerFactory(root: RootStore) {
-  const isSSR = typeof window === 'undefined'
+  const isServer = isSSR()
 
   let _store
   if (!store) {
-    const fetchImpl = isSSR ? fetch : fetch.bind(window)
+    const fetchImpl = isServer ? fetch : fetch.bind(window)
     const songInfoService = new SongInfoService(fetchImpl)
 
     _store = new MusicPlayerStore(
@@ -29,7 +29,7 @@ export function musicPlayerFactory(root: RootStore) {
   } else {
     _store = store
   }
-  if (isSSR) return _store
+  if (isServer) return _store
 
   return (store = _store)
 }

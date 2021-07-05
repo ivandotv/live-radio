@@ -2,6 +2,7 @@ import { enablePWAInstallBanner } from 'browser-config'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'
 import Cookies from 'js-cookie'
+import { isSSR } from 'lib/utils'
 
 export type AppTheme = 'light' | 'dark'
 
@@ -10,11 +11,11 @@ let store: AppShellStore
 const pwaInstallDismissedCookie = 'pwa_install_dismissed'
 
 export function appShellFactory(root: RootStore) {
-  const isSSR = typeof window === 'undefined'
+  const isServer = isSSR()
 
   const _store = store ?? new AppShellStore(root)
 
-  if (isSSR) return _store
+  if (isServer) return _store
 
   return (store = _store)
 }

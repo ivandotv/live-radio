@@ -3,13 +3,14 @@ import { client } from 'lib/utils'
 import { RadioStore } from './radio-store'
 import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { RootStore } from 'lib/stores/root-store'
+import { isSSR } from 'lib/utils'
 
 let store: FavoriteStationsStore
 
 export function favoritesFactory(root: RootStore) {
-  const isSSR = typeof window === 'undefined'
+  const isServer = isSSR()
 
-  if (isSSR || !store) {
+  if (isServer || !store) {
     store = new FavoriteStationsStore(root, appStorageFactory())
   }
 

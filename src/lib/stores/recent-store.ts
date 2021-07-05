@@ -2,15 +2,15 @@ import { RadioStation } from 'lib/station-utils'
 import { RadioStore } from './radio-store'
 import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { RootStore } from 'lib/stores/root-store'
+import { isSSR } from 'lib/utils'
 
 let store: RecentStationsStore
 
 export function recentStationsFactory(root: RootStore) {
-  const isSSR = typeof window === 'undefined'
-
+  const isServer = isSSR()
   const _store = store ?? new RecentStationsStore(root, appStorageFactory())
 
-  if (isSSR) return _store
+  if (isServer) return _store
 
   return (store = _store)
 }

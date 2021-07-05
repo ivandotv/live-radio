@@ -120,3 +120,7 @@ export function globalErrorHandler(e: any) {
   //TODO -log
   console.log('global error: ', e)
 }
+
+export function isSSR() {
+  return typeof window === 'undefined'
+}

@@ -1,15 +1,15 @@
 import { enableReloadBanner } from 'browser-config'
 import { action, makeObservable, observable } from 'mobx'
 import type { Workbox } from 'workbox-window'
-
+import { isSSR } from 'lib/utils'
 let store: ServiceWorkerStore
 
 export function serviceWorkerFactory() {
-  const isSSR = typeof window === 'undefined'
+  const isServer = isSSR()
 
   const _store = store ?? new ServiceWorkerStore()
 
-  if (isSSR) return _store
+  if (isServer) return _store
 
   return (store = _store)
 }
