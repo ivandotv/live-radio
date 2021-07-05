@@ -1,3 +1,4 @@
+import { enableReloadBanner } from 'browser-config'
 import { action, makeObservable, observable } from 'mobx'
 import type { Workbox } from 'workbox-window'
 
@@ -43,7 +44,9 @@ export class ServiceWorkerStore {
 
   // https://github.com/GoogleChrome/workbox/issues/2860
   protected onWaiting(_evt: any) {
-    this.showUpdatePrompt = true
+    if (enableReloadBanner) {
+      this.showUpdatePrompt = true
+    }
   }
 
   protected onControlling(_evt: any) {
