@@ -44,5 +44,5 @@ export const enablePWAInstallBanner = booleanEnv(
 )
 export const enableReloadBanner = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_RELOAD_BANNER,
-  false
+  true
 )

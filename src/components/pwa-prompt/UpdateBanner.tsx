@@ -13,7 +13,7 @@ const UpdateBanner = observer(function UpdateBanner() {
       onCancel={serviceWorker.hideUpdatePrompt}
       onOk={serviceWorker.update}
       show={serviceWorker.showUpdatePrompt}
-      title={t`New Version`}
+      title={t`New Version Available`}
       okText={t`Reload`}
     >
       <p>

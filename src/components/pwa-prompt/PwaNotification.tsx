@@ -21,7 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     text: {
       paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2)
+      paddingRight: theme.spacing(2),
+      '& p': {
+        marginBottom: 0
+      }
     },
     closeBtn: {
       color: '#fff'
