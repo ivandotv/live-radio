@@ -15,7 +15,10 @@ import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useRef } from 'react'
 import { ErrorBoundary } from 'react-error-boundary'
 
-export type NextApplicationPage<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextApplicationPage<P = Record<string, unknown>, IP = P> = NextPage<
+  P,
+  IP
+> & {
   desktopSidebar?: (
     defaultMenuItems: ReactElement | ReactElement[]
   ) => ReactElement

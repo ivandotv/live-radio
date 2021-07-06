@@ -63,7 +63,9 @@ export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
     console.log('remove')
     try {
       await mounted(store.remove(id))
-    } catch {}
+    } catch (e) {
+      //todo - log
+    }
   }
 
   useEffect(

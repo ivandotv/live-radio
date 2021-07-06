@@ -63,7 +63,7 @@ export function searchTranslation(
   return needle
 }
 
-export function useClientUrl(path: string = '') {
+export function useClientUrl(path = '') {
   const [url, setUrl] = useState('')
   useEffect(() => {
     setUrl(`${window.location.origin.replace(/\/$/, '')}${path}`)
@@ -96,15 +96,11 @@ export async function client<T>(
     ...rest
   }
 
-  try {
-    const response = await fetch(endpoint, config)
-    if (response.ok) {
-      return await response.json()
-    } else {
-      throw response
-    }
-  } catch (e) {
-    throw e
+  const response = await fetch(endpoint, config)
+  if (response.ok) {
+    return await response.json()
+  } else {
+    throw response
   }
 }
 

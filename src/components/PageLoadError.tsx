@@ -25,7 +25,7 @@ export function PageLoadError({
   onClick
 }: {
   data: ReactNode
-  onClick: () => {}
+  onClick: () => void
 }) {
   const classes = useStyles()
 

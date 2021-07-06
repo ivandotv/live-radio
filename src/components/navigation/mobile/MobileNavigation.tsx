@@ -71,7 +71,7 @@ export const MobileNavigation = observer(function MobileNavigation() {
       router.asPath,
       menuItems.map((item) => item.path)
     )
-    console.log('curr selected ', currSelected)
+
     if (currSelected !== -1) {
       setSelected(currSelected)
     }

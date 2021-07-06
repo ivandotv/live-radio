@@ -45,11 +45,7 @@ export class AppStorage {
     storageCall: Promise<TData>
   ): Promise<TData> {
     //todo - normalize errors between different storage providers
-    try {
-      return await storageCall
-    } catch (e: unknown) {
-      throw e
-    }
+    return await storageCall
   }
 
   protected async resolveStorage() {

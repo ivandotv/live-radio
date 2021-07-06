@@ -12,7 +12,7 @@ i18n.loadLocaleData({
 })
 
 // chache generated manifest by locale
-const cacheManifest: Record<string, {}> = {}
+const cacheManifest: Record<string, unknown> = {}
 
 /**
  * Generate manifest depending on the locale path that is used

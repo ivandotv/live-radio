@@ -13,14 +13,18 @@ module.exports = {
   },
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
-    'prettier',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'plugin:react-hooks/recommended'
-    // 'plugin:@next/next/recommended'
+    'plugin:react-hooks/recommended',
+    'prettier'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true
+    }
   },
   settings: {
     react: {
@@ -50,6 +54,9 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-non-null-assertion': ['off'],
+    '@typescript-eslint/ban-ts-comment': ['off'],
+    '@typescript-eslint/no-explicit-any': ['off'],
+    '@typescript-eslint/explicit-module-boundary-types': ['off'],
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {

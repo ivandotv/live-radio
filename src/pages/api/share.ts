@@ -22,7 +22,7 @@ export default async function redirectShare(
 
   const playEncoded = `?play=${encodeURIComponent(play)}`
 
-  let language = parser.pick(locales, req.headers['accept-language'] || '')
+  const language = parser.pick(locales, req.headers['accept-language'] || '')
 
   if (!language) {
     // default language

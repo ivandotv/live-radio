@@ -32,7 +32,7 @@ export function RootStoreProvider({ children }: { children: ReactNode }) {
   if (__DEV__) {
     // eslint-disable-next-line
     useEffect(() => {
-      // @ts-ignore
+      // @ts-ignore - dev only
       window.rootStore = root
     }, [root])
   }

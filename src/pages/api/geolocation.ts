@@ -13,7 +13,7 @@ export default async function getGeoLocation(
   const detectedIp = requestIp.getClientIp(req)
 
   // if localhost is detected , send empty string
-  let queryIp =
+  const queryIp =
     detectedIp === '::1' || detectedIp === '127.0.0.1' ? '' : detectedIp
 
   try {

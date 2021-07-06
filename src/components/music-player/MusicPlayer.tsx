@@ -182,7 +182,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
         {
           variant: 'error',
           className: classes.snackbar,
-          onExited: () => {},
           autoHideDuration: 2000,
           anchorOrigin: {
             vertical: 'bottom',

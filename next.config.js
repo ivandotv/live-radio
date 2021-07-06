@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const withPlugins = require('next-compose-plugins')
 const withWorkbox = require('./workbox.webpack.config')
 const linguiConfig = require('./lingui.config')
@@ -26,8 +27,8 @@ const nextConfig = {
     defaultLocale
   },
   workbox: {
-    // disable: process.env.NODE_ENV !== 'production',
-    disable: false,
+    disable: process.env.NODE_ENV !== 'production',
+    // disable: false,
     swSrc: 'src/service-worker/sw.ts',
     swDest: 'sw.js'
   },

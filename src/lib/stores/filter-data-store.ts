@@ -22,7 +22,7 @@ export class FilterDataStore {
 
   filtered: any[] = []
 
-  query: string = ''
+  query = ''
 
   protected searchApi: JsSearch.Search | undefined
 

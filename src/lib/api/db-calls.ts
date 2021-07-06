@@ -36,7 +36,7 @@ export async function getStations(ids: string[]) {
   // query the stations collection for user stations
   const { db } = await connectToDatabase()
 
-  let query = [
+  const query = [
     { $match: { _id: { $in: ids } } },
     {
       $addFields: {
@@ -72,7 +72,7 @@ export async function saveToUserCollection(
   const session = client.startSession()
   try {
     await session.withTransaction(async () => {
-      let localSession = isProduction ? session : undefined
+      const localSession = isProduction ? session : undefined
       await saveStation(db, station, localSession)
 
       const user: MongoUser | null = await db.collection('users').findOne({
@@ -124,9 +124,6 @@ export async function saveToUserCollection(
         { session: localSession, upsert: true }
       )
     })
-  } catch (e) {
-    throw e
-    //TODO -log
   } finally {
     session.endSession()
   }

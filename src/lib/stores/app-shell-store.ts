@@ -140,7 +140,7 @@ export class AppShellStore {
     }
   }
 
-  setTheme(value: AppTheme, persist: boolean = true) {
+  setTheme(value: AppTheme, persist = true) {
     this.theme = value
     this.persistTheme = persist
   }

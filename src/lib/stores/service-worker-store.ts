@@ -20,7 +20,7 @@ export function serviceWorkerFactory() {
 export class ServiceWorkerStore {
   wb!: Workbox
 
-  showUpdatePrompt: boolean = false
+  showUpdatePrompt = false
 
   constructor() {
     this.update = this.update.bind(this)

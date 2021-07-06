@@ -16,8 +16,8 @@ export const SongInfo = observer(function SongInfo() {
   const { musicPlayer } = useRootStore()
   const classes = useStyles()
 
-  let artist = musicPlayer.songInfo?.artist || t`No Data`
-  let songTitle = musicPlayer.songInfo?.title || t`No Data`
+  const artist = musicPlayer.songInfo?.artist || t`No Data`
+  const songTitle = musicPlayer.songInfo?.title || t`No Data`
 
   const showInfo =
     musicPlayer.status !== PlayerStatus.STOPPED &&
