@@ -6,11 +6,6 @@ import { booleanEnv } from 'lib/utils'
 
 export const isProduction = process.env.NODE_ENV === 'production'
 
-export const url =
-  process.env.VERCEL_ENV === 'production'
-    ? 'https://live-radio.vercel.app'
-    : process.env.NEXT_PUBLIC_VERCEL_URL!.replace(/\/$/, '')
-
 export const db = {
   uri: process.env.MONGODB_URI,
   dbName: process.env.MONGO_DB_NAME,
