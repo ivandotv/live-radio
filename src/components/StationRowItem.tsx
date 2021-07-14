@@ -86,7 +86,7 @@ export const StationRowItem = observer(function StationRowItem({
   return (
     <div className={classes.buttonBase}>
       <Collapse
-        collapsedHeight="0.5px"
+        collapsedSize="0.5px"
         onExited={() => {
           console.log('on exit ')
           store!.removeLocal(station._id)
