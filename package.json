@@ -41,7 +41,7 @@
     "joi": "^17.4.1",
     "js-cookie": "^2.2.1",
     "js-search": "^2.0.0",
-    "make-plural": "^6.2.2",
+    "make-plural": "^7.0.0",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
     "mobx-utils": "^6.0.4",
