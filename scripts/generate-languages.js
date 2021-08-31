@@ -1,7 +1,16 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const ISO6391 = require('iso-639-1')
 const { inspect } = require('util')
 const fs = require('fs')
+const prettier = require('prettier')
+const path = require('path')
 
+let prettierConfig
+;(async () => {
+  prettierConfig = await prettier.resolveConfig(
+    path.resolve(__dirname, '../.prettierrc.js')
+  )
+})()
 const result = ISO6391.getAllNames().map((lang) => {
   return {
     raw: lang,
@@ -15,7 +24,7 @@ fs.mkdirSync(dir, { recursive: true })
 
 const file = fs.createWriteStream(`${dir}/languages.js`)
 
-file.write(`
+const data = `
 import { t } from '@lingui/macro'
 
 export function languages(){
@@ -26,6 +35,12 @@ export function languages(){
   )}
 
   return data
-}`)
+}`
 
+const formatted = prettier.format(data, {
+  ...prettierConfig,
+  parser: 'babel'
+})
+
+file.write(formatted)
 file.end()

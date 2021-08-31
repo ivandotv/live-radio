@@ -1,7 +1,17 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { inspect } = require('util')
 const fs = require('fs')
 const { countries } = require('countries-list')
 const { default: flag } = require('country-code-emoji')
+const prettier = require('prettier')
+const path = require('path')
+
+let prettierConfig
+;(async () => {
+  prettierConfig = await prettier.resolveConfig(
+    path.resolve(__dirname, '../.prettierrc.js')
+  )
+})()
 
 /* Optimize countries.json file from
     https://github.com/annexare/Countries/blob/master/data/countries.json
@@ -50,13 +60,20 @@ fs.mkdirSync(dir, { recursive: true })
 
 const file = fs.createWriteStream(`${dir}/countries.js`)
 
-file.write(`
+const data = `
 import { t } from '@lingui/macro'
 
 export function countries(){
   const data = ${inspect(result).replace(/'(?<name>t`.+?`)'/g, '$<name>')}
 
   return data
-}`)
+}`
+
+const formatted = prettier.format(data, {
+  ...prettierConfig,
+  parser: 'babel'
+})
+
+file.write(formatted)
 
 file.end()

@@ -1,6 +1,15 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { inspect } = require('util')
 const fs = require('fs')
+const prettier = require('prettier')
+const path = require('path')
 
+let prettierConfig
+;(async () => {
+  prettierConfig = await prettier.resolveConfig(
+    path.resolve(__dirname, '../.prettierrc.js')
+  )
+})()
 const result = genres()
   .sort()
   .map((genre) => {
@@ -16,7 +25,7 @@ fs.mkdirSync(dir, { recursive: true })
 
 const file = fs.createWriteStream(`${dir}/genres.js`)
 
-file.write(`
+const data = `
 import { t } from '@lingui/macro'
 
 export function genres(){
@@ -27,7 +36,14 @@ export function genres(){
   )}
 
   return data
-}`)
+}`
+
+const formatted = prettier.format(data, {
+  ...prettierConfig,
+  parser: 'babel'
+})
+
+file.write(formatted)
 
 file.end()
 
