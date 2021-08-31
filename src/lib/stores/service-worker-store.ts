@@ -2,6 +2,7 @@ import { enableReloadBanner } from 'browser-config'
 import { action, makeObservable, observable } from 'mobx'
 import type { Workbox } from 'workbox-window'
 import { isSSR } from 'lib/utils'
+import { WorkboxLifecycleWaitingEvent } from 'workbox-window/utils/WorkboxEvent'
 let store: ServiceWorkerStore
 
 export function serviceWorkerFactory() {
@@ -42,8 +43,7 @@ export class ServiceWorkerStore {
     console.log('register worker')
   }
 
-  // https://github.com/GoogleChrome/workbox/issues/2860
-  protected onWaiting(_evt: any) {
+  protected onWaiting(_evt: WorkboxLifecycleWaitingEvent) {
     if (enableReloadBanner) {
       this.showUpdatePrompt = true
     }
