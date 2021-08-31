@@ -1,12 +1,11 @@
 import { t } from '@lingui/macro'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
-// import { lingui } from 'initTranslations'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { useRouter } from 'next/router'
-import { ChangeEvent } from 'react'
 import { isPreview } from 'browser-config'
 import Cookies from 'js-cookie'
+import { useRouter } from 'next/router'
+import { ChangeEvent } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,10 +23,15 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({
+  onChange
+}: {
+  onChange: (key: string) => void
+}) {
   const languages: { [key: string]: string } = {
     en: t`English`,
-    sr: t`Serbian`
+    sr: t`Serbian`,
+    help: t`Help Translate`
   }
   if (isPreview) {
     languages.xx = t`Pseudo`
@@ -39,7 +43,14 @@ export function LanguageSwitcher() {
   const router = useRouter()
 
   const handleChange = (e: ChangeEvent<{ value: unknown }>) => {
-    Cookies.set('NEXT_LOCALE', e.target.value as string, {
+    const key = e.target.value as string
+
+    onChange(key)
+
+    if (key === 'help') {
+      return
+    }
+    Cookies.set('NEXT_LOCALE', key, {
       expires: 31, //one month,
       path: '/'
     })
@@ -47,7 +58,7 @@ export function LanguageSwitcher() {
       { pathname: router.pathname, query: router.query },
       router.asPath,
       {
-        locale: e.target.value as string
+        locale: key
       }
     )
   }

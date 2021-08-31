@@ -23,7 +23,8 @@ import { searchTranslation } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
 import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
+import { TranslateHelpModal } from 'components/TranslateHelpModal'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -80,12 +81,23 @@ export const AppToolbar = observer(function AppToolbar() {
   const appTitle = useSetAppTitle(' / ', '')
   const { appShell } = useRootStore()
 
+  const [openTransHelp, setOpenTransHelp] = useState(false)
+
   const [session] = useSession()
 
   appShell.setUserIsSignedIn(Boolean(session))
 
   const [counter, setCounter] = useState(0)
 
+  const closeTransHelpModal = useCallback(() => {
+    setOpenTransHelp(false)
+  }, [])
+
+  const onLanguageSwitch = (key: string) => {
+    if (key == 'help') {
+      setOpenTransHelp(true)
+    }
+  }
   const toggleDesktopDrawer = () => {
     appShell.setDesktopDrawer(!appShell.desktopDrawerIsOpen)
   }
@@ -120,7 +132,11 @@ export const AppToolbar = observer(function AppToolbar() {
           </Typography>
         </div>
         <UserProfileDropdown />
-        <LanguageSwitcher />
+        <LanguageSwitcher onChange={onLanguageSwitch} />
+        <TranslateHelpModal
+          open={openTransHelp}
+          onClose={closeTransHelpModal}
+        ></TranslateHelpModal>
         <Tooltip
           title={
             appShell.theme === 'dark'

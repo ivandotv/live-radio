@@ -1,6 +1,5 @@
 import { t } from '@lingui/macro'
 import { Collapse, ListItem, ListItemText, Tooltip } from '@material-ui/core'
-import ButtonBase from '@material-ui/core/ButtonBase'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import HttpIcon from '@material-ui/icons/ErrorOutline'
 import clsx from 'clsx'
@@ -12,6 +11,7 @@ import { PlayerStatus } from 'lib/stores/music-player-store'
 import { RadioStore } from 'lib/stores/radio-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useCallback, useState } from 'react'
+import { HttpsInfoModal } from './HttpsInfoModal'
 import { StationRowRemoveBtn } from './StationRowRemoveBtn'
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -74,6 +74,8 @@ export const StationRowItem = observer(function StationRowItem({
   const classes = useStyles({ showTags })
   const { musicPlayer } = useRootStore()
 
+  const httpsInfoText = t`Depending on your browser configuration this station might not load beacuse it is not served over a secure (httpS) connection.`
+
   const togglePlay = useCallback(
     (_e: MouseEvent) => {
       musicPlayer.togglePlay(station)
@@ -81,65 +83,82 @@ export const StationRowItem = observer(function StationRowItem({
     [musicPlayer, station]
   )
 
+  const [openHttpsHelp, setOpenHttpsHelp] = useState(false)
+
+  const closeHttpsHelp = useCallback(() => {
+    setOpenHttpsHelp(false)
+  }, [])
+
   const stationError = musicPlayer.errorStations[station._id]
   const [show, setShow] = useState(true)
 
   return (
-    <ButtonBase className={classes.buttonBase}>
-      <Collapse
-        collapsedSize="0.5px"
-        onExited={() => {
-          console.log('on exit ')
-          store!.removeLocal(station._id)
-        }}
-        in={show}
-      >
-        <ListItem
-          button
-          onClick={togglePlay}
-          className={clsx(classes.root, {
-            [classes.stationSelected]:
-              musicPlayer.station?._id === station._id &&
-              musicPlayer.status !== PlayerStatus.ERROR,
-            [classes.stationError]: stationError
-          })}
-          component="div"
+    <>
+      <HttpsInfoModal
+        open={openHttpsHelp}
+        onClose={closeHttpsHelp}
+        text={httpsInfoText}
+      ></HttpsInfoModal>
+      <div className={classes.buttonBase}>
+        <Collapse
+          collapsedSize="0.5px"
+          onExited={() => {
+            console.log('on exit ')
+            store!.removeLocal(station._id)
+          }}
+          in={show}
         >
-          <ListItemText>
-            <div className={classes.title}>
-              <PlayerStateIcon
-                className={classes.playerStateIcon}
-                stationId={station._id}
-                fontSize="1.3rem"
-              />
-              {`${station.name}`}
-              {showCountry && station.country.length
-                ? ` | ${station.country}`
-                : null}
-              {showFlag && station.flag.length ? ` ${station.flag}` : null}
-              {station.url.indexOf('https') === -1 ? (
-                <Tooltip
-                  title={t`Depending on your browser this station might not load beacuse it is not served over a secure (https) connection.`}
-                >
-                  <HttpIcon className={classes.httpIcon} />
-                </Tooltip>
-              ) : null}
-              {store ? (
-                <StationRowRemoveBtn
-                  className={classes.btnRemove}
-                  store={store}
-                  id={station._id}
-                  setShow={setShow}
+          <ListItem
+            button
+            onClick={togglePlay}
+            className={clsx(classes.root, {
+              [classes.stationSelected]:
+                musicPlayer.station?._id === station._id &&
+                musicPlayer.status !== PlayerStatus.ERROR,
+              [classes.stationError]: stationError
+            })}
+            component="div"
+          >
+            <ListItemText>
+              <div className={classes.title}>
+                <PlayerStateIcon
+                  className={classes.playerStateIcon}
+                  stationId={station._id}
+                  fontSize="1.3rem"
                 />
-              ) : null}
-            </div>
+                {`${station.name}`}
+                {showCountry && station.country.length
+                  ? ` | ${station.country}`
+                  : null}
+                {showFlag && station.flag.length ? ` ${station.flag}` : null}
+                {station.url.indexOf('https') === -1 ? (
+                  <Tooltip
+                    title={httpsInfoText}
+                    onClick={(e: MouseEvent<HTMLDivElement>) => {
+                      e.stopPropagation()
+                      setOpenHttpsHelp(true)
+                    }}
+                  >
+                    <HttpIcon className={classes.httpIcon} />
+                  </Tooltip>
+                ) : null}
+                {store ? (
+                  <StationRowRemoveBtn
+                    className={classes.btnRemove}
+                    store={store}
+                    id={station._id}
+                    setShow={setShow}
+                  />
+                ) : null}
+              </div>
 
-            {showTags ? (
-              <StationRowTags className={classes.tags} station={station} />
-            ) : null}
-          </ListItemText>
-        </ListItem>
-      </Collapse>
-    </ButtonBase>
+              {showTags ? (
+                <StationRowTags className={classes.tags} station={station} />
+              ) : null}
+            </ListItemText>
+          </ListItem>
+        </Collapse>
+      </div>
+    </>
   )
 })

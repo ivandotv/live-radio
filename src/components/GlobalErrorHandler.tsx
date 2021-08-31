@@ -9,9 +9,9 @@ export default function GlobalErrorHandler() {
       console.log('unhandledrejection', event)
       //todo - log to third party
     })
-    window.addEventListener('error', (event) => {
+    window.addEventListener('error', (_event) => {
       // handleError(event)
-      console.log('error', event)
+      // console.log('error', event)
       //todo - log to third party
     })
   }, [handleError])
