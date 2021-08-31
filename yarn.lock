@@ -7370,10 +7370,10 @@ queue@6.0.2:
   dependencies:
     inherits "~2.0.3"
 
-radio-browser-api@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/radio-browser-api/-/radio-browser-api-4.0.4.tgz#cb2d7bd0afbbe06c9777a335c751a946aa891b32"
-  integrity sha512-3QCRChDCJoMYQ9qzcIJgVlzbrgDg04CRYNQ8xLdeArqvOxLO+TJ4wRUWYJA077xXTSSv4jk8qNDPn+GohZsUbQ==
+radio-browser-api@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/radio-browser-api/-/radio-browser-api-4.0.5.tgz#7e984b015edaed2c6a45c4d3dfa0d19612574065"
+  integrity sha512-t61VvPadDw98zV04hcIHqb1Lw+/jsXlByEsE0MP9myxNHacc/8JSE7fhE7v7rTQCJpK7ufEwcdk8hPY/mQIKAg==
 
 ramda@^0.27.1:
   version "0.27.1"
