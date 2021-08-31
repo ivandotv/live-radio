@@ -1,16 +1,17 @@
 import { t } from '@lingui/macro'
 import { Collapse, ListItem, ListItemText, Tooltip } from '@material-ui/core'
+import ButtonBase from '@material-ui/core/ButtonBase'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import HttpIcon from '@material-ui/icons/ErrorOutline'
 import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
+import { RadioStation } from 'lib/station-utils'
 import { PlayerStatus } from 'lib/stores/music-player-store'
 import { RadioStore } from 'lib/stores/radio-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useCallback, useState } from 'react'
-import { RadioStation } from 'lib/station-utils'
 import { StationRowRemoveBtn } from './StationRowRemoveBtn'
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -84,7 +85,7 @@ export const StationRowItem = observer(function StationRowItem({
   const [show, setShow] = useState(true)
 
   return (
-    <div className={classes.buttonBase}>
+    <ButtonBase className={classes.buttonBase}>
       <Collapse
         collapsedSize="0.5px"
         onExited={() => {
@@ -139,6 +140,6 @@ export const StationRowItem = observer(function StationRowItem({
           </ListItemText>
         </ListItem>
       </Collapse>
-    </div>
+    </ButtonBase>
   )
 })
