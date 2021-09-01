@@ -6,9 +6,6 @@ import linguiConfig from '../lingui.config'
  *  in the browser as well on the server
  */
 
-console.log('VERCEL ULR ', process.env.VERCEL_URL)
-console.log('VERCEL ENV ', process.env.VERCEL_ENV)
-
 export const url =
   process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
     ? 'https://live-radio.vercel.app'

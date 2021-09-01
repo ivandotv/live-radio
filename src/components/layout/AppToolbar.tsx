@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro'
 import { IconButton } from '@material-ui/core'
 import AppBar from '@material-ui/core/AppBar'
-import Badge from '@material-ui/core/Badge'
 import {
   createStyles,
   makeStyles,
@@ -15,16 +14,16 @@ import MenuCloseIcon from '@material-ui/icons/ArrowBack'
 import DarkIcon from '@material-ui/icons/Brightness6'
 import LightIcon from '@material-ui/icons/Brightness7'
 import MenuIcon from '@material-ui/icons/Menu'
+import { sections } from 'browser-config'
 import { LanguageSwitcher } from 'components/LanguageSwitcher'
 import { useRootStore } from 'components/providers/RootStoreProvider'
+import { TranslateHelpModal } from 'components/TranslateHelpModal'
 import { UserProfileDropdown } from 'components/UserProfileDropdown'
-import { sections } from 'browser-config'
 import { searchTranslation } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
 import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
-import { useEffect, useState, useCallback } from 'react'
-import { TranslateHelpModal } from 'components/TranslateHelpModal'
+import { useCallback, useEffect, useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,8 +86,6 @@ export const AppToolbar = observer(function AppToolbar() {
 
   appShell.setUserIsSignedIn(Boolean(session))
 
-  const [counter, setCounter] = useState(0)
-
   const closeTransHelpModal = useCallback(() => {
     setOpenTransHelp(false)
   }, [])
@@ -103,9 +100,6 @@ export const AppToolbar = observer(function AppToolbar() {
   }
 
   const toggleTheme = () => {
-    setCounter((counter) => {
-      return counter + 1
-    })
     appShell.setTheme(appShell.theme === 'dark' ? 'light' : 'dark')
   }
 
@@ -146,12 +140,9 @@ export const AppToolbar = observer(function AppToolbar() {
           aria-label="toggle dark/light theme"
         >
           <IconButton color="inherit" onClick={toggleTheme} edge="end">
-            <Badge badgeContent={counter} color="secondary" showZero>
-              {appShell.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
-            </Badge>
+            {appShell.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
           </IconButton>
         </Tooltip>
-        {/* </div> */}
       </Toolbar>
     </AppBar>
   )

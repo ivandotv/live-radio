@@ -150,7 +150,7 @@ export const AppShell = observer(function AppShell({
               <div className={classes.pageWrap}>{children as ReactElement}</div>
               <div className={classes.bottomUiWrap}>
                 <OfflineIndicator className={classes.offlineIndicator} />
-                <MusicPlayer></MusicPlayer>
+                <MusicPlayer />
                 <Hidden mdUp implementation="css">
                   <MobileNavigation />
                 </Hidden>
