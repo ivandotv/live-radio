@@ -2,12 +2,11 @@ import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
-import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { countries } from 'generated/countries'
 import { loadTranslations, paramsWithLocales } from 'lib/translations'
-import { continentsByCode } from 'lib/utils'
+import { continentsByCode, createCountryDataRow } from 'lib/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 
@@ -48,31 +47,6 @@ export default function CountryList({ continent }: { continent: string }) {
   const continentCodes = continentsByCode()
   const countryData = countries()[continent as keyof typeof countries]
 
-  const countryDataRow = function (
-    countries: { name: string; code: string; flag: string; cont: string }[]
-  ) {
-    return function CountryRow(index: number) {
-      const country = countries[index]
-
-      return (
-        <AppMenuItem
-          link={{
-            prefetch: false,
-            href: {
-              pathname: `${router.pathname}/[country]`
-            },
-            as: {
-              pathname: `${router.pathname.replace('[continent]', continent)}/${
-                country.code
-              }`
-            }
-          }}
-          primary={`${country.name} ${country.flag}`}
-        />
-      )
-    }
-  }
-
   const breadcrumbs = [
     {
       href: '/app',
@@ -97,7 +71,7 @@ export default function CountryList({ continent }: { continent: string }) {
       <ListStations
         filterInputText={t`Filter Countries`}
         breadcrumbs={breadcrumbs}
-        dataRow={countryDataRow}
+        dataRow={createCountryDataRow}
       />
     </FilterDataStoreProvider>
   )

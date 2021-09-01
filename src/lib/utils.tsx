@@ -1,6 +1,9 @@
 import { t } from '@lingui/macro'
 import { countries } from 'generated/countries'
 import { useEffect, useState } from 'react'
+import { LanguageDataRow } from 'components/LanguageDataRow'
+import { CountryDataRow } from 'components/CountryDataRow'
+import { GenreDataRow } from 'components/GenreDataRow'
 
 export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
   const countryData = countries()
@@ -119,4 +122,25 @@ export function globalErrorHandler(e: any) {
 
 export function isSSR() {
   return typeof window === 'undefined'
+}
+
+export function createLanguageDataRow(
+  _index: number,
+  data: { language: string; raw: string }
+) {
+  return <LanguageDataRow data={data} />
+}
+
+export function createCountryDataRow(
+  _index: number,
+  data: { name: string; code: string; flag: string; cont: string }
+) {
+  return <CountryDataRow data={data} />
+}
+
+export function createGenreDataRow(
+  _index: number,
+  data: { genre: string; raw: string }
+) {
+  return <GenreDataRow data={data} />
 }

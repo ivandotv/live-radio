@@ -72,20 +72,20 @@ export function createStationListRow(opts?: {
     ...opts
   }
 
-  return (stations: RadioStation[]) => {
-    return function DataRow(index: number) {
-      const station = stations[index]
+  // return (stations: RadioStation[]) => {
+  return function StationDataRow(index: number, station: RadioStation) {
+    // const station = stations[index]
 
-      return (
-        <StationRowItem
-          {...options}
-          key={station._id}
-          station={station}
-        ></StationRowItem>
-      )
-    }
+    return (
+      <StationRowItem
+        {...options}
+        key={station._id}
+        station={station}
+      ></StationRowItem>
+    )
   }
 }
+// }
 
 export function getDefaultStation(): RadioStation {
   return {

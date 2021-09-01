@@ -1,15 +1,14 @@
+import { plural, t } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { layout } from 'browser-config'
 import { FilterInput } from 'components/FilterInput'
 import { FilterList } from 'components/FilterList'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
 import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { ReactElement, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { ListStationsFallback } from './ListStationsFallback'
-import { plural, t } from '@lingui/macro'
-
-import { layout } from 'browser-config'
 
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
   layout
@@ -55,7 +54,7 @@ export const ListStations = observer(function ListStations({
   showFallback = false
 }: {
   noData?: ReactNode
-  dataRow: (data: any) => (index: number) => ReactElement
+  dataRow: (index: number, data: any) => JSX.Element
   breadcrumbs?: { href?: string; text: string }[]
   filterInputText?: string
   showFallback?: boolean

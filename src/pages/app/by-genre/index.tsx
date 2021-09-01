@@ -1,17 +1,15 @@
 import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { ListStations } from 'components/ListStations'
-import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { getStaticTranslations } from 'lib/translations'
 import { genres } from 'generated/genres'
-import { useRouter } from 'next/router'
+import { createGenreDataRow } from 'lib/utils'
 
 export { getStaticTranslations as getStaticProps }
 
 export default function GenreList() {
-  const router = useRouter()
   const breadcrumbs = [
     {
       href: '/app',
@@ -31,27 +29,6 @@ export default function GenreList() {
     }
   })
 
-  const genreDataRow = function (genres: { genre: string; raw: string }[]) {
-    return function ListRow(index: number) {
-      const { genre, raw } = genres[index]
-
-      return (
-        <AppMenuItem
-          link={{
-            prefetch: false,
-            href: {
-              pathname: `${router.pathname}/[genre]`
-            },
-            as: {
-              pathname: `${router.pathname}/${raw.replace(/\s/g, '-')}`
-            }
-          }}
-          primary={`${genre}`}
-        />
-      )
-    }
-  }
-
   return (
     <FilterDataStoreProvider
       initialState={genreSearch}
@@ -62,7 +39,7 @@ export default function GenreList() {
       <ListStations
         filterInputText={t`Filter Genres`}
         breadcrumbs={breadcrumbs}
-        dataRow={genreDataRow}
+        dataRow={createGenreDataRow}
       ></ListStations>
     </FilterDataStoreProvider>
   )

@@ -1,9 +1,9 @@
+import { Trans } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import React, { ReactElement, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { Virtuoso } from 'react-virtuoso'
-import { Trans } from '@lingui/macro'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -23,7 +23,7 @@ export const FilterList = observer(function FilterList({
   data,
   noData
 }: {
-  dataRow: (data: any) => (index: number) => ReactElement
+  dataRow: (index: number, data: any) => JSX.Element
   data: any[]
   noData?: ReactNode
 }) {
@@ -41,9 +41,10 @@ export const FilterList = observer(function FilterList({
       ) : (
         <div className={classes.scrollWrap}>
           <Virtuoso
-            totalCount={toJS(data.length)}
+            // totalCount={toJS(data.length)}
             overscan={40}
-            itemContent={dataRow(toJS(data))}
+            data={toJS(data)}
+            itemContent={dataRow}
             style={{ height: '100%', width: '100%' }}
           />
         </div>
