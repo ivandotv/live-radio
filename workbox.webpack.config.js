@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+
 /**
  *  Modified webpack + workbox script
  *  from: https://github.com/cansin/next-with-workbox
