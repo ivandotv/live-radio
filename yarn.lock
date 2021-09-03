@@ -7481,14 +7481,13 @@ react-use@^17.2.4:
     ts-easing "^0.2.0"
     tslib "^2.1.0"
 
-react-virtuoso@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-1.11.0.tgz#3d1767f49ba32fae2565df79ccf54a7aa7dcb75a"
-  integrity sha512-uV0mt1++/wqG80V73GTI20tuzIWdWmBqOk7DFNQNgs6I1v71NJMPGrRDb1UoFe+gx5zlZA1QNA14cr891nEHMw==
+react-virtuoso@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/react-virtuoso/-/react-virtuoso-2.0.0.tgz#6e1d0ecce12007acc0267c9fb6dcbe4408e8e378"
+  integrity sha512-067s+L6GC0IP+j2qmNxjDbJMCWooDhYfMhdycCMfKW1LgsWYMkq/KT7Z82w7RbTrgQHgTvEpN69347pDvWRXKQ==
   dependencies:
     "@virtuoso.dev/react-urx" "^0.2.5"
     "@virtuoso.dev/urx" "^0.2.5"
-    resize-observer-polyfill "^1.5.1"
 
 react@17.0.2:
   version "17.0.2"
