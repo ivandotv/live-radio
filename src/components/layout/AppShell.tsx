@@ -8,7 +8,12 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import { layout, enableServiceWorker } from 'browser-config'
+import {
+  enableServiceWorker,
+  enableServiceWorkerReload,
+  layout,
+  showAppUpdatedCookieName
+} from 'browser-config'
 import { AppToolbar } from 'components/layout/AppToolbar'
 import LoginNotification from 'components/LoginNotification'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
@@ -17,12 +22,13 @@ import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
 import { OfflineIndicator } from 'components/OfflineIndicator'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import InstallBanner from 'components/pwa-prompt/InstallBanner'
-import UpdateBanner from 'components/pwa-prompt/UpdateBanner'
+import { UpdateBanner } from 'components/pwa-prompt/UpdateBanner'
+import { AppUpdatedNotification } from 'components/pwa-prompt/AppUpdatedNotification'
+import { useServiceWorker } from 'lib/useServiceWorker'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement, ReactNode, useEffect } from 'react'
-import { Workbox } from 'workbox-window'
+import { ReactElement, ReactNode } from 'react'
 
 // todo - make the values dynamic
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
@@ -85,20 +91,19 @@ export const AppShell = observer(function AppShell({
 }: {
   children: ReactNode
 }) {
-  const { appShell, serviceWorker: serviceWorkerStore } = useRootStore()
+  const { appShell } = useRootStore()
   const theme = useTheme()
   const classes = useStyles()
   const router = useRouter()
   const locale = router.locale || router.defaultLocale!
 
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      if (enableServiceWorker && !serviceWorkerStore.wb) {
-        const wb = new Workbox('/sw.js', { scope: '/' })
-        serviceWorkerStore.register(wb)
-      }
-    }
-  }, [serviceWorkerStore])
+  const [showPrompt, hideUpdatePrompt, update] = useServiceWorker({
+    path: '/sw.js',
+    scope: '/',
+    enable: enableServiceWorker,
+    enableReload: enableServiceWorkerReload,
+    updateCookieName: showAppUpdatedCookieName
+  })
 
   return (
     <>
@@ -135,8 +140,13 @@ export const AppShell = observer(function AppShell({
       >
         <AppToolbar />
         <InstallBanner />
-        <UpdateBanner />
+        <UpdateBanner
+          onCancel={hideUpdatePrompt}
+          onOk={update}
+          show={showPrompt}
+        />
         <LoginNotification />
+        <AppUpdatedNotification cookieName={showAppUpdatedCookieName} />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">
             <DesktopNavigation />

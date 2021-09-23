@@ -45,11 +45,15 @@ export const enableServiceWorker = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER,
   false
 )
+
+export const enableServiceWorkerReload = booleanEnv(
+  process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER_RELOAD,
+  false
+)
+
 export const enablePWAInstallBanner = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_PWA_INSTALL,
   false
 )
-export const enableReloadBanner = booleanEnv(
-  process.env.NEXT_PUBLIC_ENABLE_RELOAD_BANNER,
-  true
-)
+
+export const showAppUpdatedCookieName = 'show_app_updated'
