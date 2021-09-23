@@ -6,7 +6,6 @@ import { loadTranslations } from 'lib/translations'
 import { useClientUrl } from 'lib/utils'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/client'
-import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -20,20 +19,16 @@ export default function Index() {
 
   return (
     <>
-      <Head>
-        <link
-          key="font-rancho"
-          rel="stylesheet"
-          as="font"
-          href="https://fonts.googleapis.com/css?family=Rancho&display=swap"
-          crossOrigin="anonymous"
-        />
-      </Head>
       <div className="page-wrap">
         <PageTitle title={t`Welcome to Live Radio App`} />
         <h1 className="home-title">{t`Live Radio`}</h1>
         <div className="banner-wrapper">
-          <Image width="450" height="326" src="/images/landing-page.png" />
+          <Image
+            alt={t`landing page image`}
+            width="450"
+            height="326"
+            src="/images/landing-page.png"
+          />
         </div>
         <div className="btn-wrap">
           <Link

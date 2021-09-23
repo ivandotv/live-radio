@@ -16,7 +16,7 @@
     "lang:extract": "NODE_ENV=development lingui extract --clean",
     "lang:compile": "lingui compile",
     "lang": "yarn lang:extract && yarn lang:compile",
-    "fix:src": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
+    "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx}\"",
     "prepare": "husky install",
     "postinstall": "patch-package"
   },

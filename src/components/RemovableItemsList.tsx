@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro'
+import { Trans, t } from '@lingui/macro'
 import Image from 'next/image'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ListStations } from 'components/ListStations'
@@ -87,6 +87,7 @@ export const RemovableItemsList = observer(function RemovableItemsList({
           <Image
             width="500"
             height="500"
+            alt={t`background`}
             className={classes.noDataImage}
             src="/images/dancing-panda.svg"
           />

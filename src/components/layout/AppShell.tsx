@@ -120,13 +120,6 @@ export const AppShell = observer(function AppShell({
           />
         ) : null}
         <link
-          key="font-roboto"
-          rel="stylesheet"
-          as="font"
-          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-          crossOrigin="anonymous"
-        />
-        <link
           rel="manifest"
           key="manifest"
           crossOrigin="use-credentials"

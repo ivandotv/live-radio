@@ -7,6 +7,7 @@ import { ClientSafeProvider, getProviders, signIn } from 'next-auth/client'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
+import Image from 'next/image'
 
 export default function SignIn({
   providers
@@ -44,7 +45,12 @@ export default function SignIn({
     <div className="page-wrap">
       <PageTitle title={t`Sign in`} />
       <div className="banner-wrapper">
-        <img width="450" height="326" src="/images/landing-page.png" />
+        <Image
+          width="450"
+          height="326"
+          src="/images/landing-page.png"
+          alt={t`landing`}
+        />
       </div>
       {errorMessage ? (
         <div className="btn-wrap">
@@ -62,10 +68,11 @@ export default function SignIn({
               })
             }
           >
-            <img
+            <Image
+              alt={t`provider logo`}
               className="login-icon"
               src={`/images/${provider.name.toLowerCase()}-login.png`}
-            ></img>
+            ></Image>
             {t`Sign in with`} {provider.name}
           </a>
         ))}

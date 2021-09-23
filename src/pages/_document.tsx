@@ -17,6 +17,20 @@ export default class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="preconnect" href="https://fonts.com" />
+          <link
+            key="font-roboto"
+            rel="stylesheet"
+            as="font"
+            href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+            crossOrigin="anonymous"
+          />
+          <link
+            key="font-rancho"
+            rel="stylesheet"
+            as="font"
+            href="https://fonts.googleapis.com/css?family=Rancho&display=swap"
+            crossOrigin="anonymous"
+          />
         </Head>
         <body>
           <Main />
