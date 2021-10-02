@@ -78,7 +78,7 @@
     "@types/accept-language-parser": "^1.5.2",
     "@types/csso": "^4.2.0",
     "@types/howler": "^2.2.4",
-    "@types/js-cookie": "^2.2.7",
+    "@types/js-cookie": "^3.0.0",
     "@types/js-search": "^1.4.0",
     "@types/node": "^16.9.6",
     "@types/react": "^17.0.24",
