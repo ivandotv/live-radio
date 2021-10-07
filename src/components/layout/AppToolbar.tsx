@@ -39,7 +39,10 @@ const useStyles = makeStyles((theme: Theme) =>
     elementLeft: {
       marginRight: 'auto',
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
+      [theme.breakpoints.down('sm')]: {
+        marginLeft: theme.spacing(1) * -1
+      }
     },
     elementsWrap: {
       justifyContent: 'flex-end',
