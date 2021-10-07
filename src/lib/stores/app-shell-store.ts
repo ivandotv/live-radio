@@ -23,7 +23,7 @@ export class AppShellStore {
   isOnLine = true
 
   constructor(protected rootStore: RootStore) {
-    makeObservable<this>(this, {
+    makeObservable<this, 'setIsOnline'>(this, {
       showApp: observable,
       theme: observable,
       desktopDrawerIsOpen: observable,
