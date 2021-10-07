@@ -31,7 +31,7 @@ export function sections() {
     app: t`Search`,
     favorites: t`Favorites`,
     custom: t`Custom Search`,
-    'recent-stations': t`Recent Stations`,
+    recent: t`Recent Stations`,
     'by-location': t`By Location`,
     'by-language': t`By Language`,
     'by-genre': t`By Genre`,
