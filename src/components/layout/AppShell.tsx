@@ -9,10 +9,12 @@ import {
   useTheme
 } from '@material-ui/core/styles'
 import {
+  enablePWAInstallBanner,
   enableServiceWorker,
   enableServiceWorkerReload,
   layout,
-  showAppUpdatedCookieName
+  pwaInstallDismissedCookie,
+  pwaUpdatedCookieName
 } from 'browser-config'
 import { AppToolbar } from 'components/layout/AppToolbar'
 import LoginNotification from 'components/LoginNotification'
@@ -21,9 +23,10 @@ import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigati
 import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
 import { OfflineIndicator } from 'components/OfflineIndicator'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import InstallBanner from 'components/pwa-prompt/InstallBanner'
-import { UpdateBanner } from 'components/pwa-prompt/UpdateBanner'
 import { AppUpdatedNotification } from 'components/pwa-prompt/AppUpdatedNotification'
+import { InstallBanner } from 'components/pwa-prompt/InstallBanner'
+import { UpdateBanner } from 'components/pwa-prompt/UpdateBanner'
+import { usePWAInstall } from 'lib/usePWAInstall'
 import { useServiceWorker } from 'lib/useServiceWorker'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
@@ -102,7 +105,12 @@ export const AppShell = observer(function AppShell({
     scope: '/',
     enable: enableServiceWorker,
     enableReload: enableServiceWorkerReload,
-    updateCookieName: showAppUpdatedCookieName
+    updateCookieName: pwaUpdatedCookieName
+  })
+
+  const [showInstallPrompt, installPWA, hideInstallPrompt] = usePWAInstall({
+    enable: enablePWAInstallBanner,
+    cookieName: pwaInstallDismissedCookie
   })
 
   return (
@@ -132,14 +140,18 @@ export const AppShell = observer(function AppShell({
         className={classes.root}
       >
         <AppToolbar />
-        <InstallBanner />
+        <InstallBanner
+          onCancel={() => hideInstallPrompt(false)}
+          onOk={installPWA}
+          show={showInstallPrompt}
+        />
         <UpdateBanner
           onCancel={hideUpdatePrompt}
           onOk={update}
           show={showPrompt}
         />
         <LoginNotification />
-        <AppUpdatedNotification cookieName={showAppUpdatedCookieName} />
+        <AppUpdatedNotification cookieName={pwaUpdatedCookieName} />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">
             <DesktopNavigation />

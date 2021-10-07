@@ -1,16 +1,19 @@
-import { useRootStore } from 'components/providers/RootStoreProvider'
-import { observer } from 'mobx-react-lite'
-import PwaNotification from './PwaNotification'
+import PwaNotification from 'components/pwa-prompt/PwaNotification'
 import { t } from '@lingui/macro'
-
-const InstallBanner = observer(function InstallBanner() {
-  const { appShell } = useRootStore()
-
+export function InstallBanner({
+  onCancel,
+  onOk,
+  show
+}: {
+  onCancel: () => void
+  onOk: () => void
+  show: boolean
+}) {
   return (
     <PwaNotification
-      onCancel={() => appShell.hideInstallPrompt(false)}
-      onOk={appShell.installPWA.bind(appShell)}
-      show={appShell.showInstallPrompt}
+      onCancel={onCancel}
+      onOk={onOk}
+      show={show}
       title={t`Install`}
       okText={t`Install`}
     >
@@ -20,6 +23,4 @@ const InstallBanner = observer(function InstallBanner() {
       </p>
     </PwaNotification>
   )
-})
-
-export default InstallBanner
+}
