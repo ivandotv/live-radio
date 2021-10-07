@@ -13,7 +13,9 @@ FilterDataContext.displayName = 'FilterDataContext'
 export function useFilterDataStore() {
   const context = useContext(FilterDataContext)
   if (typeof context === 'undefined') {
-    throw new Error('useStoreContext must be used within StoreProvider')
+    throw new Error(
+      'useFilterDataStore must be used within FilterDataStoreProvider'
+    )
   }
 
   return context

@@ -26,10 +26,10 @@ export function CustomSearchStoreProvider({
 }: {
   children: ReactNode
 }) {
-  const player = customSearchFactory()
+  const store = customSearchFactory()
 
   return (
-    <CustomSearchContext.Provider value={player}>
+    <CustomSearchContext.Provider value={store}>
       {children}
     </CustomSearchContext.Provider>
   )

@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import React, { ReactNode } from 'react'
+import React, { ReactElement, ReactNode } from 'react'
 import { Virtuoso } from 'react-virtuoso'
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -23,7 +23,7 @@ export const FilterList = observer(function FilterList({
   data,
   noData
 }: {
-  dataRow: (index: number, data: any) => JSX.Element
+  dataRow: (index: number, data?: any) => ReactElement
   data: any[]
   noData?: ReactNode
 }) {

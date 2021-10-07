@@ -1,5 +1,5 @@
 import { AuthService } from 'lib/services/auth-service'
-import { RadioStation } from 'lib/station-utils'
+import { RadioDTO } from 'lib/station-utils'
 import { client } from 'lib/utils'
 import { LocalStorage } from './local-storage-service'
 import { RemoteStorage } from './remote-storage-service'
@@ -7,11 +7,11 @@ import { RemoteStorage } from './remote-storage-service'
 let instance: AppStorage
 
 export type AppStorageService = {
-  getFavoriteStations(): Promise<RadioStation[]>
-  addFavoriteStation(station: RadioStation): Promise<any>
+  getFavoriteStations(): Promise<RadioDTO[]>
+  addFavoriteStation(station: RadioDTO): Promise<any>
   removeFavoriteStation(id: string): Promise<any>
-  getRecentStations(): Promise<RadioStation[]>
-  addRecentStation(station: RadioStation): Promise<any>
+  getRecentStations(): Promise<RadioDTO[]>
+  addRecentStation(station: RadioDTO): Promise<any>
   removeRecentStation(id: string): Promise<any>
 }
 
@@ -23,7 +23,8 @@ export function appStorageFactory() {
     instance = new AppStorage(
       new LocalStorage('LiveRadio'),
       new RemoteStorage(client),
-      new AuthService()
+      new AuthService(),
+      client
     )
   }
 
@@ -33,12 +34,13 @@ export function appStorageFactory() {
 //todo - cache and retry failed storage calls
 
 export class AppStorage {
-  private static instance: AppStorage
+  // private static instance: AppStorage
 
   constructor(
     protected local: LocalStorage,
     protected remote: RemoteStorage,
-    protected authService: AuthService
+    protected authService: AuthService,
+    protected httpClient: typeof client
   ) {}
 
   protected async handleStorageCall<TData = any>(
@@ -57,13 +59,13 @@ export class AppStorage {
     }
   }
 
-  async getFavoriteStations(): Promise<RadioStation[]> {
+  async getFavoriteStations(): Promise<RadioDTO[]> {
     const storage = await this.resolveStorage()
 
     return storage.getFavoriteStations()
   }
 
-  async addFavoriteStation(station: RadioStation) {
+  async addFavoriteStation(station: RadioDTO) {
     const storage = await this.resolveStorage()
 
     return storage.addFavoriteStation(station)
@@ -81,7 +83,7 @@ export class AppStorage {
     return storage.getRecentStations()
   }
 
-  async addRecentStation(station: RadioStation) {
+  async addRecentStation(station: RadioDTO) {
     const storage = await this.resolveStorage()
 
     return storage.addRecentStation(station)
@@ -91,5 +93,21 @@ export class AppStorage {
     const storage = await this.resolveStorage()
 
     return storage.removeRecentStation(id)
+  }
+
+  async countStationClick(id: string) {
+    this.httpClient('/api/station-click', { data: { id } }).catch(
+      (_e: Error) => {
+        //TODO - log error
+      }
+    )
+  }
+
+  async getStationInfo(id: string) {
+    const [data] = await this.httpClient<RadioDTO[]>(
+      `/api/station-info?play=${encodeURIComponent(id)}`
+    )
+
+    return data
   }
 }

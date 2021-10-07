@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro'
-import { userAgentName } from 'browser-config'
+import { stationSearchIndexes, userAgentName } from 'browser-config'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
@@ -9,13 +9,19 @@ import { genres } from 'generated/genres'
 import {
   createStationListRow,
   dataToRadioStations,
-  RadioStation
+  RadioDTO,
+  stationDataToStationModel
 } from 'lib/station-utils'
 import { loadTranslations, paramsWithLocales } from 'lib/translations'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
+import { useMemo } from 'react'
 
+// if (isSSR()) {
+//   global.crypto = crypto
+// }
+//prerender most popular genres
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
   const paths = paramsWithLocales(
     [
@@ -64,10 +70,15 @@ export default function GenreStations({
   genre,
   stations
 }: {
-  stations: RadioStation[]
+  stations: RadioDTO[]
   genre: string
 }) {
   const router = useRouter()
+
+  const stationModels = useMemo(
+    () => stationDataToStationModel(stations),
+    [stations]
+  )
 
   if (router.isFallback) {
     console.log('fallback')
@@ -95,9 +106,9 @@ export default function GenreStations({
 
   return (
     <FilterDataStoreProvider
-      initialState={stations}
+      initialState={stationModels}
       uuid="id"
-      indexes={['tags', 'name', 'country', 'continent']}
+      indexes={stationSearchIndexes}
     >
       <PageTitle title={t`Search For Stations in ${genreTranslation.t}`} />
       <ListStations

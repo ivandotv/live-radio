@@ -5,6 +5,7 @@ import { getStaticTranslations } from 'lib/translations'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { RemovableItemsList } from 'components/RemovableItemsList'
 import { useRootStore } from 'components/providers/RootStoreProvider'
+import { stationSearchIndexes } from 'browser-config'
 
 export { getStaticTranslations as getStaticProps }
 
@@ -18,9 +19,13 @@ export default function RecentStations() {
       <FilterDataStoreProvider
         initialState={[...recentStations.stations]}
         uuid="id"
-        indexes={['language', 'country', 'tags', 'continent', 'name']}
+        indexes={stationSearchIndexes}
       >
-        <RemovableItemsList noDataTitle={noDataTitle} store={recentStations} />
+        <RemovableItemsList
+          noDataTitle={noDataTitle}
+          store={recentStations}
+          indexes={stationSearchIndexes}
+        />
       </FilterDataStoreProvider>
     </>
   )

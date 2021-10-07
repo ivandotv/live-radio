@@ -15,6 +15,7 @@ const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
 
 const desktopContentHeight = playerHeight + topBarHeight + mainContentSpacer
 const mobileContentHeight = playerHeight + topBarHeight + mobileMenuHeight
+
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     noData: {

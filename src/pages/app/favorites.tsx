@@ -5,10 +5,10 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { getStaticTranslations } from 'lib/translations'
 import { RemovableItemsList } from 'components/RemovableItemsList'
+import { stationSearchIndexes } from 'browser-config'
 
 export { getStaticTranslations as getStaticProps }
 
-// should not be wrapper in to observable!
 export default function Favorites() {
   const { favoriteStations } = useRootStore()
   const noDataTitle = t`Your favorite stations will appear here`
@@ -19,11 +19,12 @@ export default function Favorites() {
       <FilterDataStoreProvider
         initialState={[...favoriteStations.stations]}
         uuid="id"
-        indexes={['language', 'country', 'tags', 'continent', 'name']}
+        indexes={stationSearchIndexes}
       >
         <RemovableItemsList
           noDataTitle={noDataTitle}
           store={favoriteStations}
+          indexes={stationSearchIndexes}
         />
       </FilterDataStoreProvider>
     </>

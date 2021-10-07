@@ -38,7 +38,6 @@ export default function MyApp(props: AppProps) {
   const browserFirstRender = useRef(true)
 
   if (browserFirstRender.current && pageProps.translation) {
-    // console.log('page props translation ', pageProps)
     i18n.load(locale, pageProps.translation)
     i18n.activate(locale)
   }
@@ -85,7 +84,7 @@ export default function MyApp(props: AppProps) {
             const localePath = locale === 'x-default' ? '' : `/${locale}`
             const href = `${url}${localePath}${router.asPath}`
 
-            return locale === 'xx' ? null : (
+            return locale === 'pseudo' ? null : (
               <link
                 key={locale}
                 rel="alternate"

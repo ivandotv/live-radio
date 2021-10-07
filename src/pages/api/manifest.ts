@@ -8,7 +8,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 i18n.loadLocaleData({
   en: { plurals: en },
   sr: { plurals: sr },
-  xx: { plurals: en } // english plurals for pseudo
+  pseudo: { plurals: en } // english plurals for pseudo
 })
 
 // chache generated manifest by locale

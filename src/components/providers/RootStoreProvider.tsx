@@ -1,19 +1,6 @@
-import { enableStaticRendering } from 'mobx-react-lite'
-import { useEffect, createContext, ReactNode, useContext } from 'react'
-import { RootStore } from 'lib/stores/root-store'
+import { RootStore, rootStoreFactory } from 'lib/stores/root-store'
+import { createContext, ReactNode, useContext, useEffect } from 'react'
 
-enableStaticRendering(typeof window === 'undefined')
-
-let store: RootStore
-
-export function getRootStore() {
-  const isSSR = typeof window === 'undefined'
-  const _store = store ?? new RootStore()
-
-  if (isSSR) return _store
-
-  return (store = _store)
-}
 const RootStoreContext = createContext<RootStore | undefined>(undefined)
 RootStoreContext.displayName = 'RootStoreContext'
 
@@ -27,18 +14,18 @@ export function useRootStore() {
 }
 
 export function RootStoreProvider({ children }: { children: ReactNode }) {
-  const root = getRootStore()
+  const rootStore = rootStoreFactory()
 
   if (__DEV__) {
     // eslint-disable-next-line
     useEffect(() => {
       // @ts-ignore - dev only
-      window.rootStore = root
-    }, [root])
+      window.rootStore = rootStore
+    }, [rootStore])
   }
 
   return (
-    <RootStoreContext.Provider value={root}>
+    <RootStoreContext.Provider value={rootStore}>
       {children}
     </RootStoreContext.Provider>
   )

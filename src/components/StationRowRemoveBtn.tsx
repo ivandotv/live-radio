@@ -1,3 +1,4 @@
+import { unwrapResult } from '@fuerte/core'
 import { t } from '@lingui/macro'
 import {
   CircularProgress,
@@ -9,10 +10,9 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Error from '@material-ui/icons/Warning'
-import { RadioStore } from 'lib/stores/radio-store'
-import { when } from 'mobx'
+import { RadioModel } from 'lib/radio-model'
 import { observer } from 'mobx-react-lite'
-import { MouseEvent, useEffect } from 'react'
+import { MouseEvent } from 'react'
 import { usePromise } from 'react-use'
 
 const useStyles = makeStyles((theme: Theme) => {
@@ -36,58 +36,43 @@ const useStyles = makeStyles((theme: Theme) => {
 })
 
 export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
-  store,
-  id,
-  className,
-  setShow
+  station,
+  className
 }: {
-  store: RadioStore
-  id: string
+  station: RadioModel
   className: string
-  setShow: (set: boolean) => void
 }) {
   const mounted = usePromise()
   const classes = useStyles()
 
-  const storeSyncRemove = store.syncs.remove.get(id)
-  const storeSyncAdd = store.syncs.add.get(id)
-
   const removeStation = async (e: MouseEvent) => {
     e.stopPropagation()
-    if (
-      storeSyncRemove?.status === 'pending' ||
-      storeSyncAdd?.status === 'pending'
-    )
+    if (station.isSyncing) {
       return
+    }
 
-    console.log('remove')
     try {
-      await mounted(store.remove(id))
+      const data = unwrapResult(
+        await mounted(station.delete({ remove: false }))
+      )
+      // const data = await station.delete({ remove: false })
+      console.log('done !---', data)
     } catch (e) {
+      console.log('catch!')
+      console.error(e)
       //todo - log
     }
   }
 
-  useEffect(
-    () =>
-      when(
-        () => storeSyncRemove?.status === 'resolved',
-        () => {
-          setShow(false)
-        }
-      ),
-    [storeSyncRemove, setShow, store, id]
-  )
-
   return (
     <div className={className}>
-      {storeSyncRemove?.status === 'pending' ? (
+      {station.isSyncing ? (
         <CircularProgress
           size={25}
           className={classes.pending}
           onClick={removeStation} // needed to stop propagation
         />
-      ) : storeSyncRemove?.status === 'rejected' ? (
+      ) : station.deleteError ? (
         <Tooltip title={t`Error removing the station, click to try again`}>
           <IconButton
             aria-label={t`remove`}

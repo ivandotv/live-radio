@@ -1,11 +1,11 @@
 import { StationRowItem } from 'components/StationRowItem'
 import { continents, countries } from 'countries-list'
-// @ts-ignore
 import flag from 'country-code-emoji'
 import { Station } from 'radio-browser-api'
-import { RadioStore } from './stores/radio-store'
+import { RadioStore } from './stores/favorites-store'
+import { RadioModel } from './radio-model'
 
-export type RadioStation = {
+export type RadioDTO = {
   tags: string[]
   name: string
   url: string
@@ -20,7 +20,7 @@ export type RadioStation = {
   flag: string
 }
 
-export function dataToRadioStations(stations: Station[]): RadioStation[] {
+export function dataToRadioStations(stations: Station[]): RadioDTO[] {
   const result = []
 
   const duplicates: { [key: string]: boolean } = {}
@@ -63,23 +63,25 @@ export function createStationListRow(opts?: {
   showCountry?: boolean
   showFlag?: boolean
   showTags?: boolean
+  showRemoveBtn?: boolean
   store?: RadioStore
 }) {
   const options = {
     showCountry: true,
     showFlag: true,
     showTags: true,
+    showRemoveBtn: false,
     ...opts
   }
 
   // return (stations: RadioStation[]) => {
-  return function StationDataRow(index: number, station: RadioStation) {
+  return function StationDataRow(_: number, station: RadioModel) {
     // const station = stations[index]
 
     return (
       <StationRowItem
         {...options}
-        key={station._id}
+        key={station.id}
         station={station}
       ></StationRowItem>
     )
@@ -87,7 +89,8 @@ export function createStationListRow(opts?: {
 }
 // }
 
-export function getDefaultStation(): RadioStation {
+//TODO - da li ovo jos uvek koristim?
+export function getDefaultStation(): RadioDTO {
   return {
     _id: '961173b5-0601-11e8-ae97-52543be04c81',
     name: 'SomaFM Lush',
@@ -102,4 +105,8 @@ export function getDefaultStation(): RadioStation {
     continentCode: '',
     codec: 'MP3'
   }
+}
+
+export function stationDataToStationModel(stations?: RadioDTO[]) {
+  return stations ? stations.map((data) => new RadioModel(data)) : []
 }

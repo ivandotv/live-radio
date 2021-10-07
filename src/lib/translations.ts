@@ -7,7 +7,7 @@ export function initTranslations(i18n: I18n) {
   i18n.loadLocaleData({
     en: { plurals: en },
     sr: { plurals: sr },
-    xx: { plurals: en } // english plurals for pseudo
+    pseudo: { plurals: en } // english plurals for pseudo
   })
 }
 

@@ -35,13 +35,13 @@ export function PlayFromShareModal({
   onClose: () => void
 }) {
   const classes = useStyles()
-  const { musicPlayer } = useRootStore()
+  const { musicPlayer, recentStations } = useRootStore()
 
   const queryProgressText = t`Finding station`
   const querySuccessText = t`Station found`
   const queryErrorText = t`Sorry, requested station is not available`
 
-  const [state, doFetch] = useAsyncFn((id) => musicPlayer.getStationInfo(id))
+  const [state, doFetch] = useAsyncFn((id) => recentStations.getStationInfo(id))
 
   useEffect(() => {
     if (open) {

@@ -39,29 +39,30 @@ export class FilterDataStore {
     })
   }
 
-  hydrate(data: any[], uuid: string, indexes: string[], query?: string): void {
-    // ;(this.allData as IObservableArray).replace([...data])
-    // ;(this.filtered as IObservableArray).replace(this.allData)
+  hydrate<T>(
+    data: readonly T[],
+    uuid: string,
+    indexes: string[],
+    query?: string
+  ): void {
     this.allData = [...data]
     this.filtered = [...data]
 
     this.searchApi = new JsSearch.Search(uuid)
     indexes.forEach((index) => {
-      this.searchApi!.addIndex(index)
+      this.searchApi!.addIndex(index.split('.'))
     })
     this.searchApi.addDocuments(this.allData)
 
     if (query) {
-      console.log('---------  QUERY AGAIN ', query)
       this.search(query)
     }
   }
 
   search(query: string, delay?: number): void {
-    // debounce search
     this.query = query
 
-    // debounce the search itself
+    // debounce search
     if (this.searchTimeoutId) {
       clearTimeout(this.searchTimeoutId)
     }
@@ -79,17 +80,14 @@ export class FilterDataStore {
 
   protected searchData(query: string): void {
     if (this.query.length === 0) {
-      // ;(this.filtered as IObservableArray).replace([...this.allData])
       this.filtered = [...this.allData]
     } else {
       const result = this.searchApi?.search(query) as []
-      // ;(this.filtered as IObservableArray).replace([...result])
       this.filtered = [...result]
     }
   }
 
   addData(data: any[]) {
-    // ;(this.allData as IObservableArray).replace([...data])
     this.allData.push(data)
     this.searchApi!.addDocuments(data)
   }

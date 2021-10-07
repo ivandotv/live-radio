@@ -80,7 +80,7 @@ export type ClientRequest = RequestInit & {
   data?: Record<string, unknown>
 }
 
-export async function client<T>(
+export async function client<T = any>(
   endpoint: string,
   customConfig: ClientRequest = {}
 ): Promise<T> {

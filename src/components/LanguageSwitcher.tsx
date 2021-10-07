@@ -34,7 +34,7 @@ export function LanguageSwitcher({
     help: t`Help Translate`
   }
   if (isPreview) {
-    languages.xx = t`Pseudo`
+    languages.pseudo = t`Pseudo`
   }
 
   const locales = Object.keys(languages)

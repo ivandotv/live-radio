@@ -1,3 +1,8 @@
+import { isSSR } from 'lib/utils'
+
+export function songInfoServiceFactory() {
+  return new SongInfoService(isSSR() ? fetch : fetch.bind(window))
+}
 export class SongInfoService {
   protected timeoutId: number | undefined
 
@@ -20,7 +25,7 @@ export class SongInfoService {
           this.start(stationUrl, cb)
         }, SongInfoService.FETCH_TIMEOUT)
       }
-    } catch (err) {
+    } catch (err: any) {
       cb(err)
       this.stop()
     }

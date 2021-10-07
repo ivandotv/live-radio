@@ -5,6 +5,7 @@ import { FilterInput } from 'components/FilterInput'
 import { FilterList } from 'components/FilterList'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
 import { useCustomSearch } from 'components/providers/CustomSearchStoreProvider'
+import { RadioModel } from 'lib/radio-model'
 import { observer } from 'mobx-react-lite'
 import React, { ReactElement, useEffect, useRef } from 'react'
 
@@ -43,7 +44,7 @@ export const CustomSearchResults = observer(function CustomSearchResults({
   filterInputText,
   delay = 500
 }: {
-  dataRow: (data: any) => (index: number) => ReactElement
+  dataRow: (index: number, station: RadioModel) => ReactElement
   breadcrumbs: { href?: string; text: string }[]
   filterInputText: string
   delay?: number

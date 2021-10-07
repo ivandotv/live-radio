@@ -1,6 +1,5 @@
-// import { countries, continents } from 'countries-list'
 import { t, Trans } from '@lingui/macro'
-import { userAgentName } from 'browser-config'
+import { stationSearchIndexes, userAgentName } from 'browser-config'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
@@ -11,15 +10,15 @@ import { countries } from 'generated/countries'
 import {
   createStationListRow,
   dataToRadioStations,
-  RadioStation
+  RadioDTO,
+  stationDataToStationModel
 } from 'lib/station-utils'
 import { loadTranslations, paramsWithLocales } from 'lib/translations'
 import { continentsByCode } from 'lib/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-
-const indexes = ['language', 'country', 'tags', 'continent', 'name']
+import { useMemo } from 'react'
 
 export const getStaticPaths: GetStaticPaths = async function (ctx) {
   const paths = paramsWithLocales(
@@ -69,12 +68,18 @@ export default function CountryStations({
   continentCode,
   flag
 }: {
-  stations: RadioStation[]
+  stations: RadioDTO[]
   countryCode: string
   continentCode: string
   flag: string
 }) {
   const router = useRouter()
+
+  const stationModels = useMemo(
+    () => stationDataToStationModel(stations),
+    [stations]
+  )
+
   if (router.isFallback) {
     return <ListStationsFallback />
   }
@@ -109,13 +114,12 @@ export default function CountryStations({
 
   return (
     <FilterDataStoreProvider
-      initialState={stations}
+      initialState={stationModels}
       uuid="id"
-      indexes={indexes}
+      indexes={stationSearchIndexes}
     >
       <PageTitle title={t`Search For Stations in ${countryData.name}`} />
       <ListStations
-        filterInputText={t`Filter Stations`}
         breadcrumbs={breadcrumbs}
         dataRow={createStationListRow({ showCountry: false, showFlag: false })}
         noData={

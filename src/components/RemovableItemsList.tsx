@@ -1,16 +1,15 @@
-import { Trans, t } from '@lingui/macro'
-import Image from 'next/image'
+import { t, Trans } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ListStations } from 'components/ListStations'
 import { PageLoadError } from 'components/PageLoadError'
 import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
+import { RadioModel } from 'lib/radio-model'
 import { createStationListRow } from 'lib/station-utils'
-import { RadioStore } from 'lib/stores/radio-store'
+import { RadioStore } from 'lib/stores/favorites-store'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
+import Image from 'next/image'
 import { useEffect } from 'react'
-
-const indexes = ['language', 'country', 'tags', 'continent', 'name']
 
 export const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,34 +33,34 @@ export const useStyles = makeStyles((theme: Theme) =>
 
 export const RemovableItemsList = observer(function RemovableItemsList({
   store,
-  noDataTitle
+  noDataTitle,
+  indexes
 }: {
   store: RadioStore
   noDataTitle: string
+  indexes: string[]
 }) {
   const filterStore = useFilterDataStore()
 
   const classes = useStyles()
-
-  // useEffect(() => {
-  //   // do not load again on repeated client navigation
-  //   if (store.loadStatus !== 'resolved') {
-  //     store.load()
-  //   }
-  // }, [store, filterStore])
 
   useEffect(
     () =>
       reaction(
         () => store.stations.length,
         () => {
-          filterStore.hydrate(store.stations, 'id', indexes, filterStore.query)
+          filterStore.hydrate<RadioModel>(
+            store.stations,
+            'id',
+            indexes,
+            filterStore.query
+          )
         }
       ),
-    [store, filterStore]
+    [store, filterStore, indexes]
   )
 
-  if (store.loadStatus === 'rejected') {
+  if (store.loadStatus === 'REJECTED') {
     return (
       <>
         <PageLoadError
@@ -78,9 +77,9 @@ export const RemovableItemsList = observer(function RemovableItemsList({
 
   return (
     <ListStations
-      showFallback={store?.loadStatus === 'pending'}
+      showFallback={store?.loadStatus === 'PENDING'}
       showSearch={store.stations.length > 0}
-      dataRow={createStationListRow({ store: store })}
+      dataRow={createStationListRow({ store: store, showRemoveBtn: true })}
       noData={
         <div className={classes.noDataWrap}>
           <p className={classes.noDataText}>{noDataTitle}</p>

@@ -1,38 +1,16 @@
-import { isProduction } from 'server-config'
 import { Howl } from 'howler'
-import { SongInfoService } from 'lib/services/song-info-service'
+import {
+  SongInfoService,
+  songInfoServiceFactory
+} from 'lib/services/song-info-service'
 import {
   AppStorage,
   appStorageFactory
 } from 'lib/services/storage/app-storage-service'
-import { getDefaultStation, RadioStation } from 'lib/station-utils'
+import { getDefaultStation, RadioDTO } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
-import { client, isSSR } from 'lib/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-
-let store: MusicPlayerStore
-
-export function musicPlayerFactory(root: RootStore) {
-  const isServer = isSSR()
-
-  let _store
-  if (!store) {
-    const fetchImpl = isServer ? fetch : fetch.bind(window)
-    const songInfoService = new SongInfoService(fetchImpl)
-
-    _store = new MusicPlayerStore(
-      root,
-      appStorageFactory(),
-      songInfoService,
-      getDefaultStation()
-    )
-  } else {
-    _store = store
-  }
-  if (isServer) return _store
-
-  return (store = _store)
-}
+import { isProduction } from 'server-config'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -41,6 +19,15 @@ export const PlayerStatus = {
   PAUSED: 'PAUSED',
   ERROR: 'ERROR'
 } as const
+
+export function musicPlayerFactory(root: RootStore) {
+  return new MusicPlayerStore(
+    root,
+    appStorageFactory(),
+    songInfoServiceFactory(),
+    getDefaultStation()
+  )
+}
 
 export class MusicPlayerStore {
   status: keyof typeof PlayerStatus = PlayerStatus.STOPPED
@@ -73,7 +60,7 @@ export class MusicPlayerStore {
     protected rootStore: RootStore,
     protected storage: AppStorage,
     protected songInfoService: SongInfoService,
-    public station: RadioStation
+    public station: RadioDTO
   ) {
     makeObservable<
       MusicPlayerStore,
@@ -130,11 +117,11 @@ export class MusicPlayerStore {
     this.songInfo = data
   }
 
-  setStation(station: RadioStation) {
+  setStation(station: RadioDTO) {
     this.station = station
   }
 
-  protected initPlayer(station: RadioStation, url?: string) {
+  protected initPlayer(station: RadioDTO, url?: string) {
     this.player = new Howl({
       html5: true,
       src: [url ?? station.url],
@@ -159,11 +146,7 @@ export class MusicPlayerStore {
             this.status === PlayerStatus.PLAYING ||
             this.status === PlayerStatus.BUFFERING
           ) {
-            client('/api/station-click', { data: { id: station._id } }).catch(
-              (_e: Error) => {
-                //todo - log error
-              }
-            )
+            this.rootStore.recentStations.countStationClick(station._id)
           }
         })
         this.stationClickTimeoutId = undefined
@@ -176,7 +159,7 @@ export class MusicPlayerStore {
         this.errorStations[station._id] = false
       })
 
-      this.rootStore.recentStations.add(this.station)
+      this.rootStore.recentStations.saveStation(station)
     })
 
     this.player.on('pause', () => {
@@ -249,7 +232,7 @@ export class MusicPlayerStore {
     }
   }
 
-  play(station: RadioStation) {
+  play(station: RadioDTO) {
     if (this.player) {
       this.stop()
     }
@@ -272,7 +255,7 @@ export class MusicPlayerStore {
     this.player!.pause()
   }
 
-  togglePlay(station?: RadioStation) {
+  togglePlay(station?: RadioDTO) {
     station = station || this.station
     if (!station) {
       throw new Error('Player has no station to play')
@@ -300,13 +283,5 @@ export class MusicPlayerStore {
   resume() {
     console.log('player-> resume')
     this.player!.play()
-  }
-
-  async getStationInfo(id: string) {
-    const [data] = await client<RadioStation[]>(
-      `/api/station-info?play=${encodeURIComponent(id)}`
-    )
-
-    return data
   }
 }

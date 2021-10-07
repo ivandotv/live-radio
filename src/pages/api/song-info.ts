@@ -46,7 +46,7 @@ export default async function getSongInfo(
     } else {
       res.status(200).json({})
     }
-  } catch (err) {
+  } catch (err: any) {
     res.status(503).json({ msg: err.message ?? 'server error' })
   }
 }

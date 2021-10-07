@@ -57,3 +57,11 @@ export const enablePWAInstallBanner = booleanEnv(
 )
 
 export const showAppUpdatedCookieName = 'show_app_updated'
+
+export const stationSearchIndexes = [
+  'data.language',
+  'data.country',
+  'data.tags',
+  'data.continent',
+  'data.name'
+]

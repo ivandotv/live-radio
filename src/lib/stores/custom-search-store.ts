@@ -1,21 +1,21 @@
+import { userAgentName } from 'browser-config'
+import { RadioModel } from 'lib/radio-model'
+import {
+  dataToRadioStations,
+  stationDataToStationModel
+} from 'lib/station-utils'
+import { isSSR } from 'lib/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { RadioStation } from 'lib/station-utils'
-import { dataToRadioStations } from 'lib/station-utils'
-import { userAgentName } from 'browser-config'
-import { isSSR } from 'lib/utils'
 
 let store: CustomSearchStore
 
 export function customSearchFactory() {
-  const isServer = isSSR()
-  const _store = store ?? new CustomSearchStore()
+  if (isSSR() || !store) {
+    store = new CustomSearchStore()
+  }
 
-  // For SSG and SSR always create a new store
-  if (isServer) return _store
-
-  // Create the store once in the client
-  return (store = _store)
+  return store
 }
 
 export class CustomSearchStore {
@@ -29,7 +29,7 @@ export class CustomSearchStore {
 
   protected requestToken: Record<string, unknown> | undefined
 
-  data: { result?: RadioStation[]; error?: Error } = {}
+  data: { result?: RadioModel[]; error?: Error } = {}
 
   searchInProgress = false
 
@@ -84,12 +84,15 @@ export class CustomSearchStore {
       if (this.requestToken === localToken) {
         // process stations
         runInAction(() => {
-          this.data = { result: dataToRadioStations(result) }
+          this.data = {
+            //TODO - optimize double iteration
+            result: stationDataToStationModel(dataToRadioStations(result))
+          }
           this.searchInProgress = false
           this.lastQuery = query
         })
       }
-    } catch (error) {
+    } catch (error: any) {
       if (this.requestToken === localToken) {
         runInAction(() => {
           this.data = { error }

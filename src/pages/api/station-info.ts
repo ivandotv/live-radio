@@ -22,7 +22,7 @@ export default async function getStationInfo(
     } else {
       res.status(404).json({ msg: 'not found' })
     }
-  } catch (err) {
+  } catch (err: any) {
     res.status(503).json({ msg: err.message ?? 'server error' })
   }
 }

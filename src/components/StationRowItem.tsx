@@ -6,9 +6,8 @@ import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
-import { RadioStation } from 'lib/station-utils'
+import { RadioModel } from 'lib/radio-model'
 import { PlayerStatus } from 'lib/stores/music-player-store'
-import { RadioStore } from 'lib/stores/radio-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useCallback, useState } from 'react'
 import { HttpsInfoModal } from './HttpsInfoModal'
@@ -60,16 +59,16 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export const StationRowItem = observer(function StationRowItem({
   station,
-  store,
   showCountry = true,
   showFlag = true,
-  showTags = true
+  showTags = true,
+  showRemoveBtn = false
 }: {
-  station: RadioStation
-  store?: RadioStore
+  station: RadioModel
   showCountry?: boolean
   showFlag?: boolean
   showTags?: boolean
+  showRemoveBtn?: boolean
 }) {
   const classes = useStyles({ showTags })
   const { musicPlayer } = useRootStore()
@@ -78,7 +77,7 @@ export const StationRowItem = observer(function StationRowItem({
 
   const togglePlay = useCallback(
     (_e: MouseEvent) => {
-      musicPlayer.togglePlay(station)
+      musicPlayer.togglePlay(station.data)
     },
     [musicPlayer, station]
   )
@@ -89,8 +88,8 @@ export const StationRowItem = observer(function StationRowItem({
     setOpenHttpsHelp(false)
   }, [])
 
-  const stationError = musicPlayer.errorStations[station._id]
-  const [show, setShow] = useState(true)
+  const stationError = musicPlayer.errorStations[station.id]
+  // const [show, setShow] = useState(true)
 
   return (
     <>
@@ -104,16 +103,16 @@ export const StationRowItem = observer(function StationRowItem({
           collapsedSize="0.5px"
           onExited={() => {
             console.log('on exit ')
-            store!.removeLocal(station._id)
+            station.remove()
           }}
-          in={show}
+          in={!station.isDeleted}
         >
           <ListItem
             button
             onClick={togglePlay}
             className={clsx(classes.root, {
               [classes.stationSelected]:
-                musicPlayer.station?._id === station._id &&
+                musicPlayer.station?._id === station.id &&
                 musicPlayer.status !== PlayerStatus.ERROR,
               [classes.stationError]: stationError
             })}
@@ -123,15 +122,17 @@ export const StationRowItem = observer(function StationRowItem({
               <div className={classes.title}>
                 <PlayerStateIcon
                   className={classes.playerStateIcon}
-                  stationId={station._id}
+                  stationId={station.id}
                   fontSize="1.3rem"
                 />
-                {`${station.name}`}
-                {showCountry && station.country.length
-                  ? ` | ${station.country}`
+                {`${station.data.name}`}
+                {showCountry && station.data.country.length
+                  ? ` | ${station.data.country}`
                   : null}
-                {showFlag && station.flag.length ? ` ${station.flag}` : null}
-                {station.url.indexOf('https') === -1 ? (
+                {showFlag && station.data.flag.length
+                  ? ` ${station.data.flag}`
+                  : null}
+                {station.data.url.indexOf('https') === -1 ? (
                   <Tooltip
                     title={httpsInfoText}
                     onClick={(e: MouseEvent<HTMLDivElement>) => {
@@ -142,12 +143,10 @@ export const StationRowItem = observer(function StationRowItem({
                     <HttpIcon className={classes.httpIcon} />
                   </Tooltip>
                 ) : null}
-                {store ? (
+                {showRemoveBtn ? (
                   <StationRowRemoveBtn
                     className={classes.btnRemove}
-                    store={store}
-                    id={station._id}
-                    setShow={setShow}
+                    station={station}
                   />
                 ) : null}
               </div>

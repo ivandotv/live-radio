@@ -7,6 +7,7 @@ import {
   saveToUserCollection
 } from './db-calls'
 import { NextApiRequestWithSession } from './middleware'
+import { RadioDTO } from 'lib/station-utils'
 
 export type StationCollection = 'favorites' | 'recent'
 
@@ -69,7 +70,7 @@ export function getUserStations(collection: StationCollection) {
       )
       console.log('temp  ', collection, temp)
       stations = await getStations(temp)
-      const tt = stations.map((station) => station._id)
+      const tt = stations.map((station: RadioDTO) => station._id)
 
       console.log('temp after', collection, tt)
     }

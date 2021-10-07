@@ -1,5 +1,5 @@
+import { MongoClient } from 'mongodb'
 import { db, isProduction } from 'server-config'
-import { Db, MongoClient } from 'mongodb'
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -19,10 +19,7 @@ const opts = {
   retryWrites: isProduction
 }
 
-export async function connectToDatabase(): Promise<{
-  client: MongoClient
-  db: Db
-}> {
+export async function connectToDatabase(): Promise<MongoConnection> {
   if (cached.conn) {
     return cached.conn
   }

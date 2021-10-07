@@ -2,18 +2,17 @@ import { t } from '@lingui/macro'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
+import { layout } from 'browser-config'
 import { AddTofavoritesBtn } from 'components/music-player/AddToFavoritesBtn'
 import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
 import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
 import { SongInfo } from 'components/music-player/SongInfo'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { layout } from 'browser-config'
 import { MediaSessionService } from 'lib/services/media-session-service'
+import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
-import { usePromise } from 'react-use'
-import { reaction } from 'mobx'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,15 +77,10 @@ export const MusicPlayer = observer(function MusicPlayer() {
     drawerWidth: layout.desktopDrawerWidth
   })
   const { enqueueSnackbar } = useSnackbar()
-  const recentPromise = usePromise()
-  const favoritesPromise = usePromise()
-  const addToFavoritesPromise = usePromise()
   const [initialized, setInitialized] = useState(false)
-  const addFavSync = favoriteStations.syncs.add.get(musicPlayer.station._id)
-  const removeFavSync = favoriteStations.syncs.add.get(musicPlayer.station._id)
+  const [inFavorites, setInFavorites] = useState(false)
 
-  console.log('station name ', musicPlayer.station.name)
-  /* This is safe beacause the code disappears in the production build
+  /* This is safe beacause the code is removed in the production build
    */
   if (__DEV__) {
     // eslint-disable-next-line
@@ -96,7 +90,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
     }, [musicPlayer])
   }
 
-  //todo - switch to mobx when
   useEffect(() => {
     return reaction(
       () => musicPlayer.playerError,
@@ -118,20 +111,36 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   useEffect(() => {
     ;(async () => {
-      await favoritesPromise(favoriteStations.load())
-    })()
-  }, [favoriteStations, favoritesPromise])
+      try {
+        await Promise.all([
+          favoriteStations.loadStations(),
+          recentStations.load()
+        ])
 
-  useEffect(() => {
-    ;(async () => {
-      await recentPromise(recentStations.load())
-      console.log('recent loaded ', recentStations.stations)
-      if (recentStations.stations.length) {
-        musicPlayer.setStation(recentStations.stations[0])
+        if (recentStations.stations.length) {
+          musicPlayer.setStation(recentStations.stations[0].data)
+        }
+
+        setInFavorites(
+          Boolean(
+            musicPlayer.station &&
+              favoriteStations.getById(musicPlayer.station._id)
+          )
+        )
+        setInitialized(true)
+      } catch {
+        enqueueSnackbar(t`Error loading stations`, {
+          variant: 'error',
+          className: classes.snackbar,
+          autoHideDuration: 2000,
+          anchorOrigin: {
+            vertical: 'bottom',
+            horizontal: 'center'
+          }
+        })
       }
-      setInitialized(true)
     })()
-  }, [recentStations, musicPlayer, recentPromise])
+  }, [favoriteStations, recentStations, musicPlayer, enqueueSnackbar, classes.snackbar])
 
   useEffect(() => {
     new MediaSessionService(musicPlayer, navigator)
@@ -141,7 +150,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   useEffect(() => {
     ;(async function () {
-      // await mounted(musicPlayer.init())
       const signInInterrupt = sessionStorage.getItem('signInInterrupt')
       if (signInInterrupt) {
         // play immediately
@@ -150,31 +158,40 @@ export const MusicPlayer = observer(function MusicPlayer() {
         musicPlayer.play(musicPlayer.station)
       }
     })()
-  }, [musicPlayer, recentPromise])
+  }, [musicPlayer])
 
-  const inFavorites = Boolean(
-    musicPlayer.station &&
-      favoriteStations.stations.find(
-        (station) => musicPlayer.station._id === station._id
+  useEffect(() => {
+    setInFavorites(
+      Boolean(
+        musicPlayer.station && favoriteStations.getById(musicPlayer.station._id)
       )
-  )
+    )
+  }, [musicPlayer.station, favoriteStations, favoriteStations.stations.length, favoriteStations.stations.length])
 
   const toggleFavorites = async () => {
     const action = inFavorites ? 'remove' : 'add'
     console.log('toggle favorites ', action)
     const station = musicPlayer.station
-    favoriteStations.syncs.remove
-    console.log('add fav sync ', addFavSync?.status)
-    console.log('remove fav sync ', addFavSync?.status)
-    if (addFavSync?.status === 'pending' || removeFavSync?.status === 'pending')
+    const model = favoriteStations.getById(musicPlayer.station._id)
+
+    if (model && model.isSyncing) {
       return
+    }
+
     try {
       if (inFavorites) {
-        await addToFavoritesPromise(favoriteStations.remove(station._id))
+        const result = await favoriteStations.deleteStation(station._id)
+        console.log('remove result')
+        console.dir(result)
+        if (!result.error) {
+          setInFavorites(false)
+        }
       } else {
-        await addToFavoritesPromise(favoriteStations.add(station, true))
+        await favoriteStations.saveStation(station)
+        setInFavorites(true)
       }
-    } catch {
+    } catch (e) {
+      console.error(e)
       enqueueSnackbar(
         action === 'add'
           ? t`Error adding to  favorites`

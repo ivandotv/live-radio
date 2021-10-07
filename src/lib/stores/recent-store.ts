@@ -1,30 +1,70 @@
-import { RadioStation } from 'lib/station-utils'
-import { RadioStore } from './radio-store'
+import {
+  ASYNC_STATUS,
+  Collection,
+  DeleteConfig,
+  unwrapResult
+} from '@fuerte/core'
+import { createRadioModel, RadioModel } from 'lib/radio-model'
 import { appStorageFactory } from 'lib/services/storage/app-storage-service'
+import { RecentStationsTransport } from 'lib/services/storage/recent-stations-transport'
+import { RadioDTO } from 'lib/station-utils'
+import { RadioStore } from 'lib/stores/favorites-store'
 import { RootStore } from 'lib/stores/root-store'
-import { isSSR } from 'lib/utils'
+import { client } from 'lib/utils'
 
-let store: RecentStationsStore
-
-export function recentStationsFactory(root: RootStore) {
-  const isServer = isSSR()
-  const _store = store ?? new RecentStationsStore(root, appStorageFactory())
-
-  if (isServer) return _store
-
-  return (store = _store)
+export function recentStoreFactory(_root: RootStore) {
+  return new RecentStore(
+    createRadioModel,
+    new RecentStationsTransport(appStorageFactory(), client)
+  )
 }
 
-export class RecentStationsStore extends RadioStore {
-  protected addStation(station: RadioStation): Promise<any> {
-    return this.storage.addRecentStation(station)
+export class RecentStore
+  extends Collection<
+    RadioModel,
+    typeof createRadioModel,
+    RecentStationsTransport
+  >
+  implements RadioStore
+{
+  protected result!: RadioModel[]
+
+  async loadStations() {
+    if (!this.result && this.loadStatus !== ASYNC_STATUS.PENDING) {
+      this.result = unwrapResult(await super.load()).added
+    }
+
+    return this.result
   }
 
-  protected resolveStations() {
-    return this.storage.getRecentStations()
+  get stations() {
+    return this.models
   }
 
-  protected removeStation(id: string) {
-    return this.storage.removeRecentStation(id)
+  saveStation(data: RadioDTO) {
+    let model = this.getById(data._id)
+    if (!model) {
+      model = this.create(data)
+    }
+
+    this.unshift(model)
+    this.save(model)
+  }
+
+  async deleteStation(id: string, config: DeleteConfig) {
+    return await super.delete(id, config)
+  }
+
+  countStationClick(id: string): void {
+    this.transport.countStationClick(id)
+  }
+
+  async getStationInfo(id: string): Promise<RadioDTO> {
+    const model = this.getById(id)
+    if (model) {
+      return model.data
+    }
+
+    return await this.transport.getStationInfo(id)
   }
 }

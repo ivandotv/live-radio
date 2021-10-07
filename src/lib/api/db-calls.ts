@@ -1,5 +1,5 @@
 import { db as dbSettings, isProduction } from 'server-config'
-import { RadioStation } from 'lib/station-utils'
+import { RadioDTO } from 'lib/station-utils'
 import { ClientSession, Db, ObjectId } from 'mongodb'
 import { StationCollection } from './api-utils'
 import { connectToDatabase } from './db-connection'
@@ -64,7 +64,7 @@ export async function getStations(ids: string[]) {
  */
 export async function saveToUserCollection(
   userId: string,
-  station: RadioStation,
+  station: RadioDTO,
   collectionName: StationCollection
 ) {
   const { db, client } = await connectToDatabase()
@@ -135,11 +135,7 @@ export async function saveToUserCollection(
  * @param station - station payload
  * @param session - mongodb client session
  */
-async function saveStation(
-  db: Db,
-  station: RadioStation,
-  session?: ClientSession
-) {
+async function saveStation(db: Db, station: RadioDTO, session?: ClientSession) {
   return await db
     .collection('stations')
     .updateOne(

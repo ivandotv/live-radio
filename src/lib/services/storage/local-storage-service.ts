@@ -1,8 +1,8 @@
 import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
-import { RadioStation } from 'lib/station-utils'
+import { RadioDTO } from 'lib/station-utils'
 import { AppStorageService } from './app-storage-service'
 
-type DBValue = { station: RadioStation; date: Date; _id: string }
+type DBValue = { station: RadioDTO; date: Date; _id: string }
 interface LocalSchema extends DBSchema {
   favorites: {
     key: string
@@ -28,13 +28,13 @@ export class LocalStorage implements AppStorageService {
     )
   }
 
-  async getFavoriteStations(): Promise<RadioStation[]> {
+  async getFavoriteStations(): Promise<RadioDTO[]> {
     const data = await this.getAll('favorites')
 
     return this.sortData(data)
   }
 
-  async addFavoriteStation(station: RadioStation) {
+  async addFavoriteStation(station: RadioDTO) {
     return this.put('favorites', {
       station,
       date: new Date(),
@@ -46,13 +46,13 @@ export class LocalStorage implements AppStorageService {
     return this.delete('favorites', id)
   }
 
-  async getRecentStations(): Promise<RadioStation[]> {
+  async getRecentStations(): Promise<RadioDTO[]> {
     const data = await this.getAll('recent')
 
     return this.sortData(data)
   }
 
-  addRecentStation(station: RadioStation) {
+  addRecentStation(station: RadioDTO) {
     return this.put('recent', { station, date: new Date(), _id: station._id })
   }
 
