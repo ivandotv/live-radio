@@ -78,7 +78,7 @@ msgstr ""
 msgid "Algeria"
 msgstr ""
 
-#: src/pages/auth/sign-in.tsx:83
+#: src/pages/auth/sign-in.tsx:87
 #: src/pages/index.tsx:53
 msgid "All data will be stored locally in your browser."
 msgstr ""
@@ -112,11 +112,12 @@ msgid "Anguilla"
 msgstr ""
 
 #: src/components/UserProfileDropdown.tsx:101
+#: src/components/UserProfileDropdown.tsx:104
 msgid "Anonymous"
 msgstr ""
 
-#: src/pages/auth/sign-in.tsx:85
-#: src/pages/index.tsx:67
+#: src/pages/auth/sign-in.tsx:89
+#: src/pages/index.tsx:68
 msgid "Anonymous User"
 msgstr ""
 
@@ -545,7 +546,7 @@ msgstr ""
 msgid "Denmark"
 msgstr ""
 
-#: src/components/StationRowItem.tsx:76
+#: src/components/StationRowItem.tsx:79
 msgid "Depending on your browser configuration this station might not load beacuse it is not served over a secure (httpS) connection."
 msgstr ""
 
@@ -622,7 +623,7 @@ msgstr ""
 msgid "Eritrea"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:197
+#: src/components/music-player/MusicPlayer.tsx:205
 msgid "Error adding to  favorites"
 msgstr ""
 
@@ -630,19 +631,19 @@ msgstr ""
 msgid "Error loading data"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:132
+#: src/components/music-player/MusicPlayer.tsx:134
 msgid "Error loading stations"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:98
+#: src/components/music-player/MusicPlayer.tsx:99
 msgid "Error playing radio station"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:198
+#: src/components/music-player/MusicPlayer.tsx:206
 msgid "Error removing from favorites"
 msgstr ""
 
-#: src/components/StationRowRemoveBtn.tsx:70
+#: src/components/StationRowRemoveBtn.tsx:91
 msgid "Error removing the station, click to try again"
 msgstr ""
 
@@ -817,7 +818,7 @@ msgstr ""
 msgid "Go to Settings"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:226
+#: src/components/music-player/MusicPlayer.tsx:234
 msgid "Go to station website"
 msgstr ""
 
@@ -999,12 +1000,12 @@ msgstr ""
 msgid "Indonesian"
 msgstr ""
 
-#: src/components/pwa-prompt/InstallBanner.tsx:14
-#: src/components/pwa-prompt/InstallBanner.tsx:15
+#: src/components/pwa-prompt/InstallBanner.tsx:17
+#: src/components/pwa-prompt/InstallBanner.tsx:18
 msgid "Install"
 msgstr ""
 
-#: src/components/pwa-prompt/InstallBanner.tsx:18
+#: src/components/pwa-prompt/InstallBanner.tsx:21
 msgid ""
 "Installing Live Radio uses almost no storage and provides a quick way to\n"
 "launch it from the home screen."
@@ -1056,6 +1057,12 @@ msgstr ""
 
 #: src/components/OfflineIndicator.tsx:42
 msgid "It appears that you are offline"
+msgstr ""
+
+#: src/components/AuthExpiredModal.tsx:63
+msgid ""
+"It appears that you have been signed out.\n"
+"You will need to sign in again in order to continue to use the application"
 msgstr ""
 
 #: src/generated/languages.js:77
@@ -1243,7 +1250,7 @@ msgstr ""
 msgid "Lingala"
 msgstr ""
 
-#: src/pages/_app.tsx:65
+#: src/pages/_app.tsx:73
 msgid "Listen live radio online"
 msgstr ""
 
@@ -1261,7 +1268,7 @@ msgstr ""
 
 #: src/lib/create-manifest.ts:10
 #: src/lib/create-manifest.ts:11
-#: src/pages/_app.tsx:73
+#: src/pages/_app.tsx:81
 #: src/pages/index.tsx:24
 msgid "Live Radio"
 msgstr ""
@@ -1739,7 +1746,7 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: src/components/StationRowRemoveBtn.tsx:81
+#: src/components/StationRowRemoveBtn.tsx:102
 msgid "Remove station"
 msgstr ""
 
@@ -1942,6 +1949,10 @@ msgstr ""
 msgid "Sign in"
 msgstr ""
 
+#: src/components/AuthExpiredModal.tsx:74
+msgid "Sign in again"
+msgstr ""
+
 #: src/pages/auth/sign-in.tsx:26
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr ""
@@ -1950,12 +1961,16 @@ msgstr ""
 msgid "Sign in or Register"
 msgstr ""
 
-#: src/pages/auth/sign-in.tsx:76
+#: src/pages/auth/sign-in.tsx:80
 msgid "Sign in with"
 msgstr ""
 
 #: src/components/UserProfileDropdown.tsx:69
 msgid "Sign out"
+msgstr ""
+
+#: src/components/AuthExpiredModal.tsx:59
+msgid "Signed Out"
 msgstr ""
 
 #: src/components/LoginNotification.tsx:19
@@ -2126,11 +2141,11 @@ msgstr ""
 msgid "Swing"
 msgstr ""
 
-#: src/components/layout/AppToolbar.tsx:138
+#: src/components/layout/AppToolbar.tsx:141
 msgid "Switch to Dark Theme"
 msgstr ""
 
-#: src/components/layout/AppToolbar.tsx:137
+#: src/components/layout/AppToolbar.tsx:140
 msgid "Switch to Light Theme"
 msgstr ""
 
@@ -2489,7 +2504,7 @@ msgstr ""
 msgid "play"
 msgstr ""
 
-#: src/pages/auth/sign-in.tsx:72
+#: src/pages/auth/sign-in.tsx:74
 msgid "provider logo"
 msgstr ""
 
@@ -2497,8 +2512,8 @@ msgstr ""
 msgid "reload"
 msgstr ""
 
-#: src/components/StationRowRemoveBtn.tsx:72
-#: src/components/StationRowRemoveBtn.tsx:83
+#: src/components/StationRowRemoveBtn.tsx:93
+#: src/components/StationRowRemoveBtn.tsx:104
 msgid "remove"
 msgstr ""
 

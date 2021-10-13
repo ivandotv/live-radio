@@ -78,7 +78,7 @@ msgstr "Albanian"
 msgid "Algeria"
 msgstr "Algeria"
 
-#: src/pages/auth/sign-in.tsx:83
+#: src/pages/auth/sign-in.tsx:87
 #: src/pages/index.tsx:53
 msgid "All data will be stored locally in your browser."
 msgstr "All data will be stored locally in your browser."
@@ -112,11 +112,12 @@ msgid "Anguilla"
 msgstr "Anguilla"
 
 #: src/components/UserProfileDropdown.tsx:101
+#: src/components/UserProfileDropdown.tsx:104
 msgid "Anonymous"
 msgstr "Anonymous"
 
-#: src/pages/auth/sign-in.tsx:85
-#: src/pages/index.tsx:67
+#: src/pages/auth/sign-in.tsx:89
+#: src/pages/index.tsx:68
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
@@ -545,7 +546,7 @@ msgstr "Democratic Republic of the Congo"
 msgid "Denmark"
 msgstr "Denmark"
 
-#: src/components/StationRowItem.tsx:76
+#: src/components/StationRowItem.tsx:79
 msgid "Depending on your browser configuration this station might not load beacuse it is not served over a secure (httpS) connection."
 msgstr "Depending on your browser configuration this station might not load beacuse it is not served over a secure (httpS) connection."
 
@@ -622,7 +623,7 @@ msgstr "Equatorial Guinea"
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: src/components/music-player/MusicPlayer.tsx:197
+#: src/components/music-player/MusicPlayer.tsx:205
 msgid "Error adding to  favorites"
 msgstr "Error adding to  favorites"
 
@@ -630,19 +631,19 @@ msgstr "Error adding to  favorites"
 msgid "Error loading data"
 msgstr "Error loading data"
 
-#: src/components/music-player/MusicPlayer.tsx:132
+#: src/components/music-player/MusicPlayer.tsx:134
 msgid "Error loading stations"
 msgstr "Error loading stations"
 
-#: src/components/music-player/MusicPlayer.tsx:98
+#: src/components/music-player/MusicPlayer.tsx:99
 msgid "Error playing radio station"
 msgstr "Error playing radio station"
 
-#: src/components/music-player/MusicPlayer.tsx:198
+#: src/components/music-player/MusicPlayer.tsx:206
 msgid "Error removing from favorites"
 msgstr "Error removing from favorites"
 
-#: src/components/StationRowRemoveBtn.tsx:70
+#: src/components/StationRowRemoveBtn.tsx:91
 msgid "Error removing the station, click to try again"
 msgstr "Error removing the station, click to try again"
 
@@ -817,7 +818,7 @@ msgstr "Go to Favorites"
 msgid "Go to Settings"
 msgstr "Go to Settings"
 
-#: src/components/music-player/MusicPlayer.tsx:226
+#: src/components/music-player/MusicPlayer.tsx:234
 msgid "Go to station website"
 msgstr "Go to station website"
 
@@ -1001,12 +1002,12 @@ msgstr "Indonesia"
 msgid "Indonesian"
 msgstr "Indonesian"
 
-#: src/components/pwa-prompt/InstallBanner.tsx:14
-#: src/components/pwa-prompt/InstallBanner.tsx:15
+#: src/components/pwa-prompt/InstallBanner.tsx:17
+#: src/components/pwa-prompt/InstallBanner.tsx:18
 msgid "Install"
 msgstr "Install"
 
-#: src/components/pwa-prompt/InstallBanner.tsx:18
+#: src/components/pwa-prompt/InstallBanner.tsx:21
 msgid ""
 "Installing Live Radio uses almost no storage and provides a quick way to\n"
 "launch it from the home screen."
@@ -1061,6 +1062,14 @@ msgstr "Israel"
 #: src/components/OfflineIndicator.tsx:42
 msgid "It appears that you are offline"
 msgstr "It appears that you are offline"
+
+#: src/components/AuthExpiredModal.tsx:63
+msgid ""
+"It appears that you have been signed out.\n"
+"You will need to sign in again in order to continue to use the application"
+msgstr ""
+"It appears that you have been signed out.\n"
+"You will need to sign in again in order to continue to use the application"
 
 #: src/generated/languages.js:77
 msgid "Italian"
@@ -1247,7 +1256,7 @@ msgstr "Limburgish"
 msgid "Lingala"
 msgstr "Lingala"
 
-#: src/pages/_app.tsx:65
+#: src/pages/_app.tsx:73
 msgid "Listen live radio online"
 msgstr "Listen live radio online"
 
@@ -1265,7 +1274,7 @@ msgstr "Lithuanian"
 
 #: src/lib/create-manifest.ts:10
 #: src/lib/create-manifest.ts:11
-#: src/pages/_app.tsx:73
+#: src/pages/_app.tsx:81
 #: src/pages/index.tsx:24
 msgid "Live Radio"
 msgstr "Live Radio"
@@ -1743,7 +1752,7 @@ msgstr "Reggaeton"
 msgid "Reload"
 msgstr "Reload"
 
-#: src/components/StationRowRemoveBtn.tsx:81
+#: src/components/StationRowRemoveBtn.tsx:102
 msgid "Remove station"
 msgstr "Remove station"
 
@@ -1946,6 +1955,10 @@ msgstr "Sierra Leone"
 msgid "Sign in"
 msgstr "Sign in"
 
+#: src/components/AuthExpiredModal.tsx:74
+msgid "Sign in again"
+msgstr "Sign in again"
+
 #: src/pages/auth/sign-in.tsx:26
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr "Sign in failed. Check the details you provided are correct."
@@ -1954,13 +1967,17 @@ msgstr "Sign in failed. Check the details you provided are correct."
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
-#: src/pages/auth/sign-in.tsx:76
+#: src/pages/auth/sign-in.tsx:80
 msgid "Sign in with"
 msgstr "Sign in with"
 
 #: src/components/UserProfileDropdown.tsx:69
 msgid "Sign out"
 msgstr "Sign out"
+
+#: src/components/AuthExpiredModal.tsx:59
+msgid "Signed Out"
+msgstr "Signed Out"
 
 #: src/components/LoginNotification.tsx:19
 msgid "Signed in Anonymously"
@@ -2130,11 +2147,11 @@ msgstr "Swedish"
 msgid "Swing"
 msgstr "Swing"
 
-#: src/components/layout/AppToolbar.tsx:138
+#: src/components/layout/AppToolbar.tsx:141
 msgid "Switch to Dark Theme"
 msgstr "Switch to Dark Theme"
 
-#: src/components/layout/AppToolbar.tsx:137
+#: src/components/layout/AppToolbar.tsx:140
 msgid "Switch to Light Theme"
 msgstr "Switch to Light Theme"
 
@@ -2493,7 +2510,7 @@ msgstr "landing page image"
 msgid "play"
 msgstr "play"
 
-#: src/pages/auth/sign-in.tsx:72
+#: src/pages/auth/sign-in.tsx:74
 msgid "provider logo"
 msgstr "provider logo"
 
@@ -2501,8 +2518,8 @@ msgstr "provider logo"
 msgid "reload"
 msgstr "reload"
 
-#: src/components/StationRowRemoveBtn.tsx:72
-#: src/components/StationRowRemoveBtn.tsx:83
+#: src/components/StationRowRemoveBtn.tsx:93
+#: src/components/StationRowRemoveBtn.tsx:104
 msgid "remove"
 msgstr "remove"
 
