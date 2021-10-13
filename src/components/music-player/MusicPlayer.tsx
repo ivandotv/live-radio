@@ -8,6 +8,7 @@ import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
 import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
 import { SongInfo } from 'components/music-player/SongInfo'
 import { useRootStore } from 'components/providers/RootStoreProvider'
+import { AuthExpiredError } from 'lib/services/auth-service'
 import { MediaSessionService } from 'lib/services/media-session-service'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
@@ -114,7 +115,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
       try {
         await Promise.all([
           favoriteStations.loadStations(),
-          recentStations.load()
+          recentStations.loadStations()
         ])
 
         if (recentStations.stations.length) {
@@ -124,11 +125,12 @@ export const MusicPlayer = observer(function MusicPlayer() {
         setInFavorites(
           Boolean(
             musicPlayer.station &&
-              favoriteStations.getById(musicPlayer.station._id)
+              favoriteStations.getStationById(musicPlayer.station._id)
           )
         )
         setInitialized(true)
-      } catch {
+      } catch (err) {
+        console.error(err)
         enqueueSnackbar(t`Error loading stations`, {
           variant: 'error',
           className: classes.snackbar,
@@ -163,7 +165,8 @@ export const MusicPlayer = observer(function MusicPlayer() {
   useEffect(() => {
     setInFavorites(
       Boolean(
-        musicPlayer.station && favoriteStations.getById(musicPlayer.station._id)
+        musicPlayer.station &&
+          favoriteStations.getStationById(musicPlayer.station._id)
       )
     )
   }, [musicPlayer.station, favoriteStations, favoriteStations.stations.length, favoriteStations.stations.length])
@@ -172,7 +175,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
     const action = inFavorites ? 'remove' : 'add'
     console.log('toggle favorites ', action)
     const station = musicPlayer.station
-    const model = favoriteStations.getById(musicPlayer.station._id)
+    const model = favoriteStations.getStationById(musicPlayer.station._id)
 
     if (model && model.isSyncing) {
       return
@@ -185,13 +188,18 @@ export const MusicPlayer = observer(function MusicPlayer() {
         console.dir(result)
         if (!result.error) {
           setInFavorites(false)
+        } else {
+          throw result.error
         }
       } else {
-        await favoriteStations.saveStation(station)
+        await favoriteStations.saveStation(station, { addImmediately: false })
         setInFavorites(true)
       }
     } catch (e) {
       console.error(e)
+      if (e instanceof AuthExpiredError) {
+        throw e
+      }
       enqueueSnackbar(
         action === 'add'
           ? t`Error adding to  favorites`

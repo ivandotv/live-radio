@@ -83,7 +83,7 @@ export function getUserStations(collection: StationCollection) {
  * Handle saving stations to particular collections
  * @param collection - where to save the station
  */
-export function handleSaveStation(collection: StationCollection) {
+export function saveStation(collection: StationCollection) {
   return async (req: NextApiRequestWithSession, res: NextApiResponse) => {
     await saveToUserCollection(req.session!.user.id, req.body, collection)
 

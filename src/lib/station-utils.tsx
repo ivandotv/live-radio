@@ -83,6 +83,7 @@ export function createStationListRow(opts?: {
         {...options}
         key={station.id}
         station={station}
+        // store={store}
       ></StationRowItem>
     )
   }

@@ -54,6 +54,7 @@ export default function Index() {
               onClick={(e: React.MouseEvent) => {
                 if (session) {
                   e.preventDefault()
+                  //no need to wait ,callback will navigate away
                   signOut({
                     callbackUrl: `${window.location.origin.replace(
                       /\/$/,

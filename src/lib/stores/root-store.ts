@@ -33,6 +33,7 @@ export class RootStore {
   recentStations: RecentStore
 
   constructor() {
+    console.log('root store constructor')
     this.appShell = appShellFactory(this)
     this.musicPlayer = musicPlayerFactory(this)
     this.favoriteStations = favoritesStoreFactory(this)

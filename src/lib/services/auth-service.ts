@@ -1,9 +1,26 @@
+import { Session } from 'next-auth'
 import { getSession } from 'next-auth/client'
 
-export class AuthService {
-  async isAuthenticated() {
-    const session = await getSession()
+export class AuthExpiredError extends Error {
+  constructor() {
+    super('Auth expired')
+    this.name = 'AuthExpiredError'
+  }
+}
 
-    return Boolean(session)
+export class AuthService {
+  protected firstCheck = true
+
+  protected session: Session | null = null
+
+  protected resolved = false
+
+  async getAuth(fromCache = true) {
+    if (!this.resolved || !fromCache) {
+      this.session = await getSession()
+      this.resolved = true
+    }
+
+    return this.session
   }
 }

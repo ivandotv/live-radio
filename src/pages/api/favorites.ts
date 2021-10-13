@@ -3,7 +3,7 @@ import {
   getUserStations,
   onError,
   onNoMatch,
-  handleSaveStation
+  saveStation
 } from 'lib/api/api-utils'
 import { setupSession, validateStation } from 'lib/api/middleware'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -15,7 +15,7 @@ const collectionName = 'favorites'
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
   .use(setupSession)
   .get(getUserStations(collectionName))
-  .post(validateStation, handleSaveStation(collectionName))
+  .post(validateStation, saveStation(collectionName))
   .delete(deleteStation(collectionName))
 
 export default handler

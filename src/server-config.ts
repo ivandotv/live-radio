@@ -6,6 +6,8 @@ import { booleanEnv } from 'lib/utils'
 
 export const isProduction = process.env.NODE_ENV === 'production'
 
+console.log('MONGODB URI ', process.env.MONGODB_URI)
+
 export const db = {
   uri: process.env.MONGODB_URI,
   dbName: process.env.MONGO_DB_NAME,

@@ -1,6 +1,7 @@
 import { AuthService } from 'lib/services/auth-service'
 import { RadioDTO } from 'lib/station-utils'
-import { client } from 'lib/utils'
+import { client, isSSR } from 'lib/utils'
+import { Session } from 'next-auth'
 import { LocalStorage } from './local-storage-service'
 import { RemoteStorage } from './remote-storage-service'
 
@@ -16,10 +17,7 @@ export type AppStorageService = {
 }
 
 export function appStorageFactory() {
-  const isSSR = typeof window === 'undefined'
-  // const transport = isSSR ? fetch : fetch.bind(window)
-
-  if (isSSR || !instance) {
+  if (isSSR() || !instance) {
     instance = new AppStorage(
       new LocalStorage('LiveRadio'),
       new RemoteStorage(client),
@@ -31,10 +29,10 @@ export function appStorageFactory() {
   return instance
 }
 
-//todo - cache and retry failed storage calls
-
 export class AppStorage {
-  // private static instance: AppStorage
+  protected session: Session | null = null
+
+  protected resolved = false
 
   constructor(
     protected local: LocalStorage,
@@ -43,20 +41,13 @@ export class AppStorage {
     protected httpClient: typeof client
   ) {}
 
-  protected async handleStorageCall<TData = any>(
-    storageCall: Promise<TData>
-  ): Promise<TData> {
-    //todo - normalize errors between different storage providers
-    return await storageCall
-  }
-
   protected async resolveStorage() {
-    const authenticated = await this.authService.isAuthenticated()
-    if (authenticated) {
+    const session = await this.authService.getAuth()
+    if (session) {
       return this.remote
-    } else {
-      return this.local
     }
+
+    return this.local
   }
 
   async getFavoriteStations(): Promise<RadioDTO[]> {
@@ -96,11 +87,12 @@ export class AppStorage {
   }
 
   async countStationClick(id: string) {
-    this.httpClient('/api/station-click', { data: { id } }).catch(
-      (_e: Error) => {
-        //TODO - log error
-      }
-    )
+    try {
+      this.httpClient('/api/station-click', { data: { id } })
+    } catch (err) {
+      // fail silently
+      //TODO - log error
+    }
   }
 
   async getStationInfo(id: string) {

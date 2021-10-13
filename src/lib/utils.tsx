@@ -117,7 +117,7 @@ export function booleanEnv(env: string | undefined, initial: boolean) {
 
 export function globalErrorHandler(e: any) {
   //TODO -log
-  console.log('global error: ', e)
+  console.error('global error: ', e)
 }
 
 export function isSSR() {

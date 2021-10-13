@@ -68,11 +68,15 @@ export default function SignIn({
               })
             }
           >
-            <Image
+            {/* https://github.com/vercel/next.js/discussions/18312  */}
+            {/* eslint-disable-next-line   */}
+            <img
               alt={t`provider logo`}
               className="login-icon"
+              width="30"
+              height="30"
               src={`/images/${provider.name.toLowerCase()}-login.png`}
-            ></Image>
+            ></img>
             {t`Sign in with`} {provider.name}
           </a>
         ))}

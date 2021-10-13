@@ -3,10 +3,6 @@ import {
   SongInfoService,
   songInfoServiceFactory
 } from 'lib/services/song-info-service'
-import {
-  AppStorage,
-  appStorageFactory
-} from 'lib/services/storage/app-storage-service'
 import { getDefaultStation, RadioDTO } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable, runInAction } from 'mobx'
@@ -23,7 +19,7 @@ export const PlayerStatus = {
 export function musicPlayerFactory(root: RootStore) {
   return new MusicPlayerStore(
     root,
-    appStorageFactory(),
+    // appStorageFactory(),
     songInfoServiceFactory(),
     getDefaultStation()
   )
@@ -58,7 +54,7 @@ export class MusicPlayerStore {
   // TODO - this should be a state machine
   constructor(
     protected rootStore: RootStore,
-    protected storage: AppStorage,
+    // protected storage: AppStorage,
     protected songInfoService: SongInfoService,
     public station: RadioDTO
   ) {

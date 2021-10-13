@@ -1,6 +1,6 @@
 import globalStyles from 'styles/global'
 import { Trans } from '@lingui/macro'
-export default function GlobalErrorFallback() {
+export function GlobalErrorFallback() {
   return (
     <div className="page-wrap">
       <h1>

@@ -16,6 +16,7 @@ import {
   pwaInstallDismissedCookie,
   pwaUpdatedCookieName
 } from 'browser-config'
+import { AuthExpiredModal } from 'components/AuthExpiredModal'
 import { AppToolbar } from 'components/layout/AppToolbar'
 import LoginNotification from 'components/LoginNotification'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
@@ -151,6 +152,7 @@ export const AppShell = observer(function AppShell({
           show={showPrompt}
         />
         <LoginNotification />
+        <AuthExpiredModal />
         <AppUpdatedNotification cookieName={pwaUpdatedCookieName} />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">

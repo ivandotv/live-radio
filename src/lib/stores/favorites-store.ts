@@ -2,6 +2,7 @@ import {
   ASYNC_STATUS,
   Collection,
   DeleteConfig,
+  SaveConfig,
   unwrapResult
 } from '@fuerte/core'
 import { createRadioModel, RadioModel } from 'lib/radio-model'
@@ -9,16 +10,18 @@ import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { FavoriteStationsTransport } from 'lib/services/storage/favorite-stations-transport'
 import { RadioDTO } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
-import { client } from 'lib/utils'
 
-export interface RadioStore extends Collection<RadioModel, any, any> {
-  saveStation(station: RadioDTO): any
-  deleteStation(id: string, config: DeleteConfig): any
+export interface RadioStore {
+  saveStation(station: RadioDTO, config?: SaveConfig): Promise<any>
+  deleteStation(id: string, config?: DeleteConfig): Promise<any>
   get stations(): readonly RadioModel[]
+  get loadStatus(): keyof typeof ASYNC_STATUS
+  loadStations(): Promise<RadioModel[]>
 }
 
-export function favoritesStoreFactory(_root: RootStore) {
+export function favoritesStoreFactory(root: RootStore) {
   return new FavoritesStore(
+    root,
     createRadioModel,
     new FavoriteStationsTransport(appStorageFactory())
   )
@@ -34,36 +37,54 @@ export class FavoritesStore
 {
   protected result!: RadioModel[]
 
+  constructor(
+    protected root: RootStore,
+    protected factory: typeof createRadioModel,
+    protected transport: FavoriteStationsTransport
+  ) {
+    super(factory, transport)
+  }
+
   async loadStations() {
     if (!this.result && this.loadStatus !== ASYNC_STATUS.PENDING) {
-      this.result = unwrapResult(await super.load()).added
+      const result = await this.load()
+
+      this.root.appShell.checkAuthError(result.error)
+
+      this.result = unwrapResult(result).added
     }
 
     return this.result
   }
 
-  async saveStation(station: RadioDTO) {
+  async saveStation(station: RadioDTO, config?: SaveConfig) {
     let model = this.getById(station._id)
     if (!model) {
       model = this.create(station)
     }
     this.unshift(model)
-    const result = unwrapResult(await super.save(model))
+    const result = await this.save(model, config)
 
-    try {
-      await client('/api/vote-for-station', { data: { id: station._id } })
-    } catch (e) {
-      //TODO -log error silently
-    }
+    this.root.appShell.checkAuthError(result.error)
 
     return result
   }
 
   async deleteStation(id: string, config?: DeleteConfig) {
-    return await super.delete(id, config)
+    const result = await this.delete(id, config)
+
+    console.log({ result })
+
+    this.root.appShell.checkAuthError(result.error)
+
+    return result
   }
 
   get stations() {
     return this.models
+  }
+
+  getStationById(id: string) {
+    return this.getById(id)
   }
 }

@@ -3,6 +3,7 @@ import { RadioDTO } from 'lib/station-utils'
 import { AppStorageService } from './app-storage-service'
 
 type DBValue = { station: RadioDTO; date: Date; _id: string }
+
 interface LocalSchema extends DBSchema {
   favorites: {
     key: string

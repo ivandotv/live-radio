@@ -1,4 +1,3 @@
-import { unwrapResult } from '@fuerte/core'
 import { t } from '@lingui/macro'
 import {
   CircularProgress,
@@ -11,6 +10,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import Error from '@material-ui/icons/Warning'
 import { RadioModel } from 'lib/radio-model'
+import { RadioStore } from 'lib/stores/favorites-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent } from 'react'
 import { usePromise } from 'react-use'
@@ -36,9 +36,11 @@ const useStyles = makeStyles((theme: Theme) => {
 })
 
 export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
+  store,
   station,
   className
 }: {
+  store: RadioStore
   station: RadioModel
   className: string
 }) {
@@ -48,20 +50,33 @@ export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
   const removeStation = async (e: MouseEvent) => {
     e.stopPropagation()
     if (station.isSyncing) {
+      console.log('already synching  - return !')
+
       return
     }
 
-    try {
-      const data = unwrapResult(
-        await mounted(station.delete({ remove: false }))
-      )
-      // const data = await station.delete({ remove: false })
-      console.log('done !---', data)
-    } catch (e) {
-      console.log('catch!')
-      console.error(e)
-      //todo - log
-    }
+    await mounted(
+      store
+        .deleteStation(station.id, { remove: false })
+        .then((result) => {
+          console.log('rm btn result ', result)
+        })
+        .catch((err) => {
+          console.log('remove btn err ', err)
+        })
+    )
+    // try {
+    //   const data = unwrapResult(
+    //     // await mounted(station.delete({ remove: false }))
+    //     await mounted(store.deleteStation(station.id, { remove: false }))
+    //   )
+    //   // const data = await station.delete({ remove: false })
+    //   console.log('done !---', data)
+    // } catch (e) {
+    //   console.log('catch!')
+    //   console.error(e)
+    //   //todo - log
+    // }
   }
 
   return (

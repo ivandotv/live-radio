@@ -2,9 +2,9 @@ import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
 import { url } from 'browser-config'
-import GlobalError from 'components/GlobalErrorFallback'
-import GlobalErrorHandler from 'components/GlobalErrorHandler'
+import { GlobalErrorFallback } from 'components/GlobalErrorFallback'
 import { PWAIcons } from 'components/PWAIcons'
+import { WindowErrorHandler } from 'components/WindowErrorHandler'
 import { initTranslations } from 'lib/translations'
 import { globalErrorHandler } from 'lib/utils'
 import { NextPage } from 'next'
@@ -50,9 +50,17 @@ export default function MyApp(props: AppProps) {
     browserFirstRender.current = false
   }, [locale, pageProps.translation])
 
+  useEffect(() => {
+    console.log('_app use effec =======')
+  }, [])
+
   return (
-    <ErrorBoundary FallbackComponent={GlobalError} onError={globalErrorHandler}>
-      <I18nProvider i18n={i18n}>
+    <I18nProvider i18n={i18n}>
+      <ErrorBoundary
+        FallbackComponent={GlobalErrorFallback}
+        onError={globalErrorHandler}
+      >
+        <WindowErrorHandler />
         <Head>
           <link
             rel="manifest"
@@ -94,7 +102,6 @@ export default function MyApp(props: AppProps) {
             )
           })}
         </Head>
-        <GlobalErrorHandler />
         <AuthProvider
           options={{
             clientMaxAge: 0 //60 * 60
@@ -107,7 +114,7 @@ export default function MyApp(props: AppProps) {
             <Component {...pageProps} />
           )}
         </AuthProvider>
-      </I18nProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </I18nProvider>
   )
 }

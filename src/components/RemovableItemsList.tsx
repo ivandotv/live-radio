@@ -64,7 +64,7 @@ export const RemovableItemsList = observer(function RemovableItemsList({
     return (
       <>
         <PageLoadError
-          onClick={() => store.load()}
+          onClick={() => store.loadStations()}
           data={
             <p>
               <Trans>There was an error trying to load your stations.</Trans>

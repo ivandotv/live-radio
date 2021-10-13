@@ -11,11 +11,11 @@ export class FavoriteStationsTransport implements Transport<RadioModel> {
     return { data }
   }
 
-  async save(radio: RadioModel): Promise<void> {
-    await this.storage.addFavoriteStation(radio.data)
+  save(radio: RadioModel) {
+    return this.storage.addFavoriteStation(radio.data)
   }
 
-  async delete(radio: RadioModel): Promise<void> {
-    await this.storage.removeFavoriteStation(radio.id)
+  delete(radio: RadioModel) {
+    return this.storage.removeFavoriteStation(radio.id)
   }
 }

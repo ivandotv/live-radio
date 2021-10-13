@@ -7,6 +7,7 @@ import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
 import { RadioModel } from 'lib/radio-model'
+import { RadioStore } from 'lib/stores/favorites-store'
 import { PlayerStatus } from 'lib/stores/music-player-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useCallback, useState } from 'react'
@@ -59,12 +60,14 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export const StationRowItem = observer(function StationRowItem({
   station,
+  store,
   showCountry = true,
   showFlag = true,
   showTags = true,
   showRemoveBtn = false
 }: {
   station: RadioModel
+  store?: RadioStore
   showCountry?: boolean
   showFlag?: boolean
   showTags?: boolean
@@ -143,10 +146,11 @@ export const StationRowItem = observer(function StationRowItem({
                     <HttpIcon className={classes.httpIcon} />
                   </Tooltip>
                 ) : null}
-                {showRemoveBtn ? (
+                {showRemoveBtn && store ? (
                   <StationRowRemoveBtn
                     className={classes.btnRemove}
                     station={station}
+                    store={store}
                   />
                 ) : null}
               </div>
