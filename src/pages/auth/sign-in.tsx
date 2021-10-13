@@ -7,7 +7,6 @@ import { ClientSafeProvider, getProviders, signIn } from 'next-auth/client'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
-import Image from 'next/image'
 
 export default function SignIn({
   providers
@@ -45,12 +44,8 @@ export default function SignIn({
     <div className="page-wrap">
       <PageTitle title={t`Sign in`} />
       <div className="banner-wrapper">
-        <Image
-          width="450"
-          height="326"
-          src="/images/landing-page.png"
-          alt={t`landing`}
-        />
+        {/* eslint-disable-next-line*/}
+        <img width="250" src="/images/landing-page.png" alt={t`landing`} />
       </div>
       {errorMessage ? (
         <div className="btn-wrap">
@@ -104,7 +99,7 @@ export default function SignIn({
             flex-direction: column;
           }
           .banner-wrapper {
-            width: 180px;
+            width: 250px;
             margin-top: -50px;
             margin-left: 35px;
           }
@@ -120,7 +115,7 @@ export default function SignIn({
             justify-content: center;
           }
           .login-icon {
-            max-width: 20px;
+            width: 30px;
             margin-right: 8px;
           }
         `}
