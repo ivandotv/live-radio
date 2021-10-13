@@ -6,7 +6,6 @@ import {
 import { getDefaultStation, RadioDTO } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-import { isProduction } from 'server-config'
 
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
@@ -45,7 +44,7 @@ export class MusicPlayerStore {
 
   protected stationClickTimeoutId: number | undefined
 
-  protected stationClickDelay = isProduction ? 10000 : 1000
+  protected countStationClickDelay = 5000
 
   protected player: Howl | undefined = undefined
 
@@ -146,7 +145,7 @@ export class MusicPlayerStore {
           }
         })
         this.stationClickTimeoutId = undefined
-      }, this.stationClickDelay)
+      }, this.countStationClickDelay)
 
       runInAction(() => {
         this.stationChecked = false
