@@ -80,6 +80,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   const { enqueueSnackbar } = useSnackbar()
   const [initialized, setInitialized] = useState(false)
   const [inFavorites, setInFavorites] = useState(false)
+  const [errorLoading, setErrorLoading] = useState(false)
 
   /* This is safe beacause the code is removed in the production build
    */
@@ -111,17 +112,33 @@ export const MusicPlayer = observer(function MusicPlayer() {
   }, [musicPlayer.playerError, enqueueSnackbar, classes.snackbar])
 
   useEffect(() => {
+    if (errorLoading) {
+      enqueueSnackbar(t`Error loading stations`, {
+        variant: 'error',
+        className: classes.snackbar,
+        autoHideDuration: 2000,
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'center'
+        }
+      })
+    }
+  }, [classes.snackbar, enqueueSnackbar, errorLoading])
+
+  useEffect(() => {
     ;(async () => {
       try {
         await Promise.all([
           favoriteStations.loadStations(),
           recentStations.loadStations()
         ])
-
+      } catch (err) {
+        //if there is an error,  music player will set default station
+        setErrorLoading(true)
+      } finally {
         if (recentStations.stations.length) {
           musicPlayer.setStation(recentStations.stations[0].data)
         }
-
         setInFavorites(
           Boolean(
             musicPlayer.station &&
@@ -129,20 +146,9 @@ export const MusicPlayer = observer(function MusicPlayer() {
           )
         )
         setInitialized(true)
-      } catch (err) {
-        console.error(err)
-        enqueueSnackbar(t`Error loading stations`, {
-          variant: 'error',
-          className: classes.snackbar,
-          autoHideDuration: 2000,
-          anchorOrigin: {
-            vertical: 'bottom',
-            horizontal: 'center'
-          }
-        })
       }
     })()
-  }, [favoriteStations, recentStations, musicPlayer, enqueueSnackbar, classes.snackbar])
+  }, [favoriteStations, recentStations, musicPlayer])
 
   useEffect(() => {
     new MediaSessionService(musicPlayer, navigator)

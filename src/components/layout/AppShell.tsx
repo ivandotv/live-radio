@@ -17,6 +17,7 @@ import {
   pwaUpdatedCookieName
 } from 'browser-config'
 import { AuthExpiredModal } from 'components/AuthExpiredModal'
+import { ImportAnonymousData } from 'components/ImportAnonymousData'
 import { AppToolbar } from 'components/layout/AppToolbar'
 import LoginNotification from 'components/LoginNotification'
 import { MusicPlayer } from 'components/music-player/MusicPlayer'
@@ -76,9 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
       zIndex: 1
     },
     offlineIndicator: {
-      // position: 'absolute',
       width: '100%',
-      // top: '-27px', //magic!
       zIndex: 2
     },
     contentSpacer: {
@@ -153,6 +152,7 @@ export const AppShell = observer(function AppShell({
         />
         <LoginNotification />
         <AuthExpiredModal />
+        <ImportAnonymousData />
         <AppUpdatedNotification cookieName={pwaUpdatedCookieName} />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">

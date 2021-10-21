@@ -136,14 +136,12 @@ export class MusicPlayerStore {
 
       clearTimeout(this.stationClickTimeoutId)
       this.stationClickTimeoutId = window.setTimeout(() => {
-        runInAction(() => {
-          if (
-            this.status === PlayerStatus.PLAYING ||
-            this.status === PlayerStatus.BUFFERING
-          ) {
-            this.rootStore.recentStations.countStationClick(station._id)
-          }
-        })
+        if (
+          this.status === PlayerStatus.PLAYING ||
+          this.status === PlayerStatus.BUFFERING
+        ) {
+          this.rootStore.appShell.countStationClick(station._id)
+        }
         this.stationClickTimeoutId = undefined
       }, this.countStationClickDelay)
 

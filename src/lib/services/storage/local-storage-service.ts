@@ -1,8 +1,8 @@
 import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
+import { StationCollection } from 'lib/api/api-utils'
 import { RadioDTO } from 'lib/station-utils'
-import { AppStorageService } from './app-storage-service'
 
-type DBValue = { station: RadioDTO; date: Date; _id: string }
+type DBValue = { station: RadioDTO; date: string; _id: string }
 
 interface LocalSchema extends DBSchema {
   favorites: {
@@ -15,50 +15,50 @@ interface LocalSchema extends DBSchema {
   }
 }
 
-export class LocalStorage implements AppStorageService {
+export class LocalStorageService {
   protected db!: IDBPDatabase<LocalSchema>
 
   constructor(public dbName: string) {}
 
-  protected sortData(data: DBValue[]) {
-    return (
-      data
-        // @ts-expect-error - substracting dates is fine
-        .sort((a: DBValue, b: DBValue) => b.date - a.date)
-        .map((data: DBValue) => data.station)
-    )
-  }
-
-  async getFavoriteStations(): Promise<RadioDTO[]> {
-    const data = await this.getAll('favorites')
+  async getStations(collection: StationCollection): Promise<RadioDTO[]> {
+    const data = await this.getAll(collection)
 
     return this.sortData(data)
   }
 
-  async addFavoriteStation(station: RadioDTO) {
-    return this.put('favorites', {
+  async getRawData(
+    collection: StationCollection
+  ): Promise<{ station: RadioDTO; date: string }[]> {
+    const data = await this.getAll(collection)
+
+    return data.map((data) => ({
+      station: data.station,
+      date: data.date
+    }))
+  }
+
+  async removeAllStations(collection: StoreNames<LocalSchema>) {
+    const db = await this.getDB()
+
+    await db.clear(collection)
+
+    return true
+  }
+
+  async addStation(station: RadioDTO, collection: StationCollection) {
+    await this.put(collection, {
       station,
-      date: new Date(),
+      date: new Date().toISOString(),
       _id: station._id
     })
+
+    return true
   }
 
-  removeFavoriteStation(id: string) {
-    return this.delete('favorites', id)
-  }
+  async removeStation(id: string, collection: StationCollection) {
+    await this.delete(collection, id)
 
-  async getRecentStations(): Promise<RadioDTO[]> {
-    const data = await this.getAll('recent')
-
-    return this.sortData(data)
-  }
-
-  addRecentStation(station: RadioDTO) {
-    return this.put('recent', { station, date: new Date(), _id: station._id })
-  }
-
-  removeRecentStation(id: string) {
-    return this.delete('recent', id)
+    return true
   }
 
   async initDB() {
@@ -91,36 +91,34 @@ export class LocalStorage implements AppStorageService {
     return this.db
   }
 
-  // async get(
-  //   collection: StoreNames<LocalSchema>,
-  //   query: string | IDBKeyRange
-  // ): Promise<RadioStation | undefined> {
-  //   const db = await this.getDB()
-
-  //   cons await db.get(collection, query)
-  // }
-
-  async getAll(collection: StoreNames<LocalSchema>) {
+  protected async getAll(collection: StoreNames<LocalSchema>) {
     const db = await this.getDB()
 
-    return await db.getAll(collection)
+    return db.getAll(collection)
   }
 
-  // async set(collection: StoreNames<LocalSchema>, station: RadioStation) {
-  //   const db = await this.getDB()
-
-  //   return await db.add(collection, station)
-  // }
-
-  async put(collection: StoreNames<LocalSchema>, data: DBValue) {
+  protected async put(collection: StoreNames<LocalSchema>, data: DBValue) {
     const db = await this.getDB()
 
     return await db.put(collection, data)
   }
 
-  async delete(collection: StoreNames<LocalSchema>, id: string) {
+  protected async delete(collection: StoreNames<LocalSchema>, id: string) {
     const db = await this.getDB()
 
     return await db.delete(collection, id)
+  }
+
+  protected sortData(data: DBValue[]) {
+    return (
+      data
+        .map((data: DBValue) => ({
+          station: data.station,
+          date: new Date(data.date)
+        }))
+        // @ts-expect-error - substracting dates is fine
+        .sort((a: DBValue, z: DBValue) => z.date - a.date)
+        .map((data: { station: RadioDTO; date: Date }) => data.station)
+    )
   }
 }

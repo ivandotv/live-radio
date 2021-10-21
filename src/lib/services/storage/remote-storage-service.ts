@@ -1,6 +1,6 @@
+import { StationCollection } from 'lib/api/api-utils'
 import { RadioDTO } from 'lib/station-utils'
 import { client } from 'lib/utils'
-import { AppStorageService } from './app-storage-service'
 
 export class AuthExpiredError extends Error {
   constructor() {
@@ -9,9 +9,50 @@ export class AuthExpiredError extends Error {
   }
 }
 
-export class RemoteStorage implements AppStorageService {
+export class RemoteStorageService {
   constructor(protected transport: typeof client) {
     this.checkAuthError = this.checkAuthError.bind(this)
+  }
+
+  removeAllStations(collection: StationCollection) {
+    return this.transport(`/api/collection/delete/${collection}`, {
+      method: 'DELETE'
+    }).catch(this.checkAuthError)
+  }
+
+  addStation(station: RadioDTO, collection: StationCollection) {
+    return this.transport(`/api/stations/${collection}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ station })
+    }).catch(this.checkAuthError)
+  }
+
+  removeStation(id: string, collection: StationCollection) {
+    return this.transport(`/api/stations/${collection}?id=${id}`, {
+      method: 'DELETE'
+    }).catch(this.checkAuthError)
+  }
+
+  importStations(
+    data: { station: RadioDTO; date: string }[],
+    collection: StationCollection
+  ): Promise<any> {
+    return this.transport(`/api/collection/import/${collection}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ stations: data, collection })
+    }).catch(this.checkAuthError)
+  }
+
+  getStations(collection: StationCollection): Promise<RadioDTO[]> {
+    return this.transport(`/api/stations/${collection}`, {
+      method: 'GET'
+    }).catch(this.checkAuthError)
   }
 
   protected checkAuthError(err: unknown) {
@@ -19,49 +60,5 @@ export class RemoteStorage implements AppStorageService {
       throw new AuthExpiredError()
     }
     throw err
-  }
-
-  getFavoriteStations(): Promise<RadioDTO[]> {
-    return this.transport('/api/favorites', {
-      method: 'GET'
-    }).catch(this.checkAuthError)
-  }
-
-  addFavoriteStation(station: RadioDTO) {
-    return this.transport('/api/favorites', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(station)
-    }).catch(this.checkAuthError)
-  }
-
-  removeFavoriteStation(id: string) {
-    return this.transport(`/api/favorites?id=${id}`, {
-      method: 'DELETE'
-    }).catch(this.checkAuthError)
-  }
-
-  getRecentStations(): Promise<RadioDTO[]> {
-    return this.transport('/api/recent', {
-      method: 'GET'
-    }).catch(this.checkAuthError)
-  }
-
-  addRecentStation(station: RadioDTO) {
-    return this.transport('/api/recent', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(station)
-    }).catch(this.checkAuthError)
-  }
-
-  removeRecentStation(id: string) {
-    return this.transport(`/api/recent?id=${id}`, {
-      method: 'DELETE'
-    }).catch(this.checkAuthError)
   }
 }

@@ -1,11 +1,15 @@
 import { AuthExpiredError } from 'lib/services/auth-service'
+import {
+  AppStorageService,
+  appStorageFactory
+} from 'lib/services/storage/app-storage-service'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'
 
 export type AppTheme = 'light' | 'dark'
 
 export function appShellFactory(root: RootStore) {
-  return new AppShellStore(root)
+  return new AppShellStore(root, appStorageFactory())
 }
 
 export class AppShellStore {
@@ -25,7 +29,10 @@ export class AppShellStore {
 
   authExpired = false
 
-  constructor(protected rootStore: RootStore) {
+  constructor(
+    protected rootStore: RootStore,
+    protected storage: AppStorageService
+  ) {
     makeObservable<this, 'setIsOnline'>(this, {
       showApp: observable,
       theme: observable,
@@ -70,7 +77,82 @@ export class AppShellStore {
     this.animateDesktopDrawer = animate
   }
 
-  setUserIsSignedIn(isSignedIn: boolean) {
-    this.userIsSignedIn = isSignedIn
+  // setUserIsSignedIn(isSignedIn: boolean) {
+  //   this.userIsSignedIn = isSignedIn
+  // }
+
+  getLocalFavorites() {
+    return this.storage.getFavoriteStations('local')
+  }
+
+  getLocalRecent() {
+    return this.storage.getRecentStations('local')
+  }
+
+  async transferAnonymousData(
+    useFavs: boolean,
+    useRecent: boolean,
+    deleteAnonymous: boolean
+  ) {
+    //TODO create bulk add -> sort -> new load collection insert
+    try {
+      const { favorites, recent } = await this.storage.transferAnonymousData(
+        useFavs,
+        useRecent,
+        deleteAnonymous
+      )
+      for (const fav of favorites) {
+        this.rootStore.favoriteStations.add(
+          this.rootStore.favoriteStations.create(fav.station)
+        )
+      }
+
+      for (const rec of recent) {
+        this.rootStore.recentStations.add(
+          this.rootStore.recentStations.create(rec.station)
+        )
+      }
+
+      if (deleteAnonymous) {
+        await this.deleteAnonymousData()
+      }
+
+      return {
+        error: undefined
+      }
+    } catch (err: any) {
+      return {
+        error: err.mgs ? err.msg : err.toString()
+      }
+    }
+  }
+
+  async hasAnonymousData() {
+    try {
+      const [favResult, recentResult] = await Promise.all([
+        this.getLocalFavorites(),
+        this.getLocalRecent()
+      ])
+
+      if (favResult.length || recentResult.length) {
+        return true
+      }
+
+      return false
+    } catch (e) {
+      //just return false for any error
+      return false
+    }
+  }
+
+  async deleteAnonymousData() {
+    return Promise.all([
+      this.storage.removeAllFavoriteStations('local'),
+      this.storage.removeAllRecentStations('local')
+    ])
+  }
+
+  async countStationClick(id: string): Promise<boolean> {
+    return this.storage.countStationClick(id)
   }
 }

@@ -1,9 +1,11 @@
 import Joi from 'joi'
-import { isProduction } from 'server-config'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getSession } from 'next-auth/client'
 import { Session } from 'next-auth'
+import { getSession } from 'next-auth/client'
 import { NextHandler } from 'next-connect'
+import { isProduction } from 'server-config'
+import { StationCollection } from './api-utils'
+import { getDao } from './dao'
 
 export type NextApiRequestWithSession = NextApiRequest & {
   session?: Session
@@ -30,7 +32,7 @@ const stationSchema = Joi.object().keys({
   _id: Joi.string().required(),
   name: Joi.string().required(),
   url: Joi.string().required(),
-  homepage: Joi.string().required(),
+  homepage: Joi.string().required().allow(''),
   tags: Joi.array().required().items(Joi.string().allow('')),
   language: Joi.array().required().items(Joi.string().allow('')),
   codec: Joi.string().required(),
@@ -40,6 +42,13 @@ const stationSchema = Joi.object().keys({
   country: Joi.string().required().allow(''),
   countryCode: Joi.string().required().allow('')
 })
+
+const importSchema = Joi.array().items(
+  Joi.object().keys({
+    station: stationSchema,
+    date: Joi.date().required()
+  })
+)
 
 /**
  * Validates station payload
@@ -53,9 +62,11 @@ export function validateStation(
   res: NextApiResponse,
   next: NextHandler
 ) {
-  const { error } = stationSchema.validate(req.body, {
+  console.log('validate ', req.body.station)
+  const { error } = stationSchema.validate(req.body.station, {
     errors: { render: false }
   })
+
   if (error) {
     return res.status(422).json({
       msg: 'Not a valid Station object',
@@ -64,4 +75,167 @@ export function validateStation(
   }
 
   next()
+}
+
+/**
+ * Validates array of stations payload
+ * @param req
+ * @param res
+ * @param next
+ * @returns
+ */
+export function bulkValidateStations(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  next: NextHandler
+) {
+  const { error } = importSchema.validate(req.body.stations, {
+    errors: { render: false }
+  })
+
+  if (error) {
+    return res.status(422).json({
+      msg: 'Not all stations are valid',
+      debug: isProduction ? undefined : error
+    })
+  }
+
+  next()
+}
+
+/**
+ * Gets stations for a particular collection
+ * @param collection - user collection
+ */
+
+//TODO - odraditi DAO - get user STATIONS
+export function checkCollectionExists(
+  req: NextApiRequestWithSession,
+  res: NextApiResponse,
+  next: NextHandler
+) {
+  const collection: StationCollection | undefined = req.query.collection
+    ? (req.query.collection[0] as StationCollection)
+    : undefined
+
+  console.log({ query: req.query })
+
+  if (!collection) {
+    return res.status(400).json({ msg: 'collection missing' })
+  }
+
+  if (-1 === ['favorites', 'recent'].indexOf(collection)) {
+    return res.status(404).json({ msg: 'collection not found' })
+  }
+  next()
+}
+
+export async function getUserCollection(
+  req: NextApiRequestWithSession,
+  res: NextApiResponse
+) {
+  const collection: StationCollection = req.query
+    .collection[0] as StationCollection
+
+  const stations = await getDao().getUserCollection(
+    req.session!.user.id,
+    collection
+  )
+
+  return res.json(stations)
+}
+
+/**
+ * Handle saving stations to particular collections
+ * @param collection - where to save the station
+ */
+export async function saveStation(
+  req: NextApiRequestWithSession,
+  res: NextApiResponse
+) {
+  const collection: StationCollection = req.query
+    .collection[0] as StationCollection
+
+  await getDao().saveToUserCollection(
+    req.session!.user.id,
+    req.body.station,
+    collection
+  )
+
+  return res.status(201).json({ msg: 'saved' })
+}
+
+/**
+ * Deletes station from a particular collection
+ * @param collection - name of the collection
+ */
+export async function deleteStation(
+  req: NextApiRequestWithSession,
+  res: NextApiResponse
+) {
+  const collection: StationCollection = req.query
+    .collection[0] as StationCollection
+  const id = req.query.id as string
+
+  if (!id) {
+    return res.status(400).json({ msg: 'Station ID expected' })
+  }
+
+  const result = await getDao().deleteFromUserCollection(
+    req.session!.user.id,
+    id,
+    collection
+  )
+  if (result) {
+    return res.status(200).json({ msg: 'deleted' })
+  }
+
+  return res.status(404).json({ msg: 'not found' })
+}
+
+/**
+ * Deletes the whole collection
+ * @param collection - name of the collection
+ */
+export async function deleteCollection(
+  req: NextApiRequestWithSession,
+  res: NextApiResponse
+) {
+  const collection: StationCollection = req.query
+    .collection[0] as StationCollection
+
+  const result = await getDao().deleteUserCollection(
+    req.session!.user.id,
+    collection
+  )
+  if (result) {
+    return res.status(200).json({ msg: 'deleted' })
+  }
+
+  return res.status(404).json({ msg: 'not found' })
+}
+
+/**
+ * Validates array of stations payload
+ * @param req
+ * @param res
+ * @param next
+ * @returns
+ */
+export async function importStations(
+  req: NextApiRequestWithSession,
+  res: NextApiResponse
+) {
+  const collection: StationCollection = req.query
+    .collection[0] as StationCollection
+
+  console.log('import stations ', req.body.stations)
+
+  await getDao().importStations(
+    req.session!.user.id,
+    req.body.stations,
+    collection
+  )
+
+  return res.status(201).json({ msg: 'saved' })
 }

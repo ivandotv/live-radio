@@ -27,6 +27,7 @@ export function favoritesStoreFactory(root: RootStore) {
   )
 }
 
+/* TODO - composition over inheritance */
 export class FavoritesStore
   extends Collection<
     RadioModel,
@@ -39,8 +40,8 @@ export class FavoritesStore
 
   constructor(
     protected root: RootStore,
-    protected factory: typeof createRadioModel,
-    protected transport: FavoriteStationsTransport
+    factory: typeof createRadioModel,
+    transport: FavoriteStationsTransport
   ) {
     super(factory, transport)
   }

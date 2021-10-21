@@ -11,33 +11,36 @@ import { RecentStationsTransport } from 'lib/services/storage/recent-stations-tr
 import { RadioDTO } from 'lib/station-utils'
 import { RadioStore } from 'lib/stores/favorites-store'
 import { RootStore } from 'lib/stores/root-store'
-import { client } from 'lib/utils'
 
 export function recentStoreFactory(root: RootStore) {
   return new RecentStore(
     root,
-    new Collection(
-      createRadioModel,
-      new RecentStationsTransport(appStorageFactory(), client)
-    )
+    createRadioModel,
+    new RecentStationsTransport(appStorageFactory())
   )
 }
 
-export class RecentStore implements RadioStore {
+export class RecentStore
+  extends Collection<
+    RadioModel,
+    typeof createRadioModel,
+    RecentStationsTransport
+  >
+  implements RadioStore
+{
   protected result!: RadioModel[]
 
   constructor(
     protected root: RootStore,
-    protected collection: Collection<
-      RadioModel,
-      typeof createRadioModel,
-      RecentStationsTransport
-    >
-  ) {}
+    factory: typeof createRadioModel,
+    transport: RecentStationsTransport
+  ) {
+    super(factory, transport)
+  }
 
   async loadStations() {
-    if (!this.result && this.collection.loadStatus !== ASYNC_STATUS.PENDING) {
-      const result = await this.collection.load()
+    if (!this.result && this.loadStatus !== ASYNC_STATUS.PENDING) {
+      const result = await this.load()
 
       this.root.appShell.checkAuthError(result.error)
 
@@ -47,22 +50,24 @@ export class RecentStore implements RadioStore {
     return this.result
   }
 
-  get loadStatus() {
-    return this.collection.loadStatus
+  async saveStations(stations: RadioDTO[], config?: SaveConfig) {
+    for (const station of stations) {
+      await this.saveStation(station, config)
+    }
   }
 
   get stations() {
-    return this.collection.models
+    return this.models
   }
 
   async saveStation(data: RadioDTO, config?: SaveConfig) {
-    let model = this.collection.getById(data._id)
+    let model = this.getById(data._id)
     if (!model) {
-      model = this.collection.create(data)
+      model = this.create(data)
     }
 
-    this.collection.unshift(model)
-    const result = await this.collection.save(model, config)
+    this.unshift(model)
+    const result = await this.save(model, config)
 
     this.root.appShell.checkAuthError(result.error)
 
@@ -70,23 +75,19 @@ export class RecentStore implements RadioStore {
   }
 
   async deleteStation(id: string, config?: DeleteConfig) {
-    const result = await this.collection.delete(id, config)
+    const result = await this.delete(id, config)
 
     this.root.appShell.checkAuthError(result.error)
 
     return result
   }
 
-  countStationClick(id: string): void {
-    this.collection.getTransport().countStationClick(id)
-  }
-
   async getStationInfo(id: string): Promise<RadioDTO> {
-    const model = this.collection.getById(id)
+    const model = this.getById(id)
     if (model) {
       return model.data
     }
 
-    return await this.collection.getTransport().getStationInfo(id)
+    return await this.getTransport().getStationInfo(id)
   }
 }

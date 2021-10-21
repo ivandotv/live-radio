@@ -1,12 +1,12 @@
 import { Transport } from '@fuerte/core'
 import { RadioModel } from 'lib/radio-model'
-import { AppStorageService } from './app-storage-service'
+import { AppStorageService, STORAGE_TYPE } from './app-storage-service'
 
 export class FavoriteStationsTransport implements Transport<RadioModel> {
   constructor(protected storage: AppStorageService) {}
 
-  async load(): Promise<{ data: any[] }> {
-    const data = await this.storage.getFavoriteStations()
+  async load(type?: STORAGE_TYPE) {
+    const data = await this.storage.getFavoriteStations(type)
 
     return { data }
   }

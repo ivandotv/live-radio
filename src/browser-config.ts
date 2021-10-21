@@ -60,6 +60,8 @@ export const pwaUpdatedCookieName = 'show_app_updated'
 
 export const pwaInstallDismissedCookie = 'pwa_install_dissmissed'
 
+export const anonymousImportDisissedCookie = 'anonymous_dissmissed'
+
 export const stationSearchIndexes = [
   'data.language',
   'data.country',

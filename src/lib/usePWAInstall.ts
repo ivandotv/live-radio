@@ -64,7 +64,7 @@ export function usePWAInstall({
 
       //guard: sometimes this event fires when user clicks "cancel" in chrome ui (linux)
       if (!userChoice.current) {
-        if (!Cookies.get(cookieName)) {
+        if (Cookies.get(cookieName) !== '1') {
           setShowInstallPrompt(true)
         }
       }

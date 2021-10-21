@@ -21,7 +21,6 @@ import { TranslateHelpModal } from 'components/TranslateHelpModal'
 import { UserProfileDropdown } from 'components/UserProfileDropdown'
 import { searchTranslation } from 'lib/utils'
 import { observer } from 'mobx-react-lite'
-import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -85,9 +84,9 @@ export const AppToolbar = observer(function AppToolbar() {
 
   const [openTransHelp, setOpenTransHelp] = useState(false)
 
-  const [session] = useSession()
+  // const [session] = useSession()
 
-  appShell.setUserIsSignedIn(Boolean(session))
+  // appShell.setUserIsSignedIn(Boolean(session))
 
   const closeTransHelpModal = useCallback(() => {
     setOpenTransHelp(false)

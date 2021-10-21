@@ -2,25 +2,18 @@ import { AuthService } from 'lib/services/auth-service'
 import { RadioDTO } from 'lib/station-utils'
 import { client, isSSR } from 'lib/utils'
 import { Session } from 'next-auth'
-import { LocalStorage } from './local-storage-service'
-import { RemoteStorage } from './remote-storage-service'
+import { LocalStorageService } from './local-storage-service'
+import { RemoteStorageService } from './remote-storage-service'
 
-let instance: AppStorage
+let instance: AppStorageService
 
-export type AppStorageService = {
-  getFavoriteStations(): Promise<RadioDTO[]>
-  addFavoriteStation(station: RadioDTO): Promise<any>
-  removeFavoriteStation(id: string): Promise<any>
-  getRecentStations(): Promise<RadioDTO[]>
-  addRecentStation(station: RadioDTO): Promise<any>
-  removeRecentStation(id: string): Promise<any>
-}
+export type STORAGE_TYPE = 'local' | 'remote'
 
 export function appStorageFactory() {
   if (isSSR() || !instance) {
-    instance = new AppStorage(
-      new LocalStorage('LiveRadio'),
-      new RemoteStorage(client),
+    instance = new AppStorageService(
+      new LocalStorageService('LiveRadio'),
+      new RemoteStorageService(client),
       new AuthService(),
       client
     )
@@ -29,19 +22,23 @@ export function appStorageFactory() {
   return instance
 }
 
-export class AppStorage {
+export class AppStorageService {
   protected session: Session | null = null
 
   protected resolved = false
 
   constructor(
-    protected local: LocalStorage,
-    protected remote: RemoteStorage,
+    protected local: LocalStorageService,
+    protected remote: RemoteStorageService,
     protected authService: AuthService,
     protected httpClient: typeof client
   ) {}
 
-  protected async resolveStorage() {
+  protected async resolveStorage(type?: STORAGE_TYPE) {
+    //short circuit session check
+    if ('local' === type) return this.local
+    if ('remote' === type) return this.remote
+
     const session = await this.authService.getAuth()
     if (session) {
       return this.remote
@@ -50,47 +47,94 @@ export class AppStorage {
     return this.local
   }
 
-  async getFavoriteStations(): Promise<RadioDTO[]> {
-    const storage = await this.resolveStorage()
+  async getFavoriteStations(type?: STORAGE_TYPE): Promise<RadioDTO[]> {
+    const storage = await this.resolveStorage(type)
 
-    return storage.getFavoriteStations()
+    return storage.getStations('favorites')
+  }
+
+  async transferAnonymousData(
+    favorites: boolean,
+    recent: boolean,
+    deleteAll: boolean
+  ) {
+    const [localFavs, localRecent] = await Promise.all([
+      favorites ? this.local.getRawData('favorites') : [],
+      recent ? this.local.getRawData('recent') : []
+    ])
+
+    await Promise.all([
+      localFavs.length
+        ? this.remote.importStations(localFavs, 'favorites') // todo - should be one call over the wire
+        : undefined,
+      localRecent.length
+        ? this.remote.importStations(localRecent, 'recent')
+        : undefined
+    ])
+
+    if (deleteAll) {
+      Promise.all([
+        this.local.removeAllStations('favorites'),
+        this.local.removeAllStations('recent')
+      ])
+    }
+
+    return {
+      favorites: localFavs,
+      recent: localRecent
+    }
   }
 
   async addFavoriteStation(station: RadioDTO) {
     const storage = await this.resolveStorage()
 
-    return storage.addFavoriteStation(station)
+    return storage.addStation(station, 'favorites')
   }
 
   async removeFavoriteStation(id: string) {
     const storage = await this.resolveStorage()
 
-    return storage.removeFavoriteStation(id)
+    return storage.removeStation(id, 'favorites')
   }
 
-  async getRecentStations() {
-    const storage = await this.resolveStorage()
+  async getRecentStations(type?: STORAGE_TYPE) {
+    const storage = await this.resolveStorage(type)
 
-    return storage.getRecentStations()
+    return storage.getStations('recent')
   }
 
   async addRecentStation(station: RadioDTO) {
     const storage = await this.resolveStorage()
 
-    return storage.addRecentStation(station)
+    return storage.addStation(station, 'recent')
   }
 
   async removeRecentStation(id: string) {
     const storage = await this.resolveStorage()
 
-    return storage.removeRecentStation(id)
+    return storage.removeStation(id, 'recent')
+  }
+
+  async removeAllFavoriteStations(type?: STORAGE_TYPE) {
+    const storage = await this.resolveStorage(type)
+
+    return storage.removeAllStations('favorites')
+  }
+
+  async removeAllRecentStations(type?: STORAGE_TYPE) {
+    const storage = await this.resolveStorage(type)
+
+    return storage.removeAllStations('recent')
   }
 
   async countStationClick(id: string) {
     try {
-      this.httpClient('/api/station-click', { data: { id } })
+      await this.httpClient('/api/station-click', { data: { id } })
+
+      return true
     } catch (err) {
       // fail silently
+      return false
       //TODO - log error
     }
   }

@@ -8,6 +8,12 @@
       "skipFiles": ["<node_internals>/**", "/node_modules/**"],
       "sourceMaps": true,
       "port": 9229
+    },
+    {
+      "name": "script",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/src/scratch/mongo-test.mjs"
     }
   ]
 }

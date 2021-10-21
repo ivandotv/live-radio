@@ -78,7 +78,7 @@ msgstr "Albanian"
 msgid "Algeria"
 msgstr "Algeria"
 
-#: src/pages/auth/sign-in.tsx:87
+#: src/pages/auth/sign-in.tsx:82
 #: src/pages/index.tsx:53
 msgid "All data will be stored locally in your browser."
 msgstr "All data will be stored locally in your browser."
@@ -116,10 +116,18 @@ msgstr "Anguilla"
 msgid "Anonymous"
 msgstr "Anonymous"
 
-#: src/pages/auth/sign-in.tsx:89
+#: src/pages/auth/sign-in.tsx:84
 #: src/pages/index.tsx:68
 msgid "Anonymous User"
 msgstr "Anonymous User"
+
+#: src/components/ImportAnonymousData.tsx:202
+msgid "Anonymous data deleted"
+msgstr "Anonymous data deleted"
+
+#: src/components/ImportAnonymousData.tsx:220
+msgid "Anonymous data imported"
+msgstr "Anonymous data imported"
 
 #: src/generated/countries.js:332
 #: src/lib/utils.tsx:31
@@ -134,9 +142,9 @@ msgstr "Antigua and Barbuda"
 msgid "Application Settings"
 msgstr "Application Settings"
 
-#: src/components/pwa-prompt/AppUpdatedNotification.tsx:38
-msgid "Application Updated!"
-msgstr "Application Updated!"
+#: src/components/pwa-prompt/AppUpdatedNotification.tsx:12
+msgid "Application updated"
+msgstr "Application updated"
 
 #: src/generated/languages.js:12
 msgid "Arabic"
@@ -372,6 +380,10 @@ msgstr "Cameroon"
 msgid "Canada"
 msgstr "Canada"
 
+#: src/components/ImportAnonymousData.tsx:187
+msgid "Cancel"
+msgstr "Cancel"
+
 #: src/generated/countries.js:272
 msgid "Cape Verde"
 msgstr "Cape Verde"
@@ -404,7 +416,7 @@ msgstr "Chechen"
 msgid "Check out this groovy station"
 msgstr "Check out this groovy station"
 
-#: src/pages/auth/sign-in.tsx:25
+#: src/pages/auth/sign-in.tsx:24
 msgid "Check your email address."
 msgstr "Check your email address."
 
@@ -623,23 +635,27 @@ msgstr "Equatorial Guinea"
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: src/components/music-player/MusicPlayer.tsx:205
+#: src/components/music-player/MusicPlayer.tsx:211
 msgid "Error adding to  favorites"
 msgstr "Error adding to  favorites"
+
+#: src/components/ImportAnonymousData.tsx:182
+msgid "Error importing data"
+msgstr "Error importing data"
 
 #: src/components/PageLoadError.tsx:39
 msgid "Error loading data"
 msgstr "Error loading data"
 
-#: src/components/music-player/MusicPlayer.tsx:134
+#: src/components/music-player/MusicPlayer.tsx:116
 msgid "Error loading stations"
 msgstr "Error loading stations"
 
-#: src/components/music-player/MusicPlayer.tsx:99
+#: src/components/music-player/MusicPlayer.tsx:100
 msgid "Error playing radio station"
 msgstr "Error playing radio station"
 
-#: src/components/music-player/MusicPlayer.tsx:206
+#: src/components/music-player/MusicPlayer.tsx:212
 msgid "Error removing from favorites"
 msgstr "Error removing from favorites"
 
@@ -818,7 +834,7 @@ msgstr "Go to Favorites"
 msgid "Go to Settings"
 msgstr "Go to Settings"
 
-#: src/components/music-player/MusicPlayer.tsx:234
+#: src/components/music-player/MusicPlayer.tsx:240
 msgid "Go to station website"
 msgstr "Go to station website"
 
@@ -986,6 +1002,26 @@ msgstr ""
 msgid "Igbo"
 msgstr "Igbo"
 
+#: src/components/ImportAnonymousData.tsx:120
+msgid "Import Data"
+msgstr "Import Data"
+
+#: src/components/ImportAnonymousData.tsx:236
+msgid "Import data from anonymous account"
+msgstr "Import data from anonymous account"
+
+#: src/components/ImportAnonymousData.tsx:134
+msgid "Import favorite stations"
+msgstr "Import favorite stations"
+
+#: src/components/ImportAnonymousData.tsx:168
+msgid "Import in progress"
+msgstr "Import in progress"
+
+#: src/components/ImportAnonymousData.tsx:138
+msgid "Import recently listened stations"
+msgstr "Import recently listened stations"
+
 #: src/generated/countries.js:105
 msgid "India"
 msgstr "India"
@@ -1071,6 +1107,16 @@ msgstr ""
 "It appears that you have been signed out.\n"
 "You will need to sign in again in order to continue to use the application"
 
+#: src/components/ImportAnonymousData.tsx:125
+msgid ""
+"It appears that you have switched from the anonymous mode.\n"
+"Would you like to import your favorite and recently listened stations\n"
+"from the anonymous account to your current account?"
+msgstr ""
+"It appears that you have switched from the anonymous mode.\n"
+"Would you like to import your favorite and recently listened stations\n"
+"from the anonymous account to your current account?"
+
 #: src/generated/languages.js:77
 msgid "Italian"
 msgstr "Italian"
@@ -1114,6 +1160,10 @@ msgstr "Jordan"
 #: src/generated/genres.js:35
 msgid "Jungle"
 msgstr "Jungle"
+
+#: src/components/ImportAnonymousData.tsx:152
+msgid "Just delete anonymous data"
+msgstr "Just delete anonymous data"
 
 #: src/generated/genres.js:36
 msgid "K-pop"
@@ -1517,6 +1567,10 @@ msgstr "Niue"
 msgid "No Artist Data"
 msgstr "No Artist Data"
 
+#: src/components/ImportAnonymousData.tsx:149
+msgid "No thanks"
+msgstr "No thanks"
+
 #: src/generated/countries.js:395
 msgid "Norfolk Island"
 msgstr "Norfolk Island"
@@ -1584,6 +1638,15 @@ msgstr "Oh My!"
 #: src/generated/languages.js:127
 msgid "Ojibwe"
 msgstr "Ojibwe"
+
+#: src/components/ImportAnonymousData.tsx:207
+#: src/components/ImportAnonymousData.tsx:225
+msgid "Ok"
+msgstr "Ok"
+
+#: src/components/ImportAnonymousData.tsx:159
+msgid "Okay"
+msgstr "Okay"
 
 #: src/components/locationModal/LocationModal.tsx:141
 msgid "Okay, let's go"
@@ -1751,6 +1814,10 @@ msgstr "Reggaeton"
 #: src/components/pwa-prompt/UpdateBanner.tsx:19
 msgid "Reload"
 msgstr "Reload"
+
+#: src/components/ImportAnonymousData.tsx:142
+msgid "Remove anonymous data after import"
+msgstr "Remove anonymous data after import"
 
 #: src/components/StationRowRemoveBtn.tsx:102
 msgid "Remove station"
@@ -1951,7 +2018,7 @@ msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
 #: src/components/UserProfileDropdown.tsx:95
-#: src/pages/auth/sign-in.tsx:46
+#: src/pages/auth/sign-in.tsx:45
 msgid "Sign in"
 msgstr "Sign in"
 
@@ -1959,7 +2026,7 @@ msgstr "Sign in"
 msgid "Sign in again"
 msgstr "Sign in again"
 
-#: src/pages/auth/sign-in.tsx:26
+#: src/pages/auth/sign-in.tsx:25
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr "Sign in failed. Check the details you provided are correct."
 
@@ -1967,7 +2034,7 @@ msgstr "Sign in failed. Check the details you provided are correct."
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
-#: src/pages/auth/sign-in.tsx:80
+#: src/pages/auth/sign-in.tsx:75
 msgid "Sign in with"
 msgstr "Sign in with"
 
@@ -2103,6 +2170,11 @@ msgstr "Station link copied to clipboard"
 msgid "Stop"
 msgstr "Stop"
 
+#: src/components/ImportAnonymousData.tsx:196
+#: src/components/ImportAnonymousData.tsx:216
+msgid "Success"
+msgstr "Success"
+
 #: src/generated/countries.js:308
 msgid "Sudan"
 msgstr "Sudan"
@@ -2147,11 +2219,11 @@ msgstr "Swedish"
 msgid "Swing"
 msgstr "Swing"
 
-#: src/components/layout/AppToolbar.tsx:141
+#: src/components/layout/AppToolbar.tsx:140
 msgid "Switch to Dark Theme"
 msgstr "Switch to Dark Theme"
 
-#: src/components/layout/AppToolbar.tsx:140
+#: src/components/layout/AppToolbar.tsx:139
 msgid "Switch to Light Theme"
 msgstr "Switch to Light Theme"
 
@@ -2231,7 +2303,7 @@ msgstr "Tibetan"
 msgid "Tigrinya"
 msgstr "Tigrinya"
 
-#: src/pages/auth/sign-in.tsx:24
+#: src/pages/auth/sign-in.tsx:23
 msgid "To confirm your identity, sign in with the same account you used originally."
 msgstr "To confirm your identity, sign in with the same account you used originally."
 
@@ -2268,12 +2340,12 @@ msgstr "Try again"
 msgid "Try playing this station again"
 msgstr "Try playing this station again"
 
+#: src/pages/auth/sign-in.tsx:17
 #: src/pages/auth/sign-in.tsx:18
 #: src/pages/auth/sign-in.tsx:19
 #: src/pages/auth/sign-in.tsx:20
 #: src/pages/auth/sign-in.tsx:21
 #: src/pages/auth/sign-in.tsx:22
-#: src/pages/auth/sign-in.tsx:23
 msgid "Try signing with a different account."
 msgstr "Try signing with a different account."
 
@@ -2337,7 +2409,7 @@ msgstr "Ukraine"
 msgid "Ukrainian"
 msgstr "Ukrainian"
 
-#: src/pages/auth/sign-in.tsx:27
+#: src/pages/auth/sign-in.tsx:26
 msgid "Unable to sign in."
 msgstr "Unable to sign in."
 
@@ -2498,7 +2570,11 @@ msgstr "background"
 msgid "close"
 msgstr "close"
 
-#: src/pages/auth/sign-in.tsx:52
+#: src/components/ImportAnonymousData.tsx:235
+msgid "import data"
+msgstr "import data"
+
+#: src/pages/auth/sign-in.tsx:48
 msgid "landing"
 msgstr "landing"
 
@@ -2510,7 +2586,7 @@ msgstr "landing page image"
 msgid "play"
 msgstr "play"
 
-#: src/pages/auth/sign-in.tsx:74
+#: src/pages/auth/sign-in.tsx:69
 msgid "provider logo"
 msgstr "provider logo"
 

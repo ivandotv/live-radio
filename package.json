@@ -27,6 +27,8 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "@fuerte/core": "^1.1.0",
+    "@fuerte/transport-idb": "^2.0.0",
     "@lingui/react": "^3.12.1",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",

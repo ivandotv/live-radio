@@ -106,7 +106,7 @@ export const StationRowItem = observer(function StationRowItem({
           collapsedSize="0.5px"
           onExited={() => {
             console.log('on exit ')
-            station.remove()
+            store?.deleteStation(station.id)
           }}
           in={!station.isDeleted}
         >

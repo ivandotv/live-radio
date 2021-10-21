@@ -1,0 +1,73 @@
+{
+  "stations": [
+    {
+      "station": {
+        "_id": "961173b5-0601-11e8-ae97-52543be04c81",
+        "name": "Foo - Januar",
+        "url": "https",
+        "language": ["serbian", "english"],
+        "homepage": "www.yahoo.com",
+        "tags": [],
+        "flag": "",
+        "country": "Internet",
+        "countryCode": "",
+        "continent": "",
+        "continentCode": "",
+        "codec": "MP3"
+      },
+      "date": "2020-12-30T23:00:00.000Z"
+    },
+    {
+      "station": {
+        "_id": "961173b5-0601-11e8-ae97-52543be04c81",
+        "name": "Foo - Mart",
+        "url": "https",
+        "language": ["serbian", "english"],
+        "homepage": "www.yahoo.com",
+        "tags": [],
+        "flag": "",
+        "country": "Internet",
+        "countryCode": "",
+        "continent": "",
+        "continentCode": "",
+        "codec": "MP3"
+      },
+      "date": "2021-03-30T22:00:00.000Z"
+    },
+    {
+      "station": {
+        "_id": "961173b5-0601-11e8-ae97-52543be04c81",
+        "name": "Foo - Februar",
+        "url": "https",
+        "language": ["serbian", "english"],
+        "homepage": "www.yahoo.com",
+        "tags": [],
+        "flag": "",
+        "country": "Internet",
+        "countryCode": "",
+        "continent": "",
+        "continentCode": "",
+        "codec": "MP3"
+      },
+      "date": "2021-01-30T23:00:00.000Z"
+    },
+
+    {
+      "station": {
+        "_id": "861173b5-0601-11e8-ae97-52543be04c81",
+        "name": "Lucky - April",
+        "url": "https",
+        "language": ["serbian", "english"],
+        "homepage": "www.yahoo.com",
+        "tags": [],
+        "flag": "",
+        "country": "Internet",
+        "countryCode": "",
+        "continent": "",
+        "continentCode": "",
+        "codec": "MP3"
+      },
+      "date": "2021-04-30T22:00:00.000Z"
+    }
+  ]
+}
