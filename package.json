@@ -103,7 +103,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "7.0.2",
+    "husky": "7.0.4",
     "iso-639-1": "^2.1.9",
     "lint-staged": "^11.2.0",
     "next-compose-plugins": "^2.2.1",
