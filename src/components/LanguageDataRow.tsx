@@ -13,10 +13,13 @@ export function LanguageDataRow({
       link={{
         prefetch: false,
         href: {
-          pathname: `${router.pathname}/[language]`
+          pathname: `${router.pathname}/[language]`.toLowerCase()
         },
         as: {
-          pathname: `${router.pathname}/${data.raw.replace(/\s/g, '-')}`
+          pathname: `${router.pathname}/${data.raw.replace(
+            /\s/g,
+            '-'
+          )}`.toLowerCase()
         }
       }}
       primary={data.language}

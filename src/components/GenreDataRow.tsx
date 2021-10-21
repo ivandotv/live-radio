@@ -13,10 +13,13 @@ export function GenreDataRow({
       link={{
         prefetch: false,
         href: {
-          pathname: `${router.pathname}/[genre]`
+          pathname: `${router.pathname}/[genre]`.toLowerCase()
         },
         as: {
-          pathname: `${router.pathname}/${data.raw.replace(/\s/g, '-')}`
+          pathname: `${router.pathname}/${data.raw.replace(
+            /\s/g,
+            '-'
+          )}`.toLowerCase()
         }
       }}
       primary={`${data.genre}`}

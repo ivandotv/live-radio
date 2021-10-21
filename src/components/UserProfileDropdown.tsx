@@ -40,7 +40,8 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
 
-  const callbackUrl = useClientUrl(`/${router.locale}${router.pathname}`)
+  console.dir(router)
+  const callbackUrl = useClientUrl(`/${router.locale}${router.asPath}`)
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen)

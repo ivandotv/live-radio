@@ -13,12 +13,12 @@ export function CountryDataRow({
       link={{
         prefetch: false,
         href: {
-          pathname: `${router.pathname}/[country]`
+          pathname: `${router.pathname}/[country]`.toLowerCase()
         },
         as: {
           pathname: `${router.pathname.replace('[continent]', data.cont)}/${
             data.code
-          }`
+          }`.toLowerCase()
         }
       }}
       primary={`${data.name} ${data.flag}`}

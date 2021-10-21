@@ -116,7 +116,7 @@ export function booleanEnv(env: string | undefined, initial: boolean) {
 }
 
 export function globalErrorHandler(e: any) {
-  //TODO -log
+  //TODO -log to third party
   console.error('global error: ', e)
 }
 
