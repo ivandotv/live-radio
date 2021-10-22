@@ -50,7 +50,7 @@
     "mongodb": "^3",
     "next": "11.1.2",
     "next-auth": "^3.29.0",
-    "next-connect": "^0.10.2",
+    "next-connect": "^0.11.0",
     "node-internet-radio": "^0.2.1",
     "notistack": "^1.0.10",
     "path-to-regexp": "^6.2.0",
