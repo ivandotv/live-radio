@@ -9,7 +9,7 @@
     "type:check": "tsc",
     "start": "next start",
     "analyze": "env ANALYZE=true npm run build",
-    "gen:countries": "node scripts/generate-countries.js",
+    "gen:countries" : "node scripts/generate-countries.js",
     "gen:languages": "node scripts/generate-languages.js",
     "gen:genres": "node scripts/generate-genres.js",
     "generate": "npm-run-all gen:*",
