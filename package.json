@@ -40,7 +40,7 @@
     "country-code-emoji": "^2.3.0",
     "csso": "^4.2.0",
     "howler": "^2.2.3",
-    "idb": "^6.1.4",
+    "idb": "^7.0.0",
     "joi": "^17.4.2",
     "js-cookie": "^3.0.1",
     "js-search": "^2.0.0",
