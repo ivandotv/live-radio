@@ -96,7 +96,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "clean-webpack-plugin": "^4.0.0",
     "countries-list": "^2.6.1",
-    "eslint": "^7.32.0",
+    "eslint": "^8.0.0",
     "eslint-config-next": "^11.1.2",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
