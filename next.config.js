@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+// @ts-check
 const withPlugins = require('next-compose-plugins')
 const withWorkbox = require('./workbox.webpack.config')
 const linguiConfig = require('./lingui.config')
@@ -10,13 +11,9 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const locales = linguiConfig.locales
 const defaultLocale = linguiConfig.fallbackLocales.default
 
-// @ts-check
-/**
- * @type {import('next/dist/next-server/server/config').NextConfig}
- **/
+/** @type {import('next/dist/server/config').NextConfig}*/
 const nextConfig = {
   // reactStrictMode: true,
-  webpack5: true,
   api: {
     bodyParser: {
       sizeLimit: '50kb'
