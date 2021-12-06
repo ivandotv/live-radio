@@ -122,6 +122,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
           horizontal: 'center'
         }
       })
+      setErrorLoading(false)
     }
   }, [classes.snackbar, enqueueSnackbar, errorLoading])
 
@@ -135,6 +136,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
       } catch (err) {
         //if there is an error,  music player will set default station
         setErrorLoading(true)
+        console.error(err)
       } finally {
         if (recentStations.stations.length) {
           musicPlayer.setStation(recentStations.stations[0].data)
