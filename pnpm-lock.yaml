@@ -47,7 +47,7 @@ specifiers:
   eslint-plugin-react-hooks: ^4.2.0
   howler: ^2.2.3
   husky: 7.0.4
-  idb: ^6.1.4
+  idb: ^7.0.0
   iso-639-1: ^2.1.9
   joi: ^17.4.2
   js-cookie: ^3.0.1
@@ -103,7 +103,7 @@ dependencies:
   country-code-emoji: 2.3.0
   csso: 4.2.0
   howler: 2.2.3
-  idb: 6.1.5
+  idb: 7.0.0
   joi: 17.4.2
   js-cookie: 3.0.1
   js-search: 2.0.0
@@ -4631,7 +4631,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.13.7
+      uglify-js: 3.14.4
     dev: true
 
   /har-schema/2.0.0:
@@ -4810,6 +4810,10 @@ packages:
 
   /idb/6.1.5:
     resolution: {integrity: sha512-IJtugpKkiVXQn5Y+LteyBCNk1N8xpGV3wWZk9EVtZWH8DYkjBn0bX1XnGP9RkyZF0sAcywa6unHqSWKe7q4LGw==}
+
+  /idb/7.0.0:
+    resolution: {integrity: sha512-jSx0WOY9Nj+QzP6wX5e7g64jqh8ExtDs/IAuOrOEZCD/h6+0HqyrKsDMfdJc0hqhSvh0LsrwqrkDn+EtjjzSRA==}
+    dev: false
 
   /ieee754/1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
@@ -8619,8 +8623,8 @@ packages:
     hasBin: true
     dev: true
 
-  /uglify-js/3.13.7:
-    resolution: {integrity: sha512-1Psi2MmnZJbnEsgJJIlfnd7tFlJfitusmR7zDI8lXlFI0ACD4/Rm/xdrU8bh6zF0i74aiVoBtkRiFulkrmh3AA==}
+  /uglify-js/3.14.4:
+    resolution: {integrity: sha512-AbiSR44J0GoCeV81+oxcy/jDOElO2Bx3d0MfQCUShq7JRXaM4KtQopZsq2vFv8bCq2yMaGrw1FgygUd03RyRDA==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true

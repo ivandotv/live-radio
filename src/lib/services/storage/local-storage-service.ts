@@ -62,21 +62,24 @@ export class LocalStorageService {
   }
 
   async initDB() {
-    const db = await openDB<LocalSchema>(this.dbName, 1, {
-      upgrade(db, oldVersion, _newVersion, _transaction) {
-        if (oldVersion === 0) {
+    const db = await openDB<LocalSchema>(this.dbName, 2, {
+      upgrade(db, oldVersion, newVersion, _transaction) {
+        if (oldVersion !== newVersion) {
+          console.log('idb upgrade')
+          db.deleteObjectStore('favorites')
+          db.deleteObjectStore('recent')
           db.createObjectStore('favorites', { keyPath: '_id' })
           db.createObjectStore('recent', { keyPath: '_id' })
         }
       },
       blocked() {
-        console.log('blocked')
+        console.log('idb blocked')
       },
       blocking() {
-        console.log('blocking')
+        console.log('idb blocking')
       },
       terminated() {
-        console.log('terminated')
+        console.log('idb terminated')
       }
     })
 

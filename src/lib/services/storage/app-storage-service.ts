@@ -6,13 +6,14 @@ import { LocalStorageService } from './local-storage-service'
 import { RemoteStorageService } from './remote-storage-service'
 
 let instance: AppStorageService
+const localDbName = 'LiveRadio'
 
 export type STORAGE_TYPE = 'local' | 'remote'
 
 export function appStorageFactory() {
   if (isSSR() || !instance) {
     instance = new AppStorageService(
-      new LocalStorageService('LiveRadio'),
+      new LocalStorageService(localDbName),
       new RemoteStorageService(client),
       new AuthService(),
       client
