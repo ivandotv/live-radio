@@ -4,6 +4,7 @@ import { loadTranslations } from 'lib/translations'
 import { useClientUrl } from 'lib/utils'
 import { NextPageContext } from 'next'
 import { ClientSafeProvider, getProviders, signIn } from 'next-auth/client'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'styles/global'
@@ -44,8 +45,12 @@ export default function SignIn({
     <div className="page-wrap">
       <PageTitle title={t`Sign in`} />
       <div className="banner-wrapper">
-        {/* eslint-disable-next-line*/}
-        <img width="250" src="/images/landing-page.png" alt={t`landing`} />
+        <Image
+          width="250"
+          height="182"
+          src="/images/landing-page.png"
+          alt={t`landing`}
+        />
       </div>
       {errorMessage ? (
         <div className="btn-wrap">
@@ -63,15 +68,15 @@ export default function SignIn({
               })
             }
           >
-            {/* https://github.com/vercel/next.js/discussions/18312  */}
-            {/* eslint-disable-next-line   */}
-            <img
-              alt={t`provider logo`}
-              className="login-icon"
-              width="30"
-              height="30"
-              src={`/images/${provider.name.toLowerCase()}-login.png`}
-            ></img>
+            <span className="img-wrap">
+              <Image
+                alt={t`provider logo`}
+                className="login-icon"
+                width="30"
+                height="30"
+                src={`/images/${provider.name.toLowerCase()}-login.png`}
+              ></Image>
+            </span>
             {t`Sign in with`} {provider.name}
           </a>
         ))}
@@ -117,6 +122,9 @@ export default function SignIn({
           .login-icon {
             width: 30px;
             margin-right: 8px;
+          }
+          .img-wrap {
+            padding-right: 8px;
           }
         `}
       </style>
