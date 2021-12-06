@@ -57,7 +57,7 @@ export function useServiceWorker({
      */
     function swControlling(_evt: any) {
       if (shouldReload.current) {
-        Cookies.set(updateCookieName, '1')
+        Cookies.set(updateCookieName, '1', { sameSite: 'strict' })
         window.location.reload()
       }
     }

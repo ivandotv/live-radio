@@ -52,7 +52,8 @@ export function LanguageSwitcher({
     }
     Cookies.set('NEXT_LOCALE', key, {
       expires: 31, //one month,
-      path: '/'
+      path: '/',
+      sameSite: 'lax'
     })
     router.push(
       { pathname: router.pathname, query: router.query },

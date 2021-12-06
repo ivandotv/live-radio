@@ -75,7 +75,8 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
   function cancelImport() {
     Cookies.set(anonymousImportDisissedCookie, '1', {
       expires: 31 * 12, // ~ one year,
-      path: '/'
+      path: '/',
+      sameSite: 'strict'
     })
     setOpen(false)
   }
@@ -109,7 +110,7 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
           }
         })()
       } else {
-        Cookies.remove(anonymousImportDisissedCookie)
+        Cookies.remove(anonymousImportDisissedCookie, { sameSite: 'strict' })
       }
     }
   }, [session, loading, appShell])
