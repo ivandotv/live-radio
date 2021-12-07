@@ -29,6 +29,18 @@ if (process.env.NODE_ENV === 'production') {
   plugins.push(['transform-remove-console'])
 }
 module.exports = {
-  presets: ['next/babel'],
+  presets: [
+    [
+      'next/babel',
+      {
+        'preset-env': {
+          debug: true,
+          targets: {
+            browsers: '>2%, not ie 11, not op_mini all'
+          }
+        }
+      }
+    ]
+  ],
   plugins
 }
