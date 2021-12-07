@@ -34,7 +34,7 @@ module.exports = {
       'next/babel',
       {
         'preset-env': {
-          debug: true,
+          // debug: true,
           targets: {
             browsers: '>2%, not ie 11, not op_mini all'
           }
