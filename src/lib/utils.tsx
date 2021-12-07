@@ -144,3 +144,9 @@ export function createGenreDataRow(
 ) {
   return <GenreDataRow data={data} />
 }
+
+export function throwInDev(data: any) {
+  if (__DEV__) {
+    throw data
+  }
+}

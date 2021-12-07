@@ -79,7 +79,7 @@ export class MusicPlayerStore {
       initPlayer: action
     })
 
-    this.station = station
+    this.setStation(station)
   }
 
   protected songServiceCb(

@@ -77,13 +77,13 @@ export function createStationListRow(opts?: {
   // return (stations: RadioStation[]) => {
   return function StationDataRow(_: number, station: RadioModel) {
     // const station = stations[index]
+    // debugger
 
     return (
       <StationRowItem
         {...options}
         key={station.id}
         station={station}
-        // store={store}
       ></StationRowItem>
     )
   }

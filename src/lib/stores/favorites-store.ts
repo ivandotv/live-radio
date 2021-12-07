@@ -17,6 +17,8 @@ export interface RadioStore {
   get stations(): readonly RadioModel[]
   get loadStatus(): keyof typeof ASYNC_STATUS
   loadStations(): Promise<RadioModel[]>
+  getStationById(id: string): RadioModel | undefined
+  removeStation(id: string): void
 }
 
 export function favoritesStoreFactory(root: RootStore) {
@@ -76,9 +78,15 @@ export class FavoritesStore
 
     console.log({ result })
 
+    // debugger
     this.root.appShell.checkAuthError(result.error)
 
     return result
+  }
+
+  removeStation(id: string) {
+    console.log('remove station')
+    this.remove(id)
   }
 
   get stations() {

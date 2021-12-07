@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme: Theme) => {
   })
 })
 
+// TODO - break component in multiple small components
 export const StationRowItem = observer(function StationRowItem({
   station,
   store,
@@ -77,7 +78,9 @@ export const StationRowItem = observer(function StationRowItem({
   const { musicPlayer } = useRootStore()
 
   const httpsInfoText = t`Depending on your browser configuration this station might not load beacuse it is not served over a secure (httpS) connection.`
-
+  if (store) {
+    station = store.getStationById(station.id) ?? station
+  }
   const togglePlay = useCallback(
     (_e: MouseEvent) => {
       musicPlayer.togglePlay(station.data)
@@ -92,7 +95,6 @@ export const StationRowItem = observer(function StationRowItem({
   }, [])
 
   const stationError = musicPlayer.errorStations[station.id]
-  // const [show, setShow] = useState(true)
 
   return (
     <>
@@ -105,8 +107,7 @@ export const StationRowItem = observer(function StationRowItem({
         <Collapse
           collapsedSize="0.5px"
           onExited={() => {
-            console.log('on exit ')
-            store?.deleteStation(station.id)
+            store?.removeStation(station.id)
           }}
           in={!station.isDeleted}
         >

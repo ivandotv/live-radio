@@ -8,9 +8,11 @@ import {
   MusicPlayerStore
 } from 'lib/stores/music-player-store'
 import { isSSR } from 'lib/utils'
+import { configure } from 'mobx'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { RecentStore, recentStoreFactory } from './recent-store'
 
+configure({ enforceActions: 'always' })
 enableStaticRendering(typeof window === 'undefined')
 
 let store: RootStore
