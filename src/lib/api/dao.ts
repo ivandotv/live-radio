@@ -32,7 +32,6 @@ class MongoDao implements AppDao {
         { projection: { [collection]: 1, _id: 0 } }
       )
 
-    console.log('======')
     console.log('user stations -> ', userStations)
     if (!userStations || !userStations[collection]) return []
 
@@ -61,9 +60,6 @@ class MongoDao implements AppDao {
     const cursor = db.collection('stations').aggregate<RadioDTO>(query)
 
     const stations = await cursor.toArray()
-
-    console.log('stations to search ', ids)
-    console.log('final stations', stations)
 
     cursor.close()
 
