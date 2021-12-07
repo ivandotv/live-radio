@@ -11,8 +11,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import MenuCloseIcon from '@material-ui/icons/ArrowBack'
-import DarkIcon from '@material-ui/icons/Brightness6'
-import LightIcon from '@material-ui/icons/Brightness7'
+import DarkIcon from '@material-ui/icons/NightsStayRounded'
+import LightIcon from '@material-ui/icons/WbSunnyRounded'
 import MenuIcon from '@material-ui/icons/Menu'
 import { sections } from 'browser-config'
 import { LanguageSwitcher } from 'components/LanguageSwitcher'
@@ -142,7 +142,7 @@ export const AppToolbar = observer(function AppToolbar() {
           aria-label="toggle dark/light theme"
         >
           <IconButton color="inherit" onClick={toggleTheme} edge="end">
-            {appShell.theme === 'dark' ? <LightIcon /> : <DarkIcon />}
+            {appShell.theme === 'dark' ? <DarkIcon /> : <LightIcon />}
           </IconButton>
         </Tooltip>
       </Toolbar>
