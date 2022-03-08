@@ -26,11 +26,11 @@ export const Menu = observer(function Menu() {
       text: t`Recent Stations`,
       selected: router.asPath.startsWith('/app/recent')
     },
-    {
-      link: '/app/settings',
-      text: t`Settings`,
-      selected: router.asPath.startsWith('/app/settings')
-    },
+    // {
+    //   link: '/app/settings',
+    //   text: t`Settings`,
+    //   selected: router.asPath.startsWith('/app/settings')
+    // },
     {
       link: '/app/about',
       text: t`About`,

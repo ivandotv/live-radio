@@ -5,7 +5,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import RestoreIcon from '@material-ui/icons/Restore'
 import SearchIcon from '@material-ui/icons/Search'
-import SettingsIcon from '@material-ui/icons/Settings'
+import _SettingsIcon from '@material-ui/icons/Settings'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
@@ -60,8 +60,8 @@ export const MobileNavigation = observer(function MobileNavigation() {
         label: t`Recent`,
         icon: <RestoreIcon />,
         path: '/app/recent'
-      },
-      { label: t`Settings`, icon: <SettingsIcon />, path: '/app/settings' }
+      }
+      // { label: t`Settings`, icon: <SettingsIcon />, path: '/app/settings' }
     ],
     []
   )
@@ -86,7 +86,6 @@ export const MobileNavigation = observer(function MobileNavigation() {
         router.push(menuItems[newValue].path)
       }}
       showLabels
-      // className={classes.root}
     >
       {menuItems.map((item) => (
         <BottomNavigationAction
