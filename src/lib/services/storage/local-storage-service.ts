@@ -1,6 +1,6 @@
 import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
 import { StationCollection } from 'lib/api/api-utils'
-import { RadioDTO } from 'lib/station-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 
 type DBValue = { station: RadioDTO; date: string; _id: string }
 
@@ -62,12 +62,11 @@ export class LocalStorageService {
   }
 
   async initDB() {
-    const db = await openDB<LocalSchema>(this.dbName, 2, {
+    const db = await openDB<LocalSchema>(this.dbName, 1, {
       upgrade(db, oldVersion, newVersion, _transaction) {
-        if (oldVersion !== newVersion) {
-          console.log('idb upgrade')
-          db.deleteObjectStore('favorites')
-          db.deleteObjectStore('recent')
+        console.log({ oldVersion })
+        console.log({ newVersion })
+        if (newVersion === 1) {
           db.createObjectStore('favorites', { keyPath: '_id' })
           db.createObjectStore('recent', { keyPath: '_id' })
         }

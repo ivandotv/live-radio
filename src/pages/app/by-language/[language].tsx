@@ -5,17 +5,20 @@ import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { languages } from 'generated/languages'
-import { loadTranslations, paramsWithLocales } from 'lib/translations'
+import {
+  loadTranslations,
+  paramsWithLocales
+} from 'lib/utils/taranslation-utils'
 import { stationSearchIndexes, userAgentName } from 'browser-config'
 import {
   createStationListRow,
-  dataToRadioStations,
+  dataToRadioDTO,
   stationDataToStationModel
-} from 'lib/station-utils'
+} from 'lib/utils/station-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { RadioDTO } from 'lib/station-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { useMemo } from 'react'
 
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
@@ -57,7 +60,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   return {
     props: {
-      stations: dataToRadioStations(stations),
+      stations: dataToRadioDTO(stations),
       language,
       translation
     },

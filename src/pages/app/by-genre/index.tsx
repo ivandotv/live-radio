@@ -3,9 +3,9 @@ import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { ListStations } from 'components/ListStations'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
-import { getStaticTranslations } from 'lib/translations'
+import { getStaticTranslations } from 'lib/utils/taranslation-utils'
 import { genres } from 'generated/genres'
-import { createGenreDataRow } from 'lib/utils'
+import { createGenreDataRow } from 'lib/utils/misc-utils'
 
 export { getStaticTranslations as getStaticProps }
 

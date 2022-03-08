@@ -5,8 +5,11 @@ import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { countries } from 'generated/countries'
-import { loadTranslations, paramsWithLocales } from 'lib/translations'
-import { continentsByCode, createCountryDataRow } from 'lib/utils'
+import {
+  loadTranslations,
+  paramsWithLocales
+} from 'lib/utils/taranslation-utils'
+import { continentsByCode, createCountryDataRow } from 'lib/utils/misc-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 

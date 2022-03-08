@@ -77,10 +77,6 @@ export class AppShellStore {
     this.animateDesktopDrawer = animate
   }
 
-  // setUserIsSignedIn(isSignedIn: boolean) {
-  //   this.userIsSignedIn = isSignedIn
-  // }
-
   getLocalFavorites() {
     return this.storage.getFavoriteStations('local')
   }

@@ -1,6 +1,6 @@
 import { StationCollection } from 'lib/api/api-utils'
-import { RadioDTO } from 'lib/station-utils'
-import { client } from 'lib/utils'
+import { client } from 'lib/utils/misc-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 
 export class AuthExpiredError extends Error {
   constructor() {
@@ -14,13 +14,13 @@ export class RemoteStorageService {
     this.checkAuthError = this.checkAuthError.bind(this)
   }
 
-  removeAllStations(collection: StationCollection) {
+  async removeAllStations(collection: StationCollection) {
     return this.transport(`/api/collection/delete/${collection}`, {
       method: 'DELETE'
     }).catch(this.checkAuthError)
   }
 
-  addStation(station: RadioDTO, collection: StationCollection) {
+  async addStation(station: RadioDTO, collection: StationCollection) {
     return this.transport(`/api/stations/${collection}`, {
       method: 'POST',
       headers: {
@@ -30,13 +30,13 @@ export class RemoteStorageService {
     }).catch(this.checkAuthError)
   }
 
-  removeStation(id: string, collection: StationCollection) {
+  async removeStation(id: string, collection: StationCollection) {
     return this.transport(`/api/stations/${collection}?id=${id}`, {
       method: 'DELETE'
     }).catch(this.checkAuthError)
   }
 
-  importStations(
+  async importStations(
     data: { station: RadioDTO; date: string }[],
     collection: StationCollection
   ): Promise<any> {
@@ -49,7 +49,7 @@ export class RemoteStorageService {
     }).catch(this.checkAuthError)
   }
 
-  getStations(collection: StationCollection): Promise<RadioDTO[]> {
+  async getStations(collection: StationCollection): Promise<RadioDTO[]> {
     return this.transport(`/api/stations/${collection}`, {
       method: 'GET'
     }).catch(this.checkAuthError)

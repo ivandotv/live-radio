@@ -11,13 +11,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormGroup from '@material-ui/core/FormGroup'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { anonymousImportDisissedCookie } from 'browser-config'
+import { anonymousImportDissmissed } from 'browser-config'
 import clsx from 'clsx'
 import { PageLoadError } from 'components/PageLoadError'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import Cookies from 'js-cookie'
 import { observer } from 'mobx-react-lite'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => {
 
 export const ImportAnonymousData = observer(function ImportAnonymousData() {
   const { appShell } = useRootStore()
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
   const authChecked = useRef(false)
   const classes = useStyles()
   const [importError, setImportError] = useState<null | string>(null)
@@ -73,7 +73,7 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
   }
 
   function cancelImport() {
-    Cookies.set(anonymousImportDisissedCookie, '1', {
+    Cookies.set(anonymousImportDissmissed, '1', {
       expires: 31 * 12, // ~ one year,
       path: '/',
       sameSite: 'strict'
@@ -98,11 +98,11 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
   }
 
   useEffect(() => {
-    if (!loading && !authChecked.current) {
+    if (session && !authChecked.current) {
       authChecked.current = true
       if (session) {
         ;(async () => {
-          const isDismissed = Cookies.get(anonymousImportDisissedCookie)
+          const isDismissed = Cookies.get(anonymousImportDissmissed)
           const shouldOpen = await appShell.hasAnonymousData()
 
           if (shouldOpen && isDismissed !== '1') {
@@ -110,10 +110,10 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
           }
         })()
       } else {
-        Cookies.remove(anonymousImportDisissedCookie, { sameSite: 'strict' })
+        Cookies.remove(anonymousImportDissmissed, { sameSite: 'strict' })
       }
     }
-  }, [session, loading, appShell])
+  }, [session, appShell])
 
   const mainContent = (
     <>

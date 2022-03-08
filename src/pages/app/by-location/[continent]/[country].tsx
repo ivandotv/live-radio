@@ -9,12 +9,15 @@ import getFlag from 'country-code-emoji'
 import { countries } from 'generated/countries'
 import {
   createStationListRow,
-  dataToRadioStations,
+  dataToRadioDTO,
   RadioDTO,
   stationDataToStationModel
-} from 'lib/station-utils'
-import { loadTranslations, paramsWithLocales } from 'lib/translations'
-import { continentsByCode } from 'lib/utils'
+} from 'lib/utils/station-utils'
+import {
+  loadTranslations,
+  paramsWithLocales
+} from 'lib/utils/taranslation-utils'
+import { continentsByCode } from 'lib/utils/misc-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -52,7 +55,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   return {
     props: {
-      stations: dataToRadioStations(stationResults),
+      stations: dataToRadioDTO(stationResults),
       countryCode,
       continentCode: continent,
       flag,

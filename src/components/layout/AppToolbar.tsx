@@ -11,15 +11,15 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import MenuCloseIcon from '@material-ui/icons/ArrowBack'
+import MenuIcon from '@material-ui/icons/Menu'
 import DarkIcon from '@material-ui/icons/NightsStayRounded'
 import LightIcon from '@material-ui/icons/WbSunnyRounded'
-import MenuIcon from '@material-ui/icons/Menu'
 import { sections } from 'browser-config'
 import { LanguageSwitcher } from 'components/LanguageSwitcher'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { TranslateHelpModal } from 'components/TranslateHelpModal'
 import { UserProfileDropdown } from 'components/UserProfileDropdown'
-import { searchTranslation } from 'lib/utils'
+import { searchTranslation } from 'lib/utils/misc-utils'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
@@ -82,21 +82,18 @@ export const AppToolbar = observer(function AppToolbar() {
   const appTitle = useSetAppTitle(' / ', '')
   const { appShell } = useRootStore()
 
-  const [openTransHelp, setOpenTransHelp] = useState(false)
-
-  // const [session] = useSession()
-
-  // appShell.setUserIsSignedIn(Boolean(session))
+  const [openTranslationHelp, setOpenTranslationHelp] = useState(false)
 
   const closeTransHelpModal = useCallback(() => {
-    setOpenTransHelp(false)
+    setOpenTranslationHelp(false)
   }, [])
 
   const onLanguageSwitch = (key: string) => {
     if (key == 'help') {
-      setOpenTransHelp(true)
+      setOpenTranslationHelp(true)
     }
   }
+
   const toggleDesktopDrawer = () => {
     appShell.setDesktopDrawer(!appShell.desktopDrawerIsOpen)
   }
@@ -130,7 +127,7 @@ export const AppToolbar = observer(function AppToolbar() {
         <UserProfileDropdown />
         <LanguageSwitcher onChange={onLanguageSwitch} />
         <TranslateHelpModal
-          open={openTransHelp}
+          open={openTranslationHelp}
           onClose={closeTransHelpModal}
         ></TranslateHelpModal>
         <Tooltip

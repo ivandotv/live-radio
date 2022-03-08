@@ -7,7 +7,7 @@ import {
   musicPlayerFactory,
   MusicPlayerStore
 } from 'lib/stores/music-player-store'
-import { isSSR } from 'lib/utils'
+import { isSSR } from 'lib/utils/misc-utils'
 import { configure } from 'mobx'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { RecentStore, recentStoreFactory } from './recent-store'
@@ -35,7 +35,6 @@ export class RootStore {
   recentStations: RecentStore
 
   constructor() {
-    console.log('root store constructor')
     this.appShell = appShellFactory(this)
     this.musicPlayer = musicPlayerFactory(this)
     this.favoriteStations = favoritesStoreFactory(this)

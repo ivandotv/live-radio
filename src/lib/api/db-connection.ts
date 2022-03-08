@@ -1,5 +1,5 @@
-import { MongoClient } from 'mongodb'
-import { db, isProduction } from 'server-config'
+import { MongoClient, MongoClientOptions } from 'mongodb'
+import { mongoClient, isProduction } from 'server-config'
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -12,10 +12,7 @@ if (!cached) {
   cached = global.mongo = { conn: null, promise: null }
 }
 
-const opts = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  validateOptions: true,
+const opts: MongoClientOptions = {
   retryWrites: isProduction
 }
 
@@ -26,14 +23,15 @@ export async function connectToDatabase(): Promise<MongoConnection> {
 
   try {
     if (!cached.promise) {
-      cached.promise = MongoClient.connect(db.uri as string, opts).then(
-        (client) => {
-          return {
-            client,
-            db: client.db(db.dbName)
-          }
+      cached.promise = MongoClient.connect(
+        mongoClient.uri as string,
+        opts
+      ).then((client) => {
+        return {
+          client,
+          db: client.db(mongoClient.dbName)
         }
-      )
+      })
     }
     // eslint-disable-next-line
     cached.conn = await cached.promise // https://github.com/eslint/eslint/issues/11899

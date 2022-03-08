@@ -1,9 +1,9 @@
-import { booleanEnv } from 'lib/utils'
 import { t } from '@lingui/macro'
+import { booleanEnv } from 'lib/utils/misc-utils'
 import linguiConfig from '../lingui.config'
 /**
- *  This file holds configuration options that should also be available
- *  in the browser as well on the server
+ * ! This file holds configuration options that can be used
+ * ! in the browser as well on the server
  */
 
 export const url =
@@ -25,6 +25,27 @@ export const layout = {
   mainContentSpacer: 16,
   desktopDrawerWidth: 270
 } as const
+
+export const defaultArtwork = {
+  src: '/pwa-icons/manifest-icon-512.png',
+  sizes: '512x512',
+  type: 'image/png'
+}
+
+export const defaultStation = {
+  _id: '961173b5-0601-11e8-ae97-52543be04c81',
+  name: 'SomaFM Lush',
+  url: 'https://ice.somafm.com/lush-128-mp3',
+  homepage: 'https://www.somafm.com/',
+  language: [],
+  tags: [],
+  flag: '',
+  country: 'Internet',
+  countryCode: '',
+  continent: '',
+  continentCode: '',
+  codec: 'MP3'
+}
 
 export function sections() {
   return {
@@ -60,7 +81,7 @@ export const pwaUpdatedCookieName = 'show_app_updated'
 
 export const pwaInstallDismissedCookie = 'pwa_install_dissmissed'
 
-export const anonymousImportDisissedCookie = 'anonymous_dissmissed'
+export const anonymousImportDissmissed = 'anonymous_dissmissed'
 
 export const stationSearchIndexes = [
   'data.language',

@@ -12,7 +12,6 @@ import { registerRoute } from 'workbox-routing'
 import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies'
 import { OfflineFallbackWithLocale } from './OfflineFallbackWithLocale'
 declare const self: ServiceWorkerGlobalScope
-export {}
 
 cleanupOutdatedCaches()
 

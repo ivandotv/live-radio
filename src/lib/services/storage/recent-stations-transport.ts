@@ -1,6 +1,6 @@
 import { Transport } from '@fuerte/core'
 import { RadioModel } from 'lib/radio-model'
-import { RadioDTO } from 'lib/station-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { AppStorageService, STORAGE_TYPE } from './app-storage-service'
 
 export class RecentStationsTransport implements Transport<RadioModel> {

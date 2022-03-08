@@ -1,11 +1,11 @@
 import Joi from 'joi'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'next-auth'
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 import { NextHandler } from 'next-connect'
 import { isProduction } from 'server-config'
 import { StationCollection } from './api-utils'
-import { getDao } from './dao'
+import { getMongoDao } from './dao'
 
 export type NextApiRequestWithSession = NextApiRequest & {
   session?: Session
@@ -108,7 +108,7 @@ export function bulkValidateStations(
  * @param collection - user collection
  */
 
-//TODO - odraditi DAO - get user STATIONS
+//TODO - get user STATIONS DAO
 export function checkCollectionExists(
   req: NextApiRequestWithSession,
   res: NextApiResponse,
@@ -137,7 +137,7 @@ export async function getUserCollection(
   const collection: StationCollection = req.query
     .collection[0] as StationCollection
 
-  const stations = await getDao().getUserCollection(
+  const stations = await getMongoDao().getUserCollection(
     req.session!.user.id,
     collection
   )
@@ -156,7 +156,7 @@ export async function saveStation(
   const collection: StationCollection = req.query
     .collection[0] as StationCollection
 
-  await getDao().saveToUserCollection(
+  await getMongoDao().saveToUserCollection(
     req.session!.user.id,
     req.body.station,
     collection
@@ -181,7 +181,7 @@ export async function deleteStation(
     return res.status(400).json({ msg: 'Station ID expected' })
   }
 
-  const result = await getDao().deleteFromUserCollection(
+  const result = await getMongoDao().deleteFromUserCollection(
     req.session!.user.id,
     id,
     collection
@@ -204,7 +204,7 @@ export async function deleteCollection(
   const collection: StationCollection = req.query
     .collection[0] as StationCollection
 
-  const result = await getDao().deleteUserCollection(
+  const result = await getMongoDao().deleteUserCollection(
     req.session!.user.id,
     collection
   )
@@ -231,7 +231,7 @@ export async function importStations(
 
   console.log('import stations ', req.body.stations)
 
-  await getDao().importStations(
+  await getMongoDao().importStations(
     req.session!.user.id,
     req.body.stations,
     collection

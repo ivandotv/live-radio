@@ -4,8 +4,8 @@ import { ListStations } from 'components/ListStations'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { languages } from 'generated/languages'
-import { getStaticTranslations } from 'lib/translations'
-import { createLanguageDataRow } from 'lib/utils'
+import { getStaticTranslations } from 'lib/utils/taranslation-utils'
+import { createLanguageDataRow } from 'lib/utils/misc-utils'
 
 export { getStaticTranslations as getStaticProps }
 

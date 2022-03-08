@@ -1,10 +1,9 @@
+import { locales } from 'browser-config'
+import { pathToRegexp } from 'path-to-regexp'
 import { WorkboxPlugin } from 'workbox-core/types'
 import { PrecacheController } from 'workbox-precaching/PrecacheController'
 import { getOrCreatePrecacheController } from 'workbox-precaching/utils/getOrCreatePrecacheController'
-import { pathToRegexp } from 'path-to-regexp'
-import { locales } from 'browser-config'
 
-// const regexp = pathToRegexp('/:locale/')
 const regexp = pathToRegexp('/:locale/:bar*')
 
 export class OfflineFallbackWithLocale implements WorkboxPlugin {

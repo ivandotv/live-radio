@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { PageTitle } from 'components/PageTitle'
-import { getStaticTranslations } from 'lib/translations'
+import { getStaticTranslations } from 'lib/utils/taranslation-utils'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { RemovableItemsList } from 'components/RemovableItemsList'
 import { useRootStore } from 'components/providers/RootStoreProvider'

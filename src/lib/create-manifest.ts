@@ -6,6 +6,7 @@ export default function createManifest(startUrl = '') {
     background_color: '#4a90e2',
     display: 'standalone',
     scope: '/',
+    id: 'live-radio',
     start_url: `${startUrl}/app/`,
     name: t`Live Radio`,
     short_name: t`Live Radio`,

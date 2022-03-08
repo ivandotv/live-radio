@@ -8,7 +8,6 @@ const path = require('path')
 const crypto = require('crypto')
 
 const glob = require('glob')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 
 const getRevision = (file) =>
@@ -23,7 +22,6 @@ function withWorkbox(nextConfig = {}) {
       }
 
       const {
-        dev,
         isServer,
         config: {
           workbox: {
@@ -47,7 +45,7 @@ function withWorkbox(nextConfig = {}) {
         return config
       }
 
-      if (dev && disable) {
+      if (disable) {
         console.log('> Progressive web app  is disabled')
 
         return config
@@ -57,12 +55,6 @@ function withWorkbox(nextConfig = {}) {
 
       console.log('> Compiling progressive web app')
       console.log(`> Service worker destination path: "${swDestPath}"`)
-
-      config.plugins.push(
-        new CleanWebpackPlugin({
-          cleanOnceBeforeBuildPatterns: [swDestPath, `${swDestPath}.map`]
-        })
-      )
 
       const defaultDontCacheBustURLsMatching = /^\/_next\/static\/.*/iu
       const defaultWorkboxOptions = {
@@ -87,6 +79,7 @@ function withWorkbox(nextConfig = {}) {
         exclude: [
           /^build-manifest\.json$/i,
           /^react-loadable-manifest\.json$/i,
+          /middleware-manifest\.json$/i,
           /\/_error\.js$/i,
           /\.js\.map$/i,
           ...exclude

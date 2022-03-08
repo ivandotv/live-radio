@@ -8,11 +8,14 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { genres } from 'generated/genres'
 import {
   createStationListRow,
-  dataToRadioStations,
+  dataToRadioDTO,
   RadioDTO,
   stationDataToStationModel
-} from 'lib/station-utils'
-import { loadTranslations, paramsWithLocales } from 'lib/translations'
+} from 'lib/utils/station-utils'
+import {
+  loadTranslations,
+  paramsWithLocales
+} from 'lib/utils/taranslation-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -58,7 +61,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   return {
     props: {
-      stations: dataToRadioStations(stations),
+      stations: dataToRadioDTO(stations),
       genre,
       translation
     },

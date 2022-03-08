@@ -12,7 +12,7 @@ import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useAsyncFn } from 'react-use'
-import { client } from 'lib/utils'
+import { client } from 'lib/utils/misc-utils'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({

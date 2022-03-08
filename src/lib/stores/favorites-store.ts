@@ -8,7 +8,7 @@ import {
 import { createRadioModel, RadioModel } from 'lib/radio-model'
 import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { FavoriteStationsTransport } from 'lib/services/storage/favorite-stations-transport'
-import { RadioDTO } from 'lib/station-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { RootStore } from 'lib/stores/root-store'
 
 export interface RadioStore {
@@ -29,7 +29,7 @@ export function favoritesStoreFactory(root: RootStore) {
   )
 }
 
-/* TODO - composition over inheritance */
+/* TODO - composition instead of inheritance */
 export class FavoritesStore
   extends Collection<
     RadioModel,
@@ -76,16 +76,12 @@ export class FavoritesStore
   async deleteStation(id: string, config?: DeleteConfig) {
     const result = await this.delete(id, config)
 
-    console.log({ result })
-
-    // debugger
     this.root.appShell.checkAuthError(result.error)
 
     return result
   }
 
   removeStation(id: string) {
-    console.log('remove station')
     this.remove(id)
   }
 

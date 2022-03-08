@@ -10,11 +10,11 @@ import {
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { PlayerStatus } from 'lib/stores/music-player-store'
-import { useClientUrl } from 'lib/utils'
+import { useClientUrl } from 'lib/utils/misc-utils'
 import { observer } from 'mobx-react-lite'
-import { signOut, useSession } from 'next-auth/client'
+import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRootStore } from './providers/RootStoreProvider'
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const UserProfileDropdown = observer(function UserProfileDropdown() {
-  const [session] = useSession()
+  const { data: session, status } = useSession()
   const classes = useStyles()
   const router = useRouter()
   const { musicPlayer } = useRootStore()
@@ -40,7 +40,6 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef<HTMLDivElement>(null)
 
-  console.dir(router)
   const callbackUrl = useClientUrl(`/${router.locale}${router.asPath}`)
 
   const handleToggle = () => {
@@ -57,7 +56,10 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
 
     setOpen(false)
   }
-
+  useEffect(() => {
+    console.log({ session })
+    console.log({ status })
+  }, [session, status])
   const menuItems = session
     ? [
         <MenuItem

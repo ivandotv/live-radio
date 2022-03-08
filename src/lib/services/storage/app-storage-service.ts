@@ -1,6 +1,6 @@
 import { AuthService } from 'lib/services/auth-service'
-import { RadioDTO } from 'lib/station-utils'
-import { client, isSSR } from 'lib/utils'
+import { RadioDTO } from 'lib/utils/station-utils'
+import { client, isSSR } from 'lib/utils/misc-utils'
 import { Session } from 'next-auth'
 import { LocalStorageService } from './local-storage-service'
 import { RemoteStorageService } from './remote-storage-service'

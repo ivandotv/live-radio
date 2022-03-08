@@ -1,9 +1,9 @@
 import { ThemeProvider } from '@material-ui/core/styles'
+import { useRootStore } from 'components/providers/RootStoreProvider'
+import { DarkTheme, LightTheme } from 'lib/theme'
 import { observer, Observer } from 'mobx-react-lite'
 import { ReactNode, useEffect, useState } from 'react'
-import { DarkTheme, LightTheme } from 'lib/theme'
 import { ThemeQueryComponent } from './ThemeQueryComponent'
-import { useRootStore } from 'components/providers/RootStoreProvider'
 
 export const AppThemeProvider = observer(function AppThemeProvider({
   children

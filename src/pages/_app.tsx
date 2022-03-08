@@ -5,10 +5,10 @@ import { url } from 'browser-config'
 import { GlobalErrorFallback } from 'components/GlobalErrorFallback'
 import { PWAIcons } from 'components/PWAIcons'
 import { WindowErrorHandler } from 'components/WindowErrorHandler'
-import { initTranslations } from 'lib/translations'
-import { globalErrorHandler } from 'lib/utils'
+import { globalErrorHandler } from 'lib/utils/misc-utils'
+import { initTranslations } from 'lib/utils/taranslation-utils'
 import { NextPage } from 'next'
-import { Provider as AuthProvider } from 'next-auth/client'
+import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -102,10 +102,8 @@ export default function MyApp(props: AppProps) {
             )
           })}
         </Head>
-        <AuthProvider
-          options={{
-            clientMaxAge: 0 //60 * 60
-          }}
+        <SessionProvider
+          refetchInterval={0} //60 * 60
           session={pageProps.session} //in case of server side rendered routes
         >
           {Component.layout ? (
@@ -113,7 +111,7 @@ export default function MyApp(props: AppProps) {
           ) : (
             <Component {...pageProps} />
           )}
-        </AuthProvider>
+        </SessionProvider>
       </ErrorBoundary>
     </I18nProvider>
   )

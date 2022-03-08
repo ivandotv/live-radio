@@ -1,16 +1,16 @@
 import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { useSnackbar } from 'notistack'
 import { useEffect, useRef } from 'react'
 
 export default function LoginNotification() {
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
   const { enqueueSnackbar } = useSnackbar()
   const notifShown = useRef(false)
 
   useEffect(() => {
-    if (!loading && !notifShown.current) {
+    if (session && !notifShown.current) {
       notifShown.current = true
 
       enqueueSnackbar(
@@ -41,7 +41,7 @@ export default function LoginNotification() {
         }
       )
     }
-  }, [session, loading, enqueueSnackbar])
+  }, [session, enqueueSnackbar])
 
   return null
 }

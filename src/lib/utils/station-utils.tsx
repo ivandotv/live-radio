@@ -2,8 +2,8 @@ import { StationRowItem } from 'components/StationRowItem'
 import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
 import { Station } from 'radio-browser-api'
-import { RadioStore } from './stores/favorites-store'
-import { RadioModel } from './radio-model'
+import { RadioModel } from '../radio-model'
+import { RadioStore } from '../stores/favorites-store'
 
 export type RadioDTO = {
   tags: string[]
@@ -20,18 +20,19 @@ export type RadioDTO = {
   flag: string
 }
 
-export function dataToRadioStations(stations: Station[]): RadioDTO[] {
+export function dataToRadioDTO(stations: Station[]): RadioDTO[] {
   const result = []
 
-  const duplicates: { [key: string]: boolean } = {}
+  const duplicates: Record<string, string> = {}
 
-  const regex = new RegExp(/\.[a-zA-A0-9]+$/)
+  const normalizeUrl = new RegExp(/\.[a-zA-A0-9]+$/)
+
   for (const station of stations) {
-    const urlTest = station.urlResolved.replace(regex, '')
+    const urlTest = station.urlResolved.replace(normalizeUrl, '')
 
     if (duplicates[urlTest]) continue
 
-    duplicates[urlTest] = true
+    duplicates[urlTest] = urlTest
 
     let continentCode
     if (station.countryCode && station.country) {
@@ -74,11 +75,7 @@ export function createStationListRow(opts?: {
     ...opts
   }
 
-  // return (stations: RadioStation[]) => {
   return function StationDataRow(_: number, station: RadioModel) {
-    // const station = stations[index]
-    // debugger
-
     return (
       <StationRowItem
         {...options}
@@ -86,25 +83,6 @@ export function createStationListRow(opts?: {
         station={station}
       ></StationRowItem>
     )
-  }
-}
-// }
-
-//TODO - da li ovo jos uvek koristim?
-export function getDefaultStation(): RadioDTO {
-  return {
-    _id: '961173b5-0601-11e8-ae97-52543be04c81',
-    name: 'SomaFM Lush',
-    url: 'https://ice.somafm.com/lush-128-mp3',
-    homepage: 'https://www.somafm.com/',
-    language: [],
-    tags: [],
-    flag: '',
-    country: 'Internet',
-    countryCode: '',
-    continent: '',
-    continentCode: '',
-    codec: 'MP3'
   }
 }
 

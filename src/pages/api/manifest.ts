@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core'
 import { defaultLocale } from 'browser-config'
 import createManifest from 'lib/create-manifest'
-import { loadTranslations } from 'lib/translations'
+import { loadTranslations } from 'lib/utils/taranslation-utils'
 import { en, sr } from 'make-plural/plurals'
 import { NextApiRequest, NextApiResponse } from 'next'
 

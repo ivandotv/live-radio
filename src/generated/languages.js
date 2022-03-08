@@ -17,7 +17,6 @@ export function languages() {
     { raw: "Bashkir", t: t`Bashkir` },
     { raw: "Belarusian", t: t`Belarusian` },
     { raw: "Bulgarian", t: t`Bulgarian` },
-    { raw: "Bihari", t: t`Bihari` },
     { raw: "Bislama", t: t`Bislama` },
     { raw: "Bambara", t: t`Bambara` },
     { raw: "Bengali", t: t`Bengali` },

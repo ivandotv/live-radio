@@ -3,9 +3,9 @@ import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
 import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
-import { continentsByCode } from 'lib/utils'
+import { continentsByCode } from 'lib/utils/misc-utils'
 import { t } from '@lingui/macro'
-import { getStaticTranslations } from 'lib/translations'
+import { getStaticTranslations } from 'lib/utils/taranslation-utils'
 
 export { getStaticTranslations as getStaticProps }
 

@@ -1,5 +1,5 @@
 import { Session } from 'next-auth'
-import { getSession } from 'next-auth/client'
+import { getSession } from 'next-auth/react'
 
 export class AuthExpiredError extends Error {
   constructor() {

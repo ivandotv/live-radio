@@ -1,5 +1,5 @@
 import { Model } from '@fuerte/core'
-import { RadioDTO } from './station-utils'
+import { RadioDTO } from './utils/station-utils'
 import { FavoritesStore } from './stores/favorites-store'
 import { RecentStore } from './stores/recent-store'
 

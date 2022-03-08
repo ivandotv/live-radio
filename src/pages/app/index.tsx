@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro'
 import List from '@material-ui/core/List'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
-import { LocationModal } from 'components/locationModal/LocationModal'
+import { LocationModal } from 'components/LocationModal'
 import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'
 import { PlayFromShareModal } from 'components/PlayFromShareModal'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { getStaticTranslations } from 'lib/translations'
+import { getStaticTranslations } from 'lib/utils/taranslation-utils'
 import { useRouter } from 'next/router'
 import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react'
 
@@ -22,7 +22,6 @@ export default function Search() {
   const handleCloseDialog = () => {
     setOpenDialog(false)
   }
-  //////
 
   const router = useRouter()
   const { musicPlayer } = useRootStore()

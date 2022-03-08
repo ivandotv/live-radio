@@ -3,7 +3,7 @@ import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { getStaticTranslations } from 'lib/translations'
+import { getStaticTranslations } from 'lib/utils/taranslation-utils'
 import { RemovableItemsList } from 'components/RemovableItemsList'
 import { stationSearchIndexes } from 'browser-config'
 

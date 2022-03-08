@@ -1,12 +1,12 @@
-import { RadioDTO } from 'lib/station-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { ObjectId } from 'mongodb'
-import { db as dbSettings, isProduction } from 'server-config'
+import { mongoClient as dbSettings, isProduction } from 'server-config'
 import { AppDao, StationCollection } from './api-utils'
 import { connectToDatabase } from './db-connection'
 
 let instance: MongoDao
 
-export function getDao() {
+export function getMongoDao() {
   if (!instance) {
     instance = new MongoDao(connectToDatabase)
   }
@@ -194,8 +194,6 @@ class MongoDao implements AppDao {
         { $pull: { [collection]: { _id: stationId } } }
       )
 
-    console.log('---- result', result)
-
     return Boolean(result.modifiedCount)
   }
 
@@ -206,8 +204,6 @@ class MongoDao implements AppDao {
    */
   async createStation(station: RadioDTO) {
     const { db } = await this.connection()
-
-    // await this.saveStationWithTransaction(db, station)
 
     await db
       .collection('stations')

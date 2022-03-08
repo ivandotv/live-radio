@@ -1,10 +1,11 @@
+import { defaultStation } from 'browser-config'
 import { Howl } from 'howler'
 import {
   SongInfoService,
   songInfoServiceFactory
 } from 'lib/services/song-info-service'
-import { getDefaultStation, RadioDTO } from 'lib/station-utils'
 import { RootStore } from 'lib/stores/root-store'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 
 export const PlayerStatus = {
@@ -16,12 +17,7 @@ export const PlayerStatus = {
 } as const
 
 export function musicPlayerFactory(root: RootStore) {
-  return new MusicPlayerStore(
-    root,
-    // appStorageFactory(),
-    songInfoServiceFactory(),
-    getDefaultStation()
-  )
+  return new MusicPlayerStore(root, songInfoServiceFactory(), defaultStation)
 }
 
 export class MusicPlayerStore {
@@ -40,7 +36,7 @@ export class MusicPlayerStore {
 
   stationChecked = false
 
-  errorStations: { [key: string]: boolean } = {}
+  errorStations: Record<string, boolean> = {}
 
   protected stationClickTimeoutId: number | undefined
 
@@ -50,7 +46,7 @@ export class MusicPlayerStore {
 
   protected firstTryLoad = true
 
-  // TODO - this should be a state machine
+  // TODO - refactor to a state machine
   constructor(
     protected rootStore: RootStore,
     // protected storage: AppStorage,
@@ -87,11 +83,9 @@ export class MusicPlayerStore {
     data?: { artist: string; title: string }
   ) {
     if (error) {
-      console.log('player - song service error')
-      console.error(error)
+      console.error('player - song service error', error)
     } else {
-      console.log('player - song service success')
-      console.log(data)
+      console.log('player - song service success', data)
       if (data) {
         if (
           data.title &&
@@ -156,11 +150,11 @@ export class MusicPlayerStore {
     })
 
     this.player.on('pause', () => {
-      console.log('radio paused')
       runInAction(() => {
         this.status = PlayerStatus.PAUSED
       })
       window.navigator.mediaSession!.playbackState = 'paused'
+      console.log('radio paused')
     })
 
     this.player.on('load', () => {
@@ -168,10 +162,6 @@ export class MusicPlayerStore {
     })
 
     this.player.on('loaderror', (_, errorData) => {
-      console.log('radio loaderror')
-      console.log('error data')
-      console.log(errorData)
-      console.log(_)
       if (this.firstTryLoad) {
         this.firstTryLoad = false
         this.disposePlayer()
@@ -187,6 +177,11 @@ export class MusicPlayerStore {
 
         window.navigator.mediaSession!.playbackState = 'paused'
 
+        console.log('radio loaderror')
+        console.log('error data')
+        console.log(errorData)
+        console.log(_)
+
         return
       }
       runInAction(() => {
@@ -200,7 +195,6 @@ export class MusicPlayerStore {
       })
     })
     this.player.on('playerror', (_, errorData) => {
-      console.log('radio playerror')
       runInAction(() => {
         this.playerError = {
           type: 'play',
@@ -212,6 +206,7 @@ export class MusicPlayerStore {
       })
 
       window.navigator.mediaSession!.playbackState = 'paused'
+      console.log('radio playerror')
     })
 
     this.player.play()
@@ -274,7 +269,7 @@ export class MusicPlayerStore {
   }
 
   resume() {
-    console.log('player-> resume')
     this.player!.play()
+    console.log('player-> resume')
   }
 }

@@ -57,13 +57,11 @@ export class FilterDataStore {
     if (query) {
       this.search(query)
     }
-    // debugger
   }
 
   search(query: string, delay?: number): void {
     this.query = query
 
-    // debounce search
     if (this.searchTimeoutId) {
       clearTimeout(this.searchTimeoutId)
     }

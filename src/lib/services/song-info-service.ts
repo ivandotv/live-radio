@@ -1,4 +1,4 @@
-import { isSSR } from 'lib/utils'
+import { isSSR } from 'lib/utils/misc-utils'
 
 export function songInfoServiceFactory() {
   return new SongInfoService(isSSR() ? fetch : fetch.bind(window))
@@ -51,7 +51,7 @@ export class SongInfoService {
     this.stopped = true
     console.log('song service stop')
     if (this.timeoutId) {
-      console.log('song service kill tiemout')
+      console.log('song service kill timeout')
 
       clearTimeout(this.timeoutId)
       this.timeoutId = undefined

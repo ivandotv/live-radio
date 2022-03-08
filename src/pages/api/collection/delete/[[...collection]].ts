@@ -7,7 +7,6 @@ import {
 import { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
 
-/* Handle CRUD for favorite stations route */
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
   .use(setupSession)
   .delete(checkCollectionExists, deleteCollection)

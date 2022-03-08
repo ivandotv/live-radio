@@ -1,10 +1,10 @@
 import { userAgentName } from 'browser-config'
 import { RadioModel } from 'lib/radio-model'
 import {
-  dataToRadioStations,
+  dataToRadioDTO,
   stationDataToStationModel
-} from 'lib/station-utils'
-import { isSSR } from 'lib/utils'
+} from 'lib/utils/station-utils'
+import { isSSR } from 'lib/utils/misc-utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
 
@@ -23,15 +23,15 @@ export class CustomSearchStore {
 
   lastQuery = ''
 
+  data: { result?: RadioModel[]; error?: Error } = {}
+
+  searchInProgress = false
+
   protected api: RadioBrowserApi
 
   protected searchTimeoutId: number | undefined
 
   protected requestToken: Record<string, unknown> | undefined
-
-  data: { result?: RadioModel[]; error?: Error } = {}
-
-  searchInProgress = false
 
   constructor() {
     this.api = new RadioBrowserApi(userAgentName)
@@ -86,7 +86,7 @@ export class CustomSearchStore {
         runInAction(() => {
           this.data = {
             //TODO - optimize double iteration
-            result: stationDataToStationModel(dataToRadioStations(result))
+            result: stationDataToStationModel(dataToRadioDTO(result))
           }
           this.searchInProgress = false
           this.lastQuery = query

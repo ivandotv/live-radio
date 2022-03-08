@@ -1,5 +1,5 @@
 import { isProduction } from 'server-config'
-import { countryDataByKey } from 'lib/utils'
+import { countryDataByKey } from 'lib/utils/misc-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import requestIp from 'request-ip'
 

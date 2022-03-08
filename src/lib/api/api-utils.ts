@@ -1,4 +1,4 @@
-import { RadioDTO } from 'lib/station-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { isProduction } from 'server-config'
 

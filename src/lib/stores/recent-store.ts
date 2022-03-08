@@ -8,7 +8,7 @@ import {
 import { createRadioModel, RadioModel } from 'lib/radio-model'
 import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { RecentStationsTransport } from 'lib/services/storage/recent-stations-transport'
-import { RadioDTO } from 'lib/station-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { RadioStore } from 'lib/stores/favorites-store'
 import { RootStore } from 'lib/stores/root-store'
 
@@ -89,5 +89,13 @@ export class RecentStore
     }
 
     return await this.getTransport().getStationInfo(id)
+  }
+
+  getStationById(id: string) {
+    return this.getById(id)
+  }
+
+  removeStation(id: string) {
+    this.remove(id)
   }
 }

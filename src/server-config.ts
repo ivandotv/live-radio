@@ -1,12 +1,12 @@
-import { booleanEnv } from 'lib/utils'
+import { booleanEnv } from 'lib/utils/misc-utils'
 
 /**
- * Configuration in this file should not be imported in front end code
+ * ! Configuration in this file should ONLY be used on server side code!
  */
 
 export const isProduction = process.env.NODE_ENV === 'production'
 
-export const db = {
+export const mongoClient = {
   uri: process.env.MONGODB_URI,
   dbName: process.env.MONGO_DB_NAME,
   maxCollectionLimit: 100,
@@ -16,7 +16,8 @@ export const db = {
 export const auth = {
   github: {
     clientId: process.env.GITHUB_ID as string,
-    clientSecret: process.env.GITHUB_SECRET as string
+    clientSecret: process.env.GITHUB_SECRET as string,
+    type: 'oauth'
   },
   google: {
     clientId: process.env.GOOGLE_ID as string,
@@ -24,4 +25,4 @@ export const auth = {
   },
   signSecret: process.env.AUTH_SIGN_SECRET,
   debug: Boolean(process.env.DEBUG_AUTH) ?? false
-}
+} as const

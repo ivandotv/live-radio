@@ -1,3 +1,4 @@
+import { defaultArtwork } from 'browser-config'
 import { MusicPlayerStore, PlayerStatus } from 'lib/stores/music-player-store'
 import { reaction } from 'mobx'
 
@@ -15,13 +16,7 @@ export class MediaSessionService {
               title: this.musicPlayer.station.name,
               artist: undefined,
               album: undefined,
-              artwork: [
-                {
-                  src: '/pwa-icons/manifest-icon-512.png',
-                  sizes: '512x512',
-                  type: 'image/png'
-                }
-              ]
+              artwork: [defaultArtwork]
             })
           }
         }

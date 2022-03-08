@@ -14,7 +14,6 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
   desktopDrawerKey: string
 }) {
   const { appShell } = useRootStore()
-  // const isInitialMount = useRef(true)
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
 
   //  monitor for system / browser changes to the theme
