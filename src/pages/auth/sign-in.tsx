@@ -1,9 +1,14 @@
 import { t } from '@lingui/macro'
 import { PageTitle } from 'components/PageTitle'
-import { loadTranslations } from 'lib/utils/taranslation-utils'
 import { useClientUrl } from 'lib/utils/misc-utils'
+import { loadTranslations } from 'lib/utils/taranslation-utils'
 import { NextPageContext } from 'next'
-import { ClientSafeProvider, getProviders, signIn } from 'next-auth/react'
+import {
+  ClientSafeProvider,
+  getProviders,
+  getSession,
+  signIn
+} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -72,8 +77,8 @@ export default function SignIn({
               <Image
                 alt={t`provider logo`}
                 className="login-icon"
-                width="30"
-                height="30"
+                width="20"
+                height="20"
                 src={`/images/${provider.name.toLowerCase()}-login.png`}
               ></Image>
             </span>
@@ -118,10 +123,11 @@ export default function SignIn({
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.9rem;
           }
           .login-icon {
-            width: 30px;
             margin-right: 8px;
+            margin-top: 3px;
           }
           .img-wrap {
             padding-right: 8px;
@@ -140,6 +146,16 @@ export async function getServerSideProps(
 ) {
   const providers = await getProviders()
   const translation = await loadTranslations(ctx.locale!)
+  const session = await getSession({ req: ctx.req })
+
+  if (session?.user) {
+    return {
+      redirect: {
+        destination: '/app',
+        permanent: false
+      }
+    }
+  }
 
   return {
     props: { providers, translation }
