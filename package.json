@@ -27,7 +27,7 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@fuerte/core": "^2.0.2",
+    "@fuerte/core": "^2.0.3",
     "@fuerte/transport-idb": "^3.0.1",
     "@lingui/core": "^3.13.2",
     "@lingui/react": "^3.13.2",
@@ -53,7 +53,7 @@
     "next-auth": "^4.2.1",
     "next-connect": "^0.12.2",
     "node-internet-radio": "^0.2.1",
-    "notistack": "^1.0.10",
+    "notistack": "1.0.10",
     "path-to-regexp": "^6.2.0",
     "radio-browser-api": "^5.1.0",
     "react": "17.0.2",
