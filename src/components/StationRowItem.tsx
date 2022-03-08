@@ -77,7 +77,7 @@ export const StationRowItem = observer(function StationRowItem({
   const classes = useStyles({ showTags })
   const { musicPlayer } = useRootStore()
 
-  const httpsInfoText = t`Depending on your browser configuration this station might not load beacuse it is not served over a secure (httpS) connection.`
+  const httpsInfoText = t`Depending on your browser configuration this station might not load beacuse it is not served over a secure (https) connection.`
   if (store) {
     station = store.getStationById(station.id) ?? station
   }
