@@ -105,6 +105,7 @@ export default function Index() {
             .app-btn {
               display: flex;
               align-items: center;
+              user-select: none;
             }
 
             .avatar-user {

@@ -6,7 +6,8 @@ import {
   MenuItem,
   MenuList,
   Paper,
-  Popper
+  Popper,
+  Typography
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { PlayerStatus } from 'lib/stores/music-player-store'
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '&:hover': {
         cursor: 'pointer'
       }
+    },
+    username: {
+      userSelect: 'none'
     }
   })
 )
@@ -137,7 +141,9 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
 
   return (
     <div className={classes.avatarWrap}>
-      {session?.user?.name ? <p>{session.user.name}</p> : <p>{t`Anonymous`}</p>}
+      <Typography className={classes.username}>
+        {session?.user?.name ? session.user.name : t`Anonymous`}
+      </Typography>
       <div ref={anchorRef}>
         <Avatar
           alt={session?.user?.name ?? t`Anonymous`}

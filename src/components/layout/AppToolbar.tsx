@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme: Theme) =>
     elementsWrap: {
       justifyContent: 'flex-end',
       width: '100%'
+    },
+    title: {
+      userSelect: 'none'
     }
   })
 )
@@ -57,7 +60,6 @@ function useSetAppTitle(separator: string, defaultTitle: string) {
   useEffect(() => {
     const pathParts = router.pathname.split('/')
 
-    console.log({ pathParts })
     let prettyTitle = title
     if (pathParts.length > 2) {
       prettyTitle = searchTranslation(
@@ -120,7 +122,7 @@ export const AppToolbar = observer(function AppToolbar() {
           >
             {appShell.desktopDrawerIsOpen ? <MenuCloseIcon /> : <MenuIcon />}
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className={classes.title}>
             {appTitle}
           </Typography>
         </div>

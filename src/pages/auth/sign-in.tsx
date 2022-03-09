@@ -124,6 +124,7 @@ export default function SignIn({
             align-items: center;
             justify-content: center;
             font-size: 0.9rem;
+            user-select: none;
           }
           .login-icon {
             margin-right: 8px;
