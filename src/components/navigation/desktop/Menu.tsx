@@ -23,7 +23,7 @@ export const Menu = observer(function Menu() {
     },
     {
       link: '/app/recent',
-      text: t`Recent Stations`,
+      text: t`Recent`,
       selected: router.asPath.startsWith('/app/recent')
     },
     // {

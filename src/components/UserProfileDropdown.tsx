@@ -31,6 +31,45 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+// eslint-disable-next-line
+function SettingsItem({
+  handleClose
+}: {
+  handleClose: (event: React.MouseEvent<EventTarget>) => void
+}) {
+  const router = useRouter()
+
+  return (
+    <MenuItem
+      onClick={(e: React.MouseEvent<EventTarget>) => {
+        router.push('/app/settings')
+        handleClose(e)
+      }}
+    >
+      {t`Settings`}
+    </MenuItem>
+  )
+}
+
+function AboutItem({
+  handleClose
+}: {
+  handleClose: (event: React.MouseEvent<EventTarget>) => void
+}) {
+  const router = useRouter()
+
+  return (
+    <MenuItem
+      onClick={(e: React.MouseEvent<EventTarget>) => {
+        router.push('/app/about')
+        handleClose(e)
+      }}
+    >
+      {t`About`}
+    </MenuItem>
+  )
+}
+
 export const UserProfileDropdown = observer(function UserProfileDropdown() {
   const { data: session, status } = useSession()
   const classes = useStyles()
@@ -56,6 +95,7 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
 
     setOpen(false)
   }
+
   useEffect(() => {
     console.log({ session })
     console.log({ status })
@@ -72,15 +112,8 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
         >
           {t`Sign out`}
         </MenuItem>,
-        <MenuItem
-          onClick={(e: React.MouseEvent<EventTarget>) => {
-            router.push('/app/settings')
-            handleClose(e)
-          }}
-          key="settings"
-        >
-          {t`Settings`}
-        </MenuItem>
+        // <SettingsItem key="settings" handleClose={handleClose} />,
+        <AboutItem key="about" handleClose={handleClose} />
       ]
     : [
         <MenuItem
@@ -97,7 +130,9 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
           key="signin"
         >
           {t`Sign in`}
-        </MenuItem>
+        </MenuItem>,
+        // <SettingsItem key="settings" handleClose={handleClose} />,
+        <AboutItem key="about" handleClose={handleClose} />
       ]
 
   return (

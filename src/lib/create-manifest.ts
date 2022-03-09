@@ -33,13 +33,13 @@ export default function createManifest(startUrl = '') {
       }
     ],
     shortcuts: [
-      {
-        name: t`Go to Settings`,
-        short_name: t`Settings`,
-        description: t`Manage application settings`,
-        url: `${startUrl}/app/settings`,
-        icons: [{ src: '../pwa-shortcuts/settings.png', sizes: '192x192' }]
-      },
+      // {
+      //   name: t`Go to Settings`,
+      //   short_name: t`Settings`,
+      //   description: t`Manage application settings`,
+      //   url: `${startUrl}/app/settings`,
+      //   icons: [{ src: '../pwa-shortcuts/settings.png', sizes: '192x192' }]
+      // },
       {
         name: t`Go to Favorites`,
         short_name: t`Favorites`,
