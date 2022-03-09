@@ -119,8 +119,6 @@ class MongoDao implements AppDao {
       await session.withTransaction(async () => {
         const localSession = isProduction ? session : undefined
 
-        await this.createStation(station)
-
         const user = await db.collection('users').findOne({
           _id: new ObjectId(userId)
         })
@@ -128,6 +126,9 @@ class MongoDao implements AppDao {
         if (!user) {
           throw new Error('user not found')
         }
+
+        await this.createStation(station)
+
         //check if recent array exists
         const userCollection = user[collectionName]
 
@@ -156,7 +157,7 @@ class MongoDao implements AppDao {
         }
 
         //save data
-        db.collection('users').updateOne(
+        await db.collection('users').updateOne(
           {
             _id: new ObjectId(userId)
           },
@@ -302,7 +303,7 @@ class MongoDao implements AppDao {
       collection.splice(0, 100)
     }
 
-    db.collection('users').updateOne(
+    await db.collection('users').updateOne(
       {
         _id: new ObjectId(userId)
       },
