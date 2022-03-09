@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': ^7.17.5
   '@babel/plugin-proposal-class-properties': ^7.16.7
   '@fuerte/core': ^2.0.3
-  '@fuerte/transport-idb': ^3.0.1
+  '@fuerte/transport-idb': ^3.0.2
   '@lingui/cli': ^3.13.2
   '@lingui/core': ^3.13.2
   '@lingui/loader': ^3.13.2
@@ -91,7 +91,7 @@ specifiers:
 
 dependencies:
   '@fuerte/core': 2.0.3_mobx@6.4.2
-  '@fuerte/transport-idb': 3.0.1_@fuerte+core@2.0.3
+  '@fuerte/transport-idb': 3.0.2_@fuerte+core@2.0.3
   '@lingui/core': 3.13.2
   '@lingui/react': 3.13.2_react@17.0.2
   '@material-ui/core': 4.12.3_b8fdba992ce7d797017dc07106486496
@@ -1407,10 +1407,10 @@ packages:
       nanoid: 3.3.1
     dev: false
 
-  /@fuerte/transport-idb/3.0.1_@fuerte+core@2.0.3:
-    resolution: {integrity: sha512-65OQBenESNDliZdUS6W3d0eZINj8FCnB4C84XEwE9NlVkuMdhWSGNldcR3mnea7bz4USQ15Z3OAUa5EfEPTrww==}
+  /@fuerte/transport-idb/3.0.2_@fuerte+core@2.0.3:
+    resolution: {integrity: sha512-EI9x+hiHmricNMG/MgyjElrNuNU7TqmIMfFhkdjyta1cu5TO2ePzFSs7Uzsxy3RQN3C23pvI1AoTdzlCWEfRLQ==}
     peerDependencies:
-      '@fuerte/core': 2.0.2
+      '@fuerte/core': 2.0.3
     dependencies:
       '@fuerte/core': 2.0.3_mobx@6.4.2
       idb: 7.0.0
