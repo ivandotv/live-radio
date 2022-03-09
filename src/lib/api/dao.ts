@@ -1,6 +1,6 @@
 import { RadioDTO } from 'lib/utils/station-utils'
 import { ObjectId } from 'mongodb'
-import { mongoClient as dbSettings, isProduction } from 'server-config'
+import { isProduction, mongoClient as dbSettings } from 'server-config'
 import { AppDao, StationCollection } from './api-utils'
 import { connectToDatabase } from './db-connection'
 
@@ -190,7 +190,7 @@ class MongoDao implements AppDao {
     const result = await db
       .collection('users')
       .updateOne(
-        { _id: ObjectId(userId) },
+        { _id: new ObjectId(userId) },
         { $pull: { [collection]: { _id: stationId } } }
       )
 
