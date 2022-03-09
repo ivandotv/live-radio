@@ -49,7 +49,7 @@ export class AppShellStore {
     })
   }
 
-  protected setIsOnline(online: boolean) {
+  setIsOnline(online: boolean) {
     this.isOnLine = online
   }
 

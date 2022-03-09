@@ -30,12 +30,13 @@ import { useRootStore } from 'components/providers/RootStoreProvider'
 import { AppUpdatedNotification } from 'components/pwa-prompt/AppUpdatedNotification'
 import { InstallBanner } from 'components/pwa-prompt/InstallBanner'
 import { UpdateBanner } from 'components/pwa-prompt/UpdateBanner'
+import { useOfflineNotification } from 'lib/hooks/useOfflineNotification'
 import { usePWAInstall } from 'lib/hooks/usePWAInstall'
 import { useServiceWorker } from 'lib/hooks/useServiceWorker'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, useEffect } from 'react'
 
 //TODO - make the values dynamic
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
@@ -97,6 +98,9 @@ export const AppShell = observer(function AppShell({
   children: ReactNode
 }) {
   const { appShell } = useRootStore()
+
+  const [isOnline] = useOfflineNotification()
+
   const theme = useTheme()
   const classes = useStyles()
   const router = useRouter()
@@ -114,6 +118,10 @@ export const AppShell = observer(function AppShell({
     enable: enablePWAInstallBanner,
     cookieName: pwaInstallDismissedCookie
   })
+
+  useEffect(() => {
+    appShell.setIsOnline(isOnline)
+  }, [isOnline, appShell])
 
   return (
     <>
