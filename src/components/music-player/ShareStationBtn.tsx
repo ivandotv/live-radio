@@ -1,13 +1,13 @@
-import ShareIcon from '@material-ui/icons/ShareOutlined'
 import { t } from '@lingui/macro'
+import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
-import { observer } from 'mobx-react-lite'
-import IconButton from '@material-ui/core/IconButton'
-import { SyntheticEvent, useEffect, useState } from 'react'
+import ShareIcon from '@material-ui/icons/ShareOutlined'
+import { url } from 'browser-config'
 import { ShareStationDesktop } from 'components/music-player/ShareStationDesktop'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { url } from 'browser-config'
+import { observer } from 'mobx-react-lite'
+import { SyntheticEvent, useEffect, useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -31,7 +31,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const shareUrl = `${encodeURI(url)}/api/share?play=${encodeURIComponent(
     musicPlayer.station._id
   )}`
-  const shareTitle = t`Share Station -- `
+  const shareTitle = t`Share Station - `
   const shareText = t`Check out this groovy station`
 
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
@@ -66,7 +66,7 @@ export const ShareStationBtn = observer(function ShareStationBtn({
           anchorEl={anchorEl}
           handleClose={handleClose}
           url={shareUrl}
-          text="check this out"
+          text={t`check this out`}
         />
       ) : null}
       <Tooltip

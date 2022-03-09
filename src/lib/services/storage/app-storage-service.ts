@@ -1,6 +1,6 @@
 import { AuthService } from 'lib/services/auth-service'
-import { RadioDTO } from 'lib/utils/station-utils'
 import { client, isSSR } from 'lib/utils/misc-utils'
+import { RadioDTO } from 'lib/utils/station-utils'
 import { Session } from 'next-auth'
 import { LocalStorageService } from './local-storage-service'
 import { RemoteStorageService } from './remote-storage-service'
@@ -66,7 +66,7 @@ export class AppStorageService {
 
     await Promise.all([
       localFavs.length
-        ? this.remote.importStations(localFavs, 'favorites') // todo - should be one call over the wire
+        ? this.remote.importStations(localFavs, 'favorites')
         : undefined,
       localRecent.length
         ? this.remote.importStations(localRecent, 'recent')

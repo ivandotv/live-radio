@@ -14,7 +14,9 @@ import {
   enableServiceWorkerReload,
   layout,
   pwaInstallDismissedCookie,
-  pwaUpdatedCookieName
+  pwaUpdatedCookieName,
+  serviceWorkerPath,
+  serviceWorkerScope
 } from 'browser-config'
 import { AuthExpiredModal } from 'components/AuthExpiredModal'
 import { ImportAnonymousData } from 'components/ImportAnonymousData'
@@ -35,7 +37,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, ReactNode } from 'react'
 
-// todo - make the values dynamic
+//TODO - make the values dynamic
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
   layout
 
@@ -101,8 +103,8 @@ export const AppShell = observer(function AppShell({
   const locale = router.locale || router.defaultLocale!
 
   const [showPrompt, hideUpdatePrompt, update] = useServiceWorker({
-    path: '/sw.js',
-    scope: '/',
+    path: serviceWorkerPath,
+    scope: serviceWorkerScope,
     enable: enableServiceWorker,
     enableReload: enableServiceWorkerReload,
     updateCookieName: pwaUpdatedCookieName

@@ -8,9 +8,9 @@ import {
 import { createRadioModel, RadioModel } from 'lib/radio-model'
 import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { RecentStationsTransport } from 'lib/services/storage/recent-stations-transport'
-import { RadioDTO } from 'lib/utils/station-utils'
 import { RadioStore } from 'lib/stores/favorites-store'
 import { RootStore } from 'lib/stores/root-store'
+import { RadioDTO } from 'lib/utils/station-utils'
 
 export function recentStoreFactory(root: RootStore) {
   return new RecentStore(
@@ -20,7 +20,7 @@ export function recentStoreFactory(root: RootStore) {
   )
 }
 
-/* TODO - composition instead of inheritance */
+/* TODO - use composition instead of inheritance */
 export class RecentStore
   extends Collection<
     RadioModel,

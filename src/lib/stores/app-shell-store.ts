@@ -1,7 +1,7 @@
 import { AuthExpiredError } from 'lib/services/auth-service'
 import {
-  AppStorageService,
-  appStorageFactory
+  appStorageFactory,
+  AppStorageService
 } from 'lib/services/storage/app-storage-service'
 import { RootStore } from 'lib/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'

@@ -1,13 +1,14 @@
+import {
+  filterDataFactory,
+  FilterDataStore
+} from 'lib/stores/filter-data-store'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import {
-  FilterDataStore,
-  filterDataFactory
-} from 'lib/stores/filter-data-store'
 
 enableStaticRendering(typeof window === 'undefined')
 
 const FilterDataContext = createContext<FilterDataStore | undefined>(undefined)
+
 FilterDataContext.displayName = 'FilterDataContext'
 
 export function useFilterDataStore() {

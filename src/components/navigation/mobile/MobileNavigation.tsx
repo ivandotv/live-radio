@@ -5,7 +5,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import FavoriteIcon from '@material-ui/icons/Favorite'
 import RestoreIcon from '@material-ui/icons/Restore'
 import SearchIcon from '@material-ui/icons/Search'
-import _SettingsIcon from '@material-ui/icons/Settings'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useEffect, useMemo, useState } from 'react'
@@ -24,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 function getSelected(path: string, paths: string[]) {
-  //get for first item in menuPaths
+  //get first item in menuPaths
   if (
     path === '/app' ||
     path.startsWith('/app/by-') ||

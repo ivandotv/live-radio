@@ -49,7 +49,6 @@ export class MusicPlayerStore {
   // TODO - refactor to a state machine
   constructor(
     protected rootStore: RootStore,
-    // protected storage: AppStorage,
     protected songInfoService: SongInfoService,
     public station: RadioDTO
   ) {
@@ -58,7 +57,6 @@ export class MusicPlayerStore {
       'disposePlayer' | 'initPlayer' | 'songServiceCb'
     >(this, {
       status: observable,
-      // stationID: observable,
       station: observable.ref,
       stationChecked: observable,
       playerError: observable,
@@ -95,9 +93,6 @@ export class MusicPlayerStore {
         ) {
           console.log('new song data')
           console.log(`new ${data.title} | ${data.artist}`)
-          console.log(
-            `old ${this.prevSongInfo?.title} | ${this.prevSongInfo?.artist}`
-          )
         }
       }
     }
@@ -119,11 +114,10 @@ export class MusicPlayerStore {
 
     this.station = station
 
-    console.log('trying ', url ?? station.url)
     console.log('station to play ', station)
+    console.log('trying url ', url ?? station.url)
 
     this.player.on('play', () => {
-      console.log('radio playing')
       this.songInfoService.start(station.url, this.songServiceCb.bind(this))
       this.firstTryLoad = true
       window.navigator.mediaSession!.playbackState = 'playing'
@@ -147,6 +141,7 @@ export class MusicPlayerStore {
       })
 
       this.rootStore.recentStations.saveStation(station)
+      console.log('radio playing')
     })
 
     this.player.on('pause', () => {
@@ -178,9 +173,7 @@ export class MusicPlayerStore {
         window.navigator.mediaSession!.playbackState = 'paused'
 
         console.log('radio loaderror')
-        console.log('error data')
-        console.log(errorData)
-        console.log(_)
+        console.log({ errorData })
 
         return
       }
@@ -206,7 +199,7 @@ export class MusicPlayerStore {
       })
 
       window.navigator.mediaSession!.playbackState = 'paused'
-      console.log('radio playerror')
+      console.log('playerror')
     })
 
     this.player.play()
@@ -239,7 +232,6 @@ export class MusicPlayerStore {
   }
 
   pause() {
-    console.log('player-> pause')
     this.player!.pause()
   }
 
@@ -270,6 +262,5 @@ export class MusicPlayerStore {
 
   resume() {
     this.player!.play()
-    console.log('player-> resume')
   }
 }

@@ -33,6 +33,8 @@ export const defaultArtwork = {
 }
 
 export const favoritesHeartColor = '#ff0000'
+export const serviceWorkerPath = '/sw.js'
+export const serviceWorkerScope = '/'
 
 export const defaultStation = {
   _id: '961173b5-0601-11e8-ae97-52543be04c81',

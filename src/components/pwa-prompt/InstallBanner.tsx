@@ -1,5 +1,6 @@
-import PwaNotification from 'components/pwa-prompt/PwaNotification'
 import { t } from '@lingui/macro'
+import PwaNotification from 'components/pwa-prompt/PwaNotification'
+
 export function InstallBanner({
   onCancel,
   onOk,

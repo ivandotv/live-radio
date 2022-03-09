@@ -1,9 +1,9 @@
 import { StationRowItem } from 'components/StationRowItem'
 import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
+import { RadioModel } from 'lib/radio-model'
+import { FavoritesStore, RadioStore } from 'lib/stores/favorites-store'
 import { Station } from 'radio-browser-api'
-import { RadioModel } from '../radio-model'
-import { FavoritesStore, RadioStore } from '../stores/favorites-store'
 
 export type RadioDTO = {
   tags: string[]

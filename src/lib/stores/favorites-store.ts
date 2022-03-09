@@ -8,8 +8,8 @@ import {
 import { createRadioModel, RadioModel } from 'lib/radio-model'
 import { appStorageFactory } from 'lib/services/storage/app-storage-service'
 import { FavoriteStationsTransport } from 'lib/services/storage/favorite-stations-transport'
-import { RadioDTO } from 'lib/utils/station-utils'
 import { RootStore } from 'lib/stores/root-store'
+import { RadioDTO } from 'lib/utils/station-utils'
 
 export interface RadioStore {
   saveStation(station: RadioDTO, config?: SaveConfig): Promise<any>
@@ -29,7 +29,7 @@ export function favoritesStoreFactory(root: RootStore) {
   )
 }
 
-/* TODO - composition instead of inheritance */
+/* TODO - use composition instead of inheritance */
 export class FavoritesStore
   extends Collection<
     RadioModel,

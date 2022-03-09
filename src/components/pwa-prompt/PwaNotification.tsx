@@ -4,6 +4,7 @@ import Slide from '@material-ui/core/Slide'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Close from '@material-ui/icons/Cancel'
 import { forwardRef, ReactNode } from 'react'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapper: {
@@ -28,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     closeBtn: {
       color: '#fff'
-      //   paddingLeft: 0
     },
     icon: {
       fontSize: 40
@@ -44,7 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
 const PwaNotification = forwardRef<
   HTMLDivElement,
   {
-    // className: string
     onCancel: () => void
     onOk: () => void
     okText: string

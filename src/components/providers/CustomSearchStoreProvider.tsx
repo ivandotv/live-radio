@@ -1,15 +1,16 @@
+import {
+  customSearchFactory,
+  CustomSearchStore
+} from 'lib/stores/custom-search-store'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext } from 'react'
-import {
-  CustomSearchStore,
-  customSearchFactory
-} from 'lib/stores/custom-search-store'
 
 enableStaticRendering(typeof window === 'undefined')
 
 const CustomSearchContext = createContext<CustomSearchStore | undefined>(
   undefined
 )
+
 CustomSearchContext.displayName = 'CustomSearchContext'
 
 export function useCustomSearch() {

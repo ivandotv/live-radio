@@ -1,10 +1,10 @@
 import { userAgentName } from 'browser-config'
 import { RadioModel } from 'lib/radio-model'
+import { isSSR } from 'lib/utils/misc-utils'
 import {
   dataToRadioDTO,
   stationDataToStationModel
 } from 'lib/utils/station-utils'
-import { isSSR } from 'lib/utils/misc-utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
 

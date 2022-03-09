@@ -58,8 +58,6 @@ export function searchTranslation(
   hayStack: { [key: string]: string }
 ) {
   if (hayStack[needle]) {
-    console.log('haystack needle ', hayStack[needle])
-
     return hayStack[needle]
   }
 

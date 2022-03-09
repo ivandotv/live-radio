@@ -45,6 +45,7 @@ export const PlayerStateIcon = observer(function PlayerStateIcon({
   const classes = useStyles({ fontSize })
   let btn: ReactNode | null = null
 
+  // can be memoized
   const error = <Error className={`${classes.error} ${classes.button}`} />
 
   if (

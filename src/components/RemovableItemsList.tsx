@@ -37,7 +37,7 @@ export const RemovableItemsList = observer(function RemovableItemsList({
   noDataTitle,
   indexes
 }: {
-  favoriteStations: FavoritesStore
+  favoriteStations?: FavoritesStore
   store: RadioStore
   noDataTitle: string
   indexes: string[]

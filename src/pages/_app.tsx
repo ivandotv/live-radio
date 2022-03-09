@@ -19,9 +19,6 @@ export type NextApplicationPage<P = Record<string, unknown>, IP = P> = NextPage<
   P,
   IP
 > & {
-  desktopSidebar?: (
-    defaultMenuItems: ReactElement | ReactElement[]
-  ) => ReactElement
   layout?: (page: NextApplicationPage, props: any) => ReactElement
 }
 

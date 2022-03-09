@@ -46,7 +46,6 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
   text: string
 }) {
   const classes = useStyles()
-  // const [snackOpen, setSnackOpen] = useState(false)
 
   const handleClick = (_e: SyntheticEvent) => {
     handleClose()
@@ -57,8 +56,6 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
   const copyLink = async () => {
     await navigator.clipboard.writeText(url)
     handleClose()
-    console.log('copied to clipboard')
-    // setSnackOpen(true)
     enqueueSnackbar(t`Station link copied to clipboard`, {
       variant: 'success',
       className: classes.snackbar,
@@ -68,6 +65,8 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
         horizontal: 'center'
       }
     })
+
+    console.log('copied to clipboard')
   }
 
   const copyLinkItem =
@@ -117,19 +116,6 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
         </MenuItem>
         {copyLinkItem}
       </Menu>
-
-      {/* <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center'
-        }}
-        open={snackOpen}
-        autoHideDuration={2500}
-        onClose={onSnackClose}
-        className={classes.snackbar}
-      >
-        <Alert severity="success">{stationSnackSuccess}</Alert>
-      </Snackbar> */}
     </>
   )
 })

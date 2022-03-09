@@ -87,7 +87,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
   if (__DEV__) {
     // eslint-disable-next-line
     useEffect(() => {
-      // @ts-ignore
+      // @ts-expect-error - attaching to window is a bad idea
       window.player = musicPlayer
     }, [musicPlayer])
   }
@@ -163,7 +163,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
       const signInInterrupt = sessionStorage.getItem('signInInterrupt')
       if (signInInterrupt) {
         // play immediately
-        // todo -sessionStorage should be abstracted away
+        //TODO -sessionStorage should be abstracted away
         sessionStorage.removeItem('signInInterrupt')
         musicPlayer.play(musicPlayer.station)
       }

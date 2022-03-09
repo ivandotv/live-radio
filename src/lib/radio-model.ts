@@ -1,7 +1,7 @@
 import { Model } from '@fuerte/core'
-import { RadioDTO } from './utils/station-utils'
 import { FavoritesStore } from './stores/favorites-store'
 import { RecentStore } from './stores/recent-store'
+import { RadioDTO } from './utils/station-utils'
 
 export function createRadioModel(data: RadioDTO) {
   return new RadioModel(data)
