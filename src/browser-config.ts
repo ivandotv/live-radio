@@ -32,6 +32,8 @@ export const defaultArtwork = {
   type: 'image/png'
 }
 
+export const favoritesHeartColor = '#ff0000'
+
 export const defaultStation = {
   _id: '961173b5-0601-11e8-ae97-52543be04c81',
   name: 'SomaFM Lush',

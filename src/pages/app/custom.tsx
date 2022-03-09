@@ -5,10 +5,13 @@ import { PageTitle } from 'components/PageTitle'
 import { createStationListRow } from 'lib/utils/station-utils'
 import { t } from '@lingui/macro'
 import { getStaticTranslations } from 'lib/utils/taranslation-utils'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 
 export { getStaticTranslations as getStaticProps }
 
 export default function CustomSearch() {
+  const { favoriteStations } = useRootStore()
+
   const breadcrumbs = [
     {
       href: '/app',
@@ -25,7 +28,10 @@ export default function CustomSearch() {
       <CustomSearchResults
         filterInputText={t`Search For Stations`}
         breadcrumbs={breadcrumbs}
-        dataRow={createStationListRow({ showTags: false })}
+        dataRow={createStationListRow({
+          showTags: false,
+          favoriteStations
+        })}
       />
     </CustomSearchStoreProvider>
   )

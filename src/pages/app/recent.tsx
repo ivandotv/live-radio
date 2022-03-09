@@ -10,7 +10,7 @@ import { stationSearchIndexes } from 'browser-config'
 export { getStaticTranslations as getStaticProps }
 
 export default function RecentStations() {
-  const { recentStations } = useRootStore()
+  const { recentStations, favoriteStations } = useRootStore()
   const noDataTitle = t`Your recently played stations will appear here`
 
   return (
@@ -22,6 +22,7 @@ export default function RecentStations() {
         indexes={stationSearchIndexes}
       >
         <RemovableItemsList
+          favoriteStations={favoriteStations}
           noDataTitle={noDataTitle}
           store={recentStations}
           indexes={stationSearchIndexes}

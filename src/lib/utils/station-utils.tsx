@@ -3,7 +3,7 @@ import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
 import { Station } from 'radio-browser-api'
 import { RadioModel } from '../radio-model'
-import { RadioStore } from '../stores/favorites-store'
+import { FavoritesStore, RadioStore } from '../stores/favorites-store'
 
 export type RadioDTO = {
   tags: string[]
@@ -65,6 +65,7 @@ export function createStationListRow(opts?: {
   showFlag?: boolean
   showTags?: boolean
   showRemoveBtn?: boolean
+  favoriteStations?: FavoritesStore
   store?: RadioStore
 }) {
   const options = {

@@ -20,6 +20,7 @@ export function recentStoreFactory(root: RootStore) {
   )
 }
 
+/* TODO - composition instead of inheritance */
 export class RecentStore
   extends Collection<
     RadioModel,

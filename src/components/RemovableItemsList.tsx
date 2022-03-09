@@ -4,8 +4,8 @@ import { ListStations } from 'components/ListStations'
 import { PageLoadError } from 'components/PageLoadError'
 import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
 import { RadioModel } from 'lib/radio-model'
+import { FavoritesStore, RadioStore } from 'lib/stores/favorites-store'
 import { createStationListRow } from 'lib/utils/station-utils'
-import { RadioStore } from 'lib/stores/favorites-store'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import Image from 'next/image'
@@ -32,10 +32,12 @@ export const useStyles = makeStyles((theme: Theme) =>
 )
 
 export const RemovableItemsList = observer(function RemovableItemsList({
+  favoriteStations,
   store,
   noDataTitle,
   indexes
 }: {
+  favoriteStations: FavoritesStore
   store: RadioStore
   noDataTitle: string
   indexes: string[]
@@ -79,7 +81,11 @@ export const RemovableItemsList = observer(function RemovableItemsList({
     <ListStations
       showFallback={store?.loadStatus === 'PENDING'}
       showSearch={store.stations.length > 0}
-      dataRow={createStationListRow({ store: store, showRemoveBtn: true })}
+      dataRow={createStationListRow({
+        store,
+        favoriteStations,
+        showRemoveBtn: true
+      })}
       noData={
         <div className={classes.noDataWrap}>
           <p className={classes.noDataText}>{noDataTitle}</p>

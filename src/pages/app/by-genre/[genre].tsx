@@ -5,6 +5,7 @@ import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { genres } from 'generated/genres'
 import {
   createStationListRow,
@@ -21,9 +22,6 @@ import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useMemo } from 'react'
 
-// if (isSSR()) {
-//   global.crypto = crypto
-// }
 //prerender most popular genres
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
   const paths = paramsWithLocales(
@@ -77,6 +75,7 @@ export default function GenreStations({
   genre: string
 }) {
   const router = useRouter()
+  const { favoriteStations } = useRootStore()
 
   const stationModels = useMemo(
     () => stationDataToStationModel(stations),
@@ -116,7 +115,7 @@ export default function GenreStations({
       <PageTitle title={t`Search For Stations in ${genreTranslation.t}`} />
       <ListStations
         breadcrumbs={breadcrumbs}
-        dataRow={createStationListRow()}
+        dataRow={createStationListRow({ favoriteStations })}
         noData={
           <p>
             <Trans>

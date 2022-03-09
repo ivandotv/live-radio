@@ -22,6 +22,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useMemo } from 'react'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 
 export const getStaticPaths: GetStaticPaths = async function (ctx) {
   const paths = paramsWithLocales(
@@ -56,8 +57,8 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
   return {
     props: {
       stations: dataToRadioDTO(stationResults),
-      countryCode,
-      continentCode: continent,
+      countryCode: countryCode.toUpperCase(),
+      continentCode: continent.toUpperCase(),
       flag,
       translation
     },
@@ -77,6 +78,7 @@ export default function CountryStations({
   flag: string
 }) {
   const router = useRouter()
+  const { favoriteStations } = useRootStore()
 
   const stationModels = useMemo(
     () => stationDataToStationModel(stations),
@@ -124,7 +126,11 @@ export default function CountryStations({
       <PageTitle title={t`Search For Stations in ${countryData.name}`} />
       <ListStations
         breadcrumbs={breadcrumbs}
-        dataRow={createStationListRow({ showCountry: false, showFlag: false })}
+        dataRow={createStationListRow({
+          showCountry: false,
+          showFlag: false,
+          favoriteStations
+        })}
         noData={
           <Trans>
             <p>

@@ -2,12 +2,14 @@ import { t } from '@lingui/macro'
 import { Collapse, ListItem, ListItemText, Tooltip } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import HttpIcon from '@material-ui/icons/ErrorOutline'
+import FullHeart from '@material-ui/icons/Favorite'
+import { favoritesHeartColor } from 'browser-config'
 import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player/PlayerStateIcon'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
 import { RadioModel } from 'lib/radio-model'
-import { RadioStore } from 'lib/stores/favorites-store'
+import { FavoritesStore, RadioStore } from 'lib/stores/favorites-store'
 import { PlayerStatus } from 'lib/stores/music-player-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useCallback, useState } from 'react'
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme: Theme) => {
     },
     title: {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'flex-start'
     },
     stationSelected: {
       borderLeft: `${theme.spacing(1)}px solid ${theme.palette.primary.light}`
@@ -54,6 +56,17 @@ const useStyles = makeStyles((theme: Theme) => {
       color: '#ff0000',
       marginLeft: `${theme.spacing(0.5)}px`,
       fontSize: '1.2rem'
+    },
+    favIcon: {
+      color: favoritesHeartColor
+    },
+    iconWrap: {
+      display: 'flex',
+      alignItems: 'center',
+      marginLeft: `${theme.spacing(0.5)}px`
+    },
+    countryText: {
+      marginLeft: theme.spacing(1)
     }
   })
 })
@@ -62,6 +75,7 @@ const useStyles = makeStyles((theme: Theme) => {
 export const StationRowItem = observer(function StationRowItem({
   station,
   store,
+  favoriteStations,
   showCountry = true,
   showFlag = true,
   showTags = true,
@@ -69,6 +83,7 @@ export const StationRowItem = observer(function StationRowItem({
 }: {
   station: RadioModel
   store?: RadioStore
+  favoriteStations?: FavoritesStore
   showCountry?: boolean
   showFlag?: boolean
   showTags?: boolean
@@ -78,6 +93,7 @@ export const StationRowItem = observer(function StationRowItem({
   const { musicPlayer } = useRootStore()
 
   const httpsInfoText = t`Depending on your browser configuration this station might not load beacuse it is not served over a secure (https) connection.`
+  const inFavoritesText = t`Station is in your favorites list`
   if (store) {
     station = store.getStationById(station.id) ?? station
   }
@@ -129,24 +145,29 @@ export const StationRowItem = observer(function StationRowItem({
                   stationId={station.id}
                   fontSize="1.3rem"
                 />
-                {`${station.data.name}`}
-                {showCountry && station.data.country.length
-                  ? ` | ${station.data.country}`
-                  : null}
-                {showFlag && station.data.flag.length
-                  ? ` ${station.data.flag}`
-                  : null}
-                {station.data.url.indexOf('https') === -1 ? (
-                  <Tooltip
-                    title={httpsInfoText}
-                    onClick={(e: MouseEvent<HTMLDivElement>) => {
-                      e.stopPropagation()
-                      setOpenHttpsHelp(true)
-                    }}
-                  >
-                    <HttpIcon className={classes.httpIcon} />
-                  </Tooltip>
-                ) : null}
+                <div className={classes.iconWrap}>
+                  {`${station.data.name}`}
+                  {showFlag && station.data.flag.length
+                    ? ` ${station.data.flag}`
+                    : null}
+                  {favoriteStations?.getStationById(station.id) ? (
+                    <Tooltip title={inFavoritesText}>
+                      <FullHeart classes={{ root: classes.favIcon }} />
+                    </Tooltip>
+                  ) : null}
+                  {station.data.url.indexOf('https') === -1 ? (
+                    <Tooltip
+                      title={httpsInfoText}
+                      onClick={(e: MouseEvent<HTMLDivElement>) => {
+                        e.stopPropagation()
+                        setOpenHttpsHelp(true)
+                      }}
+                    >
+                      <HttpIcon className={classes.httpIcon} />
+                    </Tooltip>
+                  ) : null}
+                </div>
+
                 {showRemoveBtn && store ? (
                   <StationRowRemoveBtn
                     className={classes.btnRemove}
@@ -155,6 +176,11 @@ export const StationRowItem = observer(function StationRowItem({
                   />
                 ) : null}
               </div>
+              {showCountry && station.data.country.length ? (
+                <small className={classes.countryText}>
+                  {station.data.country}
+                </small>
+              ) : null}
 
               {showTags ? (
                 <StationRowTags className={classes.tags} station={station} />

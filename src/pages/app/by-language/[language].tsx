@@ -1,24 +1,25 @@
 import { t, Trans } from '@lingui/macro'
+import { stationSearchIndexes, userAgentName } from 'browser-config'
 import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
+import { useRootStore } from 'components/providers/RootStoreProvider'
 import { languages } from 'generated/languages'
+import {
+  createStationListRow,
+  dataToRadioDTO,
+  RadioDTO,
+  stationDataToStationModel
+} from 'lib/utils/station-utils'
 import {
   loadTranslations,
   paramsWithLocales
 } from 'lib/utils/taranslation-utils'
-import { stationSearchIndexes, userAgentName } from 'browser-config'
-import {
-  createStationListRow,
-  dataToRadioDTO,
-  stationDataToStationModel
-} from 'lib/utils/station-utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { RadioDTO } from 'lib/utils/station-utils'
 import { useMemo } from 'react'
 
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
@@ -76,6 +77,7 @@ export default function LanguageStations({
   language: string
 }) {
   const router = useRouter()
+  const { favoriteStations } = useRootStore()
 
   const stationModels = useMemo(
     () => stationDataToStationModel(stations),
@@ -113,7 +115,9 @@ export default function LanguageStations({
       <PageTitle title={t`Search For Stations in ${languageTrans.t}`} />
       <ListStations
         breadcrumbs={breadcrumbs}
-        dataRow={createStationListRow()}
+        dataRow={createStationListRow({
+          favoriteStations
+        })}
         noData={
           <Trans>
             <p>

@@ -1,10 +1,11 @@
-import { observer } from 'mobx-react-lite'
 import { t } from '@lingui/macro'
-import FullHeart from '@material-ui/icons/Favorite'
-import EmptyHeart from '@material-ui/icons/FavoriteBorder'
+import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
-import IconButton from '@material-ui/core/IconButton'
+import FullHeart from '@material-ui/icons/Favorite'
+import EmptyHeart from '@material-ui/icons/FavoriteBorder'
+import { favoritesHeartColor } from 'browser-config'
+import { observer } from 'mobx-react-lite'
 
 type MakeStyleProps = {
   fontSize: string | number
@@ -18,7 +19,7 @@ const useStyles = makeStyles<Theme, MakeStyleProps>((theme: Theme) =>
     icon: {
       fontSize: ({ fontSize }) => fontSize,
       color: ({ inFavorites }) =>
-        inFavorites ? '#ff0000' : theme.palette.primary.contrastText
+        inFavorites ? favoritesHeartColor : theme.palette.primary.contrastText
     }
   })
 )
