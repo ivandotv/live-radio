@@ -21,6 +21,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useMemo } from 'react'
+import { revalidate } from 'server-config'
 
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
   const paths = paramsWithLocales(
@@ -65,7 +66,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       language,
       translation
     },
-    revalidate: 600 // 10 minutes
+    revalidate
   }
 }
 

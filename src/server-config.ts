@@ -26,3 +26,6 @@ export const auth = {
   signSecret: process.env.AUTH_SIGN_SECRET,
   debug: Boolean(process.env.DEBUG_AUTH) ?? false
 } as const
+
+// the amount in seconds after which a page re-generation can occur
+export const revalidate = 3600 //one hour

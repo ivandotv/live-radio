@@ -23,6 +23,7 @@ import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useMemo } from 'react'
 import { useRootStore } from 'components/providers/RootStoreProvider'
+import { revalidate } from 'server-config'
 
 export const getStaticPaths: GetStaticPaths = async function (ctx) {
   const paths = paramsWithLocales(
@@ -62,7 +63,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       flag,
       translation
     },
-    revalidate: 600 // 10 minutes
+    revalidate
   }
 }
 
