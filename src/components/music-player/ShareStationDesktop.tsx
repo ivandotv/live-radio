@@ -16,7 +16,7 @@ const fbLink = (url: string) =>
   `https://www.facebook.com/sharer/sharer.php?u=${url}`
 
 const linkedInLink = (url: string, text: string) => `
-http://www.linkedin.com/shareArticle?mini=true&url=${url}&title=${encodeURIComponent(
+ https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${encodeURIComponent(
   text
 )}`
 
