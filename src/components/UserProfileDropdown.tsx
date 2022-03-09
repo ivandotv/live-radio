@@ -60,6 +60,7 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
     console.log({ session })
     console.log({ status })
   }, [session, status])
+
   const menuItems = session
     ? [
         <MenuItem

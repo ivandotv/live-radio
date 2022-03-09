@@ -50,69 +50,65 @@ export default function MyApp(props: AppProps) {
     browserFirstRender.current = false
   }, [locale, pageProps.translation])
 
-  useEffect(() => {
-    console.log('_app use effec =======')
-  }, [])
-
   return (
-    <I18nProvider i18n={i18n}>
-      <ErrorBoundary
-        FallbackComponent={GlobalErrorFallback}
-        onError={globalErrorHandler}
+    <ErrorBoundary
+      FallbackComponent={GlobalErrorFallback}
+      onError={globalErrorHandler}
+    >
+      <WindowErrorHandler />
+      <SessionProvider
+        refetchInterval={0} //60 * 60
+        session={pageProps.session} //in case of server side rendered routes
       >
-        <WindowErrorHandler />
-        <Head>
-          <link
-            rel="manifest"
-            key="manifest"
-            crossOrigin="use-credentials"
-            href={'/api/manifest'}
-          />
-          <meta
-            name="description"
-            content={t`Listen live radio online`}
-            key="description"
-          />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="black-translucent"
-          />
-          <meta name="apple-mobile-web-app-title" content={t`Live Radio`} />
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-            key="viewport"
-          />
-          <meta name="robots" content="noindex" />
-          <meta name="keywords" content="pwa,radio,live" />
-          <meta charSet="utf-8" />
-          <PWAIcons />
-          {router.locales!.concat('x-default').map((locale) => {
-            const localePath = locale === 'x-default' ? '' : `/${locale}`
-            const href = `${url}${localePath}${router.asPath}`
+        <I18nProvider i18n={i18n}>
+          <Head>
+            <link
+              rel="manifest"
+              key="manifest"
+              crossOrigin="use-credentials"
+              href={'/api/manifest'}
+            />
+            <meta
+              name="description"
+              content={t`Listen live radio online`}
+              key="description"
+            />
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta
+              name="apple-mobile-web-app-status-bar-style"
+              content="black-translucent"
+            />
+            <meta name="apple-mobile-web-app-title" content={t`Live Radio`} />
+            <meta
+              name="viewport"
+              content="minimum-scale=1, initial-scale=1, width=device-width"
+              key="viewport"
+            />
+            <meta name="robots" content="noindex" />
+            <meta name="keywords" content="pwa,radio,live" />
+            <meta charSet="utf-8" />
+            <PWAIcons />
+            {router.locales!.concat('x-default').map((locale) => {
+              const localePath = locale === 'x-default' ? '' : `/${locale}`
+              const href = `${url}${localePath}${router.asPath}`
 
-            return locale === 'pseudo' ? null : (
-              <link
-                key={locale}
-                rel="alternate"
-                hrefLang={locale}
-                href={href}
-              />
-            )
-          })}
-        </Head>
-        <SessionProvider
-          refetchInterval={0} //60 * 60
-          session={pageProps.session} //in case of server side rendered routes
-        >
+              return locale === 'pseudo' ? null : (
+                <link
+                  key={locale}
+                  rel="alternate"
+                  hrefLang={locale}
+                  href={href}
+                />
+              )
+            })}
+          </Head>
           {Component.layout ? (
             Component.layout(Component, pageProps)
           ) : (
             <Component {...pageProps} />
           )}
-        </SessionProvider>
-      </ErrorBoundary>
-    </I18nProvider>
+        </I18nProvider>
+      </SessionProvider>
+    </ErrorBoundary>
   )
 }
