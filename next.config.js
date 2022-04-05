@@ -25,7 +25,7 @@ const defaultLocale = linguiConfig.fallbackLocales.default
 
 /** @type {import('next/dist/server/config').NextConfig}*/
 const nextConfig = {
-  reactStrictMode: true,
+  // reactStrictMode: true,
   api: {
     bodyParser: {
       sizeLimit: '50kb'
