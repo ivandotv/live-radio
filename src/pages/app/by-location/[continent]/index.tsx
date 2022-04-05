@@ -29,7 +29,6 @@ export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
 export const getStaticProps: GetStaticProps = async function (ctx) {
   const continent = (ctx.params?.continent as string).replace(/-/g, ' ')
 
-  console.log('get static PROPS ', ctx.locale)
   const translation = await loadTranslations(ctx.locale!)
 
   return {

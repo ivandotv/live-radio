@@ -1,5 +1,8 @@
+import * as Sentry from '@sentry/nextjs'
+// import { logger } from 'lib/logger-browser'
+import { logger } from 'lib/logger-server'
 import { RadioDTO } from 'lib/utils/station-utils'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import { isProduction } from 'server-config'
 
 export type StationCollection = 'favorites' | 'recent'
@@ -34,8 +37,14 @@ export interface AppDao {
 /**
  * Handle uncaught api errors
  */
-export function onError(err: any, req: NextApiRequest, res: NextApiResponse) {
-  console.log(err)
+export function onError(err: any, _req: NextApiRequest, res: NextApiResponse) {
+  if (isProduction) {
+    Sentry.captureException(err)
+  }
+  // console.log('CONN ', err)
+  logger.info('ERRROR ---')
+  // console.log('context store ', context.getStore())
+  // context.getStore().info('from  store')
   res.status(500).json({
     msg: 'Internal Server Error',
     debug: isProduction ? undefined : err.toString()
@@ -57,4 +66,14 @@ export function onNoMatch(req: NextApiRequest, res: NextApiResponse) {
           headers: req.headers
         }
   })
+}
+
+export function withErrorLogging(handler: NextApiHandler) {
+  if (isProduction) {
+    return Sentry.withSentry(handler)
+  }
+
+  return (req: NextApiRequest, res: NextApiResponse) => {
+    return handler(req, res)
+  }
 }

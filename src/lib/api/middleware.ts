@@ -1,4 +1,4 @@
-import Joi from 'joi'
+import { logger } from 'lib/logger-server'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
@@ -6,6 +6,7 @@ import { NextHandler } from 'next-connect'
 import { isProduction } from 'server-config'
 import { StationCollection } from './api-utils'
 import { getMongoDao } from './dao'
+import { importSchema, stationSchema } from './schemas'
 
 export type NextApiRequestWithSession = NextApiRequest & {
   session?: Session
@@ -20,6 +21,7 @@ export async function setupSession(
   next: NextHandler
 ) {
   const session = await getSession({ req })
+  logger.info('session')
   if (!session) {
     return res.status(401).json({ msg: 'Unauthorized' })
   }
@@ -27,42 +29,14 @@ export async function setupSession(
   next()
 }
 
-// schema for validating the station payload
-const stationSchema = Joi.object().keys({
-  _id: Joi.string().required(),
-  name: Joi.string().required(),
-  url: Joi.string().required(),
-  homepage: Joi.string().required().allow(''),
-  tags: Joi.array().required().items(Joi.string().allow('')),
-  language: Joi.array().required().items(Joi.string().allow('')),
-  codec: Joi.string().required(),
-  flag: Joi.string().required().allow(''),
-  continent: Joi.string().required().allow(''),
-  continentCode: Joi.string().required().allow(''),
-  country: Joi.string().required().allow(''),
-  countryCode: Joi.string().required().allow('')
-})
-
-const importSchema = Joi.array().items(
-  Joi.object().keys({
-    station: stationSchema,
-    date: Joi.date().required()
-  })
-)
-
 /**
- * Validates station payload
- * @param req
- * @param res
- * @param next
- * @returns
+ * Validate station payload
  */
 export function validateStation(
   req: NextApiRequest,
   res: NextApiResponse,
   next: NextHandler
 ) {
-  console.log('validate ', req.body.station)
   const { error } = stationSchema.validate(req.body.station, {
     errors: { render: false }
   })
@@ -78,11 +52,7 @@ export function validateStation(
 }
 
 /**
- * Validates array of stations payload
- * @param req
- * @param res
- * @param next
- * @returns
+ * Validate array of stations payload
  */
 export function bulkValidateStations(
   req: NextApiRequest,
@@ -105,7 +75,6 @@ export function bulkValidateStations(
 
 /**
  * Gets stations for a particular collection
- * @param collection - user collection
  */
 
 //TODO - get user STATIONS DAO
@@ -118,8 +87,6 @@ export function checkCollectionExists(
     ? (req.query.collection[0] as StationCollection)
     : undefined
 
-  console.log({ query: req.query })
-
   if (!collection) {
     return res.status(400).json({ msg: 'collection missing' })
   }
@@ -127,9 +94,13 @@ export function checkCollectionExists(
   if (-1 === ['favorites', 'recent'].indexOf(collection)) {
     return res.status(404).json({ msg: 'collection not found' })
   }
+  logger.info('check collection exist')
   next()
 }
 
+/**
+ * Get user collection
+ */
 export async function getUserCollection(
   req: NextApiRequestWithSession,
   res: NextApiResponse
@@ -147,7 +118,6 @@ export async function getUserCollection(
 
 /**
  * Handle saving stations to particular collections
- * @param collection - where to save the station
  */
 export async function saveStation(
   req: NextApiRequestWithSession,
@@ -167,7 +137,6 @@ export async function saveStation(
 
 /**
  * Deletes station from a particular collection
- * @param collection - name of the collection
  */
 export async function deleteStation(
   req: NextApiRequestWithSession,
@@ -195,7 +164,6 @@ export async function deleteStation(
 
 /**
  * Deletes the whole collection
- * @param collection - name of the collection
  */
 export async function deleteCollection(
   req: NextApiRequestWithSession,
@@ -216,11 +184,7 @@ export async function deleteCollection(
 }
 
 /**
- * Validates array of stations payload
- * @param req
- * @param res
- * @param next
- * @returns
+ * Validate array of stations payload
  */
 export async function importStations(
   req: NextApiRequestWithSession,
@@ -228,8 +192,6 @@ export async function importStations(
 ) {
   const collection: StationCollection = req.query
     .collection[0] as StationCollection
-
-  console.log('import stations ', req.body.stations)
 
   await getMongoDao().importStations(
     req.session!.user.id,

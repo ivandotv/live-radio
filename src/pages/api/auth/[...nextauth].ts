@@ -1,5 +1,6 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { connectToDatabase } from 'lib/api/db-connection'
+import { logger } from 'lib/logger-server'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
@@ -17,7 +18,11 @@ export default NextAuth({
   pages: {
     signIn: '/auth/sign-in' // Displays signin buttons
   },
-
+  logger: {
+    error(code, metadata) {
+      logger.error({ code, metadata, tags: { auth: 'next-auth' } })
+    }
+  },
   callbacks: {
     session: async ({ session, token }) => {
       //when using JWT as session, user is undefined, data is in the token

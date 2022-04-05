@@ -84,8 +84,6 @@ export default function GenreStations({
   )
 
   if (router.isFallback) {
-    console.log('fallback')
-
     return <ListStationsFallback />
   }
 

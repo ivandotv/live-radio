@@ -1,5 +1,6 @@
+import { withErrorLogging } from 'lib/api/api-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
-// @ts-ignore
+// @ts-expect-error - no types for module
 import { getStationInfo, StreamSource } from 'node-internet-radio'
 import { promisify } from 'util'
 
@@ -25,7 +26,7 @@ const getStationInfoAsync = promisify(getStationInfo)
 /**
  * Return currently playing artist and song title for a given url
  *  */
-export default async function getSongInfo(
+const handler = async function getSongInfo(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -50,3 +51,5 @@ export default async function getSongInfo(
     res.status(503).json({ msg: err.message ?? 'server error' })
   }
 }
+
+export default withErrorLogging(handler)

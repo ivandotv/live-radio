@@ -8,6 +8,7 @@ import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
 import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
 import { SongInfo } from 'components/music-player/SongInfo'
 import { useRootStore } from 'components/providers/RootStoreProvider'
+import { logger } from 'lib/logger-browser'
 import { AuthExpiredError } from 'lib/services/auth-service'
 import { MediaSessionService } from 'lib/services/media-session-service'
 import { reaction } from 'mobx'
@@ -136,7 +137,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
       } catch (err) {
         //if there is an error,  music player will set default station
         setErrorLoading(true)
-        console.error(err)
+        logger.error(err)
       } finally {
         if (recentStations.stations.length) {
           musicPlayer.setStation(recentStations.stations[0].data)
@@ -181,7 +182,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
 
   const toggleFavorites = async () => {
     const action = inFavorites ? 'remove' : 'add'
-    console.log('toggle favorites ', action)
     const station = musicPlayer.station
     const model = favoriteStations.getStationById(musicPlayer.station._id)
 
@@ -192,7 +192,6 @@ export const MusicPlayer = observer(function MusicPlayer() {
     try {
       if (inFavorites) {
         const result = await favoriteStations.deleteStation(station._id)
-        console.log('remove result')
         console.dir(result)
         if (!result.error) {
           setInFavorites(false)
@@ -204,7 +203,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
         setInFavorites(true)
       }
     } catch (e) {
-      console.error(e)
+      console.warn(e)
       if (e instanceof AuthExpiredError) {
         throw e
       }

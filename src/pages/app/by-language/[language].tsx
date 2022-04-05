@@ -47,9 +47,6 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const translation = await loadTranslations(ctx.locale!)
 
-  // console.log('translation ', translation)
-  console.log('locale ', ctx.locale)
-
   const api = new RadioBrowserApi(userAgentName)
   const stations = await api.searchStations(
     {

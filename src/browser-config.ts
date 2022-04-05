@@ -1,10 +1,18 @@
 import { t } from '@lingui/macro'
 import { booleanEnv } from 'lib/utils/misc-utils'
+import { LevelsByName } from 'tinga'
 import linguiConfig from '../lingui.config'
 /**
  * ! This file holds configuration options that can be used
  * ! in the browser as well on the server
  */
+
+export const nodeEnv = process.env
+  .NEXT_PUBLIC_NODE_ENV as typeof process.env.NODE_ENV
+
+export const isProduction = nodeEnv === 'production'
+export const isDevelopment = nodeEnv === 'development'
+export const isPreview = process.env.NEXT_PUBLIC_APP_ENV === 'preview'
 
 export const url =
   process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
@@ -12,6 +20,14 @@ export const url =
     : process.env.NEXT_PUBLIC_VERCEL_URL
     ? process.env.NEXT_PUBLIC_VERCEL_URL!.replace(/\/$/, '')
     : 'http://localhost:3000'
+
+export const logLevel = (process.env.NEXT_PUBLIC_BROWSER_LOG_LEVEL ||
+  'silent') as LevelsByName
+
+export const remoteLogLevel = (process.env
+  .NEXT_PUBLIC_BROWSER_REMOTE_LOG_LEVEL || 'trace') as LevelsByName
+
+export const remoteLogUrl = `${url}/api/log`
 
 export const locales = [...linguiConfig.locales]
 export const defaultLocale = linguiConfig.fallbackLocales.default
@@ -64,7 +80,6 @@ export function sections() {
     about: t`About`
   }
 }
-export const isPreview = process.env.NEXT_PUBLIC_IS_PREVIEW === 'true'
 
 export const enableServiceWorker = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER,

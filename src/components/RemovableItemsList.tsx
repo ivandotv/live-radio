@@ -93,6 +93,7 @@ export const RemovableItemsList = observer(function RemovableItemsList({
             width="500"
             height="500"
             alt={t`background`}
+            priority={true}
             className={classes.noDataImage}
             src="/images/dancing-panda.svg"
           />

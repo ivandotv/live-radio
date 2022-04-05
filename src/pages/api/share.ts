@@ -1,11 +1,13 @@
-import { NextApiRequest, NextApiResponse } from 'next'
 import parser from 'accept-language-parser'
 import { locales } from 'browser-config'
+import { withErrorLogging } from 'lib/api/api-utils'
+import { NextApiRequest, NextApiResponse } from 'next'
+
 /**
  * Special api route for redirecting "share" urls to
  * proper locale path
  */
-export default async function redirectShare(
+const handler = async function redirectShare(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -34,3 +36,4 @@ export default async function redirectShare(
   // custom language
   res.redirect(`/${language}/app/${playEncoded}`)
 }
+export default withErrorLogging(handler)

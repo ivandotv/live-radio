@@ -1,5 +1,6 @@
 import { defaultStation } from 'browser-config'
 import { Howl } from 'howler'
+import { logger } from 'lib/logger-browser'
 import {
   SongInfoService,
   songInfoServiceFactory
@@ -81,9 +82,8 @@ export class MusicPlayerStore {
     data?: { artist: string; title: string }
   ) {
     if (error) {
-      console.error('player - song service error', error)
+      logger.error('song service error', error)
     } else {
-      console.log('player - song service success', data)
       if (data) {
         if (
           data.title &&
@@ -91,8 +91,7 @@ export class MusicPlayerStore {
           data.artist &&
           data.artist !== this.songInfo?.artist
         ) {
-          console.log('new song data')
-          console.log(`new ${data.title} | ${data.artist}`)
+          logger.log('new song data', `title ${data.title} | ${data.artist}`)
         }
       }
     }
@@ -113,9 +112,6 @@ export class MusicPlayerStore {
     })
 
     this.station = station
-
-    console.log('station to play ', station)
-    console.log('trying url ', url ?? station.url)
 
     this.player.on('play', () => {
       this.songInfoService.start(station.url, this.songServiceCb.bind(this))
@@ -141,7 +137,6 @@ export class MusicPlayerStore {
       })
 
       this.rootStore.recentStations.saveStation(station)
-      console.log('radio playing')
     })
 
     this.player.on('pause', () => {
@@ -149,14 +144,14 @@ export class MusicPlayerStore {
         this.status = PlayerStatus.PAUSED
       })
       window.navigator.mediaSession!.playbackState = 'paused'
-      console.log('radio paused')
     })
 
     this.player.on('load', () => {
-      console.log('radio load')
+      logger.log('player loaded')
     })
 
     this.player.on('loaderror', (_, errorData) => {
+      logger.error('radio error', errorData)
       if (this.firstTryLoad) {
         this.firstTryLoad = false
         this.disposePlayer()
@@ -167,13 +162,10 @@ export class MusicPlayerStore {
             : '/;' //shoutcast stream fix
         }`
 
-        console.log('trying new url ', url)
+        logger.log('trying new url ', url)
         this.initPlayer(this.station, url)
 
         window.navigator.mediaSession!.playbackState = 'paused'
-
-        console.log('radio loaderror')
-        console.log({ errorData })
 
         return
       }
@@ -184,9 +176,9 @@ export class MusicPlayerStore {
         }
         this.status = PlayerStatus.ERROR
         this.errorStations[station._id] = true
-        console.log(this.playerError)
       })
     })
+
     this.player.on('playerror', (_, errorData) => {
       runInAction(() => {
         this.playerError = {
@@ -195,11 +187,10 @@ export class MusicPlayerStore {
         }
         this.status = PlayerStatus.ERROR
         this.errorStations[station._id] = true
-        console.log(this.playerError)
       })
 
       window.navigator.mediaSession!.playbackState = 'paused'
-      console.log('playerror')
+      logger.error('player error', errorData)
     })
 
     this.player.play()

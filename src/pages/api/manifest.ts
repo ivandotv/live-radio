@@ -1,5 +1,6 @@
 import { i18n } from '@lingui/core'
 import { defaultLocale } from 'browser-config'
+import { withErrorLogging } from 'lib/api/api-utils'
 import createManifest from 'lib/create-manifest'
 import { loadTranslations } from 'lib/utils/taranslation-utils'
 import { en, sr } from 'make-plural/plurals'
@@ -23,7 +24,7 @@ const cacheManifest: Record<string, unknown> = {}
  * 4. use a query parameter
  *  */
 
-export default async function generateManifest(
+const handler = async function generateManifest(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -37,15 +38,16 @@ export default async function generateManifest(
   }
 
   const translations = await loadTranslations(locale)
-  // eslint-disable-next-line
+
   cacheManifest[locale] = translations
   i18n.load(locale, translations)
   i18n.activate(locale)
 
   const manifest = createManifest(`../${locale}`)
 
-  // eslint-disable-next-line
   cacheManifest[locale] = manifest
 
   res.send(manifest)
 }
+
+export default withErrorLogging(handler)

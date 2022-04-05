@@ -37,7 +37,7 @@ export const SearchResultList = observer(function SearchResultList({
           <Virtuoso
             totalCount={toJS(store.filtered.length)}
             overscan={40}
-            item={dataRow(toJS(store.filtered))}
+            itemContent={dataRow(toJS(store.filtered))}
             style={{ height: '100%', width: '100%' }}
           />
         </div>

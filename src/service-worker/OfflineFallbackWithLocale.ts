@@ -15,8 +15,6 @@ export class OfflineFallbackWithLocale implements WorkboxPlugin {
   async handlerDidError({ request }: { request: Request }) {
     const locale = this.getLocaleFromUrlPath(new URL(request.url).pathname)
 
-    console.log('locale found -> ', locale)
-
     let fallback: string
     if (locale) {
       //localized fallback page

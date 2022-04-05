@@ -5,6 +5,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { layout } from 'browser-config'
+import { logger } from 'lib/logger-browser'
 import { observer } from 'mobx-react-lite'
 import { useSnackbar } from 'notistack'
 import { SyntheticEvent } from 'react'
@@ -66,7 +67,7 @@ export const ShareStationDesktop = observer(function ShareStationDesktop({
       }
     })
 
-    console.log('copied to clipboard')
+    logger.log('copied to clipboard')
   }
 
   const copyLinkItem =

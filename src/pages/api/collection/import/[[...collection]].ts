@@ -5,12 +5,13 @@ import {
   importStations,
   setupSession
 } from 'lib/api/middleware'
+import { setupLogger } from 'lib/logger-server'
 import { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
 
 // Handle bulk import stations
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
-  .use(setupSession)
+  .use(setupLogger, setupSession)
   .post(checkCollectionExists, bulkValidateStations, importStations)
 
 export default handler

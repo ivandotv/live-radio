@@ -11,6 +11,7 @@ module.exports = {
     __COMMIT_SHA__: true,
     __BUILD_DATE__: true
   },
+  reportUnusedDisableDirectives: true,
   plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
     'eslint:recommended',
@@ -55,7 +56,12 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-non-null-assertion': ['off'],
-    '@typescript-eslint/ban-ts-comment': ['off'],
+    '@typescript-eslint/ban-ts-comment': [
+      2,
+      {
+        'ts-expect-error': 'allow-with-description'
+      }
+    ],
     '@typescript-eslint/no-explicit-any': ['off'],
     '@typescript-eslint/explicit-module-boundary-types': ['off'],
     '@typescript-eslint/member-delimiter-style': [

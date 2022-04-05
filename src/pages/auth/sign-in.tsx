@@ -40,8 +40,6 @@ export default function SignIn({
   if (errorType) {
     errorMessage = errorType && (errors[errorType] ?? errors.default)
   }
-  console.log('type ', errorType)
-  console.log('msg ', errorMessage)
 
   const queryCallback = router.query?.callbackUrl as string
   const callbackUrl = useClientUrl(`/${router.locale}/app`)

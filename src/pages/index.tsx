@@ -35,6 +35,7 @@ export default function Index() {
             alt={t`landing page image`}
             width="450"
             height="326"
+            priority={true}
             src="/images/landing-page.png"
           />
         </div>

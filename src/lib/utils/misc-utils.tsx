@@ -148,3 +148,11 @@ export function throwInDev(data: any) {
     throw data
   }
 }
+
+export function assertEnv<T>(value?: T): T {
+  if (typeof value === 'undefined') {
+    throw new Error(`Env: ${value} not present`)
+  }
+
+  return value
+}

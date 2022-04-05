@@ -1,3 +1,4 @@
+import { logger } from 'lib/logger-server'
 import { RadioDTO } from 'lib/utils/station-utils'
 import { ObjectId } from 'mongodb'
 import { isProduction, mongoClient as dbSettings } from 'server-config'
@@ -32,7 +33,6 @@ class MongoDao implements AppDao {
         { projection: { [collection]: 1, _id: 0 } }
       )
 
-    console.log('user stations -> ', userStations)
     if (!userStations || !userStations[collection]) return []
 
     return this.getStations(userStations[collection].map((data) => data._id))
@@ -113,7 +113,7 @@ class MongoDao implements AppDao {
     collectionName: StationCollection
   ) {
     const { db, client } = await this.connection()
-
+    logger.info('FN _> ')
     const session = client.startSession()
     try {
       await session.withTransaction(async () => {
@@ -147,7 +147,7 @@ class MongoDao implements AppDao {
 
         //sort by date  - newest first
         collection.sort((a, z) => {
-          // @ts-ignore - substracting dates works just fine
+          // @ts-espect-error - substracting dates works just fine
           return z.date - a.date
         })
 
@@ -186,8 +186,6 @@ class MongoDao implements AppDao {
   ) {
     const { db } = await this.connection()
 
-    console.log('delete')
-    console.log({ userId, stationId, collection })
     const result = await db
       .collection('users')
       .updateOne(
@@ -294,7 +292,6 @@ class MongoDao implements AppDao {
 
     //sort by date  - newest first
     collection = [...unique.values()].sort((a, z) => {
-      // @ts-ignore - substracting dates works just fine
       return z.date - a.date
     })
 

@@ -14,6 +14,7 @@ import { RadioStore } from 'lib/stores/favorites-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent } from 'react'
 import { usePromise } from 'react-use'
+import { logger } from 'lib/logger-browser'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -50,33 +51,16 @@ export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
   const removeStation = async (e: MouseEvent) => {
     e.stopPropagation()
     if (station.isSyncing) {
-      console.log('already synching  - return !')
+      logger.log('already synching  - return !')
 
       return
     }
 
     await mounted(
-      store
-        .deleteStation(station.id, { remove: false })
-        .then((result) => {
-          console.log('rm btn result ', result)
-        })
-        .catch((err) => {
-          console.log('remove btn err ', err)
-        })
+      store.deleteStation(station.id, { remove: false }).catch((err) => {
+        logger.error('error deleting station', err)
+      })
     )
-    // try {
-    //   const data = unwrapResult(
-    //     // await mounted(station.delete({ remove: false }))
-    //     await mounted(store.deleteStation(station.id, { remove: false }))
-    //   )
-    //   // const data = await station.delete({ remove: false })
-    //   console.log('done !---', data)
-    // } catch (e) {
-    //   console.log('catch!')
-    //   console.error(e)
-    //   //todo - log
-    // }
   }
 
   return (

@@ -1,5 +1,6 @@
 import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
 import { StationCollection } from 'lib/api/api-utils'
+import { logger } from 'lib/logger-browser'
 import { RadioDTO } from 'lib/utils/station-utils'
 
 type DBValue = { station: RadioDTO; date: string; _id: string }
@@ -64,21 +65,19 @@ export class LocalStorageService {
   async initDB() {
     const db = await openDB<LocalSchema>(this.dbName, 1, {
       upgrade(db, oldVersion, newVersion, _transaction) {
-        console.log({ oldVersion })
-        console.log({ newVersion })
         if (newVersion === 1) {
           db.createObjectStore('favorites', { keyPath: '_id' })
           db.createObjectStore('recent', { keyPath: '_id' })
         }
       },
       blocked() {
-        console.log('idb blocked')
+        logger.warn('idb blocked')
       },
       blocking() {
-        console.log('idb blocking')
+        logger.warn('idb blocking')
       },
       terminated() {
-        console.log('idb terminated')
+        logger.warn('idb terminated')
       }
     })
 

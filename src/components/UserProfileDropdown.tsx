@@ -10,6 +10,7 @@ import {
   Typography
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { logger } from 'lib/logger-browser'
 import { PlayerStatus } from 'lib/stores/music-player-store'
 import { useClientUrl } from 'lib/utils/misc-utils'
 import { observer } from 'mobx-react-lite'
@@ -101,8 +102,8 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
   }
 
   useEffect(() => {
-    console.log({ session })
-    console.log({ status })
+    logger.log({ session })
+    logger.log({ status })
   }, [session, status])
 
   const menuItems = session

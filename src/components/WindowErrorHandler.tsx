@@ -1,3 +1,4 @@
+import { logger } from 'lib/logger-browser'
 import { useEffect } from 'react'
 import { useErrorHandler } from 'react-error-boundary'
 
@@ -13,11 +14,11 @@ export function WindowErrorHandler() {
   useEffect(() => {
     window.addEventListener('unhandledrejection', (_event) => {
       // handleError(event)
-      // console.log('unhandledrejection', event)
+      logger.warn('unhandledrejection', _event)
     })
     window.addEventListener('error', (_event) => {
       // handleError(event)
-      // console.log('error', event)
+      logger.warn(_event)
     })
   }, [handleError])
 

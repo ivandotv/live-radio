@@ -1,12 +1,14 @@
-import { isProduction } from 'server-config'
+import { withErrorLogging } from 'lib/api/api-utils'
+import { logger, withLogger } from 'lib/logger-server'
 import { countryDataByKey } from 'lib/utils/misc-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import requestIp from 'request-ip'
+import { isProduction } from 'server-config'
 
 /**
  * Determine country via ip address
  *  */
-export default async function getGeoLocation(
+const handler = async function getGeoLocation(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -17,7 +19,9 @@ export default async function getGeoLocation(
     detectedIp === '::1' || detectedIp === '127.0.0.1' ? '' : detectedIp
 
   try {
+    logger.info('GEO before')
     const response = await fetch(`http://ip-api.com/json/${queryIp}`)
+    logger.info('GEO after')
 
     let data: { countryCode: string }
     let countryData
@@ -26,6 +30,7 @@ export default async function getGeoLocation(
       countryData = countryDataByKey('code', data.countryCode)
     }
 
+    logger.info('GEO after 2')
     if (!countryData) {
       throw new Error(`Can't parse location data`)
     }
@@ -38,3 +43,4 @@ export default async function getGeoLocation(
       .json({ message, debug: isProduction ? undefined : err.toString() })
   }
 }
+export default withErrorLogging(withLogger(handler))

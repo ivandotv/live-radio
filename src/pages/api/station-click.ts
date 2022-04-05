@@ -1,11 +1,11 @@
 import { userAgentName } from 'browser-config'
+import { withErrorLogging } from 'lib/api/api-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
-
 /**
  * Sends station click to radio browser api.
  */
-export default async function sendStationClick(
+const handler = async function sendStationClick(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -14,11 +14,12 @@ export default async function sendStationClick(
 
     const radioApi = new RadioBrowserApi(userAgentName)
 
-    const response = await radioApi.sendStationClick(payload)
-    console.log(response)
+    await radioApi.sendStationClick(payload)
 
     res.status(200).json({ msg: 'ok' })
   } catch (e: unknown) {
     res.status(503).json({ msg: 'fail' })
   }
 }
+
+export default withErrorLogging(handler)

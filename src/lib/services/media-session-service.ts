@@ -1,4 +1,5 @@
 import { defaultArtwork } from 'browser-config'
+import { logger } from 'lib/logger-browser'
 import { MusicPlayerStore, PlayerStatus } from 'lib/stores/music-player-store'
 import { reaction } from 'mobx'
 
@@ -51,21 +52,18 @@ export class MediaSessionService {
       [
         'play',
         () => {
-          console.log('session play')
           this.musicPlayer.resume()
         }
       ],
       [
         'pause',
         () => {
-          console.log('session pause')
           this.musicPlayer.pause()
         }
       ],
       [
         'stop',
         () => {
-          console.log('session stop')
           this.musicPlayer.stop()
         }
       ]
@@ -77,7 +75,7 @@ export class MediaSessionService {
           // @ts-expect-error - problem with setActionHandler overload
           this.navigator.mediaSession.setActionHandler(action, handler)
         } catch (error) {
-          console.log(
+          logger.warn(
             `The media session action "${action}" is not supported yet.`
           )
         }

@@ -29,7 +29,6 @@ export class FilterDataStore {
   protected searchTimeoutId: number | undefined
 
   constructor() {
-    console.log('filter store constructor')
     makeObservable(this, {
       allData: observable.shallow,
       filtered: observable.shallow,

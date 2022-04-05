@@ -1,11 +1,12 @@
 import { userAgentName } from 'browser-config'
+import { withErrorLogging } from 'lib/api/api-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 
 /**
  * Vote for station via radio browser api
  */
-export default async function voteForStation(
+const handler = async function voteForStation(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -21,3 +22,5 @@ export default async function voteForStation(
     res.status(503).json({ msg: 'fail' })
   }
 }
+
+export default withErrorLogging(handler)

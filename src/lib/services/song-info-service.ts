@@ -1,3 +1,4 @@
+import { logger } from 'lib/logger-browser'
 import { isSSR } from 'lib/utils/misc-utils'
 
 export function songInfoServiceFactory() {
@@ -49,13 +50,12 @@ export class SongInfoService {
 
   stop() {
     this.stopped = true
-    console.log('song service stop')
 
     if (this.timeoutId) {
       clearTimeout(this.timeoutId)
       this.timeoutId = undefined
 
-      console.log('song service kill timeout')
+      logger.log('song service kill timeout')
     }
   }
 }

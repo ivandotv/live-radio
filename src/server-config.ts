@@ -4,7 +4,13 @@ import { booleanEnv } from 'lib/utils/misc-utils'
  * ! Configuration in this file should ONLY be used on server side code!
  */
 
-export const isProduction = process.env.NODE_ENV === 'production'
+export const nodeEnv = process.env.NODE_ENV
+
+export const isProduction = nodeEnv === 'production'
+export const isDevelopment = nodeEnv === 'development'
+export const isTest = nodeEnv === 'test'
+export const isPreview = process.env.APP_ENV === 'preview'
+export const logLevel = process.env.LOG_LEVEL || 'silent'
 
 export const mongoClient = {
   uri: process.env.MONGODB_URI,

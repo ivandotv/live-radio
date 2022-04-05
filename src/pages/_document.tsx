@@ -10,8 +10,6 @@ import React from 'react'
 
 export default class MyDocument extends Document {
   render() {
-    console.log('_document render')
-
     return (
       <Html>
         <Head>

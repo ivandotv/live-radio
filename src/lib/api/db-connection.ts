@@ -33,7 +33,6 @@ export async function connectToDatabase(): Promise<MongoConnection> {
         }
       })
     }
-    // eslint-disable-next-line
     cached.conn = await cached.promise // https://github.com/eslint/eslint/issues/11899
 
     return cached.conn

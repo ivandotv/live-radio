@@ -8,11 +8,12 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import { logger } from 'lib/logger-browser'
+import { client } from 'lib/utils/misc-utils'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo } from 'react'
 import { useAsyncFn } from 'react-use'
-import { client } from 'lib/utils/misc-utils'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -60,7 +61,7 @@ export const LocationModal = observer(function LocationModal({
 
   useEffect(() => {
     if (open) {
-      console.log('do fetch')
+      logger.log('do fetch')
       doFetch()
     }
   }, [open, doFetch])
