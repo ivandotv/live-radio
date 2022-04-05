@@ -24,11 +24,6 @@ export const url =
 export const logLevel = (process.env.NEXT_PUBLIC_BROWSER_LOG_LEVEL ||
   'silent') as LevelsByName
 
-export const remoteLogLevel = (process.env
-  .NEXT_PUBLIC_BROWSER_REMOTE_LOG_LEVEL || 'trace') as LevelsByName
-
-export const remoteLogUrl = `${url}/api/log`
-
 export const locales = [...linguiConfig.locales]
 export const defaultLocale = linguiConfig.fallbackLocales.default
 

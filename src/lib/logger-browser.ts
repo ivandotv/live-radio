@@ -1,20 +1,19 @@
 import * as Sentry from '@sentry/nextjs'
-import { logLevel, remoteLogLevel, remoteLogUrl } from 'browser-config'
-import { Tinga } from 'tinga'
+import { logLevel } from 'browser-config'
+import Tinga from 'tinga'
 
-export class BrowserLogger extends Tinga {
-  override error(...args: any[]): void {
-    if (args[0] instanceof Error) {
-      Sentry.captureException(args[0], { extra: { args: args.slice(1) } })
-    }
-    super.error(...args)
-  }
-}
-
-export const logger = new BrowserLogger({
+export const logger = new Tinga({
   level: logLevel,
-  remote: {
-    url: remoteLogUrl,
-    level: remoteLogLevel
+  processData: (ctx, data, info) => {
+    if (info.level.name === 'error') {
+      if (data[0] instanceof Error) {
+        Sentry.captureException(data[0], { extra: { args: data.slice(1) } })
+      }
+    }
+
+    return {
+      ctx,
+      data
+    }
   }
 })
