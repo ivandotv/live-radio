@@ -1,7 +1,7 @@
 import { booleanEnv } from 'lib/utils/misc-utils'
 
 /**
- * ! Configuration in this file should ONLY be used on server side code!
+ * ! Configuration in this file should ONLY be used in server side code!
  */
 
 export const nodeEnv = process.env.NODE_ENV
