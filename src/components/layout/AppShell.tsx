@@ -104,11 +104,13 @@ export const AppShell = observer(function AppShell({
   const router = useRouter()
   const locale = router.locale || router.defaultLocale!
 
+  const { path, scope, enable, enableReload } = serviceWorker
+
   const [showPrompt, hideUpdatePrompt, update] = useServiceWorker({
-    path: serviceWorker.path,
-    scope: serviceWorker.scope,
-    enable: serviceWorker.enable,
-    enableReload: serviceWorker.enableReload,
+    path,
+    scope,
+    enable,
+    enableReload,
     cookieName: cookies.pwaUpdated.name,
     cookieValue: cookies.pwaUpdated.value,
     cookieOptions: cookies.pwaUpdated.options
