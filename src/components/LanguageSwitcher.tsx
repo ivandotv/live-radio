@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { isPreview } from 'browser-config'
+import { isDevelopment, isPreview } from 'browser-config'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { ChangeEvent } from 'react'
@@ -33,7 +33,7 @@ export function LanguageSwitcher({
     sr: t`Serbian`,
     help: t`Help Translate`
   }
-  if (isPreview) {
+  if (isPreview || isDevelopment) {
     languages.pseudo = t`Pseudo`
   }
 
