@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { isDevelopment, isPreview } from 'browser-config'
+import { cookies, isDevelopment, isPreview } from 'browser-config'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { ChangeEvent } from 'react'
@@ -50,11 +50,7 @@ export function LanguageSwitcher({
     if (key === 'help') {
       return
     }
-    Cookies.set('NEXT_LOCALE', key, {
-      expires: 31, //one month,
-      path: '/',
-      sameSite: 'lax'
-    })
+    Cookies.set(cookies.locale.name, key, cookies.locale.options)
     router.push(
       { pathname: router.pathname, query: router.query },
       router.asPath,

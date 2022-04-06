@@ -43,9 +43,19 @@ export const defaultArtwork = {
   type: 'image/png'
 }
 
-export const favoritesHeartColor = '#ff0000'
-export const serviceWorkerPath = '/sw.js'
-export const serviceWorkerScope = '/'
+export const colors = {
+  favoritesHeartColor: '#ff0000'
+}
+
+export const serviceWorker = {
+  path: '/sw.js',
+  scope: '/',
+  enable: booleanEnv(process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER, false),
+  enableReload: booleanEnv(
+    process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER_RELOAD,
+    false
+  )
+}
 
 export const defaultStation = {
   _id: '961173b5-0601-11e8-ae97-52543be04c81',
@@ -76,26 +86,44 @@ export function sections() {
   }
 }
 
-export const enableServiceWorker = booleanEnv(
-  process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER,
-  false
-)
-
-export const enableServiceWorkerReload = booleanEnv(
-  process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER_RELOAD,
-  false
-)
-
 export const enablePWAInstallBanner = booleanEnv(
   process.env.NEXT_PUBLIC_ENABLE_PWA_INSTALL,
   false
 )
 
-export const pwaUpdatedCookieName = 'show_app_updated'
-
-export const pwaInstallDismissedCookie = 'pwa_install_dissmissed'
-
-export const anonymousImportDissmissed = 'anonymous_dissmissed'
+export const cookies = {
+  pwaUpdated: {
+    name: 'show_app_updated',
+    value: '1',
+    options: {
+      sameSite: 'strict' as const
+    }
+  },
+  pwaInstallDismissed: {
+    name: 'pwa_install_dissmissed',
+    value: '1',
+    options: {
+      expires: 1
+    }
+  },
+  anonymousImportDissmissed: {
+    name: 'anonymous_dissmissed',
+    value: '1',
+    options: {
+      expires: 31 * 12, // ~ one year,
+      path: '/',
+      sameSite: 'strict' as const
+    }
+  },
+  locale: {
+    name: 'NEXT_LOCALE',
+    options: {
+      expires: 31, //one month,
+      path: '/',
+      sameSite: 'lax' as const
+    }
+  }
+}
 
 export const stationSearchIndexes = [
   'data.language',

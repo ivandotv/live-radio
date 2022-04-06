@@ -11,7 +11,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormGroup from '@material-ui/core/FormGroup'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { anonymousImportDissmissed } from 'browser-config'
+import { cookies } from 'browser-config'
 import clsx from 'clsx'
 import { PageLoadError } from 'components/PageLoadError'
 import { useRootStore } from 'components/providers/RootStoreProvider'
@@ -19,6 +19,7 @@ import Cookies from 'js-cookie'
 import { observer } from 'mobx-react-lite'
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
+
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
     modal: {
@@ -73,11 +74,11 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
   }
 
   function cancelImport() {
-    Cookies.set(anonymousImportDissmissed, '1', {
-      expires: 31 * 12, // ~ one year,
-      path: '/',
-      sameSite: 'strict'
-    })
+    Cookies.set(
+      cookies.anonymousImportDissmissed.name,
+      cookies.anonymousImportDissmissed.value,
+      cookies.anonymousImportDissmissed.options
+    )
     setOpen(false)
   }
 
@@ -102,7 +103,9 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
       authChecked.current = true
       if (session) {
         ;(async () => {
-          const isDismissed = Cookies.get(anonymousImportDissmissed)
+          const isDismissed = Cookies.get(
+            cookies.anonymousImportDissmissed.name
+          )
           const shouldOpen = await appShell.hasAnonymousData()
 
           if (shouldOpen && isDismissed !== '1') {
@@ -110,7 +113,9 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
           }
         })()
       } else {
-        Cookies.remove(anonymousImportDissmissed, { sameSite: 'strict' })
+        Cookies.remove(cookies.anonymousImportDissmissed.name, {
+          sameSite: 'strict'
+        })
       }
     }
   }, [session, appShell])

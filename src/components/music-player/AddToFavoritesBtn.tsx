@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import FullHeart from '@material-ui/icons/Favorite'
 import EmptyHeart from '@material-ui/icons/FavoriteBorder'
-import { favoritesHeartColor } from 'browser-config'
+import { colors } from 'browser-config'
 import { observer } from 'mobx-react-lite'
 
 type MakeStyleProps = {
@@ -19,7 +19,9 @@ const useStyles = makeStyles<Theme, MakeStyleProps>((theme: Theme) =>
     icon: {
       fontSize: ({ fontSize }) => fontSize,
       color: ({ inFavorites }) =>
-        inFavorites ? favoritesHeartColor : theme.palette.primary.contrastText
+        inFavorites
+          ? colors.favoritesHeartColor
+          : theme.palette.primary.contrastText
     }
   })
 )

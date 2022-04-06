@@ -9,14 +9,10 @@ import {
   useTheme
 } from '@material-ui/core/styles'
 import {
+  cookies,
   enablePWAInstallBanner,
-  enableServiceWorker,
-  enableServiceWorkerReload,
   layout,
-  pwaInstallDismissedCookie,
-  pwaUpdatedCookieName,
-  serviceWorkerPath,
-  serviceWorkerScope
+  serviceWorker
 } from 'browser-config'
 import { AuthExpiredModal } from 'components/AuthExpiredModal'
 import { ImportAnonymousData } from 'components/ImportAnonymousData'
@@ -109,16 +105,20 @@ export const AppShell = observer(function AppShell({
   const locale = router.locale || router.defaultLocale!
 
   const [showPrompt, hideUpdatePrompt, update] = useServiceWorker({
-    path: serviceWorkerPath,
-    scope: serviceWorkerScope,
-    enable: enableServiceWorker,
-    enableReload: enableServiceWorkerReload,
-    updateCookieName: pwaUpdatedCookieName
+    path: serviceWorker.path,
+    scope: serviceWorker.scope,
+    enable: serviceWorker.enable,
+    enableReload: serviceWorker.enableReload,
+    cookieName: cookies.pwaUpdated.name,
+    cookieValue: cookies.pwaUpdated.value,
+    cookieOptions: cookies.pwaUpdated.options
   })
 
   const [showInstallPrompt, installPWA, hideInstallPrompt] = usePWAInstall({
     enable: enablePWAInstallBanner,
-    cookieName: pwaInstallDismissedCookie
+    cookieName: cookies.pwaInstallDismissed.name,
+    cookieValue: cookies.pwaInstallDismissed.value,
+    cookieOptions: cookies.pwaInstallDismissed.options
   })
 
   useEffect(() => {
@@ -165,7 +165,7 @@ export const AppShell = observer(function AppShell({
         <LoginNotification />
         <AuthExpiredModal />
         <ImportAnonymousData />
-        <AppUpdatedNotification cookieName={pwaUpdatedCookieName} />
+        <AppUpdatedNotification cookieName={cookies.pwaUpdated.name} />
         <nav className={classes.navWrapper}>
           <Hidden smDown implementation="css">
             <DesktopNavigation />

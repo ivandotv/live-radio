@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Workbox } from 'workbox-window'
-import Cookies from 'js-cookie'
+import Cookies, { CookieAttributes } from 'js-cookie'
 
 /**
  * Handle registering and reloading website when service worker is updated
@@ -15,13 +15,17 @@ export function useServiceWorker({
   scope,
   enable,
   enableReload,
-  updateCookieName
+  cookieName,
+  cookieValue,
+  cookieOptions
 }: {
   path: string
   scope: string
   enable: boolean
   enableReload: boolean
-  updateCookieName: string
+  cookieName: string
+  cookieValue: any
+  cookieOptions: CookieAttributes
 }) {
   const [showUpdatePrompt, setShowUpdatePrompt] = useState(false)
   const wb = useRef<Workbox>()
@@ -57,7 +61,7 @@ export function useServiceWorker({
      */
     function swControlling(_evt: any) {
       if (shouldReload.current) {
-        Cookies.set(updateCookieName, '1', { sameSite: 'strict' })
+        Cookies.set(cookieName, cookieValue, cookieOptions)
         window.location.reload()
       }
     }
@@ -77,7 +81,15 @@ export function useServiceWorker({
         worker.addEventListener('controlling', swControlling)
       }
     }
-  }, [path, scope, enable, enableReload, updateCookieName])
+  }, [
+    path,
+    scope,
+    enable,
+    enableReload,
+    cookieName,
+    cookieOptions,
+    cookieValue
+  ])
 
   return [showUpdatePrompt, hideUpdatePrompt, update] as const
 }

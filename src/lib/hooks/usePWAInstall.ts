@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie'
+import Cookies, { CookieAttributes } from 'js-cookie'
 import { useEffect, useRef, useState } from 'react'
 
 /**
@@ -6,10 +6,14 @@ import { useEffect, useRef, useState } from 'react'
  */
 export function usePWAInstall({
   enable,
-  cookieName
+  cookieName,
+  cookieValue,
+  cookieOptions
 }: {
   enable: boolean
   cookieName: string
+  cookieValue: any
+  cookieOptions: CookieAttributes
 }) {
   const beforeInstallPromptEvent = useRef<
     BeforeInstallPromptEvent | undefined
@@ -45,7 +49,7 @@ export function usePWAInstall({
     setShowInstallPrompt(false)
     beforeInstallPromptEvent.current = undefined
     if (!accepted) {
-      Cookies.set(cookieName, '1', { expires: 1 })
+      Cookies.set(cookieName, cookieValue, cookieOptions)
     } else {
       Cookies.remove(cookieName)
     }

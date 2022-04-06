@@ -37,13 +37,13 @@ msgstr ""
 msgid "Abkhaz"
 msgstr ""
 
-#: src/browser-config.ts:75
+#: src/browser-config.ts:85
 #: src/components/UserProfileDropdown.tsx:73
 #: src/components/navigation/desktop/Menu.tsx:36
 msgid "About"
 msgstr ""
 
-#: src/components/music-player/AddToFavoritesBtn.tsx:41
+#: src/components/music-player/AddToFavoritesBtn.tsx:43
 msgid "Add station to favorites"
 msgstr ""
 
@@ -122,11 +122,11 @@ msgstr ""
 msgid "Anonymous User"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:203
+#: src/components/ImportAnonymousData.tsx:208
 msgid "Anonymous data deleted"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:221
+#: src/components/ImportAnonymousData.tsx:226
 msgid "Anonymous data imported"
 msgstr ""
 
@@ -343,21 +343,21 @@ msgstr ""
 msgid "Burundi"
 msgstr ""
 
-#: src/browser-config.ts:73
+#: src/browser-config.ts:83
 #: src/pages/app/by-genre/[genre].tsx:101
 #: src/pages/app/by-genre/index.tsx:20
 #: src/pages/app/index.tsx:64
 msgid "By Genre"
 msgstr ""
 
-#: src/browser-config.ts:72
+#: src/browser-config.ts:82
 #: src/pages/app/by-language/[language].tsx:100
 #: src/pages/app/by-language/index.tsx:29
 #: src/pages/app/index.tsx:62
 msgid "By Language"
 msgstr ""
 
-#: src/browser-config.ts:71
+#: src/browser-config.ts:81
 #: src/pages/app/by-location/[continent]/[country].tsx:109
 #: src/pages/app/by-location/[continent]/index.tsx:59
 #: src/pages/app/by-location/index.tsx:40
@@ -377,7 +377,7 @@ msgstr ""
 msgid "Canada"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:188
+#: src/components/ImportAnonymousData.tsx:193
 msgid "Cancel"
 msgstr ""
 
@@ -509,7 +509,7 @@ msgstr ""
 msgid "Currently there is no data for <0> ${0}</0>."
 msgstr ""
 
-#: src/browser-config.ts:69
+#: src/browser-config.ts:79
 #: src/pages/app/custom.tsx:21
 #: src/pages/app/index.tsx:67
 msgid "Custom Search"
@@ -636,7 +636,7 @@ msgstr ""
 msgid "Error adding to  favorites"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:183
+#: src/components/ImportAnonymousData.tsx:188
 msgid "Error importing data"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgstr ""
 msgid "Faroese"
 msgstr ""
 
-#: src/browser-config.ts:68
+#: src/browser-config.ts:78
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:57
 #: src/lib/create-manifest.ts:45
@@ -993,23 +993,23 @@ msgstr ""
 msgid "Igbo"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:121
+#: src/components/ImportAnonymousData.tsx:126
 msgid "Import Data"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:237
+#: src/components/ImportAnonymousData.tsx:242
 msgid "Import data from anonymous account"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:135
+#: src/components/ImportAnonymousData.tsx:140
 msgid "Import favorite stations"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:169
+#: src/components/ImportAnonymousData.tsx:174
 msgid "Import in progress"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:139
+#: src/components/ImportAnonymousData.tsx:144
 msgid "Import recently listened stations"
 msgstr ""
 
@@ -1094,7 +1094,7 @@ msgid ""
 "You will need to sign in again in order to continue to use the application"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:126
+#: src/components/ImportAnonymousData.tsx:131
 msgid ""
 "It appears that you have switched from the anonymous mode.\n"
 "Would you like to import your favorite and recently listened stations\n"
@@ -1145,7 +1145,7 @@ msgstr ""
 msgid "Jungle"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:153
+#: src/components/ImportAnonymousData.tsx:158
 msgid "Just delete anonymous data"
 msgstr ""
 
@@ -1546,7 +1546,7 @@ msgstr ""
 msgid "No Artist Data"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:150
+#: src/components/ImportAnonymousData.tsx:155
 msgid "No thanks"
 msgstr ""
 
@@ -1618,12 +1618,12 @@ msgstr ""
 msgid "Ojibwe"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:208
-#: src/components/ImportAnonymousData.tsx:226
+#: src/components/ImportAnonymousData.tsx:213
+#: src/components/ImportAnonymousData.tsx:231
 msgid "Ok"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:160
+#: src/components/ImportAnonymousData.tsx:165
 msgid "Okay"
 msgstr ""
 
@@ -1774,7 +1774,7 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
-#: src/browser-config.ts:70
+#: src/browser-config.ts:80
 msgid "Recent Stations"
 msgstr ""
 
@@ -1794,7 +1794,7 @@ msgstr ""
 msgid "Reload"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:143
+#: src/components/ImportAnonymousData.tsx:148
 msgid "Remove anonymous data after import"
 msgstr ""
 
@@ -1802,7 +1802,7 @@ msgstr ""
 msgid "Remove station"
 msgstr ""
 
-#: src/components/music-player/AddToFavoritesBtn.tsx:40
+#: src/components/music-player/AddToFavoritesBtn.tsx:42
 msgid "Remove station from favorites"
 msgstr ""
 
@@ -1910,7 +1910,7 @@ msgstr ""
 msgid "Scottish Gaelic"
 msgstr ""
 
-#: src/browser-config.ts:67
+#: src/browser-config.ts:77
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:53
 #: src/pages/app/by-genre/[genre].tsx:97
@@ -1967,7 +1967,7 @@ msgstr ""
 msgid "Serbian"
 msgstr ""
 
-#: src/browser-config.ts:74
+#: src/browser-config.ts:84
 #: src/components/UserProfileDropdown.tsx:54
 msgid "Settings"
 msgstr ""
@@ -2150,8 +2150,8 @@ msgstr ""
 msgid "Stop"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:197
-#: src/components/ImportAnonymousData.tsx:217
+#: src/components/ImportAnonymousData.tsx:202
+#: src/components/ImportAnonymousData.tsx:222
 msgid "Success"
 msgstr ""
 
@@ -2558,7 +2558,7 @@ msgstr ""
 msgid "close"
 msgstr ""
 
-#: src/components/ImportAnonymousData.tsx:236
+#: src/components/ImportAnonymousData.tsx:241
 msgid "import data"
 msgstr ""
 
