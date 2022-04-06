@@ -28,9 +28,9 @@ import {
   InstallBanner,
   UpdateBanner
 } from 'components/pwa-prompt'
-import { useOfflineNotification } from 'lib/hooks/useOfflineNotification'
-import { usePWAInstall } from 'lib/hooks/usePWAInstall'
-import { useServiceWorker } from 'lib/hooks/useServiceWorker'
+import { useOfflineNotification } from 'lib/hooks'
+import { usePWAInstall } from 'lib/hooks'
+import { useServiceWorker } from 'lib/hooks'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
