@@ -1,5 +1,5 @@
 import { CustomSearchResults } from 'components/CustomSearchResults'
-import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { AppDefaultLayout } from 'components/layout'
 import { CustomSearchStoreProvider } from 'components/providers/CustomSearchStoreProvider'
 import { PageTitle } from 'components/PageTitle'
 import { createStationListRow } from 'lib/utils/station-utils'

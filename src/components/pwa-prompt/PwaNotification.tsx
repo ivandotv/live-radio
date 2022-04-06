@@ -88,4 +88,4 @@ const PwaNotification = forwardRef<
   )
 })
 
-export default PwaNotification
+export { PwaNotification }

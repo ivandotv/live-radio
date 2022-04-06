@@ -1,5 +1,5 @@
 import List from '@material-ui/core/List'
-import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { AppDefaultLayout } from 'components/layout'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
 import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'

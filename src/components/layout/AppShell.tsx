@@ -20,16 +20,18 @@ import {
 } from 'browser-config'
 import { AuthExpiredModal } from 'components/AuthExpiredModal'
 import { ImportAnonymousData } from 'components/ImportAnonymousData'
-import { AppToolbar } from 'components/layout/AppToolbar'
+import { AppToolbar } from 'components/layout'
 import LoginNotification from 'components/LoginNotification'
-import { MusicPlayer } from 'components/music-player/MusicPlayer'
+import { MusicPlayer } from 'components/music-player'
 import { DesktopNavigation } from 'components/navigation/desktop/DesktopNavigation'
 import { MobileNavigation } from 'components/navigation/mobile/MobileNavigation'
 import { OfflineIndicator } from 'components/OfflineIndicator'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { AppUpdatedNotification } from 'components/pwa-prompt/AppUpdatedNotification'
-import { InstallBanner } from 'components/pwa-prompt/InstallBanner'
-import { UpdateBanner } from 'components/pwa-prompt/UpdateBanner'
+import {
+  AppUpdatedNotification,
+  InstallBanner,
+  UpdateBanner
+} from 'components/pwa-prompt'
 import { useOfflineNotification } from 'lib/hooks/useOfflineNotification'
 import { usePWAInstall } from 'lib/hooks/usePWAInstall'
 import { useServiceWorker } from 'lib/hooks/useServiceWorker'

@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro'
-import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { AppDefaultLayout } from 'components/layout'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { useRootStore } from 'components/providers/RootStoreProvider'

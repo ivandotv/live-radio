@@ -1,5 +1,5 @@
-import { AppShell } from 'components/layout/AppShell'
-import { AppThemeProvider } from 'components/layout/AppThemeSetup'
+import { AppShell } from 'components/layout'
+import { AppThemeProvider } from 'components/layout'
 import { RootStoreProvider } from 'components/providers/RootStoreProvider'
 import { SnackbarProvider } from 'notistack'
 import { NextApplicationPage } from 'pages/_app'

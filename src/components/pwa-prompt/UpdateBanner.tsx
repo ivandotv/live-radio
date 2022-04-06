@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro'
-import PwaNotification from './PwaNotification'
+import { PwaNotification } from 'components/pwa-prompt'
 
 export function UpdateBanner({
   onCancel,

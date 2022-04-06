@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro'
 import { stationSearchIndexes, userAgentName } from 'browser-config'
-import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { AppDefaultLayout } from 'components/layout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
 import { PageTitle } from 'components/PageTitle'

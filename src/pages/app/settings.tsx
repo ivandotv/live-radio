@@ -1,5 +1,5 @@
 import Paper from '@material-ui/core/Paper'
-import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { AppDefaultLayout } from 'components/layout'
 import { PageTitle } from 'components/PageTitle'
 import { getStaticTranslations } from 'lib/utils/taranslation-utils'
 import { t } from '@lingui/macro'

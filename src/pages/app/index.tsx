@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro'
 import List from '@material-ui/core/List'
-import { AppDefaultLayout } from 'components/layout/AppDefaultLayout'
+import { AppDefaultLayout } from 'components/layout'
 import { LocationModal } from 'components/LocationModal'
 import { AppMenuItem } from 'components/navigation/desktop/MenuItem'
 import { PageTitle } from 'components/PageTitle'

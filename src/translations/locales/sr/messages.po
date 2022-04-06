@@ -37,7 +37,7 @@ msgstr ""
 msgid "Abkhaz"
 msgstr ""
 
-#: src/browser-config.ts:80
+#: src/browser-config.ts:75
 #: src/components/UserProfileDropdown.tsx:73
 #: src/components/navigation/desktop/Menu.tsx:36
 msgid "About"
@@ -343,21 +343,21 @@ msgstr ""
 msgid "Burundi"
 msgstr ""
 
-#: src/browser-config.ts:78
+#: src/browser-config.ts:73
 #: src/pages/app/by-genre/[genre].tsx:101
 #: src/pages/app/by-genre/index.tsx:20
 #: src/pages/app/index.tsx:64
 msgid "By Genre"
 msgstr ""
 
-#: src/browser-config.ts:77
+#: src/browser-config.ts:72
 #: src/pages/app/by-language/[language].tsx:100
 #: src/pages/app/by-language/index.tsx:29
 #: src/pages/app/index.tsx:62
 msgid "By Language"
 msgstr ""
 
-#: src/browser-config.ts:76
+#: src/browser-config.ts:71
 #: src/pages/app/by-location/[continent]/[country].tsx:109
 #: src/pages/app/by-location/[continent]/index.tsx:59
 #: src/pages/app/by-location/index.tsx:40
@@ -509,7 +509,7 @@ msgstr ""
 msgid "Currently there is no data for <0> ${0}</0>."
 msgstr ""
 
-#: src/browser-config.ts:74
+#: src/browser-config.ts:69
 #: src/pages/app/custom.tsx:21
 #: src/pages/app/index.tsx:67
 msgid "Custom Search"
@@ -632,7 +632,7 @@ msgstr ""
 msgid "Eritrea"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:212
+#: src/components/music-player/MusicPlayer.tsx:214
 msgid "Error adding to  favorites"
 msgstr ""
 
@@ -644,15 +644,15 @@ msgstr ""
 msgid "Error loading data"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:117
+#: src/components/music-player/MusicPlayer.tsx:119
 msgid "Error loading stations"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:101
+#: src/components/music-player/MusicPlayer.tsx:103
 msgid "Error playing radio station"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:213
+#: src/components/music-player/MusicPlayer.tsx:215
 msgid "Error removing from favorites"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgstr ""
 msgid "Faroese"
 msgstr ""
 
-#: src/browser-config.ts:73
+#: src/browser-config.ts:68
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:57
 #: src/lib/create-manifest.ts:45
@@ -827,7 +827,7 @@ msgstr ""
 msgid "Go to Favorites"
 msgstr ""
 
-#: src/components/music-player/MusicPlayer.tsx:241
+#: src/components/music-player/MusicPlayer.tsx:243
 msgid "Go to station website"
 msgstr ""
 
@@ -1774,7 +1774,7 @@ msgstr ""
 msgid "Recent"
 msgstr ""
 
-#: src/browser-config.ts:75
+#: src/browser-config.ts:70
 msgid "Recent Stations"
 msgstr ""
 
@@ -1910,7 +1910,7 @@ msgstr ""
 msgid "Scottish Gaelic"
 msgstr ""
 
-#: src/browser-config.ts:72
+#: src/browser-config.ts:67
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:53
 #: src/pages/app/by-genre/[genre].tsx:97
@@ -1967,7 +1967,7 @@ msgstr ""
 msgid "Serbian"
 msgstr ""
 
-#: src/browser-config.ts:79
+#: src/browser-config.ts:74
 #: src/components/UserProfileDropdown.tsx:54
 msgid "Settings"
 msgstr ""

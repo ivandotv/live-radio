@@ -3,10 +3,12 @@ import LinearProgress from '@material-ui/core/LinearProgress'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import { layout } from 'browser-config'
-import { AddTofavoritesBtn } from 'components/music-player/AddToFavoritesBtn'
-import { PlayerToggleBtn } from 'components/music-player/PlayerToggleBtn'
-import { ShareStationBtn } from 'components/music-player/ShareStationBtn'
-import { SongInfo } from 'components/music-player/SongInfo'
+import {
+  AddTofavoritesBtn,
+  PlayerToggleBtn,
+  ShareStationBtn,
+  SongInfo
+} from 'components/music-player'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { logger } from 'lib/logger-browser'
 import { AuthExpiredError } from 'lib/services/auth-service'

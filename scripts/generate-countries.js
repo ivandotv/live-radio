@@ -36,7 +36,7 @@ function countriesByContinent(countries) {
       result[country.continent] = []
     }
 
-    // kosovo is not internationally recognized country
+    // Kosovo is Serbia
     if (countryCode === 'XK') {
       continue
     }
