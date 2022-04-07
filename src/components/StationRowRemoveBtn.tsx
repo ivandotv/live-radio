@@ -51,8 +51,6 @@ export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
   const removeStation = async (e: MouseEvent) => {
     e.stopPropagation()
     if (station.isSyncing) {
-      logger.log('already synching  - return !')
-
       return
     }
 

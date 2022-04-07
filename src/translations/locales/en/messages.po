@@ -559,7 +559,7 @@ msgstr "Denmark"
 msgid "Depending on your browser configuration this station might not load beacuse it is not served over a secure (https) connection."
 msgstr "Depending on your browser configuration this station might not load beacuse it is not served over a secure (https) connection."
 
-#: src/components/LocationModal.tsx:108
+#: src/components/LocationModal.tsx:106
 msgid "Determinig your location"
 msgstr "Determinig your location"
 
@@ -632,7 +632,7 @@ msgstr "Equatorial Guinea"
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: src/components/music-player/MusicPlayer.tsx:214
+#: src/components/music-player/MusicPlayer.tsx:216
 msgid "Error adding to  favorites"
 msgstr "Error adding to  favorites"
 
@@ -644,19 +644,19 @@ msgstr "Error importing data"
 msgid "Error loading data"
 msgstr "Error loading data"
 
-#: src/components/music-player/MusicPlayer.tsx:119
+#: src/components/music-player/MusicPlayer.tsx:121
 msgid "Error loading stations"
 msgstr "Error loading stations"
 
-#: src/components/music-player/MusicPlayer.tsx:103
+#: src/components/music-player/MusicPlayer.tsx:105
 msgid "Error playing radio station"
 msgstr "Error playing radio station"
 
-#: src/components/music-player/MusicPlayer.tsx:215
+#: src/components/music-player/MusicPlayer.tsx:217
 msgid "Error removing from favorites"
 msgstr "Error removing from favorites"
 
-#: src/components/StationRowRemoveBtn.tsx:75
+#: src/components/StationRowRemoveBtn.tsx:73
 msgid "Error removing the station, click to try again"
 msgstr "Error removing the station, click to try again"
 
@@ -827,7 +827,7 @@ msgstr "Gibraltar"
 msgid "Go to Favorites"
 msgstr "Go to Favorites"
 
-#: src/components/music-player/MusicPlayer.tsx:243
+#: src/components/music-player/MusicPlayer.tsx:245
 msgid "Go to station website"
 msgstr "Go to station website"
 
@@ -1271,11 +1271,11 @@ msgstr "Lebanon"
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: src/components/LocationModal.tsx:133
+#: src/components/LocationModal.tsx:131
 msgid "Let me choose different location"
 msgstr "Let me choose different location"
 
-#: src/components/LocationModal.tsx:135
+#: src/components/LocationModal.tsx:133
 msgid "Let me choose the location"
 msgstr "Let me choose the location"
 
@@ -1636,7 +1636,7 @@ msgstr "Ok"
 msgid "Okay"
 msgstr "Okay"
 
-#: src/components/LocationModal.tsx:142
+#: src/components/LocationModal.tsx:140
 msgid "Okay, let's go"
 msgstr "Okay, let's go"
 
@@ -1807,7 +1807,7 @@ msgstr "Reload"
 msgid "Remove anonymous data after import"
 msgstr "Remove anonymous data after import"
 
-#: src/components/StationRowRemoveBtn.tsx:86
+#: src/components/StationRowRemoveBtn.tsx:84
 msgid "Remove station"
 msgstr "Remove station"
 
@@ -2087,7 +2087,7 @@ msgstr "Somali"
 msgid "Somalia"
 msgstr "Somalia"
 
-#: src/components/LocationModal.tsx:106
+#: src/components/LocationModal.tsx:104
 msgid "Sorry, couldn't get your location"
 msgstr "Sorry, couldn't get your location"
 
@@ -2526,7 +2526,7 @@ msgstr "Your Recently Listened Stations"
 msgid "Your favorite stations will appear here"
 msgstr "Your favorite stations will appear here"
 
-#: src/components/LocationModal.tsx:104
+#: src/components/LocationModal.tsx:102
 msgid "Your location is"
 msgstr "Your location is"
 
@@ -2562,7 +2562,7 @@ msgstr "background"
 msgid "check this out"
 msgstr "check this out"
 
-#: src/components/LocationModal.tsx:126
+#: src/components/LocationModal.tsx:124
 #: src/components/PlayFromShareModal.tsx:87
 msgid "close"
 msgstr "close"
@@ -2591,8 +2591,8 @@ msgstr "provider logo"
 msgid "reload"
 msgstr "reload"
 
-#: src/components/StationRowRemoveBtn.tsx:77
-#: src/components/StationRowRemoveBtn.tsx:88
+#: src/components/StationRowRemoveBtn.tsx:75
+#: src/components/StationRowRemoveBtn.tsx:86
 msgid "remove"
 msgstr "remove"
 

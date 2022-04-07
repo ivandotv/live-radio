@@ -5,6 +5,8 @@ import { RadioDTO } from 'lib/utils/station-utils'
 
 type DBValue = { station: RadioDTO; date: string; _id: string }
 
+const storageLogger = logger.child({ label: 'local-storage' })
+
 interface LocalSchema extends DBSchema {
   favorites: {
     key: string
@@ -71,13 +73,13 @@ export class LocalStorageService {
         }
       },
       blocked() {
-        logger.warn('idb blocked')
+        storageLogger.warn('idb blocked')
       },
       blocking() {
-        logger.warn('idb blocking')
+        storageLogger.warn('idb blocking')
       },
       terminated() {
-        logger.warn('idb terminated')
+        storageLogger.warn('idb terminated')
       }
     })
 

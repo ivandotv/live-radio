@@ -1,6 +1,8 @@
 import { logger } from 'lib/logger-browser'
 import { isSSR } from 'lib/utils/misc-utils'
 
+const songLogger = logger.child({ label: 'song-ingo' })
+
 export function songInfoServiceFactory() {
   return new SongInfoService(isSSR() ? fetch : fetch.bind(window))
 }
@@ -55,7 +57,7 @@ export class SongInfoService {
       clearTimeout(this.timeoutId)
       this.timeoutId = undefined
 
-      logger.log('song service kill timeout')
+      songLogger.log('song service stopped')
     }
   }
 }

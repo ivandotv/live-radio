@@ -18,6 +18,8 @@ import { observer } from 'mobx-react-lite'
 import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 
+const playerLogger = logger.child({ label: 'player' })
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -139,7 +141,7 @@ export const MusicPlayer = observer(function MusicPlayer() {
       } catch (err) {
         //if there is an error,  music player will set default station
         setErrorLoading(true)
-        logger.error(err)
+        playerLogger.error(err)
       } finally {
         if (recentStations.stations.length) {
           musicPlayer.setStation(recentStations.stations[0].data)

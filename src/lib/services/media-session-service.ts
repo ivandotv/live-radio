@@ -3,6 +3,8 @@ import { logger } from 'lib/logger-browser'
 import { MusicPlayerStore, PlayerStatus } from 'lib/stores/music-player-store'
 import { reaction } from 'mobx'
 
+const sessionLogger = logger.child({ label: 'media-session' })
+
 export class MediaSessionService {
   constructor(
     protected musicPlayer: MusicPlayerStore,
@@ -75,7 +77,7 @@ export class MediaSessionService {
           // @ts-expect-error - problem with setActionHandler overload
           this.navigator.mediaSession.setActionHandler(action, handler)
         } catch (error) {
-          logger.warn(
+          sessionLogger.warn(
             `The media session action "${action}" is not supported yet.`
           )
         }

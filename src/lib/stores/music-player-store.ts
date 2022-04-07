@@ -9,6 +9,8 @@ import { RootStore } from 'lib/stores/root-store'
 import { RadioDTO } from 'lib/utils/station-utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 
+const storeLogger = logger.child({ label: 'music-store' })
+
 export const PlayerStatus = {
   PLAYING: 'PLAYING',
   BUFFERING: 'BUFFERING',
@@ -82,7 +84,7 @@ export class MusicPlayerStore {
     data?: { artist: string; title: string }
   ) {
     if (error) {
-      logger.error('song service error', error)
+      storeLogger.error('song service error', error)
     } else {
       if (data) {
         if (
@@ -91,7 +93,10 @@ export class MusicPlayerStore {
           data.artist &&
           data.artist !== this.songInfo?.artist
         ) {
-          logger.log('new song data', `title ${data.title} | ${data.artist}`)
+          storeLogger.log(
+            'new song data',
+            `title ${data.title} | ${data.artist}`
+          )
         }
       }
     }
@@ -147,11 +152,11 @@ export class MusicPlayerStore {
     })
 
     this.player.on('load', () => {
-      logger.log('player loaded')
+      storeLogger.log('player loaded')
     })
 
     this.player.on('loaderror', (_, errorData) => {
-      logger.error('radio error', errorData)
+      storeLogger.error('radio error', errorData)
       if (this.firstTryLoad) {
         this.firstTryLoad = false
         this.disposePlayer()
@@ -162,7 +167,7 @@ export class MusicPlayerStore {
             : '/;' //shoutcast stream fix
         }`
 
-        logger.log('trying new url ', url)
+        storeLogger.log('trying new url ', url)
         this.initPlayer(this.station, url)
 
         window.navigator.mediaSession!.playbackState = 'paused'
@@ -190,7 +195,7 @@ export class MusicPlayerStore {
       })
 
       window.navigator.mediaSession!.playbackState = 'paused'
-      logger.error('player error', errorData)
+      storeLogger.error('player error', errorData)
     })
 
     this.player.play()
