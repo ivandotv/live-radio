@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro'
-import { stationSearchIndexes, userAgentName } from 'browser-config'
+import { stationSearchIndexes, radioAPIUserAgent } from 'browser-config'
 import { AppDefaultLayout } from 'components/layout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
@@ -45,7 +45,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const flag = getFlag(countryCode)
 
-  const api = new RadioBrowserApi(userAgentName)
+  const api = new RadioBrowserApi(radioAPIUserAgent)
   const stationResults = await api.searchStations(
     {
       countryCode: countryCode.toUpperCase(),

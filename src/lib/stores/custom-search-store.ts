@@ -1,4 +1,3 @@
-import { userAgentName } from 'browser-config'
 import { RadioModel } from 'lib/radio-model'
 import { isSSR } from 'lib/utils/misc-utils'
 import {
@@ -10,9 +9,9 @@ import { RadioBrowserApi } from 'radio-browser-api'
 
 let store: CustomSearchStore
 
-export function customSearchFactory() {
+export function customSearchFactory(api: RadioBrowserApi) {
   if (isSSR() || !store) {
-    store = new CustomSearchStore()
+    store = new CustomSearchStore(api)
   }
 
   return store
@@ -27,15 +26,11 @@ export class CustomSearchStore {
 
   searchInProgress = false
 
-  protected api: RadioBrowserApi
-
   protected searchTimeoutId: number | undefined
 
   protected requestToken: Record<string, unknown> | undefined
 
-  constructor() {
-    this.api = new RadioBrowserApi(userAgentName)
-
+  constructor(protected api: RadioBrowserApi) {
     makeObservable<CustomSearchStore, 'searchData'>(this, {
       search: action,
       searchData: action,

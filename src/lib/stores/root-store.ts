@@ -1,8 +1,5 @@
 import { appShellFactory, AppShellStore } from 'lib/stores/app-shell-store'
-import {
-  FavoritesStore,
-  favoritesStoreFactory
-} from 'lib/stores/favorites-store'
+import { RadioStore, radioStoreFactory } from 'lib/stores/radio-store'
 import {
   musicPlayerFactory,
   MusicPlayerStore
@@ -10,7 +7,6 @@ import {
 import { isSSR } from 'lib/utils/misc-utils'
 import { configure } from 'mobx'
 import { enableStaticRendering } from 'mobx-react-lite'
-import { RecentStore, recentStoreFactory } from './recent-store'
 
 configure({ enforceActions: 'always' })
 enableStaticRendering(typeof window === 'undefined')
@@ -30,14 +26,14 @@ export class RootStore {
 
   musicPlayer: MusicPlayerStore
 
-  favoriteStations: FavoritesStore
+  favoriteStations: RadioStore
 
-  recentStations: RecentStore
+  recentStations: RadioStore
 
   constructor() {
     this.appShell = appShellFactory(this)
     this.musicPlayer = musicPlayerFactory(this)
-    this.favoriteStations = favoritesStoreFactory(this)
-    this.recentStations = recentStoreFactory(this)
+    this.favoriteStations = radioStoreFactory(this, 'favorites')
+    this.recentStations = radioStoreFactory(this, 'recent')
   }
 }

@@ -1,3 +1,5 @@
+import { radioAPIUserAgent } from 'browser-config'
+import { RadioBrowserApi } from 'radio-browser-api'
 import {
   customSearchFactory,
   CustomSearchStore
@@ -27,7 +29,7 @@ export function CustomSearchStoreProvider({
 }: {
   children: ReactNode
 }) {
-  const store = customSearchFactory()
+  const store = customSearchFactory(new RadioBrowserApi(radioAPIUserAgent))
 
   return (
     <CustomSearchContext.Provider value={store}>

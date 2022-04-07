@@ -27,7 +27,7 @@ export const logLevel = (process.env.NEXT_PUBLIC_BROWSER_LOG_LEVEL ||
 export const locales = [...linguiConfig.locales]
 export const defaultLocale = linguiConfig.fallbackLocales.default
 
-export const userAgentName = 'Live Radio'
+export const radioAPIUserAgent = 'Live Radio'
 
 export const layout = {
   playerHeight: 73,

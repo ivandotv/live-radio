@@ -1,4 +1,4 @@
-import { userAgentName } from 'browser-config'
+import { radioAPIUserAgent } from 'browser-config'
 import { withErrorLogging } from 'lib/api/api-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -12,7 +12,7 @@ const handler = async function sendStationClick(
   try {
     const payload = req.body.id
 
-    const radioApi = new RadioBrowserApi(userAgentName)
+    const radioApi = new RadioBrowserApi(radioAPIUserAgent)
 
     await radioApi.sendStationClick(payload)
 

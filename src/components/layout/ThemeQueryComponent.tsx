@@ -52,9 +52,7 @@ export const ThemeQueryComponent = observer(function ThemeQueryComponent({
       reaction(
         () => appShell.theme,
         () => {
-          if (appShell.persistTheme) {
-            window.localStorage.setItem(themeKey, appShell.theme)
-          }
+          window.localStorage.setItem(themeKey, appShell.theme)
         }
       ),
     [appShell, themeKey]

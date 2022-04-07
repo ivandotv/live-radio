@@ -65,23 +65,16 @@ const nextConfig = {
   }
 }
 
-// module.exports = withPlugins(
-//   [
-//     withBundleAnalyzer,
-//     withWorkbox,
-//     [withSentryConfig(nextConfig, sentryWebpackPluginOptions)]
-//   ],
-//   nextConfig
-// )
+module.exports = withPlugins([withBundleAnalyzer, withWorkbox], nextConfig)
 
-module.exports = withSentryConfig(
-  withPlugins(
-    [
-      withBundleAnalyzer,
-      withWorkbox
-      // [withSentryConfig(nextConfig, sentryWebpackPluginOptions)]
-    ],
-    nextConfig
-  ),
-  sentryWebpackPluginOptions
-)
+// module.exports = withSentryConfig(
+//   withPlugins(
+//     [
+//       withBundleAnalyzer,
+//       withWorkbox
+//       // [withSentryConfig(nextConfig, sentryWebpackPluginOptions)]
+//     ],
+//     nextConfig
+//   ),
+//   sentryWebpackPluginOptions
+// )

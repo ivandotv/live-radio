@@ -33,7 +33,7 @@ export class AppShellStore {
     protected rootStore: RootStore,
     protected storage: AppStorageService
   ) {
-    makeObservable<this, 'setIsOnline'>(this, {
+    makeObservable(this, {
       showApp: observable,
       theme: observable,
       desktopDrawerIsOpen: observable,
@@ -44,8 +44,7 @@ export class AppShellStore {
       setDesktopDrawer: action,
       setTheme: action,
       setIsOnline: action,
-      checkAuthError: action,
-      setAuthExpired: action
+      setAuthError: action
     })
   }
 
@@ -53,14 +52,15 @@ export class AppShellStore {
     this.isOnLine = online
   }
 
-  checkAuthError(error: unknown) {
+  //maybe set auth error
+  setAuthError(error: unknown) {
     if (error instanceof AuthExpiredError) {
-      this.setAuthExpired(true)
-    }
-  }
+      this.authExpired = true
 
-  setAuthExpired(isExpired: boolean): void {
-    this.authExpired = isExpired
+      return true
+    }
+
+    return false
   }
 
   setTheme(value: AppTheme, persist = true) {
@@ -68,8 +68,8 @@ export class AppShellStore {
     this.persistTheme = persist
   }
 
-  readyToShow(show: boolean) {
-    this.showApp = show
+  readyToShow(ready: boolean) {
+    this.showApp = ready
   }
 
   setDesktopDrawer(isOpen: boolean, animate = true) {
@@ -77,12 +77,12 @@ export class AppShellStore {
     this.animateDesktopDrawer = animate
   }
 
-  getLocalFavorites() {
-    return this.storage.getFavoriteStations('local')
+  protected getLocalFavorites() {
+    return this.storage.getAllStations('favorites', 'local')
   }
 
-  getLocalRecent() {
-    return this.storage.getRecentStations('local')
+  protected getLocalRecent() {
+    return this.storage.getAllStations('recent', 'local')
   }
 
   async transferAnonymousData(
@@ -98,15 +98,11 @@ export class AppShellStore {
         deleteAnonymous
       )
       for (const fav of favorites) {
-        this.rootStore.favoriteStations.add(
-          this.rootStore.favoriteStations.create(fav.station)
-        )
+        this.rootStore.favoriteStations.addStation(fav.station)
       }
 
       for (const rec of recent) {
-        this.rootStore.recentStations.add(
-          this.rootStore.recentStations.create(rec.station)
-        )
+        this.rootStore.recentStations.addStation(rec.station)
       }
 
       if (deleteAnonymous) {
@@ -143,8 +139,8 @@ export class AppShellStore {
 
   async deleteAnonymousData() {
     return Promise.all([
-      this.storage.removeAllFavoriteStations('local'),
-      this.storage.removeAllRecentStations('local')
+      this.storage.removeAllStations('recent', 'local'),
+      this.storage.removeAllStations('favorites', 'local')
     ])
   }
 

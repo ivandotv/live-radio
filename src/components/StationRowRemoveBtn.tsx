@@ -10,7 +10,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete'
 import Error from '@material-ui/icons/Warning'
 import { RadioModel } from 'lib/radio-model'
-import { RadioStore } from 'lib/stores/favorites-store'
+import { IRadioStore } from 'lib/stores/radio-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent } from 'react'
 import { usePromise } from 'react-use'
@@ -41,7 +41,7 @@ export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
   station,
   className
 }: {
-  store: RadioStore
+  store: IRadioStore
   station: RadioModel
   className: string
 }) {

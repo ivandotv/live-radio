@@ -8,7 +8,8 @@ import { RemoteStorageService } from './remote-storage-service'
 let instance: AppStorageService
 const localDbName = 'LiveRadio'
 
-export type STORAGE_TYPE = 'local' | 'remote'
+export type StorageType = 'local' | 'remote'
+export type StorageCollection = 'favorites' | 'recent'
 
 export function appStorageFactory() {
   if (isSSR() || !instance) {
@@ -35,7 +36,7 @@ export class AppStorageService {
     protected httpClient: typeof client
   ) {}
 
-  protected async resolveStorage(type?: STORAGE_TYPE) {
+  protected async resolveStorage(type?: StorageType) {
     //short circuit session check
     if ('local' === type) return this.local
     if ('remote' === type) return this.remote
@@ -46,12 +47,6 @@ export class AppStorageService {
     }
 
     return this.local
-  }
-
-  async getFavoriteStations(type?: STORAGE_TYPE): Promise<RadioDTO[]> {
-    const storage = await this.resolveStorage(type)
-
-    return storage.getStations('favorites')
   }
 
   async transferAnonymousData(
@@ -86,46 +81,28 @@ export class AppStorageService {
     }
   }
 
-  async addFavoriteStation(station: RadioDTO) {
+  async saveStation(station: RadioDTO, collection: StorageCollection) {
     const storage = await this.resolveStorage()
 
-    return storage.addStation(station, 'favorites')
+    return storage.addStation(station, collection)
   }
 
-  async removeFavoriteStation(id: string) {
+  async removeStation(id: string, collection: StorageCollection) {
     const storage = await this.resolveStorage()
 
-    return storage.removeStation(id, 'favorites')
+    return storage.removeStation(id, collection)
   }
 
-  async getRecentStations(type?: STORAGE_TYPE) {
+  async getAllStations(collection: StorageCollection, type?: StorageType) {
     const storage = await this.resolveStorage(type)
 
-    return storage.getStations('recent')
+    return storage.getStations(collection)
   }
 
-  async addRecentStation(station: RadioDTO) {
-    const storage = await this.resolveStorage()
-
-    return storage.addStation(station, 'recent')
-  }
-
-  async removeRecentStation(id: string) {
-    const storage = await this.resolveStorage()
-
-    return storage.removeStation(id, 'recent')
-  }
-
-  async removeAllFavoriteStations(type?: STORAGE_TYPE) {
+  async removeAllStations(collection: StorageCollection, type?: StorageType) {
     const storage = await this.resolveStorage(type)
 
-    return storage.removeAllStations('favorites')
-  }
-
-  async removeAllRecentStations(type?: STORAGE_TYPE) {
-    const storage = await this.resolveStorage(type)
-
-    return storage.removeAllStations('recent')
+    return storage.removeAllStations(collection)
   }
 
   async countStationClick(id: string) {

@@ -1,13 +1,11 @@
-import { Model } from '@fuerte/core'
-import { FavoritesStore } from './stores/favorites-store'
-import { RecentStore } from './stores/recent-store'
+import { Collection, Model } from '@fuerte/core'
 import { RadioDTO } from './utils/station-utils'
 
 export function createRadioModel(data: RadioDTO) {
   return new RadioModel(data)
 }
 
-export class RadioModel extends Model<FavoritesStore | RecentStore> {
+export class RadioModel extends Model<Collection<any, any, any>> {
   static identityKey = 'id'
 
   id: string

@@ -1,4 +1,4 @@
-import { userAgentName } from 'browser-config'
+import { radioAPIUserAgent } from 'browser-config'
 import { withErrorLogging } from 'lib/api/api-utils'
 import { dataToRadioDTO } from 'lib/utils/station-utils'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -11,7 +11,7 @@ const handler = async function getStationInfo(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const api = new RadioBrowserApi(userAgentName)
+  const api = new RadioBrowserApi(radioAPIUserAgent)
 
   try {
     const stationId = req.query.play as string

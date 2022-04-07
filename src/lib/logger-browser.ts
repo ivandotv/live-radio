@@ -1,7 +1,8 @@
 import * as Sentry from '@sentry/nextjs'
 import Tinga from 'tinga'
+import { logLevel } from 'browser-config'
 
-export const logger = class extends Tinga {
+class Logger extends Tinga {
   override error(...args: any[]) {
     for (const arg of args) {
       if (arg[0] instanceof Error) {
@@ -12,3 +13,6 @@ export const logger = class extends Tinga {
     super.error(...args)
   }
 }
+export const logger = new Logger({
+  level: logLevel
+})
