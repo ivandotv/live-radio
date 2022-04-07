@@ -5,6 +5,8 @@ const withWorkbox = require('./workbox.webpack.config')
 const linguiConfig = require('./lingui.config')
 const { withSentryConfig } = require('@sentry/nextjs')
 
+console.log('Next Config NODE_ENV: ', process.env.NODE_ENV)
+
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
   // the following options are set automatically, and overriding them is not
@@ -65,16 +67,11 @@ const nextConfig = {
   }
 }
 
-module.exports = withPlugins([withBundleAnalyzer, withWorkbox], nextConfig)
-
-// module.exports = withSentryConfig(
-//   withPlugins(
-//     [
-//       withBundleAnalyzer,
-//       withWorkbox
-//       // [withSentryConfig(nextConfig, sentryWebpackPluginOptions)]
-//     ],
-//     nextConfig
-//   ),
-//   sentryWebpackPluginOptions
-// )
+if (process.env.NODE_ENV === 'development') {
+  module.exports = withPlugins([withBundleAnalyzer, withWorkbox], nextConfig)
+} else {
+  module.exports = withSentryConfig(
+    withPlugins([withBundleAnalyzer, withWorkbox], nextConfig),
+    sentryWebpackPluginOptions
+  )
+}
