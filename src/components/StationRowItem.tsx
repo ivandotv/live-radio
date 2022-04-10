@@ -9,8 +9,8 @@ import { PlayerStateIcon } from 'components/music-player'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { StationRowTags } from 'components/StationRowTags'
 import { RadioModel } from 'lib/radio-model'
-import { RadioStore, IRadioStore } from 'lib/stores/radio-store'
 import { PlayerStatus } from 'lib/stores/music-player-store'
+import { RadioStore } from 'lib/stores/radio-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent, useCallback, useState } from 'react'
 import { HttpsInfoModal } from './HttpsInfoModal'
@@ -82,7 +82,7 @@ export const StationRowItem = observer(function StationRowItem({
   showRemoveBtn = false
 }: {
   station: RadioModel
-  store?: IRadioStore
+  store?: RadioStore
   favoriteStations?: RadioStore
   showCountry?: boolean
   showFlag?: boolean

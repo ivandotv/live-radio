@@ -2,7 +2,7 @@ import { StationRowItem } from 'components/StationRowItem'
 import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
 import { RadioModel } from 'lib/radio-model'
-import { RadioStore, IRadioStore } from 'lib/stores/radio-store'
+import { RadioStore } from 'lib/stores/radio-store'
 import { Station } from 'radio-browser-api'
 
 export type RadioDTO = {
@@ -66,7 +66,7 @@ export function createStationListRow(opts?: {
   showTags?: boolean
   showRemoveBtn?: boolean
   favoriteStations?: RadioStore
-  store?: IRadioStore
+  store?: RadioStore
 }) {
   const options = {
     showCountry: true,

@@ -14,16 +14,6 @@ import { StationTransport } from 'lib/services/storage/station-transport'
 import { RootStore } from 'lib/stores/root-store'
 import { RadioDTO } from 'lib/utils/station-utils'
 
-export interface IRadioStore {
-  saveStation(station: RadioDTO, config?: SaveConfig): Promise<any>
-  deleteStation(id: string, config?: DeleteConfig): Promise<any>
-  get stations(): readonly RadioModel[]
-  get loadStatus(): keyof typeof ASYNC_STATUS
-  loadStations(): Promise<RadioModel[]>
-  getStationById(id: string): RadioModel | undefined
-  removeStation(id: string): void
-}
-
 export function radioStoreFactory(
   root: RootStore,
   collection: StorageCollection
@@ -35,9 +25,7 @@ export function radioStoreFactory(
   )
 }
 
-/* TODO - use composition instead of inheritance */
-//TODO - change to radio store
-export class RadioStore implements IRadioStore {
+export class RadioStore {
   protected result!: RadioModel[]
 
   protected collection: Collection<
@@ -51,7 +39,6 @@ export class RadioStore implements IRadioStore {
     factory: typeof createRadioModel,
     transport: StationTransport
   ) {
-    // super(factory, transport)
     this.collection = new Collection(factory, transport)
   }
 

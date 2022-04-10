@@ -9,12 +9,12 @@ import {
 } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete'
 import Error from '@material-ui/icons/Warning'
+import { logger } from 'lib/logger-browser'
 import { RadioModel } from 'lib/radio-model'
-import { IRadioStore } from 'lib/stores/radio-store'
+import { RadioStore } from 'lib/stores/radio-store'
 import { observer } from 'mobx-react-lite'
 import { MouseEvent } from 'react'
 import { usePromise } from 'react-use'
-import { logger } from 'lib/logger-browser'
 
 const useStyles = makeStyles((theme: Theme) => {
   return createStyles({
@@ -41,7 +41,7 @@ export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
   station,
   className
 }: {
-  store: IRadioStore
+  store: RadioStore
   station: RadioModel
   className: string
 }) {
@@ -55,9 +55,11 @@ export const StationRowRemoveBtn = observer(function StationRowRemoveBtn({
     }
 
     await mounted(
-      store.deleteStation(station.id, { remove: false }).catch((err) => {
-        logger.error('error deleting station', err)
-      })
+      store
+        .deleteStation(station.id, { remove: false })
+        .catch((err: unknown) => {
+          logger.error('error deleting station', err)
+        })
     )
   }
 

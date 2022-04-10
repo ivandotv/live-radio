@@ -4,7 +4,7 @@ import { ListStations } from 'components/ListStations'
 import { PageLoadError } from 'components/PageLoadError'
 import { useFilterDataStore } from 'components/providers/FilterDataStoreProvider'
 import { RadioModel } from 'lib/radio-model'
-import { RadioStore, IRadioStore } from 'lib/stores/radio-store'
+import { RadioStore } from 'lib/stores/radio-store'
 import { createStationListRow } from 'lib/utils/station-utils'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
@@ -38,7 +38,7 @@ export const RemovableItemsList = observer(function RemovableItemsList({
   indexes
 }: {
   favoriteStations?: RadioStore
-  store: IRadioStore
+  store: RadioStore
   noDataTitle: string
   indexes: string[]
 }) {

@@ -1,11 +1,11 @@
-import { Collection, Model } from '@fuerte/core'
+import { Model } from '@fuerte/core'
 import { RadioDTO } from './utils/station-utils'
 
 export function createRadioModel(data: RadioDTO) {
   return new RadioModel(data)
 }
 
-export class RadioModel extends Model<Collection<any, any, any>> {
+export class RadioModel extends Model {
   static identityKey = 'id'
 
   id: string
