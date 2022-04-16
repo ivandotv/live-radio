@@ -87,7 +87,7 @@ specifiers:
   request-ip: ^2.1.3
   styled-jsx: ^5.0.2
   testcontainers: ^8.7.1
-  tinga: ^4.0.5
+  tinga: ^4.0.6
   typescript: ^4.6.3
   uuid: ^8.3.2
   webpack: ^5.72.0
@@ -141,7 +141,7 @@ dependencies:
   react-virtuoso: 2.9.2_react@17.0.2
   request-ip: 2.1.3
   styled-jsx: 5.0.2_@babel+core@7.17.9+react@17.0.2
-  tinga: 4.0.5
+  tinga: 4.0.7
   uuid: 8.3.2
   workbox-core: 6.5.3
   workbox-expiration: 6.5.3
@@ -10070,8 +10070,8 @@ packages:
     resolution: {integrity: sha1-DdTJ/6q8NXlgsbckEV1+Doai4fU=}
     dev: true
 
-  /tinga/4.0.5:
-    resolution: {integrity: sha512-3Vym68UJdCoNyUEOQQxIE0TJO8TBEnI4x2TZsyMqAX2+vnXxwYghetepUq+Uaa+FkIS+3tjhFAfOcY3V8Djvaw==}
+  /tinga/4.0.7:
+    resolution: {integrity: sha512-He3ez/BuLBdVoFi6yo3veuNpsSYBhBZibMecmQ7JfhBOO0PyAKmf5grLlQnAuL9jVSENmPUG862zIYiAk4Kkyw==}
     dev: false
 
   /tiny-warning/1.0.3:
