@@ -6,7 +6,7 @@ import {
   unwrapResult
 } from '@fuerte/core'
 import { RadioModel, radioModelFactory } from 'lib/client/radio-model'
-import { StationTransport } from 'lib/client/services/storage/station-transport'
+import { StationTransport } from 'lib/client/services/station-transport'
 import { RootStore } from 'lib/client/stores/root-store'
 import { RadioDTO } from 'lib/shared/utils'
 

@@ -12,7 +12,7 @@ import { SongInfoService } from '../services/song-info-service'
 import { AppStorageService } from '../services/storage/app-storage-service'
 import { LocalStorageService } from '../services/storage/local-storage-service'
 import { RemoteStorageService } from '../services/storage/remote-storage-service'
-import { StationTransport } from '../services/storage/station-transport'
+import { StationTransport } from '../services/station-transport'
 
 configure({ enforceActions: 'always' })
 enableStaticRendering(typeof window === 'undefined')

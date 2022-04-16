@@ -5,7 +5,7 @@ import {
   AppStorageService,
   StorageCollection,
   StorageType
-} from './app-storage-service'
+} from './storage/app-storage-service'
 
 export class StationTransport implements Transport<RadioModel> {
   constructor(
