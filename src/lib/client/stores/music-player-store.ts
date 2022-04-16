@@ -1,10 +1,6 @@
-import { defaultStation } from 'lib/shared/config'
 import { Howl } from 'howler'
 import { logger } from 'lib/client/logger-browser'
-import {
-  SongInfoService,
-  songInfoServiceFactory
-} from 'lib/client/services/song-info-service'
+import { SongInfoService } from 'lib/client/services/song-info-service'
 import { RootStore } from 'lib/client/stores/root-store'
 import { RadioDTO } from 'lib/shared/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
@@ -18,10 +14,6 @@ export const PlayerStatus = {
   PAUSED: 'PAUSED',
   ERROR: 'ERROR'
 } as const
-
-export function musicPlayerFactory(root: RootStore) {
-  return new MusicPlayerStore(root, songInfoServiceFactory(), defaultStation)
-}
 
 export class MusicPlayerStore {
   status: keyof typeof PlayerStatus = PlayerStatus.STOPPED

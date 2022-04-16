@@ -5,38 +5,23 @@ import {
   SaveConfig,
   unwrapResult
 } from '@fuerte/core'
-import { createRadioModel, RadioModel } from 'lib/client/radio-model'
-import {
-  appStorageFactory,
-  StorageCollection
-} from 'lib/client/services/storage/app-storage-service'
+import { RadioModel, radioModelFactory } from 'lib/client/radio-model'
 import { StationTransport } from 'lib/client/services/storage/station-transport'
 import { RootStore } from 'lib/client/stores/root-store'
 import { RadioDTO } from 'lib/shared/utils'
-
-export function radioStoreFactory(
-  root: RootStore,
-  collection: StorageCollection
-) {
-  return new RadioStore(
-    root,
-    createRadioModel,
-    new StationTransport(appStorageFactory(), collection)
-  )
-}
 
 export class RadioStore {
   protected result!: RadioModel[]
 
   protected collection: Collection<
     RadioModel,
-    typeof createRadioModel,
+    typeof radioModelFactory,
     StationTransport
   >
 
   constructor(
     protected root: RootStore,
-    factory: typeof createRadioModel,
+    factory: typeof radioModelFactory,
     transport: StationTransport
   ) {
     this.collection = new Collection(factory, transport)

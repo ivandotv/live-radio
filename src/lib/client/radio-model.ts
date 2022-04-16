@@ -1,7 +1,7 @@
 import { Model } from '@fuerte/core'
 import { RadioDTO } from 'lib/shared/utils'
 
-export function createRadioModel(data: RadioDTO) {
+export function radioModelFactory(data: RadioDTO) {
   return new RadioModel(data)
 }
 

@@ -1,29 +1,12 @@
 import { AuthService } from 'lib/client/services/auth-service'
 import { client } from 'lib/client/utils/misc-utils'
-import { isSSR } from 'lib/shared/utils'
 import { RadioDTO } from 'lib/shared/utils'
 import { Session } from 'next-auth'
 import { LocalStorageService } from './local-storage-service'
 import { RemoteStorageService } from './remote-storage-service'
 
-let instance: AppStorageService
-const localDbName = 'LiveRadio'
-
 export type StorageType = 'local' | 'remote'
 export type StorageCollection = 'favorites' | 'recent'
-
-export function appStorageFactory() {
-  if (isSSR() || !instance) {
-    instance = new AppStorageService(
-      new LocalStorageService(localDbName),
-      new RemoteStorageService(client),
-      new AuthService(),
-      client
-    )
-  }
-
-  return instance
-}
 
 export class AppStorageService {
   protected session: Session | null = null

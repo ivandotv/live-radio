@@ -29,6 +29,8 @@ export const defaultLocale = linguiConfig.fallbackLocales.default
 
 export const radioAPIUserAgent = 'Live Radio'
 
+export const localDbName = 'LiveRadio'
+
 export const layout = {
   playerHeight: 73,
   mobileMenuHeight: 56,

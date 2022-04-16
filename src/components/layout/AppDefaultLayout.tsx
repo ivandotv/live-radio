@@ -1,12 +1,12 @@
-import { AppShell } from 'components/layout'
-import { AppThemeProvider } from 'components/layout'
+import { AppShell, AppThemeProvider } from 'components/layout'
 import { RootStoreProvider } from 'components/providers/RootStoreProvider'
+import { rootStoreFactory } from 'lib/client/stores/root-store'
 import { SnackbarProvider } from 'notistack'
 import { NextApplicationPage } from 'pages/_app'
 
 export function AppDefaultLayout(Component: NextApplicationPage, props: any) {
   return (
-    <RootStoreProvider>
+    <RootStoreProvider rootStoreFactory={rootStoreFactory}>
       <AppThemeProvider>
         <SnackbarProvider maxSnack={3}>
           <AppShell>

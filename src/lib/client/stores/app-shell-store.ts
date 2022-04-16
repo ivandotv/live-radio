@@ -1,16 +1,9 @@
 import { AuthExpiredError } from 'lib/client/services/auth-service'
-import {
-  appStorageFactory,
-  AppStorageService
-} from 'lib/client/services/storage/app-storage-service'
+import { AppStorageService } from 'lib/client/services/storage/app-storage-service'
 import { RootStore } from 'lib/client/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'
 
 export type AppTheme = 'light' | 'dark'
-
-export function appShellFactory(root: RootStore) {
-  return new AppShellStore(root, appStorageFactory())
-}
 
 export class AppShellStore {
   theme: AppTheme = 'light'

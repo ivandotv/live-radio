@@ -1,11 +1,7 @@
 import { logger } from 'lib/client/logger-browser'
-import { isSSR } from 'lib/shared/utils'
 
 const songLogger = logger.child({ label: 'song-ingo' })
 
-export function songInfoServiceFactory() {
-  return new SongInfoService(isSSR() ? fetch : fetch.bind(window))
-}
 export class SongInfoService {
   protected timeoutId: number | undefined
 
