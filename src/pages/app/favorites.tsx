@@ -3,9 +3,9 @@ import { AppDefaultLayout } from 'components/layout'
 import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { getStaticTranslations } from 'lib/utils/taranslation-utils'
+import { getStaticTranslations } from 'lib/server/utils'
 import { RemovableItemsList } from 'components/RemovableItemsList'
-import { stationSearchIndexes } from 'browser-config'
+import { stationSearchIndexes } from 'lib/shared/config'
 
 export { getStaticTranslations as getStaticProps }
 

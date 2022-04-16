@@ -2,9 +2,9 @@ import { CustomSearchResults } from 'components/CustomSearchResults'
 import { AppDefaultLayout } from 'components/layout'
 import { CustomSearchStoreProvider } from 'components/providers/CustomSearchStoreProvider'
 import { PageTitle } from 'components/PageTitle'
-import { createStationListRow } from 'lib/utils/station-utils'
+import { createStationListRow } from 'lib/client/utils/component-utils'
 import { t } from '@lingui/macro'
-import { getStaticTranslations } from 'lib/utils/taranslation-utils'
+import { getStaticTranslations } from 'lib/server/utils'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 
 export { getStaticTranslations as getStaticProps }

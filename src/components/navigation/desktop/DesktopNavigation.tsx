@@ -6,7 +6,7 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import { layout } from 'browser-config'
+import { layout } from 'lib/shared/config'
 import clsx from 'clsx'
 import { Menu } from 'components/navigation/desktop/Menu'
 import { useRootStore } from 'components/providers/RootStoreProvider'

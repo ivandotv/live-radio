@@ -1,4 +1,4 @@
-import { logger } from 'lib/logger-browser'
+import { logger } from 'lib/client/logger-browser'
 import { useEffect } from 'react'
 import { useErrorHandler } from 'react-error-boundary'
 

@@ -2,14 +2,14 @@ import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
-import { loadTranslations } from 'lib/utils/taranslation-utils'
-import { useClientUrl } from 'lib/utils/misc-utils'
+import { loadTranslations } from 'lib/server/utils'
+import { useClientUrl } from 'lib/client/utils/misc-utils'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import globalStyles from 'styles/global'
+import globalStyles from 'lib/client/global-styles'
 
 export default function Index() {
   const { data: session } = useSession()

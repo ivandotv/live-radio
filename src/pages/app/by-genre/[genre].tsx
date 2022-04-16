@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro'
-import { stationSearchIndexes, radioAPIUserAgent } from 'browser-config'
+import { radioAPIUserAgent, stationSearchIndexes } from 'lib/shared/config'
 import { AppDefaultLayout } from 'components/layout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
@@ -7,21 +7,15 @@ import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { genres } from 'generated/genres'
-import {
-  createStationListRow,
-  dataToRadioDTO,
-  RadioDTO,
-  stationDataToStationModel
-} from 'lib/utils/station-utils'
-import {
-  loadTranslations,
-  paramsWithLocales
-} from 'lib/utils/taranslation-utils'
+import { createStationListRow } from 'lib/client/utils/component-utils'
+import { stationDataToStationModel } from 'lib/client/utils/misc-utils'
+import { loadTranslations, paramsWithLocales } from 'lib/server/utils'
+import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useMemo } from 'react'
-import { revalidate } from 'server-config'
+import { revalidate } from 'lib/server/config'
 
 //prerender most popular genres
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {

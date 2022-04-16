@@ -1,12 +1,14 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
-import { url } from 'browser-config'
+import { url } from 'lib/shared/config'
 import { GlobalErrorFallback } from 'components/GlobalErrorFallback'
 import { PWAIcons } from 'components/PWAIcons'
 import { WindowErrorHandler } from 'components/WindowErrorHandler'
-import { globalErrorHandler } from 'lib/utils/misc-utils'
-import { initTranslations } from 'lib/utils/taranslation-utils'
+import {
+  globalErrorHandler,
+  initTranslations
+} from 'lib/client/utils/misc-utils'
 import { NextPage } from 'next'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'

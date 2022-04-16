@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@material-ui/core/styles'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { DarkTheme, LightTheme } from 'lib/theme'
+import { DarkTheme, LightTheme } from 'lib/client/theme'
 import { observer, Observer } from 'mobx-react-lite'
 import { ReactNode, useEffect, useState } from 'react'
 import { ThemeQueryComponent } from './ThemeQueryComponent'

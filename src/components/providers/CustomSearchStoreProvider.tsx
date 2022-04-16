@@ -1,9 +1,9 @@
-import { radioAPIUserAgent } from 'browser-config'
+import { radioAPIUserAgent } from 'lib/shared/config'
 import { RadioBrowserApi } from 'radio-browser-api'
 import {
   customSearchFactory,
   CustomSearchStore
-} from 'lib/stores/custom-search-store'
+} from 'lib/client/stores/custom-search-store'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext } from 'react'
 

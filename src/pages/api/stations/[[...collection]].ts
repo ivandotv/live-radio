@@ -1,4 +1,4 @@
-import { onError, onNoMatch } from 'lib/api/api-utils'
+import { onError, onNoMatch } from 'lib/server/utils'
 import {
   checkCollectionExists,
   deleteStation,
@@ -6,14 +6,14 @@ import {
   saveStation,
   setupSession,
   validateStation
-} from 'lib/api/middleware'
-import { setupLogger } from 'lib/logger-server'
+} from 'lib/server/middleware'
+import { setupContext } from 'lib/server/api-context'
 import { NextApiRequest, NextApiResponse } from 'next'
 import nc from 'next-connect'
 
 /* Handle CRUD for collections */
 const handler = nc<NextApiRequest, NextApiResponse>({ onError, onNoMatch })
-  .use(setupLogger)
+  .use(setupContext)
   .use(setupSession)
   .get(checkCollectionExists, getUserCollection)
   .post(validateStation, checkCollectionExists, saveStation)

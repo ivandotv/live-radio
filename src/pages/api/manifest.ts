@@ -1,8 +1,7 @@
 import { i18n } from '@lingui/core'
-import { defaultLocale } from 'browser-config'
-import { withErrorLogging } from 'lib/api/api-utils'
-import createManifest from 'lib/create-manifest'
-import { loadTranslations } from 'lib/utils/taranslation-utils'
+import { defaultLocale } from 'lib/shared/config'
+import createManifest from 'lib/server/create-manifest'
+import { loadTranslations, withErrorLogging } from 'lib/server/utils'
 import { en, sr } from 'make-plural/plurals'
 import { NextApiRequest, NextApiResponse } from 'next'
 

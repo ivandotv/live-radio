@@ -1,6 +1,6 @@
 import { plural, t } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { layout } from 'browser-config'
+import { layout } from 'lib/shared/config'
 import { FilterInput } from 'components/FilterInput'
 import { FilterList } from 'components/FilterList'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'

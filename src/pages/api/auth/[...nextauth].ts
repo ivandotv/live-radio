@@ -1,14 +1,14 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import { connectToDatabase } from 'lib/api/db-connection'
-import { logger } from 'lib/logger-server'
+import { logger } from 'lib/server/api-context'
+import { getDbConnection } from 'lib/server/db-connection'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import { auth } from 'server-config'
+import { auth } from 'lib/server/config'
 
 export default NextAuth({
   providers: [GithubProvider(auth.github), GoogleProvider(auth.google)],
-  adapter: MongoDBAdapter(connectToDatabase().then((conn) => conn.client)),
+  adapter: MongoDBAdapter(getDbConnection().then((client) => client)),
   secret: auth.signSecret,
 
   session: {

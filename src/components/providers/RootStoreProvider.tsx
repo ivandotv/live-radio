@@ -1,4 +1,4 @@
-import { RootStore, rootStoreFactory } from 'lib/stores/root-store'
+import { RootStore, rootStoreFactory } from 'lib/client/stores/root-store'
 import { createContext, ReactNode, useContext, useEffect } from 'react'
 
 const RootStoreContext = createContext<RootStore | undefined>(undefined)

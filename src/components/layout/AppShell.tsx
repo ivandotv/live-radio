@@ -13,7 +13,7 @@ import {
   enablePWAInstallBanner,
   layout,
   serviceWorker
-} from 'browser-config'
+} from 'lib/shared/config'
 import { AuthExpiredModal } from 'components/AuthExpiredModal'
 import { ImportAnonymousData } from 'components/ImportAnonymousData'
 import { AppToolbar } from 'components/layout'
@@ -28,9 +28,9 @@ import {
   InstallBanner,
   UpdateBanner
 } from 'components/pwa-prompt'
-import { useOfflineNotification } from 'lib/hooks'
-import { usePWAInstall } from 'lib/hooks'
-import { useServiceWorker } from 'lib/hooks'
+import { useOfflineNotification } from 'lib/client/hooks'
+import { usePWAInstall } from 'lib/client/hooks'
+import { useServiceWorker } from 'lib/client/hooks'
 import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

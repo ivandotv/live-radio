@@ -40,7 +40,7 @@ const nextConfig = {
   workbox: {
     disable: process.env.NODE_ENV !== 'production',
     // disable: false,
-    swSrc: 'src/service-worker/sw.ts',
+    swSrc: 'src/lib/client/service-worker/sw.ts',
     swDest: 'sw.js'
   },
   typescript: {

@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
-import { layout } from 'browser-config'
+import { layout } from 'lib/shared/config'
 import {
   AddTofavoritesBtn,
   PlayerToggleBtn,
@@ -10,9 +10,9 @@ import {
   SongInfo
 } from 'components/music-player'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { logger } from 'lib/logger-browser'
-import { AuthExpiredError } from 'lib/services/auth-service'
-import { MediaSessionService } from 'lib/services/media-session-service'
+import { logger } from 'lib/client/logger-browser'
+import { AuthExpiredError } from 'lib/client/services/auth-service'
+import { MediaSessionService } from 'lib/client/services/media-session-service'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useSnackbar } from 'notistack'

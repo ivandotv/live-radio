@@ -1,4 +1,4 @@
-import globalStyles from 'styles/global'
+import globalStyles from 'lib/client/global-styles'
 import { Trans } from '@lingui/macro'
 export function GlobalErrorFallback() {
   return (

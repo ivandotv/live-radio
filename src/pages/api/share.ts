@@ -1,6 +1,6 @@
 import parser from 'accept-language-parser'
-import { locales } from 'browser-config'
-import { withErrorLogging } from 'lib/api/api-utils'
+import { locales } from 'lib/shared/config'
+import { withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 /**

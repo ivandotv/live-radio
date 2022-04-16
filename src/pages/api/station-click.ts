@@ -1,5 +1,5 @@
-import { radioAPIUserAgent } from 'browser-config'
-import { withErrorLogging } from 'lib/api/api-utils'
+import { radioAPIUserAgent } from 'lib/shared/config'
+import { withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 /**

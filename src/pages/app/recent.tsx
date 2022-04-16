@@ -1,11 +1,11 @@
 import { t } from '@lingui/macro'
 import { AppDefaultLayout } from 'components/layout'
 import { PageTitle } from 'components/PageTitle'
-import { getStaticTranslations } from 'lib/utils/taranslation-utils'
+import { getStaticTranslations } from 'lib/server/utils'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { RemovableItemsList } from 'components/RemovableItemsList'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { stationSearchIndexes } from 'browser-config'
+import { stationSearchIndexes } from 'lib/shared/config'
 
 export { getStaticTranslations as getStaticProps }
 

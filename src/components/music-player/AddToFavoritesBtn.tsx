@@ -4,7 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import FullHeart from '@material-ui/icons/Favorite'
 import EmptyHeart from '@material-ui/icons/FavoriteBorder'
-import { colors } from 'browser-config'
+import { colors } from 'lib/shared/config'
 import { observer } from 'mobx-react-lite'
 
 type MakeStyleProps = {

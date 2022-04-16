@@ -1,4 +1,4 @@
-import { withErrorLogging } from 'lib/api/api-utils'
+import { withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 // @ts-expect-error - no types for module
 import { getStationInfo, StreamSource } from 'node-internet-radio'
