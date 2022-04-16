@@ -8,9 +8,9 @@ export class FilterDataStore {
 
   query = ''
 
-  protected searchApi: JsSearch.Search | undefined
+  protected searchApi?: JsSearch.Search
 
-  protected searchTimeoutId: number | undefined
+  protected searchTimeoutId?: number
 
   constructor() {
     makeObservable(this, {

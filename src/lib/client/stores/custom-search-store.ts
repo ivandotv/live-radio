@@ -13,9 +13,9 @@ export class CustomSearchStore {
 
   searchInProgress = false
 
-  protected searchTimeoutId: number | undefined
+  protected searchTimeoutId?: number
 
-  protected requestToken: Record<string, unknown> | undefined
+  protected requestToken?: Record<string, unknown>
 
   constructor(protected api: RadioBrowserApi) {
     makeObservable<CustomSearchStore, 'searchData'>(this, {

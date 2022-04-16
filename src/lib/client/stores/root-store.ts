@@ -28,6 +28,7 @@ export function rootStoreFactory() {
 }
 
 //poor mans composition root
+//TODO use dependency injection via: https://github.com/microsoft/tsyringe
 export class RootStore {
   appShell: AppShellStore
 
