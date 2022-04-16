@@ -1,18 +1,8 @@
 import { RadioModel } from 'lib/client/radio-model'
-import { isSSR, dataToRadioDTO } from 'lib/shared/utils'
 import { stationDataToStationModel } from 'lib/client/utils/misc-utils'
+import { dataToRadioDTO } from 'lib/shared/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { RadioBrowserApi } from 'radio-browser-api'
-
-let store: CustomSearchStore
-
-export function customSearchFactory(api: RadioBrowserApi) {
-  if (isSSR() || !store) {
-    store = new CustomSearchStore(api)
-  }
-
-  return store
-}
 
 export class CustomSearchStore {
   query = ''
