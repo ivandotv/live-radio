@@ -77,7 +77,7 @@ specifiers:
   postinstall-postinstall: ^2.1.0
   prettier: ^2.6.2
   prettier-standard: ^16.4.1
-  radio-browser-api: ^5.2.1
+  radio-browser-api: ^5.2.2
   react: 17.0.2
   react-dom: 17.0.2
   react-error-boundary: ^3.1.4
@@ -132,7 +132,7 @@ dependencies:
   path-to-regexp: 6.2.0
   pino: 7.10.0
   pino-http: 6.6.0
-  radio-browser-api: 5.2.1
+  radio-browser-api: 5.2.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-error-boundary: 3.1.4_react@17.0.2
@@ -8778,8 +8778,8 @@ packages:
     resolution: {integrity: sha512-tYC1Q1hgyRuHgloV/YXs2w15unPVh8qfu/qCTfhTYamaw7fyhumKa2yGpdSo87vY32rIclj+4fWYQXUMs9EHvg==}
     dev: false
 
-  /radio-browser-api/5.2.1:
-    resolution: {integrity: sha512-kC8dTSjUZlRl+0Y+OGoHhdaLlQzaL3GzYnBq8h+Qqp8rfs9N5DOQgk1PLNZyn+DqxOQfOw7bcwQUrzOgErPNxg==}
+  /radio-browser-api/5.2.2:
+    resolution: {integrity: sha512-eCC8VMagEZ5UQbHaw+C4VKVl8F1aIjNt1oXz4J6kJAyBBHwYgbxh3udAIk4b2GN2i8fbq/N70aseAz7lr27vHw==}
     dev: false
 
   /ramda/0.27.2:
