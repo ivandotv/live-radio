@@ -8,7 +8,7 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { languages } from 'generated/languages'
 import { createStationListRow } from 'lib/client/utils/component-utils'
-import { stationDataToStationModel } from 'lib/client/utils/misc-utils'
+import { createRadioModels } from 'lib/client/utils/misc-utils'
 import { loadTranslations, paramsWithLocales } from 'lib/server/utils'
 import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
@@ -71,10 +71,7 @@ export default function LanguageStations({
   const router = useRouter()
   const { favoriteStations } = useRootStore()
 
-  const stationModels = useMemo(
-    () => stationDataToStationModel(stations),
-    [stations]
-  )
+  const stationModels = useMemo(() => createRadioModels(stations), [stations])
 
   if (router.isFallback) {
     return <ListStationsFallback />

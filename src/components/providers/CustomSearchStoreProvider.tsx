@@ -1,7 +1,5 @@
 import { CustomSearchStore } from 'lib/client/stores/custom-search-store'
-import { radioAPIUserAgent } from 'lib/shared/config'
 import { enableStaticRendering } from 'mobx-react-lite'
-import { RadioBrowserApi } from 'radio-browser-api'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 
 enableStaticRendering(typeof window === 'undefined')
@@ -26,10 +24,7 @@ export function CustomSearchStoreProvider({
 }: {
   children: ReactNode
 }) {
-  const store = useMemo(
-    () => new CustomSearchStore(new RadioBrowserApi(radioAPIUserAgent)),
-    []
-  )
+  const store = useMemo(() => new CustomSearchStore(), [])
 
   return (
     <CustomSearchContext.Provider value={store}>

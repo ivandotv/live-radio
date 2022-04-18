@@ -42,10 +42,7 @@ export function onError(err: any, _req: NextApiRequest, res: NextApiResponse) {
   if (isProduction) {
     Sentry.captureException(err)
   }
-  // console.log('CONN ', err)
-  logger.info('ERRROR ---')
-  // console.log('context store ', context.getStore())
-  // context.getStore().info('from  store')
+  logger.warn(err)
   res.status(500).json({
     msg: 'Internal Server Error',
     debug: isProduction ? undefined : err.toString()

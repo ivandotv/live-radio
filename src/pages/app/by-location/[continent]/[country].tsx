@@ -11,7 +11,7 @@ import { countries } from 'generated/countries'
 import { createStationListRow } from 'lib/client/utils/component-utils'
 import {
   continentsByCode,
-  stationDataToStationModel
+  createRadioModels
 } from 'lib/client/utils/misc-utils'
 import { loadTranslations, paramsWithLocales } from 'lib/server/utils'
 import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
@@ -77,10 +77,7 @@ export default function CountryStations({
   const router = useRouter()
   const { favoriteStations } = useRootStore()
 
-  const stationModels = useMemo(
-    () => stationDataToStationModel(stations),
-    [stations]
-  )
+  const stationModels = useMemo(() => createRadioModels(stations), [stations])
 
   if (router.isFallback) {
     return <ListStationsFallback />

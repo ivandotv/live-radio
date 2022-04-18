@@ -1,8 +1,8 @@
 import { RadioModel } from 'lib/client/radio-model'
-import { stationDataToStationModel } from 'lib/client/utils/misc-utils'
-import { dataToRadioDTO } from 'lib/shared/utils'
+import { client, createRadioModels } from 'lib/client/utils/misc-utils'
+import { url } from 'lib/shared/config'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-import { RadioBrowserApi } from 'radio-browser-api'
+import { logger } from '../logger-browser'
 
 export class CustomSearchStore {
   query = ''
@@ -17,7 +17,7 @@ export class CustomSearchStore {
 
   protected requestToken?: Record<string, unknown>
 
-  constructor(protected api: RadioBrowserApi) {
+  constructor() {
     makeObservable<CustomSearchStore, 'searchData'>(this, {
       search: action,
       searchData: action,
@@ -55,26 +55,22 @@ export class CustomSearchStore {
     this.searchInProgress = true
 
     try {
-      const result = await this.api.searchStations(
-        {
-          name: query,
-          limit: 3000
-        },
-        undefined,
-        true
-      )
+      const result = await client(`${url}/api/custom-search`, {
+        data: { name: query }
+      })
       if (this.requestToken === localToken) {
         // process stations
         runInAction(() => {
           this.data = {
             //TODO - optimize double iteration
-            result: stationDataToStationModel(dataToRadioDTO(result))
+            result: createRadioModels(result.stations)
           }
           this.searchInProgress = false
           this.lastQuery = query
         })
       }
     } catch (error: any) {
+      logger.error(error)
       if (this.requestToken === localToken) {
         runInAction(() => {
           this.data = { error }

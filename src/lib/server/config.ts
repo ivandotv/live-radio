@@ -38,3 +38,7 @@ export const auth = {
 
 // the amount in seconds after which page re-generation can occur
 export const revalidate = toNumber(process.env.REVALIDATE, 3600) //one hour
+export const customSearchStationLimit = toNumber(
+  process.env.CUSTOM_SEARCH_LIMIT,
+  2000
+)

@@ -1,6 +1,6 @@
 import { I18n } from '@lingui/core'
 import { t } from '@lingui/macro'
-import { RadioModel } from 'lib/client/radio-model'
+import { radioModelFactory } from 'lib/client/radio-model'
 import { RadioDTO } from 'lib/shared/utils'
 import { en, sr } from 'make-plural/plurals'
 import { useEffect, useState } from 'react'
@@ -95,8 +95,8 @@ export function globalErrorHandler(e: any) {
   console.error('global error: ', e)
 }
 
-export function stationDataToStationModel(stations?: RadioDTO[]) {
-  return stations ? stations.map((data) => new RadioModel(data)) : []
+export function createRadioModels(stations?: RadioDTO[]) {
+  return stations ? stations.map((data) => radioModelFactory(data)) : []
 }
 
 export function initTranslations(i18n: I18n) {
