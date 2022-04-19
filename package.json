@@ -104,6 +104,7 @@
     "babel-plugin-transform-remove-console": "^6.9.4",
     "clean-webpack-plugin": "^4.0.0",
     "countries-list": "^2.6.1",
+    "critters": "^0.0.16",
     "eslint": "^8.13.0",
     "eslint-config-next": "^12.1.5",
     "eslint-config-prettier": "^8.5.0",
