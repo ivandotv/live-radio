@@ -52,6 +52,9 @@ const nextConfig = {
      *  */
     ignoreBuildErrors: false
   },
+  experimental: {
+    optimizeCss: true
+  },
   async headers() {
     return [
       {

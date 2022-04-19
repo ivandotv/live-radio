@@ -31,6 +31,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.19.0
   '@typescript-eslint/parser': ^5.19.0
   accept-language-parser: ^1.5.0
+  babel-plugin-macros: ^3.1.0
   babel-plugin-transform-define: ^2.0.1
   babel-plugin-transform-remove-console: ^6.9.4
   clean-webpack-plugin: ^4.0.0
@@ -124,7 +125,7 @@ dependencies:
   mobx-react-lite: 3.3.0_hmiq3xiffx2tpvk3y5rm3vgqxa
   mobx-utils: 6.0.5_mobx@6.5.0
   mongodb: 4.5.0
-  next: 12.1.5_6nyponiwjib2clhkbtejle6l5y
+  next: 12.1.5_f6cdocm6cotya2yazbtbuciak4
   next-auth: 4.3.2_sfoxds7t5ydpegc3knd667wn6m
   next-connect: 0.12.2
   node-internet-radio: 0.2.1
@@ -140,7 +141,7 @@ dependencies:
   react-use: 17.3.2_sfoxds7t5ydpegc3knd667wn6m
   react-virtuoso: 2.9.2_react@17.0.2
   request-ip: 2.1.3
-  styled-jsx: 5.0.2_cun6ua7ys3vo4t2323flhwfg7m
+  styled-jsx: 5.0.2_nvm2g2l3gue5ss6u3rdvriz3i4
   tinga: 4.0.7
   uuid: 8.3.2
   workbox-core: 6.5.3
@@ -156,7 +157,7 @@ devDependencies:
   '@babel/plugin-proposal-class-properties': 7.16.7_@babel+core@7.17.9
   '@lingui/cli': 3.13.2_hszixh2matkbwelqukyvmp72ta
   '@lingui/loader': 3.13.2_5zb2iwuswpu457y57ieff73zsu
-  '@lingui/macro': 3.13.2_7ogkgs6sbvucx27jrykgmmjm7y
+  '@lingui/macro': 3.13.2_amdtutaabkkgfnaurathwoyxiu
   '@next/bundle-analyzer': 12.1.5
   '@types/accept-language-parser': 1.5.3
   '@types/csso': 5.0.0
@@ -171,6 +172,7 @@ devDependencies:
   '@types/wicg-mediasession': 1.1.3
   '@typescript-eslint/eslint-plugin': 5.19.0_6nfnzbei2lspafh6mfbs24gl6i
   '@typescript-eslint/parser': 5.19.0_jzhokl4shvj5szf5bgr66kln2a
+  babel-plugin-macros: 3.1.0
   babel-plugin-transform-define: 2.0.1
   babel-plugin-transform-remove-console: 6.9.4
   clean-webpack-plugin: 4.0.0_webpack@5.72.0
@@ -1841,7 +1843,7 @@ packages:
       - typescript
     dev: true
 
-  /@lingui/macro/3.13.2_7ogkgs6sbvucx27jrykgmmjm7y:
+  /@lingui/macro/3.13.2_amdtutaabkkgfnaurathwoyxiu:
     resolution: {integrity: sha512-0BdybZkBq8bl4NrT8txX7k8BodyJ/4uQbMIK0ucPJvQ/6Lhj824CodBq5KuMWpcXoMSxUWjQIkIGr1Fi1ckLGg==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
@@ -1853,6 +1855,7 @@ packages:
       '@lingui/conf': 3.13.2_typescript@4.6.3
       '@lingui/core': 3.13.2
       '@lingui/react': 3.13.2_react@17.0.2
+      babel-plugin-macros: 3.1.0
       ramda: 0.27.2
     transitivePeerDependencies:
       - typescript
@@ -2342,7 +2345,7 @@ packages:
       '@sentry/tracing': 6.19.6
       '@sentry/utils': 6.19.6
       '@sentry/webpack-plugin': 1.18.8
-      next: 12.1.5_6nyponiwjib2clhkbtejle6l5y
+      next: 12.1.5_f6cdocm6cotya2yazbtbuciak4
       react: 17.0.2
       tslib: 1.14.1
       webpack: 5.72.0
@@ -3163,7 +3166,7 @@ packages:
       '@angular/compiler': '>= 6.0.0 < 9.0.6'
     dependencies:
       '@angular/compiler': 8.2.14
-      lines-and-columns: 1.1.6
+      lines-and-columns: 1.2.4
       tslib: 1.14.1
     dev: true
 
@@ -4689,7 +4692,7 @@ packages:
       eslint-plugin-jsx-a11y: 6.5.1_eslint@8.13.0
       eslint-plugin-react: 7.29.1_eslint@8.13.0
       eslint-plugin-react-hooks: 4.3.0_eslint@8.13.0
-      next: 12.1.5_6nyponiwjib2clhkbtejle6l5y
+      next: 12.1.5_f6cdocm6cotya2yazbtbuciak4
       typescript: 4.6.3
     transitivePeerDependencies:
       - supports-color
@@ -7801,7 +7804,7 @@ packages:
       trouter: 3.2.0
     dev: false
 
-  /next/12.1.5_6nyponiwjib2clhkbtejle6l5y:
+  /next/12.1.5_f6cdocm6cotya2yazbtbuciak4:
     resolution: {integrity: sha512-YGHDpyfgCfnT5GZObsKepmRnne7Kzp7nGrac07dikhutWQug7hHg85/+sPJ4ZW5Q2pDkb+n0FnmLkmd44htIJQ==}
     engines: {node: '>=12.22.0'}
     hasBin: true
@@ -7824,7 +7827,7 @@ packages:
       postcss: 8.4.5
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      styled-jsx: 5.0.1_cun6ua7ys3vo4t2323flhwfg7m
+      styled-jsx: 5.0.1_nvm2g2l3gue5ss6u3rdvriz3i4
     optionalDependencies:
       '@next/swc-android-arm-eabi': 12.1.5
       '@next/swc-android-arm64': 12.1.5
@@ -9819,7 +9822,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /styled-jsx/5.0.1_cun6ua7ys3vo4t2323flhwfg7m:
+  /styled-jsx/5.0.1_nvm2g2l3gue5ss6u3rdvriz3i4:
     resolution: {integrity: sha512-+PIZ/6Uk40mphiQJJI1202b+/dYeTVd9ZnMPR80pgiWbjIwvN2zIp4r9et0BgqBuShh48I0gttPlAXA7WVvBxw==}
     engines: {node: '>= 12.0.0'}
     peerDependencies:
@@ -9833,10 +9836,11 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.17.9
+      babel-plugin-macros: 3.1.0
       react: 17.0.2
     dev: false
 
-  /styled-jsx/5.0.2_cun6ua7ys3vo4t2323flhwfg7m:
+  /styled-jsx/5.0.2_nvm2g2l3gue5ss6u3rdvriz3i4:
     resolution: {integrity: sha512-LqPQrbBh3egD57NBcHET4qcgshPks+yblyhPlH2GY8oaDgKs8SK4C3dBh3oSJjgzJ3G5t1SYEZGHkP+QEpX9EQ==}
     engines: {node: '>= 12.0.0'}
     peerDependencies:
@@ -9850,6 +9854,7 @@ packages:
         optional: true
     dependencies:
       '@babel/core': 7.17.9
+      babel-plugin-macros: 3.1.0
       react: 17.0.2
     dev: false
 
@@ -10944,9 +10949,9 @@ packages:
     resolution: {integrity: sha512-cGtqhHBlcft+rTKiPsVcSyi43Eqm5a1buYokW9VkztroKMErBSdR9ANHx+/XxNppHZTu2KMEn4yY8MdhuGoFuA==}
     engines: {node: '>= 6'}
     dependencies:
-      lines-and-columns: 1.1.6
+      lines-and-columns: 1.2.4
       tslib: 1.14.1
-      yaml: 1.8.3
+      yaml: 1.10.2
     dev: true
 
   /yaml/1.10.2:
