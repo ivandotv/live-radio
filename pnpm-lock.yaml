@@ -4,7 +4,7 @@ specifiers:
   '@babel/core': ^7.17.9
   '@babel/plugin-proposal-class-properties': ^7.16.7
   '@fuerte/core': ^3.0.0
-  '@fuerte/transport-idb': ^4.0.0
+  '@fuerte/transport-idb': ^5.0.0
   '@lingui/cli': ^3.13.2
   '@lingui/core': ^3.13.2
   '@lingui/loader': ^3.13.2
@@ -104,7 +104,7 @@ specifiers:
 
 dependencies:
   '@fuerte/core': 3.0.0_mobx@6.5.0
-  '@fuerte/transport-idb': 4.0.0_@fuerte+core@3.0.0
+  '@fuerte/transport-idb': 5.0.0
   '@lingui/core': 3.13.2
   '@lingui/react': 3.13.2_react@17.0.2
   '@material-ui/core': 4.12.4_wsn53pslsboo2rytzocxzsur7i
@@ -1461,12 +1461,18 @@ packages:
       nanoid: 3.3.2
     dev: false
 
-  /@fuerte/transport-idb/4.0.0_@fuerte+core@3.0.0:
-    resolution: {integrity: sha512-eLbAyUiz7HTwz+XGEh4Zl2oX3nyob2ic07LsuNGK6CJ8i6j9TwSWcJ7y8euRS0SnLHPBz0/cuWv9stC/5kRyzw==}
-    peerDependencies:
-      '@fuerte/core': 3.0.0
+  /@fuerte/core/4.0.0:
+    resolution: {integrity: sha512-P5GaFfdOKuHsQPyouYFh3pJpbhRS0hWS/qnuvtEGYoWROAke11Lru7RfY/sDr094y1YFtUGBtNKe7ZZCCnkiGQ==}
     dependencies:
-      '@fuerte/core': 3.0.0_mobx@6.5.0
+      fast-deep-equal: 3.1.3
+      mobx: 6.5.0
+      nanoid: 3.3.3
+    dev: false
+
+  /@fuerte/transport-idb/5.0.0:
+    resolution: {integrity: sha512-LTqul57sbZVyIOZmdSxdxX4mnwebezPlY/HRLS2hddkszQ2JFi5J1gotU1480SwDL6FDIDPMPynQ/H7mI1WWQA==}
+    dependencies:
+      '@fuerte/core': 4.0.0
       idb: 7.0.1
     dev: false
 
@@ -7818,6 +7824,12 @@ packages:
     resolution: {integrity: sha512-CuHBogktKwpm5g2sRgv83jEy2ijFzBwMoYA60orPDR7ynsLijJDqgsi4RDGj3OJpy3Ieb+LYwiRmIOGyytgITA==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /nanoid/3.3.3:
+    resolution: {integrity: sha512-p1sjXuopFs0xg+fPASzQ28agW1oHD7xDsd9Xkf3T15H3c/cifrFHVwrh74PdoklAPi+i7MdRsE47vm2r6JoB+w==}
+    engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
+    hasBin: true
+    dev: false
 
   /natural-compare/1.4.0:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
