@@ -117,7 +117,7 @@
     "eslint-plugin-react-hooks": "^4.4.0",
     "husky": "7.0.4",
     "iso-639-1": "^2.1.13",
-    "jest": "^27.5.1",
+    "jest": "^28.0.0",
     "jest-watch-typeahead": "^1.0.0",
     "lint-staged": "^12.3.8",
     "next-compose-plugins": "^2.2.1",
