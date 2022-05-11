@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro'
 import { toBoolean } from 'lib/shared/utils'
 import { LevelsByName } from 'tinga'
-import linguiConfig from '../../../lingui.config'
+import linguiConfig from '../../../lingui.config.js'
 /**
  * ! This file holds configuration options that can be used
  * ! in the browser as well on the server

@@ -1,14 +1,15 @@
 import { AsyncLocalStorage } from 'async_hooks'
-import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import { NextHandler } from 'next-connect'
-import pino from 'pino'
 import { logLevel } from 'lib/server/config'
-import { v4 as uuid } from 'uuid'
-import { AppRequest } from 'lib/server/middleware'
 import { getDbConnection } from 'lib/server/db-connection'
+import { ApiContext } from 'lib/server/middleware'
 import { RadioRepository } from 'lib/server/radio-repository'
-import { RadioBrowserApi } from 'radio-browser-api'
 import { radioAPIUserAgent } from 'lib/shared/config'
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
+import { getSession } from 'next-auth/react'
+import type { Koa } from 'nextjs-koa-api'
+import pino from 'pino'
+import { RadioBrowserApi } from 'radio-browser-api'
+import { v4 as uuid } from 'uuid'
 
 /* SERVER Request Logger */
 export const context = new AsyncLocalStorage<pino.Logger>()
@@ -37,20 +38,18 @@ export function withLogger(handler: NextApiHandler) {
 /**
  * Build request context
  */
-export async function setupContext(
-  req: AppRequest,
-  _res: NextApiResponse,
-  next: NextHandler
+export async function setupContextKoa(
+  ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+  next: Koa.Next
 ) {
   const child = originalLogger.child({})
 
-  const client = await getDbConnection()
-  const radioRepository = new RadioRepository(client)
+  const dbClient = await getDbConnection()
 
-  const radioApi = new RadioBrowserApi(radioAPIUserAgent)
-  req.ctx = {
-    radioRepository,
-    radioApi
-  }
-  context.run(child, next)
+  ctx.radioRepository = new RadioRepository(dbClient)
+  ctx.sessionCheck = getSession
+  ctx.radioApi = new RadioBrowserApi(radioAPIUserAgent)
+
+  // https://nodejs.org/api/async_context.html#usage-with-asyncawait
+  await context.run(child, () => next())
 }

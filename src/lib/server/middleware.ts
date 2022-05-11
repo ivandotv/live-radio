@@ -1,198 +1,286 @@
-import { logger } from 'lib/server/api-context'
+import { isProduction } from 'lib/server/config'
 import { RadioRepository } from 'lib/server/radio-repository'
-import { NextApiRequest, NextApiResponse } from 'next'
+import { importSchema, stationSchema } from 'lib/server/schemas'
+import { StationCollection } from 'lib/server/utils'
+import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
-import { NextHandler } from 'next-connect'
-import { isProduction } from 'lib/server/config'
-import { StationCollection } from 'lib/server/utils'
-import { importSchema, stationSchema } from 'lib/server/schemas'
+import { Koa } from 'nextjs-koa-api'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { dataToRadioDTO } from 'lib/shared/utils'
 
-export type AppRequest = NextApiRequest & {
+export interface ApiContext extends Koa.DefaultContext {
   session?: Session
-  ctx: {
-    radioRepository: RadioRepository
-    radioApi: RadioBrowserApi
-  }
+  sessionCheck: typeof getSession
+  radioRepository: RadioRepository
+  radioApi: RadioBrowserApi
 }
 
 /**
  * Check if user is authenticated
  */
 export async function setupSession(
-  req: AppRequest,
-  res: NextApiResponse,
-  next: NextHandler
+  ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+  next: Koa.Next
 ) {
-  const session = await getSession({ req })
-  logger.info('session')
+  const session = await getSession({ req: ctx.req })
   if (!session) {
-    return res.status(401).json({ msg: 'Unauthorized' })
+    ctx.status = 401
+    ctx.body = { msg: 'Unauthorized' }
+
+    return
+  } else {
+    ctx.session = session
   }
-  req.session = session
-  next()
+
+  await next()
 }
 
 /**
  * Validate station payload
  */
-export function validateStation(
-  req: NextApiRequest,
-  res: NextApiResponse,
-  next: NextHandler
+
+export async function validateStation(
+  ctx: Koa.ParameterizedContext<
+    Koa.DefaultState,
+    {
+      request: {
+        body: {
+          stations: RadioDTO[]
+        }
+        params: {
+          collection: StationCollection
+        }
+      }
+    }
+  >,
+  next: Koa.Next
 ) {
-  const { error } = stationSchema.validate(req.body.station, {
+  const { error } = stationSchema.validate(ctx.request.body.station, {
     errors: { render: false }
   })
 
   if (error) {
-    return res.status(422).json({
+    // return res.status(422).json({
+    //   msg: 'Not a valid Station object',
+    //   debug: isProduction ? undefined : error
+    // })
+
+    ctx.status = 422
+    ctx.body = {
       msg: 'Not a valid Station object',
       debug: isProduction ? undefined : error
-    })
+    }
+
+    return
   }
 
-  next()
+  await next()
 }
 
 /**
  * Validate array of stations payload
  */
-export function bulkValidateStations(
-  req: NextApiRequest,
-  res: NextApiResponse,
-  next: NextHandler
+export async function bulkValidateStations(
+  ctx: Koa.ParameterizedContext<
+    Koa.DefaultState,
+    ApiContext & { request: { body: { stations: RadioDTO[] } } }
+  >,
+  next: Koa.Next
 ) {
-  const { error } = importSchema.validate(req.body.stations, {
+  const { error } = importSchema.validate(ctx.request.body.stations, {
     errors: { render: false }
   })
 
   if (error) {
-    return res.status(422).json({
+    ctx.status = 422
+    ctx.body = {
       msg: 'Not all stations are valid',
       debug: isProduction ? undefined : error
-    })
+    }
+
+    return
   }
 
-  next()
+  await next()
 }
 
 /**
- * Gets stations for a particular collection
+ * Check if collection exists
  */
 
-//TODO - get user STATIONS DAO
-export function checkCollectionExists(
-  req: AppRequest,
-  res: NextApiResponse,
-  next: NextHandler
+export async function checkCollectionExists(
+  ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+  next: Koa.Next
 ) {
-  const collection: StationCollection | undefined = req.query.collection
-    ? (req.query.collection[0] as StationCollection)
-    : undefined
+  const collectionName = ctx.params.collection
 
-  if (!collection) {
-    return res.status(400).json({ msg: 'collection missing' })
-  }
+  if (!collectionName) {
+    ctx.response.status = 400
+    ctx.body = { msg: 'collection name required' }
 
-  if (-1 === ['favorites', 'recent'].indexOf(collection)) {
-    return res.status(404).json({ msg: 'collection not found' })
+    return
+  } else if (-1 === ['favorites', 'recent'].indexOf(collectionName)) {
+    ctx.response.status = 404
+    ctx.body = { msg: 'collection not found' }
+
+    return
   }
-  logger.info('check collection exist')
-  next()
+  await next()
 }
 
 /**
  * Get user collection
  */
-export async function getUserCollection(req: AppRequest, res: NextApiResponse) {
-  const { radioApi, radioRepository } = req.ctx
-
-  const collection: StationCollection = req.query
-    .collection[0] as StationCollection
+export async function getUserCollection(
+  ctx: Koa.ParameterizedContext<
+    Koa.DefaultState,
+    ApiContext & {
+      request: {
+        params: {
+          collection: StationCollection
+        }
+      }
+    }
+  >,
+  next: Koa.Next
+) {
+  const { radioApi, radioRepository } = ctx
+  const collection: StationCollection = ctx.params.collection
 
   const stationIds = await radioRepository.getUserCollection(
-    req.session!.user.id,
+    ctx.session!.user.id,
     collection
   )
 
   const stations = await radioApi.getStationsById(stationIds)
 
-  return res.json(dataToRadioDTO(stations))
+  ctx.body = dataToRadioDTO(stations)
+
+  await next()
 }
 
 /**
- * Handle saving stations to particular collections
+ * Handle saving station to a particular collections
  */
-export async function saveStation(req: AppRequest, res: NextApiResponse) {
-  const collection: StationCollection = req.query
-    .collection[0] as StationCollection
+export async function saveStation(
+  ctx: Koa.ParameterizedContext<
+    Koa.DefaultState,
+    ApiContext & {
+      request: {
+        body: {
+          stations: RadioDTO[]
+        }
+        params: {
+          collection: StationCollection
+        }
+      }
+    }
+  >,
+  next: Koa.Next
+) {
+  const collection: StationCollection = ctx.params.collection
 
-  await req.ctx.radioRepository.save(
-    req.session!.user.id,
-    req.body.station,
+  await ctx.radioRepository.save(
+    ctx.session!.user.id,
+    ctx.request.body.station,
     collection
   )
 
-  return res.status(201).json({ msg: 'saved' })
+  ctx.status = 201
+  ctx.body = { msg: 'saved' }
+  await next()
 }
 
 /**
- * Deletes station from a particular collection
+ * Delete station from a particular collection
  */
-export async function deleteStation(req: AppRequest, res: NextApiResponse) {
-  const collection: StationCollection = req.query
-    .collection[0] as StationCollection
-  const id = req.query.id as string
+export async function deleteStation(
+  ctx: Koa.ParameterizedContext<
+    Koa.DefaultState,
+    ApiContext & {
+      request: {
+        params: {
+          collection: StationCollection
+          id: string
+        }
+      }
+    }
+  >,
+  next: Koa.Next
+) {
+  const collection: StationCollection = ctx.request.params.collection
+  const id = ctx.request.query.id as string | undefined
 
   if (!id) {
-    return res.status(400).json({ msg: 'Station ID expected' })
+    ctx.status = 400
+    ctx.body = { msg: 'Station ID expected' }
+
+    return
   }
 
-  const result = await req.ctx.radioRepository.delete(
-    req.session!.user.id,
+  const result = await ctx.radioRepository.delete(
+    ctx.session!.user.id,
     id,
     collection
   )
   if (result) {
-    return res.status(200).json({ msg: 'deleted' })
+    ctx.status = 200
+    ctx.body = { msg: 'deleted' }
+  } else {
+    // return res.status(404).json({ msg: 'not found' })
+    ctx.status = 404
+    ctx.body = { msg: 'station not found' }
   }
-
-  return res.status(404).json({ msg: 'not found' })
+  await next()
 }
 
 /**
  * Deletes the whole collection
  */
-export async function deleteCollection(req: AppRequest, res: NextApiResponse) {
-  const collection: StationCollection = req.query
-    .collection[0] as StationCollection
+export async function deleteCollection(
+  ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+  next: Koa.Next
+) {
+  const collection = ctx.params.collection
 
-  const result = await req.ctx.radioRepository.deleteUserCollection(
-    req.session!.user.id,
+  const result = await ctx.radioRepository.deleteUserCollection(
+    ctx.session!.user.id,
     collection
   )
   if (result) {
-    return res.status(200).json({ msg: 'deleted' })
+    ctx.body = { msg: 'deleted' }
+  } else {
+    ctx.status = 404
+    ctx.body = { msg: 'collection not found' }
   }
-
-  return res.status(404).json({ msg: 'not found' })
+  await next()
 }
 
 /**
  * Validate array of stations payload
  */
-export async function importStations(req: AppRequest, res: NextApiResponse) {
-  const collection: StationCollection = req.query
-    .collection[0] as StationCollection
+export async function importStations(
+  ctx: Koa.ParameterizedContext<
+    Koa.DefaultState,
+    ApiContext & {
+      request: {
+        params: {
+          collection: StationCollection
+        }
+      }
+    }
+  >,
+  next: Koa.Next
+) {
+  const collection = ctx.request.params.collection
 
-  await req.ctx.radioRepository.import(
-    req.session!.user.id,
-    req.body.stations,
+  await ctx.radioRepository.import(
+    ctx.session!.user.id,
+    ctx.request.body.stations,
     collection
   )
 
-  return res.status(201).json({ msg: 'saved' })
+  ctx.body = { msg: 'saved' }
+  ctx.status = 201
+  await next()
 }

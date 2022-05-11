@@ -4,7 +4,7 @@
     {
       "type": "node",
       "request": "attach",
-      "name": "Node",
+      "name": "Attach",
       "skipFiles": ["<node_internals>/**", "/node_modules/**"],
       "sourceMaps": true,
       "port": 9229
