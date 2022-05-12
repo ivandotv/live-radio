@@ -56,7 +56,7 @@
     "next-auth": "^4.3.4",
     "nextjs-koa-api": "^1.0.0",
     "node-internet-radio": "^0.2.1",
-    "notistack": "1.0.10",
+    "notistack": "2.0.5",
     "path-to-regexp": "^6.2.1",
     "pino": "^7.10.0",
     "pino-http": "^6.6.0",
