@@ -1,8 +1,8 @@
 import { logger, withLogger } from 'lib/server/api-context'
+import { isProduction } from 'lib/server/config'
 import { countryDataByKey, withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import requestIp from 'request-ip'
-import { isProduction } from 'lib/server/config'
 
 /**
  * Determine country via ip address
@@ -29,7 +29,6 @@ const handler = async function getGeoLocation(
       countryData = countryDataByKey('code', data.countryCode)
     }
 
-    logger.info('GEO after 2')
     if (!countryData) {
       throw new Error(`Can't parse location data`)
     }
