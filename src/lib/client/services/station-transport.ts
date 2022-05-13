@@ -1,6 +1,7 @@
 import { Transport } from '@fuerte/core'
 import { RadioModel } from 'lib/client/radio-model'
 import { RadioDTO } from 'lib/shared/utils'
+import { get } from 'pumpit'
 import {
   AppStorageService,
   StorageCollection,
@@ -10,7 +11,7 @@ import {
 export class StationTransport implements Transport<RadioModel> {
   protected collection?: StorageCollection
 
-  static inject = [AppStorageService]
+  static inject = [get(AppStorageService, { lazy: true })]
 
   constructor(protected storage: AppStorageService) {}
 
