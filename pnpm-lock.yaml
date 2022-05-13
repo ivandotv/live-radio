@@ -80,7 +80,7 @@ specifiers:
   prettier: ^2.6.2
   prettier-standard: ^16.4.1
   pumpit: ^1.0.0
-  radio-browser-api: ^6.0.0
+  radio-browser-api: ^6.0.1
   react: 17.0.2
   react-dom: 17.0.2
   react-error-boundary: ^3.1.4
@@ -136,7 +136,7 @@ dependencies:
   pino: 7.11.0
   pino-http: 6.6.0
   pumpit: 1.0.0
-  radio-browser-api: 6.0.0
+  radio-browser-api: 6.0.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-error-boundary: 3.1.4_react@17.0.2
@@ -8946,8 +8946,8 @@ packages:
     resolution: {integrity: sha512-tYC1Q1hgyRuHgloV/YXs2w15unPVh8qfu/qCTfhTYamaw7fyhumKa2yGpdSo87vY32rIclj+4fWYQXUMs9EHvg==}
     dev: false
 
-  /radio-browser-api/6.0.0:
-    resolution: {integrity: sha512-DQlxpct6dMdAp6asP9qu2qWQkOHcju5iL7NwH6vz52BfSFIlsgOrn2DR3yPMgXoFwVikCyVaFejfAgoCxAH7+A==}
+  /radio-browser-api/6.0.1:
+    resolution: {integrity: sha512-7QzW1rjB/6CFmk2UOBMLo4dW15R0yj2OpuftKlYXWQ1ow7leeOfNvAD3HRN5gFl1E3oxqtcocr2TfyaxqQ4oSg==}
     dev: false
 
   /ramda/0.27.2:
