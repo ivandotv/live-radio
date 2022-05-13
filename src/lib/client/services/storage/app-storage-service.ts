@@ -20,6 +20,13 @@ export class AppStorageService {
     protected httpClient: typeof client
   ) {}
 
+  static inject = [
+    LocalStorageService,
+    RemoteStorageService,
+    AuthService,
+    client
+  ]
+
   protected async resolveStorage(type?: StorageType) {
     //short circuit session check
     if ('local' === type) return this.local

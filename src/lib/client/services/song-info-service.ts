@@ -11,6 +11,8 @@ export class SongInfoService {
 
   constructor(protected transport: typeof fetch) {}
 
+  static inject = [fetch]
+
   async start(
     stationUrl: string,
     cb: (error: Error | null, data?: { artist: string; title: string }) => void

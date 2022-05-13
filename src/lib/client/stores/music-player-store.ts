@@ -2,9 +2,10 @@ import { Howl } from 'howler'
 import { logger } from 'lib/client/logger-browser'
 import { SongInfoService } from 'lib/client/services/song-info-service'
 import { RootStore } from 'lib/client/stores/root-store'
+import { defaultStation } from 'lib/shared/config'
 import { RadioDTO } from 'lib/shared/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-
+import { get } from 'pumpit'
 const storeLogger = logger.child({ label: 'music-store' })
 
 export const PlayerStatus = {
@@ -23,8 +24,6 @@ export class MusicPlayerStore {
     data: any
   } | null = null
 
-  // station!: RadioStation
-
   songInfo: { artist: string; title: string } | undefined = undefined
 
   prevSongInfo: { artist: string; title: string } | undefined = undefined
@@ -40,6 +39,12 @@ export class MusicPlayerStore {
   protected player: Howl | undefined = undefined
 
   protected firstTryLoad = true
+
+  static inject = [
+    get(RootStore, { lazy: true }),
+    SongInfoService,
+    defaultStation
+  ]
 
   // TODO - refactor to a state machine
   constructor(

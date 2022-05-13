@@ -1,6 +1,6 @@
 import { AppShell, AppThemeProvider } from 'components/layout'
 import { RootStoreProvider } from 'components/providers/RootStoreProvider'
-import { rootStoreFactory } from 'lib/client/stores/root-store'
+import { rootStoreFactory } from 'lib/client/injection-root'
 import { SnackbarProvider } from 'notistack'
 import { NextApplicationPage } from 'pages/_app'
 

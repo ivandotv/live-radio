@@ -10,18 +10,20 @@ export class AuthExpiredError extends Error {
 }
 
 export class RemoteStorageService {
+  static inject = [client]
+
   constructor(protected transport: typeof client) {
     this.checkAuthError = this.checkAuthError.bind(this)
   }
 
   async removeAllStations(collection: StationCollection) {
-    return this.transport(`/api/collection/delete/${collection}`, {
+    return this.transport(`/api/collection/${collection}`, {
       method: 'DELETE'
     }).catch(this.checkAuthError)
   }
 
   async addStation(station: RadioDTO, collection: StationCollection) {
-    return this.transport(`/api/stations/${collection}`, {
+    return this.transport(`/api/station/${collection}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,7 +33,7 @@ export class RemoteStorageService {
   }
 
   async removeStation(id: string, collection: StationCollection) {
-    return this.transport(`/api/stations/${collection}?id=${id}`, {
+    return this.transport(`/api/station/${collection}?id=${id}`, {
       method: 'DELETE'
     }).catch(this.checkAuthError)
   }
@@ -40,7 +42,7 @@ export class RemoteStorageService {
     data: { station: RadioDTO; date: string }[],
     collection: StationCollection
   ): Promise<any> {
-    return this.transport(`/api/collection/import/${collection}`, {
+    return this.transport(`/api/collection/${collection}/import`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -50,7 +52,7 @@ export class RemoteStorageService {
   }
 
   async getStations(collection: StationCollection): Promise<RadioDTO[]> {
-    return this.transport(`/api/stations/${collection}`, {
+    return this.transport(`/api/collection/${collection}`, {
       method: 'GET'
     }).catch(this.checkAuthError)
   }

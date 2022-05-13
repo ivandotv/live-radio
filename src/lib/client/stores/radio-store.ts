@@ -9,6 +9,8 @@ import { RadioModel, radioModelFactory } from 'lib/client/radio-model'
 import { StationTransport } from 'lib/client/services/station-transport'
 import { RootStore } from 'lib/client/stores/root-store'
 import { RadioDTO } from 'lib/shared/utils'
+import { StorageCollection } from '../services/storage/app-storage-service'
+import { get } from 'pumpit'
 
 export class RadioStore {
   protected result!: RadioModel[]
@@ -19,11 +21,19 @@ export class RadioStore {
     StationTransport
   >
 
+  static inject = [
+    get(RootStore, { lazy: true }),
+    radioModelFactory,
+    StationTransport
+  ]
+
   constructor(
     protected root: RootStore,
     factory: typeof radioModelFactory,
-    transport: StationTransport
+    transport: StationTransport,
+    collection: StorageCollection
   ) {
+    transport.setCollection(collection)
     this.collection = new Collection(factory, transport)
   }
 

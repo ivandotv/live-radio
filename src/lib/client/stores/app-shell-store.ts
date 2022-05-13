@@ -2,7 +2,7 @@ import { AuthExpiredError } from 'lib/client/services/auth-service'
 import { AppStorageService } from 'lib/client/services/storage/app-storage-service'
 import { RootStore } from 'lib/client/stores/root-store'
 import { action, makeObservable, observable } from 'mobx'
-
+import { get } from 'pumpit'
 export type AppTheme = 'light' | 'dark'
 
 export class AppShellStore {
@@ -21,6 +21,8 @@ export class AppShellStore {
   isOnLine = true
 
   authExpired = false
+
+  static inject = [get(RootStore, { lazy: true }), AppStorageService]
 
   constructor(
     protected rootStore: RootStore,

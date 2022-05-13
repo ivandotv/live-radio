@@ -2,6 +2,7 @@ import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
 import { StationCollection } from 'lib/server/utils'
 import { logger } from 'lib/client/logger-browser'
 import { RadioDTO } from 'lib/shared/utils'
+import { localDbName } from 'lib/shared/config'
 
 type DBValue = { station: RadioDTO; date: string; _id: string }
 
@@ -22,6 +23,8 @@ export class LocalStorageService {
   protected db!: IDBPDatabase<LocalSchema>
 
   constructor(public dbName: string) {}
+
+  static inject = [localDbName]
 
   async getStations(collection: StationCollection): Promise<RadioDTO[]> {
     const data = await this.getAll(collection)

@@ -8,23 +8,36 @@ import {
 } from './storage/app-storage-service'
 
 export class StationTransport implements Transport<RadioModel> {
-  constructor(
-    protected storage: AppStorageService,
-    protected collection: StorageCollection
-  ) {}
+  protected collection?: StorageCollection
+
+  static inject = [AppStorageService]
+
+  constructor(protected storage: AppStorageService) {}
+
+  setCollection(collection: StorageCollection) {
+    this.collection = collection
+  }
+
+  protected getCollection() {
+    if (!this.collection) {
+      throw new Error('collection not set')
+    }
+
+    return this.collection
+  }
 
   async load(type?: StorageType) {
-    const data = await this.storage.getAllStations(this.collection, type)
+    const data = await this.storage.getAllStations(this.getCollection(), type)
 
     return { data }
   }
 
   save(radio: RadioModel) {
-    return this.storage.saveStation(radio.data, this.collection)
+    return this.storage.saveStation(radio.data, this.getCollection())
   }
 
   delete(radio: RadioModel) {
-    return this.storage.removeStation(radio.id, this.collection)
+    return this.storage.removeStation(radio.id, this.getCollection())
   }
 
   async getStationInfo(id: string): Promise<RadioDTO> {
