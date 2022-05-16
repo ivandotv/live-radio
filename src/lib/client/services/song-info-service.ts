@@ -1,6 +1,6 @@
 import { logger } from 'lib/client/logger-browser'
 
-const songLogger = logger.child({ label: 'song-ingo' })
+const songLogger = logger.child({ label: 'song-info' })
 
 export class SongInfoService {
   protected timeoutId: number | undefined
