@@ -1,5 +1,6 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import { logger } from 'lib/server/api-context'
+import { logger } from 'lib/server/logger'
+import * as Sentry from '@sentry/nextjs'
 import { getDbConnection } from 'lib/server/db-connection'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
@@ -21,6 +22,14 @@ export default NextAuth({
   logger: {
     error(code, metadata) {
       logger.error({ code, metadata, tags: { auth: 'next-auth' } })
+      Sentry.captureException(metadata, {
+        tags: {
+          side: 'backend',
+          scope: 'auth'
+        }
+      })
+
+      Sentry.captureException(metadata)
     }
   },
   callbacks: {

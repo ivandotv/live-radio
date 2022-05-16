@@ -1,4 +1,5 @@
 import { customSearchStationLimit } from 'lib/server/config'
+import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
 import { radioAPIUserAgent } from 'lib/shared/config'
 import { dataToRadioDTO } from 'lib/shared/utils'
@@ -7,7 +8,7 @@ import { RadioBrowserApi } from 'radio-browser-api'
 /**
  * Custom search for stations
  */
-const handler = async function sendStationClick(
+const handler = async function customSearch(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -33,4 +34,4 @@ const handler = async function sendStationClick(
   }
 }
 
-export default withErrorLogging(handler)
+export default withErrorLogging(withLogger(handler))

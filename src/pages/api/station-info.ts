@@ -1,6 +1,7 @@
+import { withLogger } from 'lib/server/logger'
+import { withErrorLogging } from 'lib/server/utils'
 import { radioAPIUserAgent } from 'lib/shared/config'
 import { dataToRadioDTO } from 'lib/shared/utils'
-import { withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 
@@ -28,4 +29,4 @@ const handler = async function getStationInfo(
   }
 }
 
-export default withErrorLogging(handler)
+export default withErrorLogging(withLogger(handler))

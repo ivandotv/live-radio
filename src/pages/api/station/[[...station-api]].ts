@@ -1,8 +1,11 @@
 import { setupContextKoa } from 'lib/server/api-context'
+import { nodeEnv } from 'lib/server/config'
+import { setupAsyncStorage } from 'lib/server/logger'
 import {
   ApiContext,
   checkCollectionExists,
   deleteStation,
+  logError,
   saveStation,
   setupSession,
   validateStation
@@ -12,11 +15,14 @@ import { RadioDTO } from 'lib/shared/utils'
 import { Koa, KoaApi, withKoaApi } from 'nextjs-koa-api'
 
 const api = new KoaApi<Koa.DefaultState, ApiContext>({
+  koa: {
+    env: nodeEnv
+  },
   router: { prefix: '/api/station' }
 })
 
 api.router
-  .use(setupContextKoa, setupSession)
+  .use(setupAsyncStorage, logError, setupContextKoa, setupSession)
   .post<
     Koa.DefaultState,
     ApiContext & {

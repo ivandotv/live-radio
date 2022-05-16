@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs'
 import { countries } from 'generated/countries'
-import { logger } from 'lib/server/api-context'
+import { logger } from 'lib/server/logger'
 import { RadioDTO } from 'lib/shared/utils'
 import {
   GetStaticProps,

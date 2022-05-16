@@ -1,4 +1,5 @@
 import { isProduction } from 'lib/server/config'
+import * as Sentry from '@sentry/nextjs'
 import { RadioRepository } from 'lib/server/radio-repository'
 import { importSchema, stationSchema } from 'lib/server/schemas'
 import { StationCollection } from 'lib/server/utils'
@@ -7,12 +8,16 @@ import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
 import { Koa } from 'nextjs-koa-api'
 import { RadioBrowserApi } from 'radio-browser-api'
+import { logger } from 'lib/server/logger'
 
 export interface ApiContext extends Koa.DefaultContext {
   session?: Session
   sessionCheck: typeof getSession
   radioRepository: RadioRepository
   radioApi: RadioBrowserApi
+  info: {
+    isProduction: boolean
+  }
 }
 
 /**
@@ -283,4 +288,34 @@ export async function importStations(
   ctx.body = { msg: 'saved' }
   ctx.status = 201
   await next()
+}
+
+/**
+ * Logs error
+ */
+export async function logError(
+  ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+  next: Koa.Next
+) {
+  try {
+    await next()
+  } catch (err: any) {
+    err.status = err.statusCode || err.status || 500
+
+    logger.error(err)
+
+    if (isProduction) {
+      Sentry.captureException(err, {
+        tags: {
+          side: 'backend',
+          scope: 'api'
+        }
+      })
+    }
+
+    ctx.status = err.status
+    ctx.body = ctx.info.isProduction ? 'Internal server error' : err.message
+
+    ctx.app.emit('error', err, ctx)
+  }
 }

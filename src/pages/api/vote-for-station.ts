@@ -1,5 +1,6 @@
-import { radioAPIUserAgent } from 'lib/shared/config'
+import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
+import { radioAPIUserAgent } from 'lib/shared/config'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 
@@ -23,4 +24,4 @@ const handler = async function voteForStation(
   }
 }
 
-export default withErrorLogging(handler)
+export default withErrorLogging(withLogger(handler))

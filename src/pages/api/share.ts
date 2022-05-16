@@ -1,6 +1,7 @@
 import parser from 'accept-language-parser'
-import { locales } from 'lib/shared/config'
+import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
+import { locales } from 'lib/shared/config'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 /**
@@ -36,4 +37,4 @@ const handler = async function redirectShare(
   // custom language
   res.redirect(`/${language}/app/${playEncoded}`)
 }
-export default withErrorLogging(handler)
+export default withErrorLogging(withLogger(handler))

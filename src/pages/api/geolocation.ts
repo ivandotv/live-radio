@@ -1,4 +1,4 @@
-import { logger, withLogger } from 'lib/server/api-context'
+import { withLogger } from 'lib/server/logger'
 import { isProduction } from 'lib/server/config'
 import { countryDataByKey, withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -18,9 +18,7 @@ const handler = async function getGeoLocation(
     detectedIp === '::1' || detectedIp === '127.0.0.1' ? '' : detectedIp
 
   try {
-    logger.info('GEO before')
     const response = await fetch(`http://ip-api.com/json/${queryIp}`)
-    logger.info('GEO after')
 
     let data: { countryCode: string }
     let countryData

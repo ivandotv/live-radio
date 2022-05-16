@@ -1,3 +1,4 @@
+import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 // @ts-expect-error - no types for module
@@ -52,4 +53,4 @@ const handler = async function getSongInfo(
   }
 }
 
-export default withErrorLogging(handler)
+export default withErrorLogging(withLogger(handler))
