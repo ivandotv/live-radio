@@ -1,6 +1,14 @@
-module.exports = {
-  projects: ['<rootDir>/src/__tests__/**'],
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const nextJest = require('next/jest')
+const createJestConfig = nextJest({
+  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
+  dir: './'
+})
+
+const customJestConfig = {
+  // projects: ['<rootDir>/src/__tests__/**'],
   setupFilesAfterEnv: ['./jestSetup.ts'],
+  moduleDirectories: ['node_modules', '<rootDir>/src/'],
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
@@ -28,3 +36,5 @@ module.exports = {
     }
   }
 }
+
+module.exports = createJestConfig(customJestConfig)
