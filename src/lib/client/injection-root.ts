@@ -13,6 +13,7 @@ import { AppStorageService } from './services/storage/app-storage-service'
 import { LocalStorageService } from './services/storage/local-storage-service'
 import { RemoteStorageService } from './services/storage/remote-storage-service'
 import { RootStore } from './stores/root-store'
+import { injectionTokens } from 'lib/client/injection-tokens'
 
 let store: RootStore
 
@@ -46,21 +47,20 @@ injectionContainer
   .bindClass(SongInfoService, SongInfoService, {
     scope: SCOPE.SINGLETON
   })
-  //circular dependencies need to use string or symbols as keys
-  .bindClass('AppShellStore', AppShellStore, {
+  .bindClass(AppShellStore, AppShellStore, {
     scope: SCOPE.SINGLETON
   })
-  .bindClass('MusicPlayerStore', MusicPlayerStore, {
+  .bindClass(MusicPlayerStore, MusicPlayerStore, {
     scope: SCOPE.SINGLETON
   })
   .bindClass(StationTransport, StationTransport)
-  .bindClass('FavoritesRadioStore', RadioStore, {
+  .bindClass(injectionTokens.favoritesRadioStore, RadioStore, {
     beforeResolve: ({ value, deps }) => {
       // @ts-expect-error added deps
       return new value(...deps, 'favorites')
     }
   })
-  .bindClass('RecentRadioStore', RadioStore, {
+  .bindClass(injectionTokens.recentRadioStore, RadioStore, {
     beforeResolve: ({ value, deps }) => {
       // @ts-expect-error added deps
       return new value(...deps, 'recent')

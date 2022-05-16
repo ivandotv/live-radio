@@ -1,11 +1,13 @@
 import { Howl } from 'howler'
+import { injectionTokens } from 'lib/client/injection-tokens'
 import { logger } from 'lib/client/logger-browser'
 import { SongInfoService } from 'lib/client/services/song-info-service'
-import { RootStore } from 'lib/client/stores/root-store'
 import { defaultStation } from 'lib/shared/config'
 import { RadioDTO } from 'lib/shared/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
-import { get } from 'pumpit'
+import { AppShellStore } from './app-shell-store'
+import { RadioStore } from './radio-store'
+
 const storeLogger = logger.child({ label: 'music-store' })
 
 export const PlayerStatus = {
@@ -41,14 +43,16 @@ export class MusicPlayerStore {
   protected firstTryLoad = true
 
   static inject = [
-    get(RootStore, { lazy: true }),
+    AppShellStore,
+    injectionTokens.recentRadioStore,
     SongInfoService,
     defaultStation
   ]
 
   // TODO - refactor to a state machine
   constructor(
-    protected rootStore: RootStore,
+    protected appShell: AppShellStore,
+    protected recentStations: RadioStore,
     protected songInfoService: SongInfoService,
     public station: RadioDTO
   ) {
@@ -126,7 +130,7 @@ export class MusicPlayerStore {
           this.status === PlayerStatus.PLAYING ||
           this.status === PlayerStatus.BUFFERING
         ) {
-          this.rootStore.appShell.countStationClick(station._id)
+          this.appShell.countStationClick(station._id)
         }
         this.stationClickTimeoutId = undefined
       }, this.countStationClickDelay)
@@ -138,7 +142,7 @@ export class MusicPlayerStore {
         this.errorStations[station._id] = false
       })
 
-      this.rootStore.recentStations.saveStation(station)
+      this.recentStations.saveStation(station)
     })
 
     this.player.on('pause', () => {

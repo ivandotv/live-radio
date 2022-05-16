@@ -7,10 +7,10 @@ import {
 } from '@fuerte/core'
 import { RadioModel, radioModelFactory } from 'lib/client/radio-model'
 import { StationTransport } from 'lib/client/services/station-transport'
-import { RootStore } from 'lib/client/stores/root-store'
 import { RadioDTO } from 'lib/shared/utils'
-import { StorageCollection } from '../services/storage/app-storage-service'
 import { get } from 'pumpit'
+import { StorageCollection } from '../services/storage/app-storage-service'
+import { AppShellStore } from './app-shell-store'
 
 export class RadioStore {
   protected result!: RadioModel[]
@@ -22,13 +22,13 @@ export class RadioStore {
   >
 
   static inject = [
-    get(RootStore, { lazy: true }),
+    get(AppShellStore, { lazy: true }),
     radioModelFactory,
     StationTransport
   ]
 
   constructor(
-    protected root: RootStore,
+    protected appShell: AppShellStore,
     factory: typeof radioModelFactory,
     transport: StationTransport,
     collection: StorageCollection
@@ -45,7 +45,7 @@ export class RadioStore {
     if (!this.result && this.loadStatus !== ASYNC_STATUS.PENDING) {
       const result = await this.collection.load()
 
-      this.root.appShell.setAuthError(result.error)
+      this.appShell.setAuthError(result.error)
 
       this.result = unwrapResult(result).added
     }
@@ -65,7 +65,7 @@ export class RadioStore {
     this.collection.unshift(model)
     const result = await this.collection.save(model, config)
 
-    this.root.appShell.setAuthError(result.error)
+    this.appShell.setAuthError(result.error)
 
     return result
   }
@@ -73,7 +73,7 @@ export class RadioStore {
   async deleteStation(id: string, config?: DeleteConfig) {
     const result = await this.collection.delete(id, config)
 
-    this.root.appShell.setAuthError(result.error)
+    this.appShell.setAuthError(result.error)
 
     return result
   }
