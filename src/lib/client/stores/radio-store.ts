@@ -45,7 +45,7 @@ export class RadioStore {
     if (!this.result && this.loadStatus !== ASYNC_STATUS.PENDING) {
       const result = await this.collection.load()
 
-      this.appShell.setAuthError(result.error)
+      this.appShell.setError(result.error)
 
       this.result = unwrapResult(result).added
     }
@@ -65,7 +65,7 @@ export class RadioStore {
     this.collection.unshift(model)
     const result = await this.collection.save(model, config)
 
-    this.appShell.setAuthError(result.error)
+    this.appShell.setError(result.error)
 
     return result
   }
@@ -73,7 +73,7 @@ export class RadioStore {
   async deleteStation(id: string, config?: DeleteConfig) {
     const result = await this.collection.delete(id, config)
 
-    this.appShell.setAuthError(result.error)
+    this.appShell.setError(result.error)
 
     return result
   }

@@ -1,8 +1,8 @@
+import { RadioStore } from './radio-store'
 import { injectionTokens } from 'lib/client/injection-tokens'
 import { AuthExpiredError } from 'lib/client/services/auth-service'
 import { AppStorageService } from 'lib/client/services/storage/app-storage-service'
 import { action, makeObservable, observable } from 'mobx'
-import { RadioStore } from './radio-store'
 
 export type AppTheme = 'light' | 'dark'
 
@@ -42,10 +42,10 @@ export class AppShellStore {
       authExpired: observable,
       isOnLine: observable,
       readyToShow: action,
-      setDesktopDrawer: action,
+      setDesktopDrawerOpen: action,
       setTheme: action,
       setIsOnline: action,
-      setAuthError: action
+      setError: action
     })
   }
 
@@ -54,7 +54,7 @@ export class AppShellStore {
   }
 
   //maybe set auth error
-  setAuthError(error: unknown) {
+  setError(error: unknown | AuthExpiredError) {
     if (error instanceof AuthExpiredError) {
       this.authExpired = true
 
@@ -73,17 +73,9 @@ export class AppShellStore {
     this.showApp = ready
   }
 
-  setDesktopDrawer(isOpen: boolean, animate = true) {
+  setDesktopDrawerOpen(isOpen: boolean, animate = true) {
     this.desktopDrawerIsOpen = isOpen
     this.animateDesktopDrawer = animate
-  }
-
-  protected getLocalFavorites() {
-    return this.storage.getAllStations('favorites', 'local')
-  }
-
-  protected getLocalRecent() {
-    return this.storage.getAllStations('recent', 'local')
   }
 
   async transferAnonymousData(
@@ -138,14 +130,22 @@ export class AppShellStore {
     }
   }
 
-  async deleteAnonymousData() {
+  async countStationClick(id: string): Promise<boolean> {
+    return this.storage.countStationClick(id)
+  }
+
+  protected async deleteAnonymousData() {
     return Promise.all([
       this.storage.removeAllStations('recent', 'local'),
       this.storage.removeAllStations('favorites', 'local')
     ])
   }
 
-  async countStationClick(id: string): Promise<boolean> {
-    return this.storage.countStationClick(id)
+  protected getLocalFavorites() {
+    return this.storage.getAllStations('favorites', 'local')
+  }
+
+  protected getLocalRecent() {
+    return this.storage.getAllStations('recent', 'local')
   }
 }

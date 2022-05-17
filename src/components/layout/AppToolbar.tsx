@@ -97,7 +97,7 @@ export const AppToolbar = observer(function AppToolbar() {
   }
 
   const toggleDesktopDrawer = () => {
-    appShell.setDesktopDrawer(!appShell.desktopDrawerIsOpen)
+    appShell.setDesktopDrawerOpen(!appShell.desktopDrawerIsOpen)
   }
 
   const toggleTheme = () => {

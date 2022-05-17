@@ -1,9 +1,9 @@
-import { defaultArtwork } from 'lib/shared/config'
 import { logger } from 'lib/client/logger-browser'
 import {
   MusicPlayerStore,
   PlayerStatus
 } from 'lib/client/stores/music-player-store'
+import { defaultArtwork } from 'lib/shared/config'
 import { reaction } from 'mobx'
 
 const sessionLogger = logger.child({ label: 'media-session' })

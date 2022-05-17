@@ -14,6 +14,7 @@ import { LocalStorageService } from './services/storage/local-storage-service'
 import { RemoteStorageService } from './services/storage/remote-storage-service'
 import { RootStore } from './stores/root-store'
 import { injectionTokens } from 'lib/client/injection-tokens'
+import { getSession } from 'next-auth/react'
 
 let store: RootStore
 
@@ -70,3 +71,4 @@ injectionContainer
   .bindValue(client, client)
   .bindValue(defaultStation, defaultStation)
   .bindValue(radioModelFactory, radioModelFactory)
+  .bindValue(getSession, getSession)

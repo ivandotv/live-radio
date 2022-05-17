@@ -15,9 +15,13 @@ export class AuthService {
 
   protected resolved = false
 
+  static inject = [getSession]
+
+  constructor(public sessionCheck: typeof getSession) {}
+
   async getAuth(fromCache = true) {
     if (!this.resolved || !fromCache) {
-      this.session = await getSession()
+      this.session = await this.sessionCheck.call(null)
       this.resolved = true
     }
 
