@@ -9,6 +9,7 @@
     "type:check": "tsc --noEmit",
     "start": "next start",
     "test": "jest --verbose",
+    "test:db": "jest --selectProjects database",
     "test:watch": "jest --watch",
     "analyze": "env ANALYZE=true npm run build",
     "gen:countries": "node scripts/generate-countries.js",
@@ -29,6 +30,7 @@
     "not op_mini all"
   ],
   "dependencies": {
+    "@faker-js/faker": "^6.3.1",
     "@fuerte/core": "^4.0.0",
     "@fuerte/transport-idb": "^5.0.0",
     "@lingui/core": "^3.13.3",
@@ -91,7 +93,7 @@
     "@types/csso": "^5.0.0",
     "@types/dateformat": "^5.0.0",
     "@types/howler": "^2.2.7",
-    "@types/jest": "^27.5.0",
+    "@types/jest": "^27.5.1",
     "@types/js-cookie": "^3.0.2",
     "@types/js-search": "^1.4.0",
     "@types/node": "^17.0.24",
@@ -106,6 +108,8 @@
     "clean-webpack-plugin": "^4.0.0",
     "countries-list": "^2.6.1",
     "critters": "^0.0.16",
+    "date-fns": "^2.28.0",
+    "dotenv": "^16.0.1",
     "eslint": "^8.15.0",
     "eslint-config-next": "^12.1.6",
     "eslint-config-prettier": "^8.5.0",
@@ -129,6 +133,7 @@
     "prettier": "^2.6.2",
     "prettier-standard": "^16.4.1",
     "testcontainers": "^8.10.0",
+    "time-span": "^4.0.0",
     "typescript": "^4.6.4",
     "webpack": "^5.72.1",
     "workbox-webpack-plugin": "^6.5.3"

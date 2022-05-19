@@ -9,7 +9,7 @@ import {
   getUserCollection,
   importStations,
   logError,
-  setupSession
+  checkSession
 } from 'lib/server/middleware'
 import { StationCollection } from 'lib/server/utils'
 import { RadioDTO } from 'lib/shared/utils'
@@ -23,7 +23,7 @@ const api = new KoaApi<Koa.DefaultState, ApiContext>({
 })
 
 api.router
-  .use(setupAsyncStorage, logError, setupContextKoa, setupSession)
+  .use(setupAsyncStorage, logError, setupContextKoa, checkSession)
   .get<
     Koa.DefaultState,
     ApiContext & {

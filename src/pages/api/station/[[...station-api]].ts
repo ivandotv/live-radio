@@ -7,7 +7,7 @@ import {
   deleteStation,
   logError,
   saveStation,
-  setupSession,
+  checkSession,
   validateStation
 } from 'lib/server/middleware'
 import { StationCollection } from 'lib/server/utils'
@@ -22,7 +22,7 @@ const api = new KoaApi<Koa.DefaultState, ApiContext>({
 })
 
 api.router
-  .use(setupAsyncStorage, logError, setupContextKoa, setupSession)
+  .use(setupAsyncStorage, logError, setupContextKoa, checkSession)
   .post<
     Koa.DefaultState,
     ApiContext & {

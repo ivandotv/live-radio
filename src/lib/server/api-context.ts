@@ -5,7 +5,7 @@ import { radioAPIUserAgent } from 'lib/shared/config'
 import { getSession } from 'next-auth/react'
 import type { Koa } from 'nextjs-koa-api'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { isProduction } from './config'
+import { isProduction, mongoDb } from './config'
 
 /**
  * Build request context
@@ -16,7 +16,9 @@ export async function setupContextKoa(
 ) {
   const dbClient = await getDbConnection()
 
-  ctx.radioRepository = new RadioRepository(dbClient)
+  ctx.radioRepository = new RadioRepository(dbClient, mongoDb.dbName, {
+    maxCollectionLimit: mongoDb.maxRadioCollectionLimit
+  })
   ctx.sessionCheck = getSession
   ctx.radioApi = new RadioBrowserApi(radioAPIUserAgent)
   ctx.info = {

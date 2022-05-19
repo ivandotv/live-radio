@@ -1,40 +1,16 @@
 import * as Sentry from '@sentry/nextjs'
 import { countries } from 'generated/countries'
+import { isProduction } from 'lib/server/config'
 import { logger } from 'lib/server/logger'
-import { RadioDTO } from 'lib/shared/utils'
 import {
   GetStaticProps,
   NextApiHandler,
   NextApiRequest,
   NextApiResponse
 } from 'next'
-import { isProduction } from 'lib/server/config'
 
 export type StationCollection = 'favorites' | 'recent'
 
-export interface IRadioRepository {
-  // getStations(ids: string[]): Promise<RadioDTO[]>
-  getUserCollection(
-    id: string,
-    collection: StationCollection
-  ): Promise<string[]>
-  save(
-    userId: string,
-    station: RadioDTO,
-    collectionName: StationCollection
-  ): Promise<void>
-  delete(
-    userId: string,
-    stationId: string,
-    collectionName: StationCollection
-  ): Promise<boolean>
-  // createStation(station: RadioDTO): Promise<void>
-  import(
-    userId: string,
-    data: { station: RadioDTO; date: string }[],
-    collectionName: StationCollection
-  ): Promise<void>
-}
 /**
  * Handle uncaught api errors
  */

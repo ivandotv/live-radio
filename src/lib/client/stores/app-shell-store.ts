@@ -134,7 +134,7 @@ export class AppShellStore {
     return this.storage.countStationClick(id)
   }
 
-  protected async deleteAnonymousData() {
+  async deleteAnonymousData() {
     return Promise.all([
       this.storage.removeAllStations('recent', 'local'),
       this.storage.removeAllStations('favorites', 'local')

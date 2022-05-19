@@ -23,7 +23,7 @@ export interface ApiContext extends Koa.DefaultContext {
 /**
  * Check if user is authenticated
  */
-export async function setupSession(
+export async function checkSession(
   ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
   next: Koa.Next
 ) {
@@ -152,7 +152,7 @@ export async function getUserCollection(
   const { radioApi, radioRepository } = ctx
   const collection: StationCollection = ctx.params.collection
 
-  const stationIds = await radioRepository.getUserCollection(
+  const stationIds = await radioRepository.getCollection(
     ctx.session!.user.id,
     collection
   )
@@ -185,7 +185,7 @@ export async function saveStation(
 ) {
   const collection: StationCollection = ctx.params.collection
 
-  await ctx.radioRepository.save(
+  await ctx.radioRepository.saveStation(
     ctx.session!.user.id,
     ctx.request.body.station,
     collection
@@ -223,7 +223,7 @@ export async function deleteStation(
     return
   }
 
-  const result = await ctx.radioRepository.delete(
+  const result = await ctx.radioRepository.deleteStation(
     ctx.session!.user.id,
     id,
     collection
@@ -248,7 +248,7 @@ export async function deleteCollection(
 ) {
   const collection = ctx.params.collection
 
-  const result = await ctx.radioRepository.deleteUserCollection(
+  const result = await ctx.radioRepository.deleteCollection(
     ctx.session!.user.id,
     collection
   )
@@ -279,14 +279,20 @@ export async function importStations(
 ) {
   const collection = ctx.request.params.collection
 
-  await ctx.radioRepository.import(
+  const stations = ctx.request.body.stations as { _id: string; date: string }[]
+
+  await ctx.radioRepository.importCollection(
     ctx.session!.user.id,
-    ctx.request.body.stations,
+    stations.map((data) => ({
+      _id: data._id,
+      date: new Date(data.date)
+    })),
     collection
   )
 
   ctx.body = { msg: 'saved' }
   ctx.status = 201
+
   await next()
 }
 

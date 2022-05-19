@@ -1,14 +1,12 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const nextJest = require('next/jest')
-const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-  dir: './'
-})
-
 const customJestConfig = {
   // projects: ['<rootDir>/src/__tests__/**'],
-  setupFilesAfterEnv: ['./jestSetup.ts'],
-  moduleDirectories: ['node_modules', '<rootDir>/src/'],
+  projects: ['<rootDir>/src/__tests__/database'],
+  setupFilesAfterEnv: ['<rootDir>/jestSetup.ts'],
+  moduleDirectories: ['node_modules', '<rootDir>/src'],
+  // testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  // transform: {
+  //   '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest'
+  // },
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
@@ -37,4 +35,4 @@ const customJestConfig = {
   }
 }
 
-module.exports = createJestConfig(customJestConfig)
+module.exports = customJestConfig

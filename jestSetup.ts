@@ -4,7 +4,6 @@ function setup() {
     jest.setTimeout(1000 * 60 * 10)
   }
 }
-
 setup()
 
 module.exports = setup

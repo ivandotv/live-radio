@@ -1,13 +1,40 @@
-import { isProduction, mongoDb } from 'lib/server/config'
-import { RadioDTO } from 'lib/shared/utils'
 import { Db, ObjectId } from 'mongodb'
-import { IRadioRepository, StationCollection } from './utils'
+import { StationCollection } from './utils'
+
+export interface IRadioRepository {
+  getCollection(id: string, collection: StationCollection): Promise<string[]>
+  deleteCollection(
+    userId: string,
+    collection: StationCollection
+  ): Promise<boolean>
+  saveStation(
+    userId: string,
+    stationId: string,
+    collectionName: StationCollection
+  ): Promise<void>
+  deleteStation(
+    userId: string,
+    stationId: string,
+    collectionName: StationCollection
+  ): Promise<boolean>
+  importCollection(
+    userId: string,
+    data: { _id: string; date: Date }[],
+    collectionName: StationCollection
+  ): Promise<void>
+}
 
 export class RadioRepository implements IRadioRepository {
   protected db: Db
 
-  constructor(protected client: MongoClient, dbName?: string) {
-    this.db = this.client.db(dbName || mongoDb.dbName)
+  constructor(
+    protected client: MongoClient,
+    dbName: string,
+    protected opts: {
+      maxCollectionLimit: number
+    }
+  ) {
+    this.db = this.client.db(dbName)
   }
 
   /**
@@ -15,7 +42,7 @@ export class RadioRepository implements IRadioRepository {
    * @param id - user id
    * @param collection - collection name
    */
-  async getUserCollection(id: string, collection: StationCollection) {
+  async getCollection(id: string, collection: StationCollection) {
     const userStations = await this.db
       .collection('users')
       .findOne<Record<StationCollection, { _id: string; date: string }[]>>(
@@ -28,103 +55,62 @@ export class RadioRepository implements IRadioRepository {
     return userStations[collection].map((data) => data._id)
   }
 
-  async import(
-    userId: string,
-    data: { station: RadioDTO; date: string }[],
-    collectionName: StationCollection
-  ) {
-    const session = this.client.startSession()
-    try {
-      await session.withTransaction(async () => {
-        const userStations: { _id: string; date: string }[] = []
-        const bulkStations: RadioDTO[] = []
-
-        data.forEach((item) => {
-          userStations.push({
-            _id: item.station._id,
-            date: item.date
-          })
-
-          bulkStations.push(item.station)
-        })
-
-        // await this.bulkCreateStations(bulkStations)
-
-        await this.bulkSaveToUserCollection(
-          userId,
-          userStations,
-          collectionName
-        )
-      })
-    } finally {
-      session.endSession()
-    }
-  }
-
   /**
    * Saves station to user collection
    * @param userId  - user id
-   * @param station  - station data object
+   * @param stationId  - station data object
    * @param collectionName  - user collection
    */
-  async save(
+  async saveStation(
     userId: string,
-    station: RadioDTO,
+    // stationId: RadioDTO,
+    stationId: string,
     collectionName: StationCollection
   ) {
-    const session = this.client.startSession()
-    try {
-      await session.withTransaction(async () => {
-        const localSession = isProduction ? session : undefined
+    const user = await this.db.collection('users').findOne({
+      _id: new ObjectId(userId)
+    })
 
-        const user = await this.db.collection('users').findOne({
-          _id: new ObjectId(userId)
-        })
-
-        if (!user) {
-          throw new Error('user not found')
-        }
-
-        //check if recent array exists
-        const userCollection = user[collectionName]
-
-        const collection =
-          typeof userCollection !== 'undefined' ? [...userCollection] : []
-
-        // find the station
-        const found = collection.find((elem) => elem._id === station._id)
-        if (found) {
-          //just update the date
-          found.date = new Date()
-        } else {
-          // station not in the recent add it
-          collection.push({ _id: station._id, date: new Date() })
-        }
-
-        //sort by date  - newest first
-        collection.sort((a, z) => {
-          // @ts-espect-error - substracting dates works just fine
-          return z.date - a.date
-        })
-
-        //limit collection size
-        if (collection.length > mongoDb.maxRadioCollectionLimit) {
-          collection.splice(0, mongoDb.maxRadioCollectionLimit)
-        }
-
-        await this.db.collection('users').updateOne(
-          {
-            _id: new ObjectId(userId)
-          },
-          {
-            $set: { [collectionName]: collection }
-          },
-          { session: localSession, upsert: true }
-        )
-      })
-    } finally {
-      session.endSession()
+    if (!user) {
+      throw new Error('user not found')
     }
+
+    //check if recent array exists
+    const userCollection = user[collectionName]
+
+    const collection =
+      typeof userCollection !== 'undefined' ? [...userCollection] : []
+
+    // find the station
+    const found = collection.find((elem) => elem._id === stationId)
+    if (found) {
+      //just update the date
+      found.date = new Date()
+    } else {
+      // station not in the recent add it
+      collection.push({ _id: stationId, date: new Date() })
+    }
+
+    //sort by date  - newest first
+    collection.sort((a, z) => {
+      // @ts-espect-error - substracting dates works just fine
+      return z.date - a.date
+    })
+
+    //limit collection size
+    if (collection.length > this.opts.maxCollectionLimit) {
+      collection.splice(this.opts.maxCollectionLimit)
+    }
+
+    await this.db.collection('users').updateOne(
+      {
+        _id: new ObjectId(userId)
+      },
+      {
+        $set: { [collectionName]: collection }
+      },
+      { upsert: true }
+    )
   }
 
   /**
@@ -132,9 +118,8 @@ export class RadioRepository implements IRadioRepository {
    * @param userId - user id
    * @param stationId - station id
    * @param collection - user collection
-   * @param session - mongoDB client session
    */
-  async delete(
+  async deleteStation(
     userId: string,
     stationId: string,
     collection: StationCollection
@@ -155,7 +140,7 @@ export class RadioRepository implements IRadioRepository {
    * @param station  - station data object
    * @param collection  - user collection
    */
-  async deleteUserCollection(
+  async deleteCollection(
     userId: string,
     collection: StationCollection
   ): Promise<boolean> {
@@ -165,7 +150,7 @@ export class RadioRepository implements IRadioRepository {
         _id: new ObjectId(userId)
       },
       {
-        $set: { [collection]: [] }
+        $unset: { [collection]: '' }
       },
       { upsert: true }
     )
@@ -173,9 +158,9 @@ export class RadioRepository implements IRadioRepository {
     return Boolean(result.modifiedCount)
   }
 
-  protected async bulkSaveToUserCollection(
+  async importCollection(
     userId: string,
-    stations: { _id: string; date: string }[],
+    stations: { _id: string; date: Date }[],
     collectionName: StationCollection
   ) {
     const user = await this.db.collection('users').findOne({
@@ -199,7 +184,7 @@ export class RadioRepository implements IRadioRepository {
       const present = unique.get(station._id)
 
       if (present) {
-        //take the latest date
+        //update: take the newest date
         unique.set(station._id, {
           _id: station._id,
           date: present.date > station.date ? present.date : station.date
@@ -216,8 +201,8 @@ export class RadioRepository implements IRadioRepository {
     })
 
     //limit collection size
-    if (collection.length > 100) {
-      collection.splice(0, 100)
+    if (collection.length > this.opts.maxCollectionLimit) {
+      collection.splice(this.opts.maxCollectionLimit)
     }
 
     await this.db.collection('users').updateOne(
