@@ -8,22 +8,22 @@ export async function connectToMongoTestDb(dbName?: string) {
   dbName = dbName || `test_db_${workerId}`
 
   const port = process.env.MONGO_PORT
-  const uri = `mongodb://localhost:${port}`
+  const host = process.env.MONGO_HOST
 
-  const client = await getDbConnection(uri)
+  const uri = `mongodb://${host}:${port}`
+
+  const client = await getDbConnection({ uri })
 
   return { client, dbName }
 }
 
 export function createStations(count = 0, startDate = new Date()) {
-  let i = 0
+  let i = 1
 
   return Array.from({ length: count }).map(() => {
-    i++
-
     return {
       _id: faker.datatype.uuid(),
-      date: dateFns.sub(startDate, { months: i })
+      date: dateFns.sub(startDate, { months: i++ })
     }
   })
 }

@@ -1,15 +1,19 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import { logger } from 'lib/server/logger'
-import * as Sentry from '@sentry/nextjs'
+import { auth } from 'lib/server/config'
 import { getDbConnection } from 'lib/server/db-connection'
+import { getServerInjector } from 'lib/server/injection-root'
+import { logServerError } from 'lib/server/utils'
 import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
-import { auth } from 'lib/server/config'
 
 export default NextAuth({
   providers: [GithubProvider(auth.github), GoogleProvider(auth.google)],
-  adapter: MongoDBAdapter(getDbConnection().then((client) => client)),
+  adapter: MongoDBAdapter(
+    getServerInjector()
+      .resolve<ReturnType<typeof getDbConnection>>(getDbConnection)
+      .then((client) => client)
+  ),
   secret: auth.signSecret,
 
   session: {
@@ -21,15 +25,14 @@ export default NextAuth({
   },
   logger: {
     error(code, metadata) {
-      logger.error({ code, metadata, tags: { auth: 'next-auth' } })
-      Sentry.captureException(metadata, {
+      logServerError(metadata, {
+        extra: {
+          code
+        },
         tags: {
-          side: 'backend',
-          scope: 'auth'
+          endpoint: 'auth'
         }
       })
-
-      Sentry.captureException(metadata)
     }
   },
   callbacks: {

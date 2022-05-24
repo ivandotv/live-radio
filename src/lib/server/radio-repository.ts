@@ -1,4 +1,5 @@
 import { Db, ObjectId } from 'mongodb'
+import { getDbConnection } from './db-connection'
 import { StationCollection } from './utils'
 
 export interface IRadioRepository {
@@ -25,16 +26,28 @@ export interface IRadioRepository {
 }
 
 export class RadioRepository implements IRadioRepository {
-  protected db: Db
+  protected db?: Db
+
+  static inject = [getDbConnection, 'dbConfig']
 
   constructor(
-    protected client: MongoClient,
-    dbName: string,
+    protected client: ReturnType<typeof getDbConnection>,
+    // protected dbName: string,
     protected opts: {
+      dbName: string
       maxCollectionLimit: number
     }
   ) {
-    this.db = this.client.db(dbName)
+    console.log('radio repo constructor')
+  }
+
+  protected async connect() {
+    if (!this.db) {
+      const conn = await this.client
+      this.db = conn.db(this.opts.dbName)
+    }
+
+    return this.db
   }
 
   /**
@@ -43,7 +56,8 @@ export class RadioRepository implements IRadioRepository {
    * @param collection - collection name
    */
   async getCollection(id: string, collection: StationCollection) {
-    const userStations = await this.db
+    const db = await this.connect()
+    const userStations = await db
       .collection('users')
       .findOne<Record<StationCollection, { _id: string; date: string }[]>>(
         { _id: new ObjectId(id) },
@@ -67,7 +81,8 @@ export class RadioRepository implements IRadioRepository {
     stationId: string,
     collectionName: StationCollection
   ) {
-    const user = await this.db.collection('users').findOne({
+    const db = await this.connect()
+    const user = await db.collection('users').findOne({
       _id: new ObjectId(userId)
     })
 
@@ -102,7 +117,7 @@ export class RadioRepository implements IRadioRepository {
       collection.splice(this.opts.maxCollectionLimit)
     }
 
-    await this.db.collection('users').updateOne(
+    await db.collection('users').updateOne(
       {
         _id: new ObjectId(userId)
       },
@@ -124,7 +139,8 @@ export class RadioRepository implements IRadioRepository {
     stationId: string,
     collection: StationCollection
   ) {
-    const result = await this.db
+    const db = await this.connect()
+    const result = await db
       .collection('users')
       .updateOne(
         { _id: new ObjectId(userId) },
@@ -145,7 +161,9 @@ export class RadioRepository implements IRadioRepository {
     collection: StationCollection
   ): Promise<boolean> {
     //clear data
-    const result = await this.db.collection('users').updateOne(
+    const db = await this.connect()
+
+    const result = await db.collection('users').updateOne(
       {
         _id: new ObjectId(userId)
       },
@@ -163,7 +181,8 @@ export class RadioRepository implements IRadioRepository {
     stations: { _id: string; date: Date }[],
     collectionName: StationCollection
   ) {
-    const user = await this.db.collection('users').findOne({
+    const db = await this.connect()
+    const user = await db.collection('users').findOne({
       _id: new ObjectId(userId)
     })
 
@@ -205,7 +224,7 @@ export class RadioRepository implements IRadioRepository {
       collection.splice(this.opts.maxCollectionLimit)
     }
 
-    await this.db.collection('users').updateOne(
+    await db.collection('users').updateOne(
       {
         _id: new ObjectId(userId)
       },

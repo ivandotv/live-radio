@@ -33,13 +33,17 @@ export class SongInfoService {
   }
 
   protected async fetchData(stationUrl: string) {
-    const response = await this.transport('/api/song-info', {
-      method: 'POST',
+    const params = new URLSearchParams({ station: stationUrl })
+    // params.append('station', stationUrl)
+
+    const response = await this.transport(`/api/song-info?${params}`, {
+      method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ url: stationUrl })
+      }
+
+      // body: JSON.stringify({ url: stationUrl })
     })
     if (!response.ok) {
       throw new Error()

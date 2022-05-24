@@ -1,0 +1,16 @@
+GET  http://localhost:3000/api/level_one
+
+### trigger error
+GET  http://localhost:3000/api/level_one/throw
+
+###
+POST http://localhost:3000/api/level_one/hello
+Content-Type: application/json
+
+{
+	"name":"Luigi"
+}
+
+### nested router
+GET http://localhost:3000/api/level_one/nested/hello
+Content-Type: application/json

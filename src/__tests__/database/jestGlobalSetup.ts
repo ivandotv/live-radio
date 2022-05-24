@@ -33,9 +33,11 @@ export default async function jestGlobalSetup(_config: any) {
 }
 
 async function initializeMongo() {
-  const mongoContainer = new GenericContainer('mongo:5.0.7').withExposedPorts(
-    27017
-  )
+  const newtworkAlias = 'mongo-test-db'
+  const mongoContainer = new GenericContainer('mongo:5.0.7')
+    .withExposedPorts(27017)
+    .withNetworkMode('live-radio_default')
+    .withNetworkAliases(newtworkAlias)
 
   if (type() === 'Linux') {
     console.log('mongo: using tmpfs mount')
@@ -44,9 +46,14 @@ async function initializeMongo() {
 
   const mongoStarted = await startContainer(mongoContainer, 'mongo')
 
-  process.env.MONGO_PORT = mongoStarted.getMappedPort(
-    27017
-  ) as unknown as string
+  const remoteContainers = Boolean(process.env.REMOTE_CONTAINERS)
+
+  console.log('remote contianers ', remoteContainers)
+  process.env.MONGO_HOST = remoteContainers ? newtworkAlias : 'localhost'
+
+  process.env.MONGO_PORT = remoteContainers
+    ? '27017'
+    : (mongoStarted.getMappedPort(27017) as unknown as string)
 
   return mongoStarted
 }

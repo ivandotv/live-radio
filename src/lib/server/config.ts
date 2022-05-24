@@ -1,4 +1,4 @@
-import { assertEnv, toBoolean, toNumber } from 'lib/shared/utils'
+import { assertEnv, toNumber } from 'lib/shared/utils'
 
 /**
  * ! Configuration in this file should ONLY be used in server side code!
@@ -33,7 +33,7 @@ export const auth = {
     clientSecret: assertEnv('GOOGLE_SECRET')
   },
   signSecret: assertEnv('AUTH_SIGN_SECRET'),
-  debug: toBoolean(process.env.DEBUG_AUTH, false)
+  debug: isDevelopment
 }
 
 // the amount in seconds after which page re-generation can occur

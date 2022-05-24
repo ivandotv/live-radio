@@ -1,22 +1,40 @@
 import { isProduction } from 'lib/server/config'
-import * as Sentry from '@sentry/nextjs'
 import { RadioRepository } from 'lib/server/radio-repository'
 import { importSchema, stationSchema } from 'lib/server/schemas'
-import { StationCollection } from 'lib/server/utils'
+import { logServerError, StationCollection } from 'lib/server/utils'
 import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
 import { Koa } from 'nextjs-koa-api'
+import { PumpIt } from 'pumpit'
 import { RadioBrowserApi } from 'radio-browser-api'
-import { logger } from 'lib/server/logger'
 
 export interface ApiContext extends Koa.DefaultContext {
   session?: Session
   sessionCheck: typeof getSession
   radioRepository: RadioRepository
   radioApi: RadioBrowserApi
+  logServerError: typeof logServerError
   info: {
     isProduction: boolean
+  }
+}
+
+/** Buld koa api context*/
+export function buildCtx(container: PumpIt) {
+  return async (
+    ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+    next: Koa.Next
+  ) => {
+    ctx.radioRepository = container.resolve<RadioRepository>(RadioRepository)
+    ctx.sessionCheck = container.resolve<typeof getSession>(getSession)
+    ctx.radioApi = container.resolve<RadioBrowserApi>(RadioBrowserApi)
+    ctx.logServerError =
+      container.resolve<typeof logServerError>(logServerError)
+    ctx.info = {
+      isProduction: container.resolve<boolean>('isProduction')
+    }
+    await next()
   }
 }
 
@@ -308,19 +326,18 @@ export async function logError(
   } catch (err: any) {
     err.status = err.statusCode || err.status || 500
 
-    logger.error(err)
-
-    if (isProduction) {
-      Sentry.captureException(err, {
+    ctx.logServerError(
+      err,
+      {
         tags: {
-          side: 'backend',
-          scope: 'api'
+          endpoint: ctx.endpoint
         }
-      })
-    }
+      },
+      ctx.url
+    )
 
     ctx.status = err.status
-    ctx.body = ctx.info.isProduction ? 'Internal server error' : err.message
+    ctx.body = ctx.info.isProduction ? 'internal server error' : err.message
 
     ctx.app.emit('error', err, ctx)
   }

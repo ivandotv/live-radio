@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs'
+import { CaptureContext } from '@sentry/types'
 import { countries } from 'generated/countries'
 import { isProduction } from 'lib/server/config'
 import { logger } from 'lib/server/logger'
@@ -10,37 +11,6 @@ import {
 } from 'next'
 
 export type StationCollection = 'favorites' | 'recent'
-
-/**
- * Handle uncaught api errors
- */
-export function onError(err: any, _req: NextApiRequest, res: NextApiResponse) {
-  if (isProduction) {
-    Sentry.captureException(err)
-  }
-  logger.warn(err)
-  res.status(500).json({
-    msg: 'Internal Server Error',
-    debug: isProduction ? undefined : err.toString()
-  })
-}
-
-/**
- * Handle 404 api requests
- */
-export function onNoMatch(req: NextApiRequest, res: NextApiResponse) {
-  res.status(404).json({
-    msg: 'Resource not found',
-    debug: isProduction
-      ? undefined
-      : {
-          url: req.url,
-          query: req.query,
-          method: req.method,
-          headers: req.headers
-        }
-  })
-}
 
 export function withErrorLogging(handler: NextApiHandler) {
   if (isProduction) {
@@ -104,4 +74,31 @@ export const getStaticTranslations: GetStaticProps<
       translation: messages
     }
   }
+}
+
+export function logServerError(
+  err: any,
+  context: CaptureContext = {},
+  url?: string
+) {
+  const side = 'backend'
+
+  const data = {
+    ...context,
+    extra: {
+      // @ts-expect-error - Sentry typings
+      ...context.extra,
+      url
+    },
+    tags: {
+      // @ts-expect-error - Sentry typings
+      ...context.tags,
+      side
+    }
+  }
+  if (isProduction) {
+    Sentry.captureException(err, data)
+  }
+
+  logger.error(err, err.message || '', data)
 }

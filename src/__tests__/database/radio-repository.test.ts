@@ -1,5 +1,7 @@
 import faker from '@faker-js/faker'
 import * as dateFns from 'date-fns'
+import { getDbConnection } from 'lib/server/db-connection'
+import { getServerInjector } from 'lib/server/injection-root'
 import { RadioRepository } from 'lib/server/radio-repository'
 import { ObjectId } from 'mongodb'
 import {
@@ -11,12 +13,21 @@ import {
 let connection: { client: MongoClient; dbName: string }
 let users: Awaited<ReturnType<typeof seedDatabase>>
 
-function createRepository(
-  opts?: ConstructorParameters<typeof RadioRepository>[2]
-) {
-  opts = { ...{ maxCollectionLimit: 100 }, ...opts }
+/** PRACTICE: use orginal injector for tests*/
+const injector = getServerInjector()
 
-  return new RadioRepository(connection.client, connection.dbName, opts)
+function createRepository(
+  opts?: Partial<ConstructorParameters<typeof RadioRepository>[1]>
+) {
+  const childInjector = injector
+    .child({ shareSingletons: false })
+    .bindValue(getDbConnection, Promise.resolve(connection.client))
+    .bindValue('dbConfig', {
+      ...{ maxCollectionLimit: 100, dbName: connection.dbName },
+      ...opts
+    })
+
+  return childInjector.resolve<RadioRepository>(RadioRepository)
 }
 
 describe('Radio Repository', () => {
