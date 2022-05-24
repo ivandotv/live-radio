@@ -84,7 +84,7 @@ specifiers:
   postinstall-postinstall: ^2.1.0
   prettier: ^2.6.2
   prettier-standard: ^16.4.1
-  pumpit: ^2.0.0
+  pumpit: ^3.0.0
   radio-browser-api: ^6.0.1
   react: 17.0.2
   react-dom: 17.0.2
@@ -144,7 +144,7 @@ dependencies:
   path-to-regexp: 6.2.1
   pino: 7.11.0
   pino-http: 6.6.0
-  pumpit: 2.0.0
+  pumpit: 3.0.0
   radio-browser-api: 6.0.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -9066,8 +9066,8 @@ packages:
       once: 1.4.0
     dev: true
 
-  /pumpit/2.0.0:
-    resolution: {integrity: sha512-2HcG8/RZ6mUrfKMC1rHyjoUa2vF6HchLacpo97CFmTggGUdbeBcOPtuL2n6KzYOluYVnjg0kLSN+1/jXG6iHUw==}
+  /pumpit/3.0.0:
+    resolution: {integrity: sha512-v9EfAgRPfuxxeI/18kN9wFsDIMm7LTkHAo+2Kx8ztGGXzol9fhvPtHCOCG7b/YS+/bKYckOf+0UqhwFNGpM0Mw==}
     dev: false
 
   /punycode/1.4.1:
