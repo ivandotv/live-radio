@@ -1,4 +1,6 @@
 import { Db, ObjectId } from 'mongodb'
+import { transform } from 'pumpit'
+import { ServerConfig } from './config'
 import { getDbConnection } from './db-connection'
 import { StationCollection } from './utils'
 
@@ -28,7 +30,17 @@ export interface IRadioRepository {
 export class RadioRepository implements IRadioRepository {
   protected db?: Db
 
-  static inject = [getDbConnection, 'dbConfig']
+  static inject = transform(
+    [getDbConnection, 'config'],
+    (_, conn: any, config: ServerConfig) => {
+      const dbConfig = {
+        dbName: config.mongoDb.dbName,
+        maxCollectionLimit: config.mongoDb.maxRadioCollectionLimit
+      }
+
+      return [conn, dbConfig]
+    }
+  )
 
   constructor(
     protected client: ReturnType<typeof getDbConnection>,

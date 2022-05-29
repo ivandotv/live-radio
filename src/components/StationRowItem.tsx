@@ -3,7 +3,7 @@ import { Collapse, ListItem, ListItemText, Tooltip } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import HttpIcon from '@material-ui/icons/ErrorOutline'
 import FullHeart from '@material-ui/icons/Favorite'
-import { colors } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import clsx from 'clsx'
 import { PlayerStateIcon } from 'components/music-player'
 import { useRootStore } from 'components/providers/RootStoreProvider'
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) => {
       fontSize: '1.2rem'
     },
     favIcon: {
-      color: colors.favoritesHeartColor
+      color: SHARED_CONFIG.colors.favoritesHeartColor
     },
     iconWrap: {
       display: 'flex',

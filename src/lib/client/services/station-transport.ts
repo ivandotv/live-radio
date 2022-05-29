@@ -34,7 +34,7 @@ export class StationTransport implements Transport<RadioModel> {
   }
 
   save(radio: RadioModel) {
-    return this.storage.saveStation(radio.data, this.getCollection())
+    return this.storage.saveStation(radio.id, this.getCollection())
   }
 
   delete(radio: RadioModel) {

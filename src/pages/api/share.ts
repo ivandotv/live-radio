@@ -1,7 +1,7 @@
 import parser from 'accept-language-parser'
 import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
-import { locales } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 /**
@@ -25,7 +25,10 @@ const handler = async function redirectShare(
 
   const playEncoded = `?play=${encodeURIComponent(play)}`
 
-  const language = parser.pick(locales, req.headers['accept-language'] || '')
+  const language = parser.pick(
+    SHARED_CONFIG.locales as string[],
+    req.headers['accept-language'] || ''
+  )
 
   if (!language) {
     // default language

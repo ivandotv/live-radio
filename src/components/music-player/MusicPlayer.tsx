@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import LinearProgress from '@material-ui/core/LinearProgress'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
-import { layout } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import {
   AddTofavoritesBtn,
   PlayerToggleBtn,
@@ -19,6 +19,8 @@ import { useSnackbar } from 'notistack'
 import { useEffect, useState } from 'react'
 
 const playerLogger = logger.child({ label: 'player' })
+
+const layout = SHARED_CONFIG.layout
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

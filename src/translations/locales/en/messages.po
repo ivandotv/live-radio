@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/app/by-language/[language].tsx:111
+#: src/pages/app/by-language/[language].tsx:116
 msgid "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for <1> {0}</1>.</0>"
 
@@ -21,7 +21,7 @@ msgstr "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgid "<0>Currently there is no data for your query.</0>"
 msgstr "<0>Currently there is no data for your query.</0>"
 
-#: src/pages/app/by-location/[continent]/[country].tsx:129
+#: src/pages/app/by-location/[continent]/[country].tsx:134
 msgid "<0>Currently there is no data for<1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for<1> {0}</1>.</0>"
 
@@ -39,7 +39,7 @@ msgstr "Abkhaz"
 
 #: src/components/UserProfileDropdown.tsx:73
 #: src/components/navigation/desktop/Menu.tsx:36
-#: src/lib/shared/config.ts:87
+#: src/lib/shared/utils.ts:107
 msgid "About"
 msgstr "About"
 
@@ -343,22 +343,22 @@ msgstr "Burmese"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/lib/shared/config.ts:85
-#: src/pages/app/by-genre/[genre].tsx:92
+#: src/lib/shared/utils.ts:105
+#: src/pages/app/by-genre/[genre].tsx:93
 #: src/pages/app/by-genre/index.tsx:20
 #: src/pages/app/index.tsx:64
 msgid "By Genre"
 msgstr "By Genre"
 
-#: src/lib/shared/config.ts:84
-#: src/pages/app/by-language/[language].tsx:91
+#: src/lib/shared/utils.ts:104
+#: src/pages/app/by-language/[language].tsx:92
 #: src/pages/app/by-language/index.tsx:29
 #: src/pages/app/index.tsx:62
 msgid "By Language"
 msgstr "By Language"
 
-#: src/lib/shared/config.ts:83
-#: src/pages/app/by-location/[continent]/[country].tsx:102
+#: src/lib/shared/utils.ts:103
+#: src/pages/app/by-location/[continent]/[country].tsx:103
 #: src/pages/app/by-location/[continent]/index.tsx:57
 #: src/pages/app/by-location/index.tsx:40
 #: src/pages/app/index.tsx:58
@@ -505,11 +505,11 @@ msgstr "Cuba"
 msgid "Curacao"
 msgstr "Curacao"
 
-#: src/pages/app/by-genre/[genre].tsx:111
+#: src/pages/app/by-genre/[genre].tsx:116
 msgid "Currently there is no data for <0> ${0}</0>."
 msgstr "Currently there is no data for <0> ${0}</0>."
 
-#: src/lib/shared/config.ts:81
+#: src/lib/shared/utils.ts:101
 #: src/pages/app/custom.tsx:21
 #: src/pages/app/index.tsx:67
 msgid "Custom Search"
@@ -632,7 +632,7 @@ msgstr "Equatorial Guinea"
 msgid "Eritrea"
 msgstr "Eritrea"
 
-#: src/components/music-player/MusicPlayer.tsx:216
+#: src/components/music-player/MusicPlayer.tsx:218
 msgid "Error adding to  favorites"
 msgstr "Error adding to  favorites"
 
@@ -644,15 +644,15 @@ msgstr "Error importing data"
 msgid "Error loading data"
 msgstr "Error loading data"
 
-#: src/components/music-player/MusicPlayer.tsx:121
+#: src/components/music-player/MusicPlayer.tsx:123
 msgid "Error loading stations"
 msgstr "Error loading stations"
 
-#: src/components/music-player/MusicPlayer.tsx:105
+#: src/components/music-player/MusicPlayer.tsx:107
 msgid "Error playing radio station"
 msgstr "Error playing radio station"
 
-#: src/components/music-player/MusicPlayer.tsx:217
+#: src/components/music-player/MusicPlayer.tsx:219
 msgid "Error removing from favorites"
 msgstr "Error removing from favorites"
 
@@ -699,7 +699,7 @@ msgstr "Faroese"
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:57
 #: src/lib/server/create-manifest.ts:45
-#: src/lib/shared/config.ts:80
+#: src/lib/shared/utils.ts:100
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -827,7 +827,7 @@ msgstr "Gibraltar"
 msgid "Go to Favorites"
 msgstr "Go to Favorites"
 
-#: src/components/music-player/MusicPlayer.tsx:245
+#: src/components/music-player/MusicPlayer.tsx:247
 msgid "Go to station website"
 msgstr "Go to station website"
 
@@ -1783,7 +1783,7 @@ msgstr "Rap"
 msgid "Recent"
 msgstr "Recent"
 
-#: src/lib/shared/config.ts:82
+#: src/lib/shared/utils.ts:102
 msgid "Recent Stations"
 msgstr "Recent Stations"
 
@@ -1921,12 +1921,12 @@ msgstr "Scottish Gaelic"
 
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:53
-#: src/lib/shared/config.ts:79
-#: src/pages/app/by-genre/[genre].tsx:88
+#: src/lib/shared/utils.ts:99
+#: src/pages/app/by-genre/[genre].tsx:89
 #: src/pages/app/by-genre/index.tsx:16
-#: src/pages/app/by-language/[language].tsx:87
+#: src/pages/app/by-language/[language].tsx:88
 #: src/pages/app/by-language/index.tsx:25
-#: src/pages/app/by-location/[continent]/[country].tsx:98
+#: src/pages/app/by-location/[continent]/[country].tsx:99
 #: src/pages/app/by-location/[continent]/index.tsx:53
 #: src/pages/app/by-location/index.tsx:36
 #: src/pages/app/custom.tsx:18
@@ -1953,9 +1953,9 @@ msgstr "Search For Stations by Genre"
 msgid "Search For Stations by Language"
 msgstr "Search For Stations by Language"
 
-#: src/pages/app/by-genre/[genre].tsx:105
-#: src/pages/app/by-language/[language].tsx:104
-#: src/pages/app/by-location/[continent]/[country].tsx:120
+#: src/pages/app/by-genre/[genre].tsx:110
+#: src/pages/app/by-language/[language].tsx:109
+#: src/pages/app/by-location/[continent]/[country].tsx:125
 msgid "Search For Stations in {0}"
 msgstr "Search For Stations in {0}"
 
@@ -1977,7 +1977,7 @@ msgid "Serbian"
 msgstr "Serbian"
 
 #: src/components/UserProfileDropdown.tsx:54
-#: src/lib/shared/config.ts:86
+#: src/lib/shared/utils.ts:106
 msgid "Settings"
 msgstr "Settings"
 
@@ -2514,15 +2514,15 @@ msgstr "Yiddish"
 msgid "Yoruba"
 msgstr "Yoruba"
 
-#: src/pages/app/favorites.tsx:18
+#: src/pages/app/favorites.tsx:19
 msgid "Your Favorite Radio Stations"
 msgstr "Your Favorite Radio Stations"
 
-#: src/pages/app/recent.tsx:18
+#: src/pages/app/recent.tsx:19
 msgid "Your Recently Listened Stations"
 msgstr "Your Recently Listened Stations"
 
-#: src/pages/app/favorites.tsx:14
+#: src/pages/app/favorites.tsx:15
 msgid "Your favorite stations will appear here"
 msgstr "Your favorite stations will appear here"
 
@@ -2530,7 +2530,7 @@ msgstr "Your favorite stations will appear here"
 msgid "Your location is"
 msgstr "Your location is"
 
-#: src/pages/app/recent.tsx:14
+#: src/pages/app/recent.tsx:15
 msgid "Your recently played stations will appear here"
 msgstr "Your recently played stations will appear here"
 

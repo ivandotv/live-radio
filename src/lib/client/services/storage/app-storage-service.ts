@@ -29,15 +29,15 @@ export class AppStorageService {
 
   protected async resolveStorage(type?: StorageType) {
     //short circuit session check
-    if ('local' === type) return this.local
-    if ('remote' === type) return this.remote
+    if ('local' === type) return { storage: this.local, type: 'local' }
+    if ('remote' === type) return { storage: this.remote, type: 'remote' }
 
     const session = await this.authService.getAuth()
     if (session) {
-      return this.remote
+      return { storage: this.remote, type: 'remote' }
     }
 
-    return this.local
+    return { storage: this.local, type: 'local' }
   }
 
   async transferAnonymousData(
@@ -50,14 +50,19 @@ export class AppStorageService {
       recent ? this.local.getRawData('recent') : []
     ])
 
-    await Promise.all([
-      localFavs.length
-        ? this.remote.importStations(localFavs, 'favorites')
-        : undefined,
-      localRecent.length
-        ? this.remote.importStations(localRecent, 'recent')
-        : undefined
-    ])
+    // const [favResult, recentResult] = await Promise.all([
+    //   localFavs.length
+    //     ? this.remote.importStations(localFavs, 'favorites')
+    //     : [],
+    //   localRecent.length
+    //     ? this.remote.importStations(localRecent, 'recent')
+    //     : []
+    // ])
+
+    const result = await this.remote.importStations({
+      favorites: localFavs,
+      recent: localRecent
+    })
 
     if (deleteAll) {
       Promise.all([
@@ -66,32 +71,43 @@ export class AppStorageService {
       ])
     }
 
-    return {
-      favorites: localFavs,
-      recent: localRecent
-    }
+    return result
   }
 
-  async saveStation(station: RadioDTO, collection: StorageCollection) {
-    const storage = await this.resolveStorage()
+  async saveStation(station: string, collection: StorageCollection) {
+    const { storage } = await this.resolveStorage()
 
     return storage.addStation(station, collection)
   }
 
   async removeStation(id: string, collection: StorageCollection) {
-    const storage = await this.resolveStorage()
+    const { storage } = await this.resolveStorage()
 
     return storage.removeStation(id, collection)
   }
 
   async getAllStations(collection: StorageCollection, type?: StorageType) {
-    const storage = await this.resolveStorage(type)
+    const { storage, type: resolvedType } = await this.resolveStorage(type)
 
-    return storage.getStations(collection)
+    const stations = await storage.getStations(collection)
+
+    //indexDb only holds station id, more data needs to be queried.
+    if (resolvedType === 'local' && stations.length > 0) {
+      // get station info
+      const result = await this.httpClient('/api/station/batch/info', {
+        data: {
+          stations
+        }
+      })
+
+      return result
+    } else {
+      return stations
+    }
   }
 
   async removeAllStations(collection: StorageCollection, type?: StorageType) {
-    const storage = await this.resolveStorage(type)
+    const { storage } = await this.resolveStorage(type)
 
     return storage.removeAllStations(collection)
   }

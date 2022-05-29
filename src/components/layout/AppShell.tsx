@@ -8,12 +8,7 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import {
-  cookies,
-  enablePWAInstallBanner,
-  layout,
-  serviceWorker
-} from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { AuthExpiredModal } from 'components/AuthExpiredModal'
 import { ImportAnonymousData } from 'components/ImportAnonymousData'
 import { AppToolbar } from 'components/layout'
@@ -35,6 +30,8 @@ import { observer } from 'mobx-react-lite'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { ReactElement, ReactNode, useEffect } from 'react'
+
+const { serviceWorker, cookies, layout, enablePWAInstallBanner } = SHARED_CONFIG
 
 //TODO - make the values dynamic
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =

@@ -2,9 +2,10 @@ import { Howl } from 'howler'
 import { injectionTokens } from 'lib/client/injection-tokens'
 import { logger } from 'lib/client/logger-browser'
 import { SongInfoService } from 'lib/client/services/song-info-service'
-import { defaultStation } from 'lib/shared/config'
+import { SharedConfig } from 'lib/shared/config'
 import { RadioDTO } from 'lib/shared/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
+import { transform } from 'pumpit'
 import { AppShellStore } from './app-shell-store'
 import { RadioStore } from './radio-store'
 
@@ -42,12 +43,17 @@ export class MusicPlayerStore {
 
   protected firstTryLoad = true
 
-  static inject = [
-    AppShellStore,
-    injectionTokens.recentRadioStore,
-    SongInfoService,
-    defaultStation
-  ]
+  static inject = transform(
+    [
+      AppShellStore,
+      injectionTokens.recentRadioStore,
+      SongInfoService,
+      'sharedConfig'
+    ],
+    (_, shell: any, store: any, songInfo: any, config: SharedConfig) => {
+      return [shell, store, songInfo, config.defaultStation]
+    }
+  )
 
   // TODO - refactor to a state machine
   constructor(

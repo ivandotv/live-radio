@@ -1,10 +1,10 @@
 import * as Sentry from '@sentry/nextjs'
-import { isProduction, logLevel } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import Tinga from 'tinga'
 /* Frontend logger */
 class Logger extends Tinga {
   override error(...args: any[]) {
-    if (isProduction) {
+    if (SHARED_CONFIG.isProduction) {
       for (const arg of args) {
         if (arg[0] instanceof Error) {
           Sentry.captureException(arg[0], {
@@ -22,5 +22,5 @@ class Logger extends Tinga {
 }
 
 export const logger = new Logger({
-  level: logLevel
+  level: SHARED_CONFIG.logLevel
 })

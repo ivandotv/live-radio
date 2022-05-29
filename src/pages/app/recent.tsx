@@ -5,7 +5,8 @@ import { getStaticTranslations } from 'lib/server/utils'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { RemovableItemsList } from 'components/RemovableItemsList'
 import { useRootStore } from 'components/providers/RootStoreProvider'
-import { stationSearchIndexes } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
+import { Writable } from 'ts-essentials'
 
 export { getStaticTranslations as getStaticProps }
 
@@ -19,13 +20,21 @@ export default function RecentStations() {
       <FilterDataStoreProvider
         initialState={[...recentStations.stations]}
         uuid="id"
-        indexes={stationSearchIndexes}
+        indexes={
+          SHARED_CONFIG.stationSearchIndexes as Writable<
+            typeof SHARED_CONFIG['stationSearchIndexes']
+          >
+        }
       >
         <RemovableItemsList
           favoriteStations={favoriteStations}
           noDataTitle={noDataTitle}
           store={recentStations}
-          indexes={stationSearchIndexes}
+          indexes={
+            SHARED_CONFIG.stationSearchIndexes as Writable<
+              typeof SHARED_CONFIG['stationSearchIndexes']
+            >
+          }
         />
       </FilterDataStoreProvider>
     </>

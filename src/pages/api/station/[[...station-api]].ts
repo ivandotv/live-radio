@@ -1,8 +1,9 @@
-import { nodeEnv } from 'lib/server/config'
-import { getServerInjector } from 'lib/server/injection-root'
+import { ServerConfig } from 'lib/server/config'
+import { getServerContainer } from 'lib/server/injection-root'
 import {
   ApiContext,
   buildCtx,
+  bulkStationInfo,
   checkCollectionExists,
   checkSession,
   deleteStation,
@@ -18,12 +19,14 @@ import { PumpIt } from 'pumpit'
 export function handler(container: PumpIt) {
   const api = new KoaApi<Koa.DefaultState, ApiContext>({
     koa: {
-      env: nodeEnv
+      env: container.resolve<ServerConfig>('config').nodeEnv
     },
     router: { prefix: '/api/station' }
   })
   api.router
-    .use(buildCtx(container), logError, checkSession)
+    .use(buildCtx(container), logError)
+    // https://github.com/koajs/router/issues/95
+    .post('/batch/info', bulkStationInfo)
     .post<
       Koa.DefaultState,
       ApiContext & {
@@ -36,10 +39,17 @@ export function handler(container: PumpIt) {
           }
         }
       }
-    >('/:collection', checkCollectionExists, validateStation, saveStation)
-    .delete('/:collection', checkCollectionExists, deleteStation)
+    >(
+      '/:collection',
+      checkSession,
+      checkCollectionExists,
+      validateStation,
+      saveStation
+    )
+    .delete('/:collection', checkSession, checkCollectionExists, deleteStation)
+  // .get('/info') //TODO - get station info
 
   return api
 }
 
-export default withKoaApi(handler(getServerInjector()))
+export default withKoaApi(handler(getServerContainer()))

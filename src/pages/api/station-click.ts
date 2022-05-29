@@ -1,6 +1,6 @@
 import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
-import { radioAPIUserAgent } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
 /**
@@ -13,7 +13,7 @@ const handler = async function sendStationClick(
   try {
     const payload = req.body.id
 
-    const radioApi = new RadioBrowserApi(radioAPIUserAgent)
+    const radioApi = new RadioBrowserApi(SHARED_CONFIG.radioAPIUserAgent)
 
     await radioApi.sendStationClick(payload)
 

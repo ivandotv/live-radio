@@ -1,5 +1,5 @@
 import { withLogger } from 'lib/server/logger'
-import { isProduction } from 'lib/server/config'
+import { SERVER_CONFIG } from 'lib/server/config'
 import { countryDataByKey, withErrorLogging } from 'lib/server/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import requestIp from 'request-ip'
@@ -34,9 +34,10 @@ const handler = async function getGeoLocation(
     res.status(200).json(countryData)
   } catch (err: any) {
     const message = err.message ? err.message : 'Error locating IP'
-    res
-      .status(503)
-      .json({ message, debug: isProduction ? undefined : err.toString() })
+    res.status(503).json({
+      message,
+      debug: SERVER_CONFIG.isProduction ? undefined : err.toString()
+    })
   }
 }
 export default withErrorLogging(withLogger(handler))

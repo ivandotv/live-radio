@@ -1,6 +1,6 @@
-import { isProduction } from 'lib/server/config'
+import { ServerConfig, SERVER_CONFIG } from 'lib/server/config'
 import { RadioRepository } from 'lib/server/radio-repository'
-import { importSchema, stationSchema } from 'lib/server/schemas'
+import { schemas } from 'lib/server/schemas'
 import { logServerError, StationCollection } from 'lib/server/utils'
 import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
 import { Session } from 'next-auth'
@@ -20,7 +20,7 @@ export interface ApiContext extends Koa.DefaultContext {
   }
 }
 
-/** Buld koa api context*/
+/** Build koa api context*/
 export function buildCtx(container: PumpIt) {
   return async (
     ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
@@ -32,7 +32,7 @@ export function buildCtx(container: PumpIt) {
     ctx.logServerError =
       container.resolve<typeof logServerError>(logServerError)
     ctx.info = {
-      isProduction: container.resolve<boolean>('isProduction')
+      isProduction: container.resolve<ServerConfig>('config').isProduction
     }
     await next()
   }
@@ -68,7 +68,7 @@ export async function validateStation(
     {
       request: {
         body: {
-          stations: RadioDTO[]
+          stations: string
         }
         params: {
           collection: StationCollection
@@ -78,20 +78,15 @@ export async function validateStation(
   >,
   next: Koa.Next
 ) {
-  const { error } = stationSchema.validate(ctx.request.body.station, {
+  const { error } = schemas.station.validate(ctx.request.body.station, {
     errors: { render: false }
   })
 
   if (error) {
-    // return res.status(422).json({
-    //   msg: 'Not a valid Station object',
-    //   debug: isProduction ? undefined : error
-    // })
-
     ctx.status = 422
     ctx.body = {
       msg: 'Not a valid Station object',
-      debug: isProduction ? undefined : error
+      debug: SERVER_CONFIG.isProduction ? undefined : error
     }
 
     return
@@ -103,14 +98,14 @@ export async function validateStation(
 /**
  * Validate array of stations payload
  */
-export async function bulkValidateStations(
+export async function validateImportStations(
   ctx: Koa.ParameterizedContext<
     Koa.DefaultState,
     ApiContext & { request: { body: { stations: RadioDTO[] } } }
   >,
   next: Koa.Next
 ) {
-  const { error } = importSchema.validate(ctx.request.body.stations, {
+  const { error } = schemas.importStations.validate(ctx.request.body.stations, {
     errors: { render: false }
   })
 
@@ -118,13 +113,13 @@ export async function bulkValidateStations(
     ctx.status = 422
     ctx.body = {
       msg: 'Not all stations are valid',
-      debug: isProduction ? undefined : error
+      debug: SERVER_CONFIG.isProduction ? undefined : error
     }
 
     return
   }
 
-  await next()
+  return next()
 }
 
 /**
@@ -179,7 +174,7 @@ export async function getUserCollection(
 
   ctx.body = dataToRadioDTO(stations)
 
-  await next()
+  return next()
 }
 
 /**
@@ -295,23 +290,83 @@ export async function importStations(
   >,
   next: Koa.Next
 ) {
-  const collection = ctx.request.params.collection
+  // const collection = ctx.request.params.collection
 
-  const stations = ctx.request.body.stations as { _id: string; date: string }[]
+  const payload = ctx.request.body as Record<
+    StationCollection,
+    { station: string; date: string }[]
+  >
 
-  await ctx.radioRepository.importCollection(
+  //TODO - make single import call
+  const favImportPromise = ctx.radioRepository.importCollection(
     ctx.session!.user.id,
-    stations.map((data) => ({
-      _id: data._id,
+    payload.favorites.map((data) => ({
+      _id: data.station,
       date: new Date(data.date)
     })),
-    collection
+    'favorites'
   )
 
-  ctx.body = { msg: 'saved' }
+  const recentImportPromise = ctx.radioRepository.importCollection(
+    ctx.session!.user.id,
+    payload.recent.map((data) => ({
+      _id: data.station,
+      date: new Date(data.date)
+    })),
+    'recent'
+  )
+
+  await Promise.all([favImportPromise, recentImportPromise])
+
+  //TODO - make single radio api call
+  const [favorites, recent] = await Promise.all([
+    payload.favorites.length > 0
+      ? ctx.radioApi.getStationsById(
+          payload.favorites.map((data) => data.station)
+        )
+      : [],
+    payload.recent.length > 0
+      ? ctx.radioApi.getStationsById(payload.recent.map((data) => data.station))
+      : []
+  ])
+
+  // const radioDTOS = dataToRadioDTO(favorites.concat(recent))
+
+  ctx.body = {
+    favorites: dataToRadioDTO(favorites),
+    recent: dataToRadioDTO(recent)
+  }
+
   ctx.status = 201
 
-  await next()
+  return next()
+}
+
+export async function bulkStationInfo(
+  ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+  next: Koa.Next
+) {
+  const ids = (ctx.request.body.stations || []) as string[]
+
+  const { error } = schemas.multipleStations.validate(ids, {
+    errors: { render: false }
+  })
+
+  if (error) {
+    ctx.status = 422
+    ctx.body = {
+      msg: 'Not a valid station info payload',
+      debug: SERVER_CONFIG.isProduction ? undefined : error
+    }
+
+    return next()
+  }
+
+  const stations = await ctx.radioApi.getStationsById(ids)
+
+  ctx.body = dataToRadioDTO(stations)
+
+  return next()
 }
 
 /**

@@ -1,6 +1,6 @@
 import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
-import { radioAPIUserAgent } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -12,7 +12,7 @@ const handler = async function getStationInfo(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const api = new RadioBrowserApi(radioAPIUserAgent)
+  const api = new RadioBrowserApi(SHARED_CONFIG.radioAPIUserAgent)
 
   try {
     const stationId = req.query.play as string

@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/nextjs'
 import { CaptureContext } from '@sentry/types'
 import { countries } from 'generated/countries'
-import { isProduction } from 'lib/server/config'
+import { SERVER_CONFIG } from 'lib/server/config'
 import { logger } from 'lib/server/logger'
 import {
   GetStaticProps,
@@ -13,7 +13,7 @@ import {
 export type StationCollection = 'favorites' | 'recent'
 
 export function withErrorLogging(handler: NextApiHandler) {
-  if (isProduction) {
+  if (SERVER_CONFIG.isProduction) {
     return Sentry.withSentry(handler)
   }
 
@@ -52,7 +52,7 @@ export function paramsWithLocales<T = any>(
 
 export async function loadTranslations(locale: string) {
   let data
-  if (isProduction) {
+  if (SERVER_CONFIG.isProduction) {
     data = await import(`../../translations/locales/${locale}/messages`)
   } else {
     data = await import(
@@ -96,7 +96,7 @@ export function logServerError(
       side
     }
   }
-  if (isProduction) {
+  if (SERVER_CONFIG.isProduction) {
     Sentry.captureException(err, data)
   }
 

@@ -1,10 +1,10 @@
 import { DBSchema, IDBPDatabase, openDB, StoreNames } from 'idb'
-import { StationCollection } from 'lib/server/utils'
 import { logger } from 'lib/client/logger-browser'
-import { RadioDTO } from 'lib/shared/utils'
-import { localDbName } from 'lib/shared/config'
+import { StationCollection } from 'lib/server/utils'
+import { SharedConfig } from 'lib/shared/config'
+import { transform } from 'pumpit'
 
-type DBValue = { station: RadioDTO; date: string; _id: string }
+type DBValue = { date: string; _id: string }
 
 const storageLogger = logger.child({ label: 'local-storage' })
 
@@ -22,11 +22,13 @@ interface LocalSchema extends DBSchema {
 export class LocalStorageService {
   protected db!: IDBPDatabase<LocalSchema>
 
+  static inject = transform(['sharedConfig'], (_, config: SharedConfig) => {
+    return [config.localDbName]
+  })
+
   constructor(public dbName: string) {}
 
-  static inject = [localDbName]
-
-  async getStations(collection: StationCollection): Promise<RadioDTO[]> {
+  async getStations(collection: StationCollection) {
     const data = await this.getAll(collection)
 
     return this.sortData(data)
@@ -34,11 +36,11 @@ export class LocalStorageService {
 
   async getRawData(
     collection: StationCollection
-  ): Promise<{ station: RadioDTO; date: string }[]> {
+  ): Promise<{ station: string; date: string }[]> {
     const data = await this.getAll(collection)
 
     return data.map((data) => ({
-      station: data.station,
+      station: data._id,
       date: data.date
     }))
   }
@@ -51,11 +53,11 @@ export class LocalStorageService {
     return true
   }
 
-  async addStation(station: RadioDTO, collection: StationCollection) {
+  async addStation(station: string, collection: StationCollection) {
     await this.put(collection, {
-      station,
+      // station,
       date: new Date().toISOString(),
-      _id: station._id
+      _id: station
     })
 
     return true
@@ -119,12 +121,12 @@ export class LocalStorageService {
     return (
       data
         .map((data: DBValue) => ({
-          station: data.station,
+          station: data._id,
           date: new Date(data.date)
         }))
-        // @ts-expect-error - substracting dates is fine
+        // @ts-expect-error - subtracting dates is fine
         .sort((a: DBValue, z: DBValue) => z.date - a.date)
-        .map((data: { station: RadioDTO; date: Date }) => data.station)
+        .map((data: { station: string; date: Date }) => data.station)
     )
   }
 }

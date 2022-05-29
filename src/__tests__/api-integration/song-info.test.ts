@@ -16,12 +16,13 @@ describe('/api/sonf-info', () => {
       query: { station: stationUrl }
     })
 
+    // @ts-expect-error - req mismatch
     await handler(getStationInfo)(req, res)
 
     expect(res._getJSONData()).toEqual({ artist, title: song })
   })
 
-  test('If song data cannot be parsed, return empty object', async () => {
+  test('If song data cannot be parsed, return an empty object', async () => {
     const stationUrl = 'some_station_url'
 
     const getStationInfo = jest.fn().mockResolvedValue({ title: `` })
@@ -31,6 +32,7 @@ describe('/api/sonf-info', () => {
       query: { station: stationUrl }
     })
 
+    // @ts-expect-error - req mismatch
     await handler(getStationInfo)(req, res)
 
     expect(res._getJSONData()).toEqual({})
@@ -43,11 +45,36 @@ describe('/api/sonf-info', () => {
       method: 'GET'
     })
 
+    // @ts-expect-error - req mismatch
     await handler(getStationInfo)(req, res)
 
     expect(res._getJSONData()).toEqual({ msg: 'station url missing' })
     expect(res.statusCode).toBe(400)
   })
 
-  test.todo('if station info is not available return 500')
+  test('if station info is not available return 503', async () => {
+    const errValue = new Error()
+    const getStationInfo = jest.fn().mockRejectedValue(errValue)
+    const logError = jest.fn()
+
+    const { req, res } = createMocks({
+      method: 'GET',
+      query: { station: 'some_url' }
+    })
+
+    // @ts-expect-error - req mismatch
+    await handler(getStationInfo, logError)(req, res)
+
+    expect(res._getJSONData()).toEqual({ msg: 'service unavailable' })
+    expect(logError).toHaveBeenCalledWith(
+      errValue,
+      {
+        tags: {
+          endpoint: 'song-info'
+        }
+      },
+      req.url
+    )
+    expect(res.statusCode).toBe(503)
+  })
 })

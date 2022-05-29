@@ -1,5 +1,7 @@
+import { t } from '@lingui/macro'
 import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
+import type Joi from 'joi'
 import { Station } from 'radio-browser-api'
 
 export function toBoolean(env: string | undefined, initial: boolean) {
@@ -28,6 +30,13 @@ export function assertEnv(value: string): string {
 
 export function isSSR() {
   return typeof window === 'undefined'
+}
+
+export function asString(value: Joi.ValidationResult | Joi.AnySchema) {
+  return value as unknown as string
+}
+export function asNumber(value: Joi.ValidationResult | Joi.AnySchema) {
+  return value as unknown as number
 }
 
 export type RadioDTO = {
@@ -83,4 +92,18 @@ export function dataToRadioDTO(stations: Station[]): RadioDTO[] {
   }
 
   return result
+}
+
+export function sections() {
+  return {
+    app: t`Search`,
+    favorites: t`Favorites`,
+    custom: t`Custom Search`,
+    recent: t`Recent Stations`,
+    'by-location': t`By Location`,
+    'by-language': t`By Language`,
+    'by-genre': t`By Genre`,
+    settings: t`Settings`,
+    about: t`About`
+  }
 }

@@ -1,5 +1,6 @@
 import { t, Trans } from '@lingui/macro'
-import { radioAPIUserAgent, stationSearchIndexes } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
+import { Writable } from 'ts-essentials'
 import { AppDefaultLayout } from 'components/layout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
@@ -15,7 +16,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useMemo } from 'react'
-import { revalidate } from 'lib/server/config'
+import { SERVER_CONFIG } from 'lib/server/config'
 
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
   const paths = paramsWithLocales(
@@ -41,7 +42,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const translation = await loadTranslations(ctx.locale!)
 
-  const api = new RadioBrowserApi(radioAPIUserAgent)
+  const api = new RadioBrowserApi(SHARED_CONFIG.radioAPIUserAgent)
   const stations = await api.searchStations(
     {
       language,
@@ -57,7 +58,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       language,
       translation
     },
-    revalidate
+    revalidate: SERVER_CONFIG.revalidate
   }
 }
 
@@ -99,7 +100,11 @@ export default function LanguageStations({
     <FilterDataStoreProvider
       initialState={stationModels}
       uuid="id"
-      indexes={stationSearchIndexes}
+      indexes={
+        SHARED_CONFIG.stationSearchIndexes as Writable<
+          typeof SHARED_CONFIG['stationSearchIndexes']
+        >
+      }
     >
       <PageTitle title={t`Search For Stations in ${languageTrans.t}`} />
       <ListStations

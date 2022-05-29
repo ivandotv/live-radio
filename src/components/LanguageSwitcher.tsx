@@ -2,7 +2,7 @@ import { t } from '@lingui/macro'
 import MenuItem from '@material-ui/core/MenuItem'
 import Select from '@material-ui/core/Select'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { cookies, isDevelopment, isPreview } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { ChangeEvent } from 'react'
@@ -33,7 +33,7 @@ export function LanguageSwitcher({
     sr: t`Serbian`,
     help: t`Help Translate`
   }
-  if (isPreview || isDevelopment) {
+  if (SHARED_CONFIG.isPreview || SHARED_CONFIG.isDevelopment) {
     languages.pseudo = t`Pseudo`
   }
 
@@ -50,7 +50,11 @@ export function LanguageSwitcher({
     if (key === 'help') {
       return
     }
-    Cookies.set(cookies.locale.name, key, cookies.locale.options)
+    Cookies.set(
+      SHARED_CONFIG.cookies.locale.name,
+      key,
+      SHARED_CONFIG.cookies.locale.options
+    )
     router.push(
       { pathname: router.pathname, query: router.query },
       router.asPath,

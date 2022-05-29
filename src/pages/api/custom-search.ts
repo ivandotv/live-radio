@@ -1,7 +1,7 @@
-import { customSearchStationLimit } from 'lib/server/config'
+import { SERVER_CONFIG } from 'lib/server/config'
 import { withLogger } from 'lib/server/logger'
 import { withErrorLogging } from 'lib/server/utils'
-import { radioAPIUserAgent } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -15,12 +15,12 @@ const handler = async function customSearch(
   try {
     const name = req.body.name || ''
 
-    const radioApi = new RadioBrowserApi(radioAPIUserAgent)
+    const radioApi = new RadioBrowserApi(SHARED_CONFIG.radioAPIUserAgent)
 
     const result = await radioApi.searchStations(
       {
         name,
-        limit: customSearchStationLimit
+        limit: SERVER_CONFIG.customSearchStationLimit
       },
       undefined,
       true

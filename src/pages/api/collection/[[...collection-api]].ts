@@ -1,9 +1,9 @@
-import { nodeEnv } from 'lib/server/config'
-import { getServerInjector } from 'lib/server/injection-root'
+import { ServerConfig } from 'lib/server/config'
+import { getServerContainer } from 'lib/server/injection-root'
 import {
   ApiContext,
   buildCtx,
-  bulkValidateStations,
+  validateImportStations,
   checkCollectionExists,
   checkSession,
   deleteCollection,
@@ -19,7 +19,7 @@ import { PumpIt } from 'pumpit'
 export function handler(container: PumpIt) {
   const api = new KoaApi<Koa.DefaultState, ApiContext>({
     koa: {
-      env: nodeEnv
+      env: container.resolve<ServerConfig>('config').nodeEnv
     },
     router: { prefix: '/api/collection' }
   })
@@ -48,15 +48,10 @@ export function handler(container: PumpIt) {
           }
         }
       }
-    >(
-      '/:collection/import',
-      checkCollectionExists,
-      bulkValidateStations,
-      importStations
-    )
+    >('/batch/import', validateImportStations, importStations)
     .delete('/:collection', checkCollectionExists, deleteCollection)
 
   return api
 }
 
-export default withKoaApi(handler(getServerInjector()))
+export default withKoaApi(handler(getServerContainer()))

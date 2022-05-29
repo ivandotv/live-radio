@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Tooltip from '@material-ui/core/Tooltip'
 import ShareIcon from '@material-ui/icons/ShareOutlined'
-import { url } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { ShareStationDesktop } from 'components/music-player'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { observer } from 'mobx-react-lite'
@@ -28,9 +28,9 @@ export const ShareStationBtn = observer(function ShareStationBtn({
   const classes = useStyles({ fontSize })
   const { musicPlayer } = useRootStore()
 
-  const shareUrl = `${encodeURI(url)}/api/share?play=${encodeURIComponent(
-    musicPlayer.station._id
-  )}`
+  const shareUrl = `${encodeURI(
+    SHARED_CONFIG.url
+  )}/api/share?play=${encodeURIComponent(musicPlayer.station._id)}`
   const shareTitle = t`Share Station - `
   const shareText = t`Check out this groovy station`
 

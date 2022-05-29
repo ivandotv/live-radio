@@ -84,7 +84,7 @@ specifiers:
   postinstall-postinstall: ^2.1.0
   prettier: ^2.6.2
   prettier-standard: ^16.4.1
-  pumpit: ^2.0.0
+  pumpit: ^4.0.0
   radio-browser-api: ^6.0.1
   react: 17.0.2
   react-dom: 17.0.2
@@ -98,6 +98,7 @@ specifiers:
   testcontainers: ^8.10.0
   time-span: ^4.0.0
   tinga: ^4.0.10
+  ts-essentials: ^9.1.2
   typescript: ^4.6.4
   uuid: ^8.3.2
   webpack: ^5.72.1
@@ -144,7 +145,7 @@ dependencies:
   path-to-regexp: 6.2.1
   pino: 7.11.0
   pino-http: 6.6.0
-  pumpit: 2.0.0
+  pumpit: 4.0.0
   radio-browser-api: 6.0.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -218,6 +219,7 @@ devDependencies:
   supertest: 6.2.3
   testcontainers: 8.10.1
   time-span: 4.0.0
+  ts-essentials: 9.1.2_typescript@4.6.4
   typescript: 4.6.4
   webpack: 5.72.1
   workbox-webpack-plugin: 6.5.3_webpack@5.72.1
@@ -4243,7 +4245,7 @@ packages:
     requiresBuild: true
     dependencies:
       buildcheck: 0.0.3
-      nan: 2.15.0
+      nan: 2.16.0
     dev: true
     optional: true
 
@@ -7979,8 +7981,8 @@ packages:
     engines: {node: '>=6.x.x'}
     dev: true
 
-  /nan/2.15.0:
-    resolution: {integrity: sha512-8ZtvEnA2c5aYCZYd1cvgdnU6cqwixRoYg70xPLWUws5ORTa/lnw+u4amixRS/Ac5U5mQVgp9pnlSUnbNWFaWZQ==}
+  /nan/2.16.0:
+    resolution: {integrity: sha512-UdAqHyFngu7TfQKsCBgAA6pWDkT8MAO7d0jyOecVhN5354xbLqdn8mV9Tat9gepAupm0bt2DbeaSC8vS52MuFA==}
     dev: true
     optional: true
 
@@ -9066,8 +9068,8 @@ packages:
       once: 1.4.0
     dev: true
 
-  /pumpit/2.0.0:
-    resolution: {integrity: sha512-2HcG8/RZ6mUrfKMC1rHyjoUa2vF6HchLacpo97CFmTggGUdbeBcOPtuL2n6KzYOluYVnjg0kLSN+1/jXG6iHUw==}
+  /pumpit/4.0.0:
+    resolution: {integrity: sha512-j14tw4+FtElEYRL0gzzcepdiHwFEyXxbIMpwS2zZoVPuEKeBQJfbvhvud2QE04xFh15RUFYqWutdecGWbu3jTQ==}
     dev: false
 
   /punycode/1.4.1:
@@ -9899,7 +9901,7 @@ packages:
       bcrypt-pbkdf: 1.0.2
     optionalDependencies:
       cpu-features: 0.0.4
-      nan: 2.15.0
+      nan: 2.16.0
     dev: true
 
   /sshpk/1.17.0:
@@ -10503,6 +10505,14 @@ packages:
   /ts-easing/0.2.0:
     resolution: {integrity: sha512-Z86EW+fFFh/IFB1fqQ3/+7Zpf9t2ebOAxNI/V6Wo7r5gqiqtxmgTlQ1qbqQcjLKYeSHPTsEmvlJUDg/EuL0uHQ==}
     dev: false
+
+  /ts-essentials/9.1.2_typescript@4.6.4:
+    resolution: {integrity: sha512-EaSmXsAhEiirrTY1Oaa7TSpei9dzuCuFPmjKRJRPamERYtfaGS8/KpOSbjergLz/Y76/aZlV9i/krgzsuWEBbg==}
+    peerDependencies:
+      typescript: '>=4.1.0'
+    dependencies:
+      typescript: 4.6.4
+    dev: true
 
   /ts-node/9.1.1_typescript@4.6.4:
     resolution: {integrity: sha512-hPlt7ZACERQGf03M253ytLY3dHbGNGrAq9qIHWUY9XHYl1z7wYngSr3OQ5xmui8o2AaxsONxIzjafLUiWBo1Fg==}

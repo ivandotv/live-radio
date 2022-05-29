@@ -1,40 +1,48 @@
-import { isProduction, mongoDb } from 'lib/server/config'
+import { ServerConfig, SERVER_CONFIG } from 'lib/server/config'
 import { getDbConnection } from 'lib/server/db-connection'
 import { RadioRepository } from 'lib/server/radio-repository'
-import { radioAPIUserAgent } from 'lib/shared/config'
+import { SharedConfig, SHARED_CONFIG } from 'lib/shared/config'
 import { getSession } from 'next-auth/react'
-import { PumpIt, SCOPE } from 'pumpit'
+import { PumpIt, SCOPE, transform } from 'pumpit'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { logServerError } from './utils'
 
-let injector: PumpIt
+let container: PumpIt
 
-// function radioFactory(appName: string) {
-//   return new RadioBrowserApi(appName)
-// }
-
-// radioFactory.inject = [RadioBrowserApi, radioAPIUserAgent]
-
-export function getServerInjector() {
-  if (!injector) {
-    injector = new PumpIt()
+export function getServerContainer() {
+  if (!container) {
+    container = new PumpIt()
       .bindValue(getSession, getSession)
-      .bindValue('dbConfig', mongoDb)
-      .bindValue('isProduction', isProduction)
-      .bindValue(radioAPIUserAgent, radioAPIUserAgent)
+      .bindValue('config', SERVER_CONFIG)
+      .bindValue('sharedConfig', SHARED_CONFIG)
       .bindFactory(
         getDbConnection,
-        { value: getDbConnection, inject: ['dbConfig'] },
+        {
+          value: getDbConnection,
+          inject: transform(['config'], (_, config: ServerConfig) => {
+            return [
+              {
+                uri: config.mongoDb.uri,
+                clientOptions: config.mongoDb.clientOptions
+              }
+            ]
+          })
+        },
         { scope: SCOPE.SINGLETON }
       )
       .bindClass(
         RadioBrowserApi,
-        { value: RadioBrowserApi, inject: [radioAPIUserAgent] },
-        { scope: SCOPE.SINGLETON }
+        {
+          value: RadioBrowserApi,
+          inject: transform(['sharedConfig'], (_, config: SharedConfig) => {
+            return [config.radioAPIUserAgent]
+          })
+        },
+        { scope: SCOPE.CONTAINER_SINGLETON }
       )
-      .bindClass(RadioRepository, RadioRepository, { scope: SCOPE.SINGLETON })
+      .bindClass(RadioRepository, RadioRepository)
       .bindValue(logServerError, logServerError)
   }
 
-  return injector
+  return container
 }

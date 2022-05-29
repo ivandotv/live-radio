@@ -1,6 +1,6 @@
 import { plural, t } from '@lingui/macro'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { layout } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { FilterInput } from 'components/FilterInput'
 import { FilterList } from 'components/FilterList'
 import { LocationBreadcrumbs } from 'components/LocationBreadcrumbs'
@@ -11,7 +11,7 @@ import { ReactNode } from 'react'
 import { ListStationsFallback } from './ListStationsFallback'
 
 const { playerHeight, mobileMenuHeight, topBarHeight, mainContentSpacer } =
-  layout
+  SHARED_CONFIG.layout
 
 const desktopContentHeight = playerHeight + topBarHeight + mainContentSpacer
 const mobileContentHeight = playerHeight + topBarHeight + mobileMenuHeight

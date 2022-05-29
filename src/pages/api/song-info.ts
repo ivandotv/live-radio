@@ -27,7 +27,10 @@ const getStationInfoAsync = promisify(getStationInfo)
 /**
  * Return currently playing artist and song title for a given url
  *  */
-export const handler = (getStationInfo: typeof getStationInfoAsync) =>
+export const handler = (
+  getStationInfo: typeof getStationInfoAsync,
+  logError: typeof logServerError
+) =>
   async function getSongInfo(req: NextApiRequest, res: NextApiResponse) {
     if (!req.query.station) {
       res.status(400).json({ msg: 'station url missing' })
@@ -49,7 +52,7 @@ export const handler = (getStationInfo: typeof getStationInfoAsync) =>
         res.status(200).json({})
       }
     } catch (err: any) {
-      logServerError(
+      logError(
         err,
         {
           tags: {
@@ -58,8 +61,10 @@ export const handler = (getStationInfo: typeof getStationInfoAsync) =>
         },
         req.url
       )
-      res.status(503).json({ msg: 'server error' })
+      res.status(503).json({ msg: 'service unavailable' })
     }
   }
 
-export default withErrorLogging(withLogger(handler(getStationInfoAsync)))
+export default withErrorLogging(
+  withLogger(handler(getStationInfoAsync, logServerError))
+)

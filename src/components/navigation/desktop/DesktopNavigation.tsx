@@ -6,7 +6,7 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles'
-import { layout } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import clsx from 'clsx'
 import { Menu } from 'components/navigation/desktop/Menu'
 import { useRootStore } from 'components/providers/RootStoreProvider'
@@ -52,7 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const DesktopNavigation = observer(function DesktopNavigation() {
   const { appShell: appShell } = useRootStore()
-  const classes = useStyles({ drawerWidth: layout.desktopDrawerWidth })
+  const classes = useStyles({
+    drawerWidth: SHARED_CONFIG.layout.desktopDrawerWidth
+  })
   const theme = useTheme()
 
   return (

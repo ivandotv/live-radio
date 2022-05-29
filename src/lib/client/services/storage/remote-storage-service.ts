@@ -12,18 +12,18 @@ export class AuthExpiredError extends Error {
 export class RemoteStorageService {
   static inject = [client]
 
-  constructor(protected transport: typeof client) {
+  constructor(protected fetchClient: typeof client) {
     this.checkAuthError = this.checkAuthError.bind(this)
   }
 
   async removeAllStations(collection: StationCollection) {
-    return this.transport(`/api/collection/${collection}`, {
+    return this.fetchClient(`/api/collection/${collection}`, {
       method: 'DELETE'
     }).catch(this.checkAuthError)
   }
 
-  async addStation(station: RadioDTO, collection: StationCollection) {
-    return this.transport(`/api/station/${collection}`, {
+  async addStation(station: string, collection: StationCollection) {
+    return this.fetchClient(`/api/station/${collection}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -33,28 +33,24 @@ export class RemoteStorageService {
   }
 
   async removeStation(id: string, collection: StationCollection) {
-    return this.transport(`/api/station/${collection}?id=${id}`, {
+    return this.fetchClient(`/api/station/${collection}?id=${id}`, {
       method: 'DELETE'
     }).catch(this.checkAuthError)
   }
 
   async importStations(
-    data: { station: RadioDTO; date: string }[],
-    collection: StationCollection
-  ): Promise<any> {
-    return this.transport(`/api/collection/${collection}/import`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ stations: data, collection })
+    // data: { station: string; date: string }[],
+    data: Record<StationCollection, { station: string; date: string }[]>
+  ): Promise<Record<StationCollection, RadioDTO[]>> {
+    return this.fetchClient(`/api/collection/batch/import`, {
+      data
     }).catch(this.checkAuthError)
   }
 
   async getStations(collection: StationCollection): Promise<RadioDTO[]> {
-    return this.transport(`/api/collection/${collection}`, {
-      method: 'GET'
-    }).catch(this.checkAuthError)
+    return this.fetchClient(`/api/collection/${collection}`, {}).catch(
+      this.checkAuthError
+    )
   }
 
   protected checkAuthError(err: unknown) {

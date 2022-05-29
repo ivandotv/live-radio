@@ -11,11 +11,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormGroup from '@material-ui/core/FormGroup'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { cookies } from 'lib/shared/config'
 import clsx from 'clsx'
 import { PageLoadError } from 'components/PageLoadError'
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import Cookies from 'js-cookie'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { observer } from 'mobx-react-lite'
 import { useSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
@@ -55,7 +55,7 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
   const [formValues, setFormValues] = useState({
     favs: false,
     recent: false,
-    anim: false
+    anim: false //remove anonymous data
   })
 
   async function startImport() {
@@ -74,11 +74,11 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
   }
 
   function cancelImport() {
-    Cookies.set(
-      cookies.anonymousImportDissmissed.name,
-      cookies.anonymousImportDissmissed.value,
-      cookies.anonymousImportDissmissed.options
-    )
+    const { name, value, options } =
+      SHARED_CONFIG.cookies.anonymousImportDissmissed
+
+    Cookies.set(name, value, options)
+
     setOpen(false)
   }
 
@@ -101,22 +101,22 @@ export const ImportAnonymousData = observer(function ImportAnonymousData() {
   useEffect(() => {
     if (session && !authChecked.current) {
       authChecked.current = true
-      if (session) {
-        ;(async () => {
-          const isDismissed = Cookies.get(
-            cookies.anonymousImportDissmissed.name
-          )
-          const shouldOpen = await appShell.hasAnonymousData()
+      // if (session) {
+      ;(async () => {
+        const isDismissed = Cookies.get(
+          SHARED_CONFIG.cookies.anonymousImportDissmissed.name
+        )
+        const shouldOpen = await appShell.hasAnonymousData()
 
-          if (shouldOpen && isDismissed !== '1') {
-            setOpen(true)
-          }
-        })()
-      } else {
-        Cookies.remove(cookies.anonymousImportDissmissed.name, {
-          sameSite: 'strict'
-        })
-      }
+        if (shouldOpen && isDismissed !== '1') {
+          setOpen(true)
+        }
+      })()
+      // } else {
+      //   Cookies.remove(SHARED_CONFIG.cookies.anonymousImportDissmissed.name, {
+      //     sameSite: 'strict'
+      //   })
+      // }
     }
   }, [session, appShell])
 

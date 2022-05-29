@@ -1,4 +1,4 @@
-import { locales } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { pathToRegexp } from 'path-to-regexp'
 import { WorkboxPlugin } from 'workbox-core/types'
 import { PrecacheController } from 'workbox-precaching/PrecacheController'
@@ -31,7 +31,7 @@ export class OfflineFallbackWithLocale implements WorkboxPlugin {
     const pathToLocale = regexp.exec(url)
     if (pathToLocale) {
       const locale = pathToLocale[1]
-      if (locales.includes(locale)) {
+      if (SHARED_CONFIG.locales.includes(locale)) {
         return locale
       }
     }

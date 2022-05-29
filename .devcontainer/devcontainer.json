@@ -1,8 +1,8 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/docker-from-docker-compose
 {
-  "name": "Docker from Docker Compose",
-  "dockerComposeFile": "docker-compose.yml",
+  "name": "Live radio",
+  "dockerComposeFile": ["docker-compose.yml", "docker-compose.override.yml"],
   "service": "app",
   "workspaceFolder": "/workspace",
 
@@ -20,7 +20,9 @@
     "humao.rest-client",
     "ms-azuretools.vscode-docker",
     "donjayamanne.githistory",
-    "mhutchie.git-graph"
+    "mhutchie.git-graph",
+    "GitHub.copilot",
+    "esbenp.prettier-vscode"
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.

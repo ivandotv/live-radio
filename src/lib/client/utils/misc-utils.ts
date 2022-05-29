@@ -63,6 +63,8 @@ export type ClientRequest = RequestInit & {
   data?: Record<string, unknown>
 }
 
+export type FetchClient = typeof client
+
 export async function client<T = any>(
   endpoint: string,
   customConfig: ClientRequest = {}

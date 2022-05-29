@@ -1,5 +1,5 @@
 import { AsyncLocalStorage } from 'async_hooks'
-import { logLevel } from 'lib/server/config'
+import { SERVER_CONFIG } from 'lib/server/config'
 import { ApiContext } from 'lib/server/middleware'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import type { Koa } from 'nextjs-koa-api'
@@ -10,7 +10,7 @@ import { v4 as uuid } from 'uuid'
 export const context = new AsyncLocalStorage<pino.Logger>()
 
 const originalLogger = pino({
-  level: logLevel
+  level: SERVER_CONFIG.logLevel
 })
 
 // Proxy logger instance to use child logger from the context if it exists

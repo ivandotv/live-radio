@@ -1,5 +1,5 @@
 import { i18n } from '@lingui/core'
-import { defaultLocale } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import createManifest from 'lib/server/create-manifest'
 import { loadTranslations, withErrorLogging } from 'lib/server/utils'
 import { en, sr } from 'make-plural/plurals'
@@ -27,7 +27,7 @@ const handler = async function generateManifest(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const locale = (req.query.locale as string) || defaultLocale
+  const locale = (req.query.locale as string) || SHARED_CONFIG.defaultLocale
 
   //cache generated manifest
   if (cacheManifest[locale]) {

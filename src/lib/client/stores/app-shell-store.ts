@@ -90,12 +90,12 @@ export class AppShellStore {
         useRecent,
         deleteAnonymous
       )
-      for (const fav of favorites) {
-        this.favoriteStations.addStation(fav.station)
+      for (const station of favorites) {
+        this.favoriteStations.addStation(station)
       }
 
-      for (const rec of recent) {
-        this.recentStations.addStation(rec.station)
+      for (const station of recent) {
+        this.recentStations.addStation(station)
       }
 
       if (deleteAnonymous) {

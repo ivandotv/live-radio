@@ -3,7 +3,7 @@ import {
   MusicPlayerStore,
   PlayerStatus
 } from 'lib/client/stores/music-player-store'
-import { defaultArtwork } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { reaction } from 'mobx'
 
 const sessionLogger = logger.child({ label: 'media-session' })
@@ -22,7 +22,7 @@ export class MediaSessionService {
               title: this.musicPlayer.station.name,
               artist: undefined,
               album: undefined,
-              artwork: [defaultArtwork]
+              artwork: [SHARED_CONFIG.defaultArtwork]
             })
           }
         }

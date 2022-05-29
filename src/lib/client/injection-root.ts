@@ -1,9 +1,11 @@
+import { injectionTokens } from 'lib/client/injection-tokens'
 import { AppShellStore } from 'lib/client/stores/app-shell-store'
 import { MusicPlayerStore } from 'lib/client/stores/music-player-store'
 import { RadioStore } from 'lib/client/stores/radio-store'
 import { client } from 'lib/client/utils/misc-utils'
-import { defaultStation, localDbName } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { isSSR } from 'lib/shared/utils'
+import { getSession } from 'next-auth/react'
 import { PumpIt, SCOPE } from 'pumpit'
 import { radioModelFactory } from './radio-model'
 import { AuthService } from './services/auth-service'
@@ -13,8 +15,6 @@ import { AppStorageService } from './services/storage/app-storage-service'
 import { LocalStorageService } from './services/storage/local-storage-service'
 import { RemoteStorageService } from './services/storage/remote-storage-service'
 import { RootStore } from './stores/root-store'
-import { injectionTokens } from 'lib/client/injection-tokens'
-import { getSession } from 'next-auth/react'
 
 let store: RootStore
 
@@ -56,19 +56,22 @@ injectionContainer
   })
   .bindClass(StationTransport, StationTransport)
   .bindClass(injectionTokens.favoritesRadioStore, RadioStore, {
-    beforeResolve: ({ value, deps }) => {
+    beforeResolve: ({ value }, ...deps) => {
       // @ts-expect-error added deps
       return new value(...deps, 'favorites')
-    }
+    },
+    scope: SCOPE.SINGLETON
   })
   .bindClass(injectionTokens.recentRadioStore, RadioStore, {
-    beforeResolve: ({ value, deps }) => {
+    beforeResolve: ({ value }, ...deps) => {
       // @ts-expect-error added deps
       return new value(...deps, 'recent')
-    }
+    },
+    scope: SCOPE.SINGLETON
   })
-  .bindValue(localDbName, localDbName)
+  .bindValue('sharedConfig', SHARED_CONFIG)
+  // .bindValue(localDbName, localDbName)
+  // .bindValue(defaultStation, defaultStation)
   .bindValue(client, client)
-  .bindValue(defaultStation, defaultStation)
   .bindValue(radioModelFactory, radioModelFactory)
   .bindValue(getSession, getSession)

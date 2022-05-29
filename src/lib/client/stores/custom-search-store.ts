@@ -1,6 +1,6 @@
 import { RadioModel } from 'lib/client/radio-model'
 import { client, createRadioModels } from 'lib/client/utils/misc-utils'
-import { url } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { logger } from '../logger-browser'
 
@@ -55,7 +55,7 @@ export class CustomSearchStore {
     this.searchInProgress = true
 
     try {
-      const result = await client(`${url}/api/custom-search`, {
+      const result = await client(`${SHARED_CONFIG.url}/api/custom-search`, {
         data: { name: query }
       })
       if (this.requestToken === localToken) {

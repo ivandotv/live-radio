@@ -4,7 +4,7 @@ import Link from '@material-ui/core/Link'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
-import { layout } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { logger } from 'lib/client/logger-browser'
 import { observer } from 'mobx-react-lite'
 import { useSnackbar } from 'notistack'
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     snackbar: {
-      bottom: `${layout.playerHeight + theme.spacing(2)}px`
+      bottom: `${SHARED_CONFIG.layout.playerHeight + theme.spacing(2)}px`
     }
   })
 )

@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { I18nProvider } from '@lingui/react'
-import { url } from 'lib/shared/config'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { GlobalErrorFallback } from 'components/GlobalErrorFallback'
 import { PWAIcons } from 'components/PWAIcons'
 import { WindowErrorHandler } from 'components/WindowErrorHandler'
@@ -89,7 +89,7 @@ export default function MyApp(props: AppProps) {
             <PWAIcons />
             {router.locales!.concat('x-default').map((locale) => {
               const localePath = locale === 'x-default' ? '' : `/${locale}`
-              const href = `${url}${localePath}${router.asPath}`
+              const href = `${SHARED_CONFIG.url}${localePath}${router.asPath}`
 
               return locale === 'pseudo' ? null : (
                 <link
