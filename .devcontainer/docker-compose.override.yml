@@ -1,11 +1,14 @@
 version: '3'
 services:
   db:
-    image: mongo:latest
+    image: mongo:5.0.8
     ports:
       - 27017:27017
     volumes:
       - mongodb-data:/data/db
+    networks:
+      - default
+      - development
     # Uncomment to change startup options
     # environment:
     #  MONGO_INITDB_ROOT_USERNAME: root
