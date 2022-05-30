@@ -1,14 +1,14 @@
 import { AuthService } from 'lib/client/services/auth-service'
-import { client } from 'lib/client/utils/misc-utils'
+import { client, FetchClient } from 'lib/client/utils/misc-utils'
 import { RadioDTO } from 'lib/shared/utils'
 import { Session } from 'next-auth'
 import { LocalStorageService } from './local-storage-service'
 import { RemoteStorageService } from './remote-storage-service'
 
 export type StorageType = 'local' | 'remote'
-export type StorageCollection = 'favorites' | 'recent'
+export type StorageCollectionName = 'favorites' | 'recent'
 
-export class AppStorageService {
+export class StorageService {
   protected session: Session | null = null
 
   protected resolved = false
@@ -17,7 +17,7 @@ export class AppStorageService {
     protected local: LocalStorageService,
     protected remote: RemoteStorageService,
     protected authService: AuthService,
-    protected httpClient: typeof client
+    protected httpClient: FetchClient
   ) {}
 
   static inject = [
@@ -74,19 +74,19 @@ export class AppStorageService {
     return result
   }
 
-  async saveStation(station: string, collection: StorageCollection) {
+  async saveStation(station: string, collection: StorageCollectionName) {
     const { storage } = await this.resolveStorage()
 
     return storage.addStation(station, collection)
   }
 
-  async removeStation(id: string, collection: StorageCollection) {
+  async removeStation(id: string, collection: StorageCollectionName) {
     const { storage } = await this.resolveStorage()
 
     return storage.removeStation(id, collection)
   }
 
-  async getAllStations(collection: StorageCollection, type?: StorageType) {
+  async getAllStations(collection: StorageCollectionName, type?: StorageType) {
     const { storage, type: resolvedType } = await this.resolveStorage(type)
 
     const stations = await storage.getStations(collection)
@@ -106,7 +106,10 @@ export class AppStorageService {
     }
   }
 
-  async removeAllStations(collection: StorageCollection, type?: StorageType) {
+  async removeAllStations(
+    collection: StorageCollectionName,
+    type?: StorageType
+  ) {
     const { storage } = await this.resolveStorage(type)
 
     return storage.removeAllStations(collection)

@@ -5,6 +5,7 @@ import { SharedConfig, SHARED_CONFIG } from 'lib/shared/config'
 import { getSession } from 'next-auth/react'
 import { PumpIt, SCOPE, transform } from 'pumpit'
 import { RadioBrowserApi } from 'radio-browser-api'
+import { schemas } from './schemas'
 import { logServerError } from './utils'
 
 let container: PumpIt
@@ -42,6 +43,7 @@ export function getServerContainer() {
       )
       .bindClass(RadioRepository, RadioRepository)
       .bindValue(logServerError, logServerError)
+      .bindValue(schemas, schemas)
   }
 
   return container

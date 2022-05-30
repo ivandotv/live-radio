@@ -1,5 +1,5 @@
 import Joi from 'joi'
-import { asNumber, asString } from 'lib/shared/utils'
+// import { asNumber, asString } from 'lib/server/utils'
 
 /**
  * ! Configuration in this file should ONLY be used in server side code!
@@ -20,9 +20,7 @@ const envSchema = {
   APP_ENV: asString(Joi.string()),
   LOG_LEVEL: asString(Joi.string().default('silent')),
   MONGO_DB_URI: asString(Joi.string().required()),
-  MONGO_DB_NAME: asString(
-    Joi.string().required().description('database ti treba')
-  ),
+  MONGO_DB_NAME: asString(Joi.string().required()),
   GH_ID: asString(Joi.string().required()),
   GH_SECRET: asString(Joi.string().required()),
   GOOGLE_ID: asString(Joi.string().required()),
@@ -36,9 +34,7 @@ const serverConfigSchema = Joi.object<typeof envSchema>()
   .keys(envSchema)
   .unknown()
 
-const { value: envData, error } = serverConfigSchema
-  .prefs({ errors: { label: 'key' } })
-  .validate(process.env, { errors: { render: false } })
+const { value: envData, error } = serverConfigSchema.validate(process.env)
 
 if (error) {
   throw new Error(`Server config validation error: ${error.message}`)
@@ -82,4 +78,11 @@ export const SERVER_CONFIG = {
   // the amount in seconds after which page re-generation can occur
   revalidate: envData.REVALIDATE,
   customSearchStationLimit: envData.CUSTOM_SEARCH_LIMIT
+}
+
+export function asString(value: Joi.ValidationResult | Joi.AnySchema) {
+  return value as unknown as string
+}
+export function asNumber(value: Joi.ValidationResult | Joi.AnySchema) {
+  return value as unknown as number
 }

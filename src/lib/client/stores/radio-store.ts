@@ -9,33 +9,21 @@ import { RadioModel, radioModelFactory } from 'lib/client/radio-model'
 import { StationTransport } from 'lib/client/services/station-transport'
 import { RadioDTO } from 'lib/shared/utils'
 import { get } from 'pumpit'
-import { StorageCollection } from '../services/storage/app-storage-service'
 import { AppShellStore } from './app-shell-store'
 
 export class RadioStore {
   protected result!: RadioModel[]
 
-  protected collection: Collection<
-    RadioModel,
-    typeof radioModelFactory,
-    StationTransport
-  >
-
-  static inject = [
-    get(AppShellStore, { lazy: true }),
-    radioModelFactory,
-    StationTransport
-  ]
+  static inject = [get(AppShellStore, { lazy: true })]
 
   constructor(
     protected appShell: AppShellStore,
-    factory: typeof radioModelFactory,
-    transport: StationTransport,
-    collection: StorageCollection
-  ) {
-    transport.setCollection(collection)
-    this.collection = new Collection(factory, transport)
-  }
+    protected collection: Collection<
+      RadioModel,
+      typeof radioModelFactory,
+      StationTransport
+    >
+  ) {}
 
   get loadStatus(): 'PENDING' | 'RESOLVED' | 'REJECTED' | 'IDLE' {
     return this.collection.loadStatus

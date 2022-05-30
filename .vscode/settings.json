@@ -3,5 +3,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "search.exclude": {
     "src/translations": true
-  }
+  },
+  "git.enableCommitSigning": true
 }

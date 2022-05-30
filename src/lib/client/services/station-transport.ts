@@ -3,42 +3,33 @@ import { RadioModel } from 'lib/client/radio-model'
 import { RadioDTO } from 'lib/shared/utils'
 import { get } from 'pumpit'
 import {
-  AppStorageService,
-  StorageCollection,
+  StorageService,
+  StorageCollectionName,
   StorageType
-} from 'lib/client/services/storage/app-storage-service'
+} from 'lib/client/services/storage/storage-service'
 
 export class StationTransport implements Transport<RadioModel> {
-  protected collection?: StorageCollection
+  protected collection?: StorageCollectionName
 
-  static inject = [get(AppStorageService, { lazy: true })]
+  static inject = [get(StorageService, { lazy: true })]
 
-  constructor(protected storage: AppStorageService) {}
-
-  setCollection(collection: StorageCollection) {
-    this.collection = collection
-  }
-
-  protected getCollection() {
-    if (!this.collection) {
-      throw new Error('collection not set')
-    }
-
-    return this.collection
-  }
+  constructor(
+    protected storage: StorageService,
+    protected collectionName: StorageCollectionName
+  ) {}
 
   async load(type?: StorageType) {
-    const data = await this.storage.getAllStations(this.getCollection(), type)
+    const data = await this.storage.getAllStations(this.collectionName, type)
 
     return { data }
   }
 
   save(radio: RadioModel) {
-    return this.storage.saveStation(radio.id, this.getCollection())
+    return this.storage.saveStation(radio.id, this.collectionName)
   }
 
   delete(radio: RadioModel) {
-    return this.storage.removeStation(radio.id, this.getCollection())
+    return this.storage.removeStation(radio.id, this.collectionName)
   }
 
   async getStationInfo(id: string): Promise<RadioDTO> {

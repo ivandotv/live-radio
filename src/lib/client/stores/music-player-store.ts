@@ -1,5 +1,4 @@
 import { Howl } from 'howler'
-import { injectionTokens } from 'lib/client/injection-tokens'
 import { logger } from 'lib/client/logger-browser'
 import { SongInfoService } from 'lib/client/services/song-info-service'
 import { SharedConfig } from 'lib/shared/config'
@@ -44,12 +43,7 @@ export class MusicPlayerStore {
   protected firstTryLoad = true
 
   static inject = transform(
-    [
-      AppShellStore,
-      injectionTokens.recentRadioStore,
-      SongInfoService,
-      'sharedConfig'
-    ],
+    [AppShellStore, 'recentRadioStore', SongInfoService, 'sharedConfig'],
     (_, shell: any, store: any, songInfo: any, config: SharedConfig) => {
       return [shell, store, songInfo, config.defaultStation]
     }

@@ -1,7 +1,6 @@
 import { RadioStore } from './radio-store'
-import { injectionTokens } from 'lib/client/injection-tokens'
 import { AuthExpiredError } from 'lib/client/services/auth-service'
-import { AppStorageService } from 'lib/client/services/storage/app-storage-service'
+import { StorageService } from 'lib/client/services/storage/storage-service'
 import { action, makeObservable, observable } from 'mobx'
 
 export type AppTheme = 'light' | 'dark'
@@ -23,16 +22,12 @@ export class AppShellStore {
 
   authExpired = false
 
-  static inject = [
-    injectionTokens.favoritesRadioStore,
-    injectionTokens.recentRadioStore,
-    AppStorageService
-  ]
+  static inject = ['favoritesRadioStore', 'recentRadioStore', StorageService]
 
   constructor(
     protected favoriteStations: RadioStore,
     protected recentStations: RadioStore,
-    protected storage: AppStorageService
+    protected storage: StorageService
   ) {
     makeObservable(this, {
       showApp: observable,

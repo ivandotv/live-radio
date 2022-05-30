@@ -1,16 +1,18 @@
 import { ServerConfig } from 'lib/server/config'
 import { getServerContainer } from 'lib/server/injection-root'
 import {
-  ApiContext,
-  buildCtx,
-  validateImportStations,
-  checkCollectionExists,
-  checkSession,
   deleteCollection,
   getUserCollection,
   importStations,
+  validateImportStations
+} from 'lib/server/middleware/collection'
+import {
+  ApiContext,
+  buildCtx,
+  checkCollectionExists,
+  checkSession,
   logError
-} from 'lib/server/middleware'
+} from 'lib/server/middleware/shared'
 import { StationCollection } from 'lib/server/utils'
 import { RadioDTO } from 'lib/shared/utils'
 import { Koa, KoaApi, withKoaApi } from 'nextjs-koa-api'

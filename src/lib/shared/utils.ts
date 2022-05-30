@@ -1,42 +1,27 @@
 import { t } from '@lingui/macro'
 import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
-import type Joi from 'joi'
 import { Station } from 'radio-browser-api'
 
-export function toBoolean(env: string | undefined, initial: boolean) {
-  if (typeof env !== 'undefined') {
-    return env === 'true'
+export function toBoolean(value: string | undefined, initial: boolean) {
+  if (typeof value !== 'undefined') {
+    return value === 'true'
   }
 
+  ////-////////t
   return initial
 }
-export function toNumber(env: string | undefined, initial: number) {
-  if (typeof env !== 'undefined') {
-    return parseInt(env, 10)
+export function toNumber(value: string | undefined, initial: number) {
+  if (typeof value !== 'undefined') {
+    return parseInt(value, 10)
   }
 
+  ////
   return initial
-}
-
-export function assertEnv(value: string): string {
-  const env = process.env[value]
-  if (typeof env === 'undefined') {
-    throw new Error(`Env: ${value} not present`)
-  }
-
-  return env
 }
 
 export function isSSR() {
   return typeof window === 'undefined'
-}
-
-export function asString(value: Joi.ValidationResult | Joi.AnySchema) {
-  return value as unknown as string
-}
-export function asNumber(value: Joi.ValidationResult | Joi.AnySchema) {
-  return value as unknown as number
 }
 
 export type RadioDTO = {

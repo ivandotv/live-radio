@@ -5,11 +5,6 @@ const withWorkbox = require('./workbox.webpack.config')
 const linguiConfig = require('./lingui.config')
 const { withSentryConfig } = require('@sentry/nextjs')
 
-console.log('Next Config NODE_ENV: ', process.env.NODE_ENV)
-
-console.log('full ev')
-console.log(process.env)
-
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
   // the following options are set automatically, and overriding them is not

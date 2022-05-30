@@ -3,7 +3,6 @@ import { MusicPlayerStore } from 'lib/client/stores/music-player-store'
 import { RadioStore } from 'lib/client/stores/radio-store'
 import { configure } from 'mobx'
 import { enableStaticRendering } from 'mobx-react-lite'
-import { injectionTokens } from 'lib/client/injection-tokens'
 
 configure({ enforceActions: 'always' })
 enableStaticRendering(typeof window === 'undefined')
@@ -12,8 +11,8 @@ export class RootStore {
   static inject = [
     AppShellStore,
     MusicPlayerStore,
-    injectionTokens.favoritesRadioStore,
-    injectionTokens.recentRadioStore
+    'favoritesRadioStore',
+    'recentRadioStore'
   ]
 
   constructor(

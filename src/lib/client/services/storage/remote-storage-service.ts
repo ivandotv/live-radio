@@ -1,5 +1,5 @@
 import { StationCollection } from 'lib/server/utils'
-import { client } from 'lib/client/utils/misc-utils'
+import { client, FetchClient } from 'lib/client/utils/misc-utils'
 import { RadioDTO } from 'lib/shared/utils'
 
 export class AuthExpiredError extends Error {
@@ -12,7 +12,7 @@ export class AuthExpiredError extends Error {
 export class RemoteStorageService {
   static inject = [client]
 
-  constructor(protected fetchClient: typeof client) {
+  constructor(protected fetchClient: FetchClient) {
     this.checkAuthError = this.checkAuthError.bind(this)
   }
 

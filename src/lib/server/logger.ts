@@ -1,6 +1,6 @@
 import { AsyncLocalStorage } from 'async_hooks'
 import { SERVER_CONFIG } from 'lib/server/config'
-import { ApiContext } from 'lib/server/middleware'
+import type { ApiContext } from 'lib/server/middleware/shared-middleware'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 import type { Koa } from 'nextjs-koa-api'
 import pino from 'pino'

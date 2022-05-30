@@ -1,4 +1,4 @@
-import { injectionTokens } from 'lib/client/injection-tokens'
+import { Collection } from '@fuerte/core'
 import { AppShellStore } from 'lib/client/stores/app-shell-store'
 import { MusicPlayerStore } from 'lib/client/stores/music-player-store'
 import { RadioStore } from 'lib/client/stores/radio-store'
@@ -11,9 +11,12 @@ import { radioModelFactory } from './radio-model'
 import { AuthService } from './services/auth-service'
 import { SongInfoService } from './services/song-info-service'
 import { StationTransport } from './services/station-transport'
-import { AppStorageService } from './services/storage/app-storage-service'
 import { LocalStorageService } from './services/storage/local-storage-service'
 import { RemoteStorageService } from './services/storage/remote-storage-service'
+import {
+  StorageCollectionName,
+  StorageService
+} from './services/storage/storage-service'
 import { RootStore } from './stores/root-store'
 
 let store: RootStore
@@ -33,7 +36,7 @@ injectionContainer
     return isSSR() ? fetch : fetch.bind(window)
   })
   .bindClass(RootStore, RootStore)
-  .bindClass(AppStorageService, AppStorageService, {
+  .bindClass(StorageService, StorageService, {
     scope: SCOPE.SINGLETON
   })
   .bindClass(LocalStorageService, LocalStorageService, {
@@ -55,23 +58,45 @@ injectionContainer
     scope: SCOPE.SINGLETON
   })
   .bindClass(StationTransport, StationTransport)
-  .bindClass(injectionTokens.favoritesRadioStore, RadioStore, {
-    beforeResolve: ({ value }, ...deps) => {
-      // @ts-expect-error added deps
-      return new value(...deps, 'favorites')
+  .bindClass('favoritesRadioStore', RadioStore, {
+    beforeResolve: ({ container, value }, ...deps) => {
+      return new value(deps[0], container.resolve('favoritesCollection'))
     },
     scope: SCOPE.SINGLETON
   })
-  .bindClass(injectionTokens.recentRadioStore, RadioStore, {
-    beforeResolve: ({ value }, ...deps) => {
-      // @ts-expect-error added deps
-      return new value(...deps, 'recent')
+  .bindClass('recentRadioStore', RadioStore, {
+    beforeResolve: ({ container, value }, ...deps) => {
+      return new value(deps[0], container.resolve('recentCollection'))
     },
     scope: SCOPE.SINGLETON
   })
   .bindValue('sharedConfig', SHARED_CONFIG)
-  // .bindValue(localDbName, localDbName)
-  // .bindValue(defaultStation, defaultStation)
   .bindValue(client, client)
   .bindValue(radioModelFactory, radioModelFactory)
+  .bindClass('recentTransport', StationTransport, {
+    beforeResolve: ({ value }, ...deps) => {
+      const name: StorageCollectionName = 'recent'
+
+      return new value(deps[0], name)
+    },
+    scope: SCOPE.SINGLETON
+  })
+  .bindClass('favoritesTransport', StationTransport, {
+    beforeResolve: ({ value }, ...deps) => {
+      const name: StorageCollectionName = 'favorites'
+
+      return new value(deps[0], name)
+    },
+    scope: SCOPE.SINGLETON
+  })
+  .bindClass(
+    'favoritesCollection',
+    { value: Collection, inject: [radioModelFactory, 'favoritesTransport'] },
+    { scope: SCOPE.SINGLETON }
+  )
+  .bindClass(
+    'recentCollection',
+    { value: Collection, inject: [radioModelFactory, 'recentTransport'] },
+    { scope: SCOPE.SINGLETON }
+  )
   .bindValue(getSession, getSession)
