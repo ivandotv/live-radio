@@ -71,7 +71,7 @@ specifiers:
   next: 12.1.6
   next-auth: ^4.3.4
   next-compose-plugins: ^2.2.1
-  nextjs-koa-api: ^1.0.0
+  nextjs-koa-api: ^2.0.0
   node-internet-radio: ^0.2.1
   node-mocks-http: ^1.11.0
   notistack: 1.0.10
@@ -139,7 +139,7 @@ dependencies:
   mongodb: 4.6.0
   next: 12.1.6_ecee34219054ef16e8c784c61a97b9a0
   next-auth: 4.3.4_react-dom@17.0.2+react@17.0.2
-  nextjs-koa-api: 1.0.2
+  nextjs-koa-api: 2.0.1
   node-internet-radio: 0.2.1
   notistack: 1.0.10_79d614a7508073848cb9a266c5db6272
   path-to-regexp: 6.2.1
@@ -4440,7 +4440,7 @@ packages:
     dev: true
 
   /deep-equal/1.0.1:
-    resolution: {integrity: sha1-9dJgKStmDghO/0zbyfCK0yR0SLU=}
+    resolution: {integrity: sha512-bHtC0iYvWhyaTzvV3CZgPeZQqCOBGyGsVV7v4eevpdkLHfiSrXUdBG+qAuSz4RI70sszvjQ1QSZ98An1yNwpSw==}
     dev: false
 
   /deep-is/0.1.4:
@@ -4498,7 +4498,7 @@ packages:
     engines: {node: '>=0.4.0'}
 
   /delegates/1.0.0:
-    resolution: {integrity: sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=}
+    resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==}
     dev: false
 
   /denque/2.0.1:
@@ -4704,7 +4704,7 @@ packages:
     dev: true
 
   /ee-first/1.1.1:
-    resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
+    resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: false
 
   /ejs/3.1.8:
@@ -4746,7 +4746,7 @@ packages:
     dev: true
 
   /encodeurl/1.0.2:
-    resolution: {integrity: sha1-rT/0yG7C0CkyL1oCw6mmBslbP1k=}
+    resolution: {integrity: sha512-TPJXq8JqFaVYm2CWmPvnP2Iyo4ZSM7/QKcSmuMLDObfpH5fi7RUGmd/rTDf+rut/saiDiQEeVTNgAmJEdAOx0w==}
     engines: {node: '>= 0.8'}
     dev: false
 
@@ -4833,7 +4833,7 @@ packages:
     engines: {node: '>=6'}
 
   /escape-html/1.0.3:
-    resolution: {integrity: sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=}
+    resolution: {integrity: sha512-NiSupZ4OeuGwr68lGIeym/ksIZMJodUGOSCZ/FSnTxcrekbvqrgdUxlJOMpijaKZVjAJrWrGs/6Jy8OMuyj9ow==}
     dev: false
 
   /escape-string-regexp/1.0.5:
@@ -8089,8 +8089,8 @@ packages:
       - '@babel/core'
       - babel-plugin-macros
 
-  /nextjs-koa-api/1.0.2:
-    resolution: {integrity: sha512-eZrzgD49Ng3MBpTczqceFSMIgaFMCOsFBIRj+luVMpoaEP3MVxbID+uMNC2tI7UQs4lsb6EtNSQpEPa1LI3L7A==}
+  /nextjs-koa-api/2.0.1:
+    resolution: {integrity: sha512-OI8ytNqL4y8rWgo7vOa9HVxRdU/RlM5mzBlwq2UztkuAZx5oLSMMdX1WiCTkzudDMcXJQ68p7y8GX7ywyRJOmQ==}
     dependencies:
       '@koa/router': 10.1.1
       '@types/koa': 2.13.4
@@ -8341,7 +8341,7 @@ packages:
     dev: true
 
   /only/0.0.2:
-    resolution: {integrity: sha1-Kv3oTQPlC5qO3EROMGEKcCle37Q=}
+    resolution: {integrity: sha512-Fvw+Jemq5fjjyWz6CpKx6w9s7xxqo3+JCyM0WXWeCSOboZ8ABkyvP8ID4CZuChA/wxSx+XSJmdOm8rGVyJ1hdQ==}
     dev: false
 
   /open/7.4.2:
