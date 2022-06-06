@@ -1,5 +1,5 @@
 import { AuthService } from 'lib/client/services/auth-service'
-import { client, FetchClient } from 'lib/client/utils/misc-utils'
+import { client, FetchClient } from 'lib/shared/fetch-client'
 import { RadioDTO } from 'lib/shared/utils'
 import { Session } from 'next-auth'
 import { LocalStorageService } from './local-storage-service'
@@ -94,7 +94,7 @@ export class StorageService {
     //indexDb only holds station id, more data needs to be queried.
     if (resolvedType === 'local' && stations.length > 0) {
       // get station info
-      const result = await this.httpClient('/api/station/batch/info', {
+      const result = await this.httpClient('/api/station/bulk-info', {
         data: {
           stations
         }
@@ -117,7 +117,7 @@ export class StorageService {
 
   async countStationClick(id: string) {
     try {
-      await this.httpClient('/api/station-click', { data: { id } })
+      await this.httpClient('/api/station/click', { data: { id } })
 
       return true
     } catch (err) {

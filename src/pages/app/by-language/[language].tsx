@@ -1,6 +1,4 @@
 import { t, Trans } from '@lingui/macro'
-import { SHARED_CONFIG } from 'lib/shared/config'
-import { Writable } from 'ts-essentials'
 import { AppDefaultLayout } from 'components/layout'
 import { ListStations } from 'components/ListStations'
 import { ListStationsFallback } from 'components/ListStationsFallback'
@@ -9,14 +7,17 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { languages } from 'generated/languages'
 import { createStationListRow } from 'lib/client/utils/component-utils'
-import { createRadioModels } from 'lib/client/utils/misc-utils'
-import { loadTranslations, paramsWithLocales } from 'lib/server/utils'
+import { createRadioModels } from 'lib/shared/utils'
+import { ServerConfig } from 'lib/server/config'
+import { getServerContainer } from 'lib/server/injection-root'
+import { importTranslations, paramsWithLocales } from 'lib/server/utils'
+import { SHARED_CONFIG } from 'lib/shared/config'
 import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
 import { useMemo } from 'react'
-import { SERVER_CONFIG } from 'lib/server/config'
+import { Writable } from 'ts-essentials'
 
 export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
   const paths = paramsWithLocales(
@@ -40,7 +41,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
     .replace(/-/g, ' ')
     .toLowerCase()
 
-  const translation = await loadTranslations(ctx.locale!)
+  const translation = await importTranslations(ctx.locale!)
 
   const api = new RadioBrowserApi(SHARED_CONFIG.radioAPIUserAgent)
   const stations = await api.searchStations(
@@ -58,7 +59,7 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
       language,
       translation
     },
-    revalidate: SERVER_CONFIG.revalidate
+    revalidate: getServerContainer().resolve<ServerConfig>('config').revalidate
   }
 }
 

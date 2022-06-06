@@ -19,29 +19,46 @@ import Joi from 'joi'
 
 const station = Joi.string().required()
 
-const multipleStations = Joi.array().items(station)
+const multipleStations = Joi.object<{ stations: string[] }>()
+  .keys({
+    stations: Joi.array().items(station).required()
+  })
+  .required()
 
-const importStations = Joi.object().keys({
-  favorites: Joi.array()
-    .required()
-    .items(
-      Joi.object().keys({
-        station: station,
-        date: Joi.date().required()
-      })
-    ),
-  recent: Joi.array()
-    .required()
-    .items(
-      Joi.object().keys({
-        station: station,
-        date: Joi.date().required()
-      })
-    )
-})
+const importStations = Joi.object<{
+  favorites: { station: string; date: string }
+  recent: { station: string; date: string }
+}>()
+  .keys({
+    favorites: Joi.array()
+      .items(
+        Joi.object().keys({
+          station: station,
+          date: Joi.date().required()
+        })
+      )
+      .required(),
+    recent: Joi.array()
+      .items(
+        Joi.object().keys({
+          station: station,
+          date: Joi.date().required()
+        })
+      )
+      .required()
+  })
+  .required()
+
+const stationCrud = Joi.object()
+  .keys({
+    station,
+    collection: Joi.string().required()
+  })
+  .required()
 
 export const schemas = {
   importStations,
   station,
+  stationCrud,
   multipleStations
 }

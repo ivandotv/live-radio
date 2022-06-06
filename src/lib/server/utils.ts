@@ -1,26 +1,37 @@
 import * as Sentry from '@sentry/nextjs'
 import { CaptureContext } from '@sentry/types'
 import { countries } from 'generated/countries'
-import { SERVER_CONFIG } from 'lib/server/config'
-import { logger } from 'lib/server/logger'
-import {
-  GetStaticProps,
-  NextApiHandler,
-  NextApiRequest,
-  NextApiResponse
-} from 'next'
+import { ServerConfig } from 'lib/server/config'
+import { GetStaticProps } from 'next'
+// @ts-expect-error - no types for module
+import { getStationInfo as getSongInfoCb } from 'node-internet-radio'
+import pino from 'pino'
+import { promisify } from 'util'
+import { getServerContainer } from './injection-root'
 
 export type StationCollection = 'favorites' | 'recent'
 
-export function withErrorLogging(handler: NextApiHandler) {
-  if (SERVER_CONFIG.isProduction) {
-    return Sentry.withSentry(handler)
-  }
-
-  return (req: NextApiRequest, res: NextApiResponse) => {
-    return handler(req, res)
-  }
+// promisify the function
+getSongInfoCb[promisify.custom] = (url: string, stream: string) => {
+  return new Promise((resolve, reject) => {
+    getSongInfoCb(
+      url,
+      (error: Error, data: any) => {
+        if (error) {
+          reject(error)
+        } else {
+          resolve(data)
+        }
+      },
+      stream
+    )
+  })
 }
+
+export const getSongInfo =
+  promisify<(url: string, source: string) => Promise<{ title: string }>>(
+    getSongInfoCb
+  )
 
 export function countryDataByKey(key: 'code' | 'name' | 'flag', value: string) {
   const countryData = countries()
@@ -50,9 +61,11 @@ export function paramsWithLocales<T = any>(
   })
 }
 
-export async function loadTranslations(locale: string) {
+export async function importTranslations(locale: string) {
   let data
-  if (SERVER_CONFIG.isProduction) {
+  const config = getServerContainer().resolve<ServerConfig>('config')
+
+  if (config.isProduction) {
     data = await import(`../../translations/locales/${locale}/messages`)
   } else {
     data = await import(
@@ -67,7 +80,7 @@ export const getStaticTranslations: GetStaticProps<
   { translation: any },
   { locale: string }
 > = async function getStaticTranslations({ locale }) {
-  const messages = await loadTranslations(locale!)
+  const messages = await importTranslations(locale!)
 
   return {
     props: {
@@ -76,29 +89,45 @@ export const getStaticTranslations: GetStaticProps<
   }
 }
 
-export function logServerError(
-  err: any,
-  context: CaptureContext = {},
-  url?: string
-) {
-  const side = 'backend'
+logServerError.inject = ['logger', 'config']
+export function logServerError(logger: pino.Logger, config: ServerConfig) {
+  return (err: any, context?: CaptureContext, url?: string) => {
+    const side = 'backend'
 
-  const data = {
-    ...context,
-    extra: {
-      // @ts-expect-error - Sentry typings
-      ...context.extra,
-      url
-    },
-    tags: {
-      // @ts-expect-error - Sentry typings
-      ...context.tags,
-      side
+    const data = {
+      ...context,
+      extra: {
+        // @ts-expect-error - Sentry typings
+        ...(context.extra ? { ...context.extra } : {}),
+        url
+      },
+      tags: {
+        // @ts-expect-error - Sentry typings
+        ...(context.tags ? { ...context.tags } : {}),
+        side
+      }
     }
-  }
-  if (SERVER_CONFIG.isProduction) {
-    Sentry.captureException(err, data)
-  }
+    if (config.isProduction) {
+      Sentry.captureException(err, data)
+    }
 
-  logger.error(err, err.message || '', data)
+    logger.error(err, err.message || '', data)
+  }
+}
+
+export async function fetchIpInfo(ip: string) {
+  const response = await fetch(`http://ip-api.com/json/${ip}`)
+
+  if (response.ok) {
+    return (await response.json()) as unknown as { countryCode: string }
+  }
+}
+
+export class ServerError extends Error {
+  statusCode: number
+
+  constructor(message: string, statusCode = 500) {
+    super(message)
+    this.statusCode = statusCode
+  }
 }

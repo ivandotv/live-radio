@@ -5,10 +5,7 @@ import { SHARED_CONFIG } from 'lib/shared/config'
 import { GlobalErrorFallback } from 'components/GlobalErrorFallback'
 import { PWAIcons } from 'components/PWAIcons'
 import { WindowErrorHandler } from 'components/WindowErrorHandler'
-import {
-  globalErrorHandler,
-  initTranslations
-} from 'lib/client/utils/misc-utils'
+import { globalErrorHandler, initTranslations } from 'lib/shared/utils'
 import { NextPage } from 'next'
 import { SessionProvider } from 'next-auth/react'
 import { AppProps } from 'next/app'

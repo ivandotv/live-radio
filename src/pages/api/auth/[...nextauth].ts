@@ -1,5 +1,5 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
-import { SERVER_CONFIG } from 'lib/server/config'
+import { ServerConfig } from 'lib/server/config'
 import { getDbConnection } from 'lib/server/db-connection'
 import { getServerContainer } from 'lib/server/injection-root'
 import { logServerError } from 'lib/server/utils'
@@ -7,21 +7,22 @@ import NextAuth from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 
+/** NextAuth setup */
 export default NextAuth({
   providers: [
-    GithubProvider(SERVER_CONFIG.auth.github),
-    GoogleProvider(SERVER_CONFIG.auth.google)
+    GithubProvider(
+      getServerContainer().resolve<ServerConfig>('config').auth.github
+    ),
+    GoogleProvider(
+      getServerContainer().resolve<ServerConfig>('config').auth.google
+    )
   ],
   adapter: MongoDBAdapter(
     getServerContainer()
       .resolve<ReturnType<typeof getDbConnection>>(getDbConnection)
-      .then((client) => {
-        console.log('auth mongo ', SERVER_CONFIG.mongoDb)
-
-        return client
-      })
+      .then((client) => client)
   ),
-  secret: SERVER_CONFIG.auth.signSecret,
+  secret: getServerContainer().resolve<ServerConfig>('config').auth.signSecret,
 
   session: {
     strategy: 'jwt'
@@ -32,7 +33,12 @@ export default NextAuth({
   },
   logger: {
     error(code, metadata) {
-      logServerError(metadata, {
+      const logIt =
+        getServerContainer().resolve<ReturnType<typeof logServerError>>(
+          logServerError
+        )
+
+      logIt(metadata, {
         extra: {
           code
         },
@@ -61,5 +67,5 @@ export default NextAuth({
       return token
     }
   },
-  debug: SERVER_CONFIG.auth.debug
+  debug: getServerContainer().resolve<ServerConfig>('config').auth.debug
 })

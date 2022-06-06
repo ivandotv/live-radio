@@ -6,8 +6,8 @@ import { PageTitle } from 'components/PageTitle'
 import { FilterDataStoreProvider } from 'components/providers/FilterDataStoreProvider'
 import { countries } from 'generated/countries'
 import { createCountryDataRow } from 'lib/client/utils/component-utils'
-import { continentsByCode } from 'lib/client/utils/misc-utils'
-import { loadTranslations, paramsWithLocales } from 'lib/server/utils'
+import { continentsByCode } from 'lib/shared/utils'
+import { importTranslations, paramsWithLocales } from 'lib/server/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 
@@ -27,7 +27,7 @@ export const getStaticPaths: GetStaticPaths = async function ({ locales }) {
 export const getStaticProps: GetStaticProps = async function (ctx) {
   const continent = (ctx.params?.continent as string).replace(/-/g, ' ')
 
-  const translation = await loadTranslations(ctx.locale!)
+  const translation = await importTranslations(ctx.locale!)
 
   return {
     props: {

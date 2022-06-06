@@ -1,6 +1,7 @@
 import { RadioModel } from 'lib/client/radio-model'
-import { client, createRadioModels } from 'lib/client/utils/misc-utils'
 import { SHARED_CONFIG } from 'lib/shared/config'
+import { client } from 'lib/shared/fetch-client'
+import { createRadioModels } from 'lib/shared/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { logger } from '../logger-browser'
 

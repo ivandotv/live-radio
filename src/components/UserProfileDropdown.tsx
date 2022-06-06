@@ -12,7 +12,7 @@ import {
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { logger } from 'lib/client/logger-browser'
 import { PlayerStatus } from 'lib/client/stores/music-player-store'
-import { useClientUrl } from 'lib/client/utils/misc-utils'
+import { useClientUrl } from 'lib/client/hooks'
 import { observer } from 'mobx-react-lite'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'

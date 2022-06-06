@@ -2,8 +2,8 @@ import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
-import { loadTranslations } from 'lib/server/utils'
-import { useClientUrl } from 'lib/client/utils/misc-utils'
+import { importTranslations } from 'lib/server/utils'
+import { useClientUrl } from 'lib/client/hooks'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -135,7 +135,7 @@ export async function getServerSideProps(
   ctx: NextPageContext & { locale: string }
 ) {
   const session = await getSession(ctx)
-  const translation = await loadTranslations(ctx.locale!)
+  const translation = await importTranslations(ctx.locale!)
 
   return {
     props: {

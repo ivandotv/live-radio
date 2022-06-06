@@ -36,7 +36,7 @@ export class SongInfoService {
     const params = new URLSearchParams({ station: stationUrl })
     // params.append('station', stationUrl)
 
-    const response = await this.transport(`/api/song-info?${params}`, {
+    const response = await this.transport(`/api/station/song-info?${params}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

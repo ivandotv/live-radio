@@ -1,7 +1,8 @@
 import { t } from '@lingui/macro'
 import { PageTitle } from 'components/PageTitle'
-import { useClientUrl } from 'lib/client/utils/misc-utils'
-import { loadTranslations } from 'lib/server/utils'
+import globalStyles from 'lib/client/global-styles'
+import { useClientUrl } from 'lib/client/hooks'
+import { importTranslations } from 'lib/server/utils'
 import { NextPageContext } from 'next'
 import {
   ClientSafeProvider,
@@ -12,7 +13,6 @@ import {
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import globalStyles from 'lib/client/global-styles'
 
 export default function SignIn({
   providers
@@ -144,7 +144,7 @@ export async function getServerSideProps(
   ctx: NextPageContext & { locale: string }
 ) {
   const providers = await getProviders()
-  const translation = await loadTranslations(ctx.locale!)
+  const translation = await importTranslations(ctx.locale!)
   const session = await getSession({ req: ctx.req })
 
   if (session?.user) {

@@ -18,18 +18,24 @@ export class StationTransport implements Transport<RadioModel> {
     protected collectionName: StorageCollectionName
   ) {}
 
-  async load(type?: StorageType) {
-    const data = await this.storage.getAllStations(this.collectionName, type)
+  async load(config: {
+    type?: StorageType
+    collection: StorageCollectionName
+  }) {
+    const data = await this.storage.getAllStations(
+      config.collection,
+      config.type
+    )
 
     return { data }
   }
 
-  save(radio: RadioModel) {
-    return this.storage.saveStation(radio.id, this.collectionName)
+  save(radio: RadioModel, config: { collection: StorageCollectionName }) {
+    return this.storage.saveStation(radio.id, config.collection)
   }
 
-  delete(radio: RadioModel) {
-    return this.storage.removeStation(radio.id, this.collectionName)
+  delete(radio: RadioModel, config: { collection: StorageCollectionName }) {
+    return this.storage.removeStation(radio.id, config.collection)
   }
 
   async getStationInfo(id: string): Promise<RadioDTO> {

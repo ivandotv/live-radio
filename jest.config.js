@@ -1,9 +1,6 @@
 const customJestConfig = {
   // projects: ['<rootDir>/src/__tests__/**'],
-  projects: [
-    '<rootDir>/src/__tests__/database',
-    '<rootDir>/src/__tests__/api-integration'
-  ],
+  projects: ['<rootDir>/src/__tests__/database', '<rootDir>/src/__tests__/api'],
   setupFilesAfterEnv: ['<rootDir>/jestSetup.ts'],
   moduleDirectories: ['node_modules', '<rootDir>/src'],
   // testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],

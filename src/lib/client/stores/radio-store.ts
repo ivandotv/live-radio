@@ -9,12 +9,15 @@ import { RadioModel, radioModelFactory } from 'lib/client/radio-model'
 import { StationTransport } from 'lib/client/services/station-transport'
 import { RadioDTO } from 'lib/shared/utils'
 import { get } from 'pumpit'
+import { StorageCollectionName } from '../services/storage/storage-service'
 import { AppShellStore } from './app-shell-store'
 
 export class RadioStore {
   protected result!: RadioModel[]
 
-  static inject = [get(AppShellStore, { lazy: true })]
+  collectionName!: StorageCollectionName
+
+  static inject = [get(AppShellStore, { lazy: true }), Collection]
 
   constructor(
     protected appShell: AppShellStore,
@@ -31,7 +34,9 @@ export class RadioStore {
 
   async loadStations() {
     if (!this.result && this.loadStatus !== ASYNC_STATUS.PENDING) {
-      const result = await this.collection.load()
+      const result = await this.collection.load(undefined, {
+        collection: this.collectionName
+      })
 
       this.appShell.setError(result.error)
 
@@ -39,6 +44,10 @@ export class RadioStore {
     }
 
     return this.result
+  }
+
+  setCollectionNanme(name: StorageCollectionName) {
+    this.collectionName = name
   }
 
   addStation(station: RadioDTO) {
@@ -51,7 +60,9 @@ export class RadioStore {
       model = this.collection.create(station)
     }
     this.collection.unshift(model)
-    const result = await this.collection.save(model, config)
+    const result = await this.collection.save(model, config, {
+      collection: this.collectionName
+    })
 
     this.appShell.setError(result.error)
 
@@ -59,7 +70,9 @@ export class RadioStore {
   }
 
   async deleteStation(id: string, config?: DeleteConfig) {
-    const result = await this.collection.delete(id, config)
+    const result = await this.collection.delete(id, config, {
+      collection: this.collectionName
+    })
 
     this.appShell.setError(result.error)
 

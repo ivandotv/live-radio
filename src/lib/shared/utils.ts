@@ -1,6 +1,9 @@
+import { I18n } from '@lingui/core'
 import { t } from '@lingui/macro'
 import { continents, countries } from 'countries-list'
 import flag from 'country-code-emoji'
+import { radioModelFactory } from 'lib/client/radio-model'
+import { en, sr } from 'make-plural/plurals'
 import { Station } from 'radio-browser-api'
 
 export function toBoolean(value: string | undefined, initial: boolean) {
@@ -8,7 +11,6 @@ export function toBoolean(value: string | undefined, initial: boolean) {
     return value === 'true'
   }
 
-  ////-////////t
   return initial
 }
 export function toNumber(value: string | undefined, initial: number) {
@@ -91,4 +93,65 @@ export function sections() {
     settings: t`Settings`,
     about: t`About`
   }
+}
+
+export function continentsByCode() {
+  return {
+    AF: {
+      raw: 'Africa',
+      t: t`Africa`
+    },
+    AN: {
+      raw: 'antarctica',
+      t: t`Antarctica`
+    },
+    AS: {
+      raw: 'asia',
+      t: t`Asia`
+    },
+    EU: {
+      raw: 'europe',
+      t: t`Europe`
+    },
+    NA: {
+      raw: 'North America',
+      t: t`North America`
+    },
+    OC: {
+      raw: 'oceania',
+      t: t`Oceania`
+    },
+    SA: {
+      raw: 'South America',
+      t: t`South America`
+    }
+  }
+}
+
+export function searchTranslation(
+  needle: string,
+  hayStack: { [key: string]: string }
+) {
+  if (hayStack[needle]) {
+    return hayStack[needle]
+  }
+
+  return needle
+}
+
+export function globalErrorHandler(e: any) {
+  //TODO -log to third party
+  console.error('global error: ', e)
+}
+
+export function createRadioModels(stations?: RadioDTO[]) {
+  return stations ? stations.map((data) => radioModelFactory(data)) : []
+}
+
+export function initTranslations(i18n: I18n) {
+  i18n.loadLocaleData({
+    en: { plurals: en },
+    sr: { plurals: sr },
+    pseudo: { plurals: en } // english plurals for pseudo
+  })
 }

@@ -1,5 +1,5 @@
+import { client, FetchClient } from 'lib/shared/fetch-client'
 import { StationCollection } from 'lib/server/utils'
-import { client, FetchClient } from 'lib/client/utils/misc-utils'
 import { RadioDTO } from 'lib/shared/utils'
 
 export class AuthExpiredError extends Error {
@@ -23,17 +23,14 @@ export class RemoteStorageService {
   }
 
   async addStation(station: string, collection: StationCollection) {
-    return this.fetchClient(`/api/station/${collection}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ station })
+    return this.fetchClient('/api/station', {
+      data: { station, collection }
     }).catch(this.checkAuthError)
   }
 
-  async removeStation(id: string, collection: StationCollection) {
-    return this.fetchClient(`/api/station/${collection}?id=${id}`, {
+  async removeStation(station: string, collection: StationCollection) {
+    return this.fetchClient(`/api/station`, {
+      data: { station, collection },
       method: 'DELETE'
     }).catch(this.checkAuthError)
   }

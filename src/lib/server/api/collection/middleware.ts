@@ -1,8 +1,6 @@
-import { SERVER_CONFIG } from 'lib/server/config'
-import { ApiContext } from 'lib/server/middleware/shared'
-import { schemas } from 'lib/server/schemas'
+import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
 import { StationCollection } from 'lib/server/utils'
-import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
+import { dataToRadioDTO } from 'lib/shared/utils'
 import { Koa } from 'nextjs-koa-api'
 
 /**
@@ -21,11 +19,11 @@ export async function getUserCollection(
   >,
   next: Koa.Next
 ) {
-  const { radioApi, radioRepository } = ctx
-  const collection: StationCollection = ctx.params.collection
+  const { radioApi, radioRepository } = ctx.deps
+  const { collection } = ctx.request.params
 
   const stationIds = await radioRepository.getCollection(
-    ctx.session!.user.id,
+    ctx.state.session!.user.id,
     collection
   )
 
@@ -41,12 +39,24 @@ export async function getUserCollection(
  */
 export async function validateImportStations(
   ctx: Koa.ParameterizedContext<
-    Koa.DefaultState,
-    ApiContext & { request: { body: { stations: RadioDTO[] } } }
+    ApiState,
+    ApiContext & {
+      request: {
+        body: {
+          favorites: { station: string; date: string }[]
+          recent: { station: string; date: string }[]
+        }
+      }
+    }
   >,
   next: Koa.Next
 ) {
-  const { error } = schemas.importStations.validate(ctx.request.body.stations, {
+  const {
+    schemas: { importStations },
+    config
+  } = ctx.deps
+
+  const { error } = importStations.validate(ctx.request.body, {
     errors: { render: false }
   })
 
@@ -54,7 +64,7 @@ export async function validateImportStations(
     ctx.status = 422
     ctx.body = {
       msg: 'Not all stations are valid',
-      debug: SERVER_CONFIG.isProduction ? undefined : error
+      debug: config.isProduction ? undefined : error
     }
 
     return
@@ -67,13 +77,17 @@ export async function validateImportStations(
  * Deletes the whole collection
  */
 export async function deleteCollection(
-  ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
+  ctx: Koa.ParameterizedContext<
+    ApiState,
+    ApiContext & { request: { params: { collection: string } } }
+  >,
   next: Koa.Next
 ) {
-  const collection = ctx.params.collection
+  const { collection } = ctx.request.params
+  const { radioRepository } = ctx.deps
 
-  const result = await ctx.radioRepository.deleteCollection(
-    ctx.session!.user.id,
+  const result = await radioRepository.deleteCollection(
+    ctx.state.session!.user.id,
     collection
   )
   if (result) {
@@ -82,7 +96,8 @@ export async function deleteCollection(
     ctx.status = 404
     ctx.body = { msg: 'collection not found' }
   }
-  await next()
+
+  return next()
 }
 
 /**
@@ -90,18 +105,19 @@ export async function deleteCollection(
  */
 export async function importStations(
   ctx: Koa.ParameterizedContext<
-    Koa.DefaultState,
+    ApiState,
     ApiContext & {
       request: {
-        params: {
-          collection: StationCollection
+        body: {
+          favorites: { station: string; date: string }[]
+          recent: { station: string; date: string }[]
         }
       }
     }
   >,
   next: Koa.Next
 ) {
-  // const collection = ctx.request.params.collection
+  const { radioRepository, radioApi } = ctx.deps
 
   const payload = ctx.request.body as Record<
     StationCollection,
@@ -109,8 +125,8 @@ export async function importStations(
   >
 
   //TODO - make single import call
-  const favImportPromise = ctx.radioRepository.importCollection(
-    ctx.session!.user.id,
+  const favImportPromise = radioRepository.importCollection(
+    ctx.state.session!.user.id,
     payload.favorites.map((data) => ({
       _id: data.station,
       date: new Date(data.date)
@@ -118,8 +134,8 @@ export async function importStations(
     'favorites'
   )
 
-  const recentImportPromise = ctx.radioRepository.importCollection(
-    ctx.session!.user.id,
+  const recentImportPromise = radioRepository.importCollection(
+    ctx.state.session!.user.id,
     payload.recent.map((data) => ({
       _id: data.station,
       date: new Date(data.date)
@@ -132,16 +148,12 @@ export async function importStations(
   //TODO - make single radio api call
   const [favorites, recent] = await Promise.all([
     payload.favorites.length > 0
-      ? ctx.radioApi.getStationsById(
-          payload.favorites.map((data) => data.station)
-        )
+      ? radioApi.getStationsById(payload.favorites.map((data) => data.station))
       : [],
     payload.recent.length > 0
-      ? ctx.radioApi.getStationsById(payload.recent.map((data) => data.station))
+      ? radioApi.getStationsById(payload.recent.map((data) => data.station))
       : []
   ])
-
-  // const radioDTOS = dataToRadioDTO(favorites.concat(recent))
 
   ctx.body = {
     favorites: dataToRadioDTO(favorites),
@@ -151,4 +163,31 @@ export async function importStations(
   ctx.status = 201
 
   return next()
+}
+
+/**
+ * Check if collection exists
+ */
+
+export async function checkCollectionExists(
+  ctx: Koa.ParameterizedContext<
+    ApiState,
+    ApiContext & { request: { params: { collection: string } } }
+  >,
+  next: Koa.Next
+) {
+  const { collection } = ctx.request.params
+
+  if (!collection) {
+    ctx.response.status = 400
+    ctx.body = { msg: 'collection name required' }
+
+    return
+  } else if (-1 === ['favorites', 'recent'].indexOf(collection)) {
+    ctx.response.status = 404
+    ctx.body = { msg: 'collection not found' }
+
+    return
+  }
+  await next()
 }

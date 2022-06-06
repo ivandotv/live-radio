@@ -9,7 +9,7 @@ import {
   createStations,
   resolveRepository,
   seedDatabase
-} from './utils/db-utils'
+} from '../__utils__/db-utils'
 
 let users: Awaited<ReturnType<typeof seedDatabase>>
 let client: MongoClient

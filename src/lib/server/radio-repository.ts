@@ -2,28 +2,24 @@ import { Db, ObjectId } from 'mongodb'
 import { transform } from 'pumpit'
 import { ServerConfig } from './config'
 import { getDbConnection } from './db-connection'
-import { StationCollection } from './utils'
 
 export interface IRadioRepository {
-  getCollection(id: string, collection: StationCollection): Promise<string[]>
-  deleteCollection(
-    userId: string,
-    collection: StationCollection
-  ): Promise<boolean>
+  getCollection(id: string, collection: string): Promise<string[]>
+  deleteCollection(userId: string, collection: string): Promise<boolean>
   saveStation(
     userId: string,
     stationId: string,
-    collectionName: StationCollection
+    collectionName: string
   ): Promise<void>
   deleteStation(
     userId: string,
     stationId: string,
-    collectionName: StationCollection
+    collectionName: string
   ): Promise<boolean>
   importCollection(
     userId: string,
     data: { _id: string; date: Date }[],
-    collectionName: StationCollection
+    collectionName: string
   ): Promise<void>
 }
 
@@ -49,9 +45,7 @@ export class RadioRepository implements IRadioRepository {
       dbName: string
       maxCollectionLimit: number
     }
-  ) {
-    console.log('radio repo constructor')
-  }
+  ) {}
 
   protected async connect() {
     if (!this.db) {
@@ -67,11 +61,11 @@ export class RadioRepository implements IRadioRepository {
    * @param id - user id
    * @param collection - collection name
    */
-  async getCollection(id: string, collection: StationCollection) {
+  async getCollection(id: string, collection: string) {
     const db = await this.connect()
     const userStations = await db
       .collection('users')
-      .findOne<Record<StationCollection, { _id: string; date: string }[]>>(
+      .findOne<Record<string, { _id: string; date: string }[]>>(
         { _id: new ObjectId(id) },
         { projection: { [collection]: 1, _id: 0 } }
       )
@@ -91,7 +85,7 @@ export class RadioRepository implements IRadioRepository {
     userId: string,
     // stationId: RadioDTO,
     stationId: string,
-    collectionName: StationCollection
+    collectionName: string
   ) {
     const db = await this.connect()
     const user = await db.collection('users').findOne({
@@ -146,11 +140,7 @@ export class RadioRepository implements IRadioRepository {
    * @param stationId - station id
    * @param collection - user collection
    */
-  async deleteStation(
-    userId: string,
-    stationId: string,
-    collection: StationCollection
-  ) {
+  async deleteStation(userId: string, stationId: string, collection: string) {
     const db = await this.connect()
     const result = await db
       .collection('users')
@@ -168,10 +158,7 @@ export class RadioRepository implements IRadioRepository {
    * @param station  - station data object
    * @param collection  - user collection
    */
-  async deleteCollection(
-    userId: string,
-    collection: StationCollection
-  ): Promise<boolean> {
+  async deleteCollection(userId: string, collection: string): Promise<boolean> {
     //clear data
     const db = await this.connect()
 
@@ -191,7 +178,7 @@ export class RadioRepository implements IRadioRepository {
   async importCollection(
     userId: string,
     stations: { _id: string; date: Date }[],
-    collectionName: StationCollection
+    collectionName: string
   ) {
     const db = await this.connect()
     const user = await db.collection('users').findOne({
