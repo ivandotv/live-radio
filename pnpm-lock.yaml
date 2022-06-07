@@ -24,9 +24,12 @@ specifiers:
   '@types/jest': ^27.5.1
   '@types/js-cookie': ^3.0.2
   '@types/js-search': ^1.4.0
+  '@types/lodash': ^4.14.182
   '@types/node': ^17.0.24
   '@types/react': ^17.0.44
   '@types/request-ip': 0.0.37
+  '@types/supertest': ^2.0.12
+  '@types/underscore': ^1.11.4
   '@types/uuid': ^8.3.4
   '@types/wicg-mediasession': ^1.1.3
   '@typescript-eslint/eslint-plugin': ^5.23.0
@@ -64,6 +67,7 @@ specifiers:
   koa-body: ^5.0.0
   koa-pick-locale: ^1.0.0
   lint-staged: ^12.4.1
+  lodash: ^4.17.21
   make-plural: ^7.1.0
   mobx: ^6.5.0
   mobx-react-lite: ^3.4.0
@@ -86,7 +90,7 @@ specifiers:
   postinstall-postinstall: ^2.1.0
   prettier: ^2.6.2
   prettier-standard: ^16.4.1
-  pumpit: ^4.0.0
+  pumpit: ^4.0.3
   radio-browser-api: ^6.0.1
   react: 17.0.2
   react-dom: 17.0.2
@@ -148,7 +152,7 @@ dependencies:
   path-to-regexp: 6.2.1
   pino: 7.11.0
   pino-http: 6.6.0
-  pumpit: 4.0.0
+  pumpit: 4.0.3
   radio-browser-api: 6.0.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -182,8 +186,11 @@ devDependencies:
   '@types/jest': 27.5.1
   '@types/js-cookie': 3.0.2
   '@types/js-search': 1.4.0
+  '@types/lodash': 4.14.182
   '@types/node': 17.0.34
   '@types/react': 17.0.45
+  '@types/supertest': 2.0.12
+  '@types/underscore': 1.11.4
   '@types/uuid': 8.3.4
   '@types/wicg-mediasession': 1.1.3
   '@typescript-eslint/eslint-plugin': 5.25.0_83b4734ba99fefa06dfff9f51a4c4301
@@ -211,6 +218,7 @@ devDependencies:
   jest: 28.1.0_@types+node@17.0.34
   jest-watch-typeahead: 1.1.0_jest@28.1.0
   lint-staged: 12.4.1
+  lodash: 4.17.21
   msw: 0.41.1_typescript@4.6.4
   next-compose-plugins: 2.2.1
   node-mocks-http: 1.11.0
@@ -2605,6 +2613,10 @@ packages:
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
     dev: true
 
+  /@types/cookiejar/2.1.2:
+    resolution: {integrity: sha512-t73xJJrvdTjXrn4jLS9VSGRbz0nUY3cl2DMGDU48lKl+HR9dbbjW2A9r3g40VA++mQpy6uuHg33gy7du2BKpog==}
+    dev: true
+
   /@types/cookies/0.7.7:
     resolution: {integrity: sha512-h7BcvPUogWbKCzBR2lY4oqaZbO3jXZksexYJVFvkrFeLgbZjQkU4x8pRq6eg2MHXQhY0McQdqmmsxRWlVAHooA==}
     dependencies:
@@ -2784,6 +2796,10 @@ packages:
       '@types/koa': 2.13.4
     dev: false
 
+  /@types/lodash/4.14.182:
+    resolution: {integrity: sha512-/THyiqyQAP9AfARo4pF+aCGcyiQ94tX/Is2I7HofNRqoYLgN1PBoOWu2/zTA5zMxzP5EFutMtWtGAFRKUe961Q==}
+    dev: true
+
   /@types/mime/1.3.2:
     resolution: {integrity: sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==}
     dev: false
@@ -2874,8 +2890,25 @@ packages:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
     dev: true
 
+  /@types/superagent/4.1.15:
+    resolution: {integrity: sha512-mu/N4uvfDN2zVQQ5AYJI/g4qxn2bHB6521t1UuH09ShNWjebTqN0ZFuYK9uYjcgmI0dTQEs+Owi1EO6U0OkOZQ==}
+    dependencies:
+      '@types/cookiejar': 2.1.2
+      '@types/node': 17.0.38
+    dev: true
+
+  /@types/supertest/2.0.12:
+    resolution: {integrity: sha512-X3HPWTwXRerBZS7Mo1k6vMVR1Z6zmJcDVn5O/31whe0tnjE4te6ZJSJGq1RiqHPjzPdMTfjCFogDJmwng9xHaQ==}
+    dependencies:
+      '@types/superagent': 4.1.15
+    dev: true
+
   /@types/trusted-types/2.0.2:
     resolution: {integrity: sha512-F5DIZ36YVLE+PN+Zwws4kJogq47hNgX3Nx6WyDJ3kcplxyke3XIzB8uK5n/Lpm1HBsbGzd6nmGehL8cPekP+Tg==}
+
+  /@types/underscore/1.11.4:
+    resolution: {integrity: sha512-uO4CD2ELOjw8tasUrAhvnn2W4A0ZECOvMjCivJr4gA9pGgjv+qxKWY9GLTMVEK8ej85BxQOocUyE7hImmSQYcg==}
+    dev: true
 
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
@@ -5958,7 +5991,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.15.5
+      uglify-js: 3.16.0
     dev: true
 
   /har-schema/2.0.0:
@@ -9249,8 +9282,8 @@ packages:
       once: 1.4.0
     dev: true
 
-  /pumpit/4.0.0:
-    resolution: {integrity: sha512-j14tw4+FtElEYRL0gzzcepdiHwFEyXxbIMpwS2zZoVPuEKeBQJfbvhvud2QE04xFh15RUFYqWutdecGWbu3jTQ==}
+  /pumpit/4.0.3:
+    resolution: {integrity: sha512-juCYk5JeOnhSgT5VRlEtS2hcqofcP0tZa39Bpdn4Nk5x1yfLAVBZSpe+MurEIWDXS9YW7oiyyRQiJcO8HkqDAA==}
     dev: false
 
   /punycode/1.4.1:
@@ -10813,8 +10846,8 @@ packages:
     hasBin: true
     dev: true
 
-  /uglify-js/3.15.5:
-    resolution: {integrity: sha512-hNM5q5GbBRB5xB+PMqVRcgYe4c8jbyZ1pzZhS6jbq54/4F2gFK869ZheiE5A8/t+W5jtTNpWef/5Q9zk639FNQ==}
+  /uglify-js/3.16.0:
+    resolution: {integrity: sha512-FEikl6bR30n0T3amyBh3LoiBdqHRy/f4H80+My34HOesOKyHfOsxAPAxOoqC0JUnC1amnO0IwkYC3sko51caSw==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true

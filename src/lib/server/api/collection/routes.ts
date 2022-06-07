@@ -8,8 +8,10 @@ import {
 import { ApiContext, checkSession } from 'lib/server/api/shared-middleware'
 import { Koa, Router } from 'nextjs-koa-api'
 
-export const collection = new Router<Koa.DefaultState, ApiContext>()
-  .use(checkSession)
-  .get('/:collection', checkCollectionExists, getUserCollection)
-  .post('/batch/import', validateImportStations, importStations)
-  .delete('/:collection', checkCollectionExists, deleteCollection)
+export function collectionRouter() {
+  return new Router<Koa.DefaultState, ApiContext>()
+    .use(checkSession)
+    .get('/:collection', checkCollectionExists, getUserCollection)
+    .post('/batch/import', validateImportStations, importStations)
+    .delete('/:collection', checkCollectionExists, deleteCollection)
+}

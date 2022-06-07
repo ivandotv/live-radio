@@ -1,13 +1,19 @@
-import { MongoClient, MongoClientOptions } from 'mongodb'
+import { MongoClient } from 'mongodb'
+import { ServerConfig } from './config'
 
-// let client: MongoClient
-// let connectedClient: Promise<MongoClient>
+connectionFactory.inject = ['config']
+export function connectionFactory(config: ServerConfig) {
+  const uri = config.mongoDb.uri
+  const clientOptions = config.mongoDb.clientOptions
 
-export function getDbConnection(opts: {
-  uri: string
-  clientOptions?: MongoClientOptions
-}) {
-  console.log('db connection options ', opts)
+  let client: Promise<MongoClient>
 
-  return new MongoClient(opts.uri, opts.clientOptions).connect()
+  return async () => {
+    if (!client) {
+      console.log('create mongodb client')
+      client = new MongoClient(uri, clientOptions).connect()
+    }
+
+    return client
+  }
 }

@@ -1,6 +1,6 @@
 import timeSpan from 'time-span'
 
-module.exports = async (config: any) => {
+export default async function jestGlobalTearDown(config: any) {
   const { watch, watchAll } = config
 
   //do not run teardown in watch mode
@@ -16,4 +16,3 @@ module.exports = async (config: any) => {
 
   console.log(`teardown done in: ${end.seconds()} seconds`)
 }
-export {}

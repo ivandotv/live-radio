@@ -60,7 +60,7 @@ export function buildContext(container: PumpIt) {
         container.resolve<typeof countryDataByKey>(countryDataByKey)
     }
 
-    await next()
+    return next()
   }
 }
 

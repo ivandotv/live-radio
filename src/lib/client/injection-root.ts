@@ -21,13 +21,13 @@ let container: PumpIt
 
 export function rootStoreFactory() {
   if (isSSR() || !store) {
-    store = getServerContainer().resolve<RootStore>(RootStore)
+    store = getClientContainer().resolve<RootStore>(RootStore)
   }
 
   return store
 }
 
-export function getServerContainer() {
+export function getClientContainer() {
   if (!container) {
     container = new PumpIt()
       .bindFactory(fetch, () => {

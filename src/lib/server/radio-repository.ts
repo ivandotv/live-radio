@@ -1,7 +1,7 @@
 import { Db, ObjectId } from 'mongodb'
 import { transform } from 'pumpit'
 import { ServerConfig } from './config'
-import { getDbConnection } from './db-connection'
+import { connectionFactory } from './db-connection'
 
 export interface IRadioRepository {
   getCollection(id: string, collection: string): Promise<string[]>
@@ -27,7 +27,7 @@ export class RadioRepository implements IRadioRepository {
   protected db?: Db
 
   static inject = transform(
-    [getDbConnection, 'config'],
+    [connectionFactory, 'config'],
     (_, conn: any, config: ServerConfig) => {
       const dbConfig = {
         dbName: config.mongoDb.dbName,
@@ -39,7 +39,7 @@ export class RadioRepository implements IRadioRepository {
   )
 
   constructor(
-    protected client: ReturnType<typeof getDbConnection>,
+    protected client: ReturnType<typeof connectionFactory>,
     // protected dbName: string,
     protected opts: {
       dbName: string
@@ -49,7 +49,7 @@ export class RadioRepository implements IRadioRepository {
 
   protected async connect() {
     if (!this.db) {
-      const conn = await this.client
+      const conn = await this.client()
       this.db = conn.db(this.opts.dbName)
     }
 

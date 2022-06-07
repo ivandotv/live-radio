@@ -1,11 +1,11 @@
-import { collection } from 'lib/server/api/collection/routes'
-import { misc } from 'lib/server/api/misc/routes'
+import { collectionRouter } from 'lib/server/api/collection/routes'
+import { miscRouter } from 'lib/server/api/misc/routes'
 import {
   ApiContext,
   buildContext,
   handleServerError
 } from 'lib/server/api/shared-middleware'
-import { station } from 'lib/server/api/station/routes'
+import { stationRouter } from 'lib/server/api/station/routes'
 import { ServerConfig } from 'lib/server/config'
 import { getServerContainer } from 'lib/server/injection-root'
 import { attachRouter, Koa, KoaApi, withKoaApi } from 'nextjs-koa-api'
@@ -20,9 +20,9 @@ export function handler(container: PumpIt) {
 
   api.use(buildContext(container)).use(handleServerError)
 
-  attachRouter('/api', api, misc)
-  attachRouter('/api/collection', api, collection)
-  attachRouter('/api/station', api, station)
+  attachRouter('/api', api, miscRouter())
+  attachRouter('/api/collection', api, collectionRouter())
+  attachRouter('/api/station', api, stationRouter())
 
   return api
 }

@@ -1,49 +1,25 @@
 import faker from '@faker-js/faker'
 import * as dateFns from 'date-fns'
-import { ServerConfig, SERVER_CONFIG } from 'lib/server/config'
+import { ServerConfig } from 'lib/server/config'
 import { getDbConnection } from 'lib/server/db-connection'
-import { getServerContainer } from 'lib/server/injection-root'
 import { ObjectId } from 'mongodb'
-import { SCOPE } from 'pumpit'
 import {
   createStations,
   resolveRepository,
   seedDatabase
 } from '../__utils__/db-utils'
+import { testContainer } from '../__utils__/utils'
 
 let users: Awaited<ReturnType<typeof seedDatabase>>
 let client: MongoClient
 let dbName: string
 
-/** PRACTICE: create child container from original container*/
-const container = getServerContainer()
-const originalconfig = container.resolve<typeof SERVER_CONFIG>('config')
-
-const childContainer = container.child().bindFactory(
-  'config',
-  () => {
-    const mongoConfig: Partial<ServerConfig['mongoDb']> = {
-      dbName: `test_db_${process.env.JEST_WORKER_ID}`
-    }
-
-    return {
-      ...originalconfig,
-      configName: 'child',
-      mongoDb: {
-        ...originalconfig.mongoDb,
-        ...mongoConfig
-      }
-    }
-  },
-  { scope: SCOPE.CONTAINER_SINGLETON }
-)
-
 describe('Radio Repository', () => {
   beforeAll(async () => {
-    const config = childContainer.resolve<typeof SERVER_CONFIG>('config')
+    const config = testContainer.resolve<ServerConfig>('config')
 
     dbName = config.mongoDb.dbName
-    client = await childContainer.resolve<ReturnType<typeof getDbConnection>>(
+    client = await testContainer.resolve<ReturnType<typeof getDbConnection>>(
       getDbConnection
     )
   })
@@ -65,7 +41,7 @@ describe('Radio Repository', () => {
 
   describe('User collection', () => {
     test('get user collection', async () => {
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.getCollection(
         users.userWithFiveStationsInCollections.id,
@@ -79,7 +55,7 @@ describe('Radio Repository', () => {
     })
 
     test('when user collection is empty, return an empty array', async () => {
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.getCollection(
         users.userWithEmptyCollections.id,
@@ -89,7 +65,7 @@ describe('Radio Repository', () => {
     })
 
     test('if the user collection does not exist, return empty array', async () => {
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.getCollection(
         users.userWithNoCollections.id,
@@ -105,7 +81,7 @@ describe('Radio Repository', () => {
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.saveStation(userId, stationId, collection)
       const result = await repository.getCollection(userId, collection)
@@ -119,7 +95,7 @@ describe('Radio Repository', () => {
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await expect(
         repository.saveStation(userId.toString(), stationId, collection)
@@ -131,7 +107,7 @@ describe('Radio Repository', () => {
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.saveStation(userId, stationId, collection)
 
@@ -146,7 +122,7 @@ describe('Radio Repository', () => {
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.saveStation(userId, stationId, collection)
 
@@ -164,7 +140,7 @@ describe('Radio Repository', () => {
       const collection = 'favorites'
       const maxCollectionLimit = 3
 
-      const repository = resolveRepository(childContainer, maxCollectionLimit)
+      const repository = resolveRepository(testContainer, maxCollectionLimit)
 
       await repository.saveStation(userId, stationId, collection)
 
@@ -182,7 +158,7 @@ describe('Radio Repository', () => {
       const collection = 'favorites'
       const stationId = userData[collection][0]._id
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.deleteStation(
         userId,
@@ -206,7 +182,7 @@ describe('Radio Repository', () => {
       const collection = 'favorites'
       const stationId = userData[collection][0]._id
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.deleteStation(
         userId,
@@ -223,7 +199,7 @@ describe('Radio Repository', () => {
       const collection = 'old_stations'
       const stationId = userData['favorites'][0]._id
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.deleteStation(
         userId,
@@ -241,7 +217,7 @@ describe('Radio Repository', () => {
       const collection = 'favorites'
       const stationId = faker.datatype.uuid()
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.deleteStation(
         userId,
@@ -258,7 +234,7 @@ describe('Radio Repository', () => {
       const userId = userData.id
       const collection = 'favorites'
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.deleteCollection(userId, collection)
 
@@ -275,7 +251,7 @@ describe('Radio Repository', () => {
       const userId = new ObjectId().toString()
       const collection = 'favorites'
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       const result = await repository.deleteCollection(userId, collection)
 
@@ -287,7 +263,7 @@ describe('Radio Repository', () => {
       const userId = userData.id
       const collection = 'wrong_collection'
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       // @ts-expect-error - wrong collection
       const result = await repository.deleteCollection(userId, collection)
@@ -304,7 +280,7 @@ describe('Radio Repository', () => {
 
       const stationsToImport = createStations(10).reverse()
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -320,7 +296,7 @@ describe('Radio Repository', () => {
 
       const stationsToImport = createStations(10).reverse()
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -338,7 +314,7 @@ describe('Radio Repository', () => {
 
       const stationsToImport = createStations(1)
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await expect(
         repository.importCollection(userId, stationsToImport, collection)
@@ -353,7 +329,7 @@ describe('Radio Repository', () => {
 
       const stationsToImport = createStations(50)
 
-      const repository = resolveRepository(childContainer, maxCollectionLimit)
+      const repository = resolveRepository(testContainer, maxCollectionLimit)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -374,7 +350,7 @@ describe('Radio Repository', () => {
         dateFns.add(Date.now(), { years: 10 })
       )
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -399,7 +375,7 @@ describe('Radio Repository', () => {
         date: new Date()
       }))
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -416,7 +392,7 @@ describe('Radio Repository', () => {
 
       const stationsToImport = createStations(5)
 
-      const repository = resolveRepository(childContainer)
+      const repository = resolveRepository(testContainer)
 
       await repository.importCollection(userId, stationsToImport, collection)
 

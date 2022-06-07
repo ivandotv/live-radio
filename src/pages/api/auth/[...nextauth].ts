@@ -1,6 +1,6 @@
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { ServerConfig } from 'lib/server/config'
-import { getDbConnection } from 'lib/server/db-connection'
+import { connectionFactory } from 'lib/server/db-connection'
 import { getServerContainer } from 'lib/server/injection-root'
 import { logServerError } from 'lib/server/utils'
 import NextAuth from 'next-auth'
@@ -19,7 +19,7 @@ export default NextAuth({
   ],
   adapter: MongoDBAdapter(
     getServerContainer()
-      .resolve<ReturnType<typeof getDbConnection>>(getDbConnection)
+      .resolve<ReturnType<typeof connectionFactory>>(connectionFactory)()
       .then((client) => client)
   ),
   secret: getServerContainer().resolve<ServerConfig>('config').auth.signSecret,

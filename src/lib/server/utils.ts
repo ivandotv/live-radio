@@ -1,11 +1,11 @@
 import * as Sentry from '@sentry/nextjs'
 import { CaptureContext } from '@sentry/types'
 import { countries } from 'generated/countries'
-import { ServerConfig } from 'lib/server/config'
+import type { ServerConfig } from 'lib/server/config'
 import { GetStaticProps } from 'next'
 // @ts-expect-error - no types for module
 import { getStationInfo as getSongInfoCb } from 'node-internet-radio'
-import pino from 'pino'
+import type pino from 'pino'
 import { promisify } from 'util'
 import { getServerContainer } from './injection-root'
 
@@ -65,7 +65,7 @@ export async function importTranslations(locale: string) {
   let data
   const config = getServerContainer().resolve<ServerConfig>('config')
 
-  if (config.isProduction) {
+  if (config.isProduction || config.isTest) {
     data = await import(`../../translations/locales/${locale}/messages`)
   } else {
     data = await import(

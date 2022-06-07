@@ -50,7 +50,7 @@ export async function geolocation(
  * 3. check for NEXT_LOCALE cookie ( set by next.js)
  * 4. use a query parameter
  *  */
-export async function manifest(
+export async function getManifest(
   ctx: Koa.ParameterizedContext<ApiState, ApiContext & { locale: string }>,
   next: Koa.Next
 ) {

@@ -1,10 +1,6 @@
-import dotenv from 'dotenv'
 import { type } from 'node:os'
-import { resolve } from 'node:path'
 import { GenericContainer } from 'testcontainers'
 import timeSpan from 'time-span'
-
-dotenv.config({ path: resolve(__dirname, '../../../.env.local') })
 
 global.containers = []
 
