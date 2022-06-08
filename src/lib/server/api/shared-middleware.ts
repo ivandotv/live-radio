@@ -95,7 +95,8 @@ export async function handleServerError(
   try {
     await next()
   } catch (err: any) {
-    err.status = err.statusCode || err.status || 500
+    const statusCode = err.statusCode || 500
+    const exposeError = err.expose || false
 
     const { logServerError, config } = ctx.deps
 
@@ -109,11 +110,19 @@ export async function handleServerError(
       ctx.url
     )
 
-    ctx.status = err.status
-    ctx.body = config.isProduction
-      ? 'internal server error'
-      : { message: err.message, stack: err.stack }
+    if (!ctx.headerSent) {
+      const payload = {
+        msg: err.message,
+        stack: config.isProduction ? undefined : err.stack
+      }
+      ctx.status = statusCode
+      ctx.body = config.isProduction
+        ? exposeError
+          ? payload
+          : 'internal server error'
+        : payload
+    }
 
-    ctx.app.emit('error', err, ctx)
+    // ctx.app.emit('error', err, ctx)
   }
 }

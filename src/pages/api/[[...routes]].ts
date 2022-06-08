@@ -14,7 +14,7 @@ import { PumpIt } from 'pumpit'
 export function handler(container: PumpIt) {
   const api = new KoaApi<Koa.DefaultState, ApiContext>({
     koa: {
-      env: container.resolve<ServerConfig>('config').nodeEnv
+      env: container.resolve<ServerConfig>('config').env
     }
   })
 
