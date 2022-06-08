@@ -282,18 +282,25 @@ export async function songInfo(
     ctx.body = { msg: 'station url missing' }
     ctx.status = 400
   } else {
-    const response: { title: string } = await getSongInfo(
-      station,
-      StreamSource.STREAM
-    )
+    try {
+      const response: { title: string } = await getSongInfo(
+        station,
+        StreamSource.STREAM
+      )
 
-    const songData = response.title.split('-')
-    if (songData.length > 1) {
-      ctx.body = {
-        artist: songData[0].trim(),
-        title: songData[1].trim()
+      const songData = response.title.split('-')
+      if (songData.length > 1) {
+        ctx.body = {
+          artist: songData[0].trim(),
+          title: songData[1].trim()
+        }
+      } else {
+        ctx.status = 204
+        ctx.body = {}
       }
-    } else {
+    } catch (e) {
+      // don't do anything
+      ctx.status = 204
       ctx.body = {}
     }
   }
