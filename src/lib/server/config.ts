@@ -1,22 +1,23 @@
 import Joi from 'joi'
-// import { asNumber, asString } from 'lib/server/utils'
 
 /**
  * ! Configuration in this file should ONLY be used in server side code!
  */
 
 if (typeof window !== 'undefined') {
-  throw new Error('config: use only server side')
+  throw new Error('server config should only be used server side')
 }
 
-export type ServerConfig = typeof SERVER_CONFIG
+export type ServerConfig = ReturnType<typeof getServerConfig>
+
+export type EnvSchema = typeof envSchema
 
 const envSchema = {
   NODE_ENV: asString(
     Joi.string()
       .valid('production', 'development', 'test', 'preview')
       .required()
-  ),
+  ) as 'production' | 'development' | 'test' | 'preview',
   APP_ENV: asString(Joi.string()),
   LOG_LEVEL: asString(Joi.string().default('silent')),
   MONGO_DB_URI: asString(Joi.string().required()),
@@ -30,54 +31,52 @@ const envSchema = {
   CUSTOM_SEARCH_LIMIT: asNumber(Joi.number().default(2000))
 }
 
-const serverConfigSchema = Joi.object<typeof envSchema>()
-  .keys(envSchema)
-  .unknown()
+const serverConfigSchema = Joi.object<EnvSchema>().keys(envSchema).unknown()
 
-const { value: envData, error } = serverConfigSchema.validate(process.env)
+export function getServerConfig(env: EnvSchema) {
+  const { value: envData, error } = serverConfigSchema.validate(env)
 
-if (error) {
-  throw new Error(`Server config validation error: ${error.message}`)
-}
+  if (error) {
+    throw new Error(`Server config validation error: ${error.message}`)
+  }
 
-const isProduction = envData.NODE_ENV === 'production'
-const isDevelopment = envData.NODE_ENV === 'development'
-const isTest = envData.NODE_ENV === 'test'
-const isPreview = envData.APP_ENV === 'preview'
+  const isProduction = envData.NODE_ENV === 'production'
+  const isDevelopment = envData.NODE_ENV === 'development'
+  const isTest = envData.NODE_ENV === 'test'
 
-export const SERVER_CONFIG = {
-  isProduction,
-  isDevelopment,
-  isTest,
-  isPreview,
-  nodeEnv: envData.NODE_ENV,
-  logLevel: envData.LOG_LEVEL,
-  mongoDb: {
-    uri: envData.MONGO_DB_URI,
-    dbName: envData.MONGO_DB_NAME,
-    maxRadioCollectionLimit: 100,
-    clientOptions: {
-      retryWrites: isProduction
-      // useTransactions: toBoolean(process.env.DB_USE_TRANSACTIONS, false)
-    }
-  },
-
-  auth: {
-    github: {
-      clientId: envData.GH_ID,
-      clientSecret: envData.GH_SECRET,
-      type: 'oauth' as const
+  return {
+    env: envData.NODE_ENV,
+    isProduction,
+    isDevelopment,
+    isTest,
+    isPreview: envData.APP_ENV === 'preview',
+    logLevel: envData.LOG_LEVEL,
+    mongoDb: {
+      uri: envData.MONGO_DB_URI,
+      dbName: envData.MONGO_DB_NAME,
+      maxRadioCollectionLimit: 100,
+      clientOptions: {
+        retryWrites: isProduction
+      }
     },
-    google: {
-      clientId: envData.GOOGLE_ID,
-      clientSecret: envData.GOOGLE_SECRET
+
+    auth: {
+      github: {
+        clientId: envData.GH_ID,
+        clientSecret: envData.GH_SECRET,
+        type: 'oauth' as const
+      },
+      google: {
+        clientId: envData.GOOGLE_ID,
+        clientSecret: envData.GOOGLE_SECRET
+      },
+      signSecret: envData.AUTH_SIGN_SECRET,
+      debug: isDevelopment
     },
-    signSecret: envData.AUTH_SIGN_SECRET,
-    debug: isDevelopment
-  },
-  // the amount in seconds after which page re-generation can occur
-  revalidate: envData.REVALIDATE,
-  customSearchStationLimit: envData.CUSTOM_SEARCH_LIMIT
+    // the amount in seconds after which page re-generation can occur
+    revalidate: envData.REVALIDATE,
+    customSearchStationLimit: envData.CUSTOM_SEARCH_LIMIT
+  }
 }
 
 export function asString(value: Joi.ValidationResult | Joi.AnySchema) {

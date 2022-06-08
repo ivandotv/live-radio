@@ -126,8 +126,11 @@ export async function fetchIpInfo(ip: string) {
 export class ServerError extends Error {
   statusCode: number
 
-  constructor(message: string, statusCode = 500) {
+  expose: boolean
+
+  constructor(message: string, statusCode = 500, expose = false) {
     super(message)
     this.statusCode = statusCode
+    this.expose = expose
   }
 }

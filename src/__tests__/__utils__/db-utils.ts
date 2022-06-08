@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import * as dateFns from 'date-fns'
-import { ServerConfig, SERVER_CONFIG } from 'lib/server/config'
+import { ServerConfig } from 'lib/server/config'
 import { RadioRepository } from 'lib/server/radio-repository'
 import { PumpIt } from 'pumpit'
 
@@ -8,7 +8,7 @@ export function resolveRepository(
   parentContainer: PumpIt,
   maxCollectionLimit?: number
 ) {
-  const config = parentContainer.resolve<typeof SERVER_CONFIG>('config')
+  const config = parentContainer.resolve<ServerConfig>('config')
 
   maxCollectionLimit =
     maxCollectionLimit ?? config.mongoDb.maxRadioCollectionLimit

@@ -7,8 +7,7 @@ import linguiConfig from '../../../lingui.config.js'
  * ! in the browser as well on the server
  */
 
-export const nodeEnv = process.env
-  .NEXT_PUBLIC_NODE_ENV as typeof process.env.NODE_ENV
+const nodeEnv = process.env.NEXT_PUBLIC_NODE_ENV as typeof process.env.NODE_ENV
 
 export type SharedConfig = typeof SHARED_CONFIG
 
