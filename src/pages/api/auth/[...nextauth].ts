@@ -38,7 +38,7 @@ export default NextAuth({
           logServerError
         )
 
-      logIt(metadata, {
+      logIt(metadata, undefined, {
         extra: {
           code
         },

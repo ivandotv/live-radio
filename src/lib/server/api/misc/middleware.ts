@@ -24,19 +24,30 @@ export async function geolocation(
       : detectedIp
 
   if (!queryIp.length) {
-    throw new ServerError('can not detect ip', 503)
+    throw new ServerError({
+      status: 503,
+      body: { msg: `can't detect ip` }
+    })
   }
 
   const data = await fetchIpInfo(queryIp)
 
   if (!data) {
-    throw new ServerError(`can't fetch ip info`, 503, true)
+    throw new ServerError({
+      status: 503,
+      body: { msg: `can't fetch ip info` }
+    })
   }
 
   const countryData = countryDataByKey('code', data.countryCode)
 
   if (!countryData) {
-    throw new ServerError(`Can't parse location data`, 503)
+    throw new ServerError({
+      status: 503,
+      body: {
+        msg: `Can't parse location data`
+      }
+    })
   }
 
   ctx.body = countryData

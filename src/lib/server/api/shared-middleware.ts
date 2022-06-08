@@ -4,7 +4,8 @@ import {
   countryDataByKey,
   fetchIpInfo,
   getSongInfo,
-  logServerError
+  logServerError,
+  ServerError
 } from 'lib/server/utils'
 import { SharedConfig } from 'lib/shared/config'
 import { Session } from 'next-auth'
@@ -94,35 +95,35 @@ export async function handleServerError(
 ) {
   try {
     await next()
-  } catch (err: any) {
-    const statusCode = err.statusCode || 500
-    const exposeError = err.expose || false
-
+  } catch (err: unknown) {
     const { logServerError, config } = ctx.deps
 
-    logServerError(
-      err,
-      {
-        tags: {
-          endpoint: ctx.request.path
-        }
-      },
-      ctx.url
-    )
+    const defaultMessage = 'Internal server error'
+    let status = 500
+    let exposeError = false
+    let logIt = true
+    let payload: string | Record<string, any> | null = defaultMessage
+
+    if (err instanceof ServerError) {
+      status = err.status
+      logIt = err.logIt
+      if (err.body) {
+        exposeError = true
+        payload = err.body
+      }
+    }
 
     if (!ctx.headerSent) {
-      const payload = {
-        msg: err.message,
-        stack: config.isProduction ? undefined : err.stack
-      }
-      ctx.status = statusCode
+      ctx.status = status
       ctx.body = config.isProduction
         ? exposeError
           ? payload
-          : 'internal server error'
-        : payload
+          : defaultMessage
+        : defaultMessage
     }
 
-    // ctx.app.emit('error', err, ctx)
+    if (logIt) {
+      logServerError(err, ctx)
+    }
   }
 }

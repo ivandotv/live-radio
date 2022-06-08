@@ -12,7 +12,8 @@ import {
   songInfo,
   stationClick,
   stationInfo,
-  validateStation
+  validateStation,
+  voteForStation
 } from 'lib/server/api/station/middleware'
 import { Router } from 'nextjs-koa-api'
 
@@ -31,4 +32,5 @@ export function stationRouter() {
     .post('/bulk-info', bulkStationInfo)
     .post('/click', stationClick)
     .post('/search', customSearch)
+    .post('/vote', voteForStation)
 }

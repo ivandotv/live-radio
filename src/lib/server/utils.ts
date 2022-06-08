@@ -3,6 +3,7 @@ import { CaptureContext } from '@sentry/types'
 import { countries } from 'generated/countries'
 import type { ServerConfig } from 'lib/server/config'
 import { GetStaticProps } from 'next'
+import { Koa } from 'nextjs-koa-api'
 // @ts-expect-error - no types for module
 import { getStationInfo as getSongInfoCb } from 'node-internet-radio'
 import type pino from 'pino'
@@ -91,19 +92,24 @@ export const getStaticTranslations: GetStaticProps<
 
 logServerError.inject = ['logger', 'config']
 export function logServerError(logger: pino.Logger, config: ServerConfig) {
-  return (err: any, context?: CaptureContext, url?: string) => {
+  return (
+    err: any,
+    koaCtx?: Koa.DefaultContext,
+    sentryCtx?: CaptureContext
+  ) => {
     const side = 'backend'
 
     const data = {
-      ...context,
+      ...sentryCtx,
       extra: {
         // @ts-expect-error - Sentry typings
-        ...(context.extra ? { ...context.extra } : {}),
-        url
+        ...(sentryCtx?.extra ? { ...sentryCtx.extra } : {}),
+        url: koaCtx?.url
       },
       tags: {
+        endpoint: koaCtx?.request.path,
         // @ts-expect-error - Sentry typings
-        ...(context.tags ? { ...context.tags } : {}),
+        ...(sentryCtx?.tags ? { ...sentryCtx.tags } : {}),
         side
       }
     }
@@ -124,13 +130,42 @@ export async function fetchIpInfo(ip: string) {
 }
 
 export class ServerError extends Error {
-  statusCode: number
+  status: number
 
-  expose: boolean
+  logIt: boolean
 
-  constructor(message: string, statusCode = 500, expose = false) {
+  diagnostics?: Record<string, any>
+
+  body?: Record<string, any>
+
+  constructor(opts?: {
+    message?: string
+    status?: number
+    expose?: boolean
+    body?: Record<string, any>
+    logIt?: boolean
+    diagnostics?: Record<string, any>
+  }) {
+    let message = 'Internal server error'
+    if (opts?.message) {
+      message = opts.message
+    } else {
+      if (opts?.body?.msg) {
+        message = opts.body.msg
+      }
+    }
+
     super(message)
-    this.statusCode = statusCode
-    this.expose = expose
+
+    this.status = opts?.status || 500
+    this.logIt = opts?.logIt || true
+    this.diagnostics = opts?.diagnostics
+
+    if (opts?.body) {
+      this.body = opts.body
+      if (message && opts.body.message === undefined) {
+        this.body.msg = message
+      }
+    }
   }
 }

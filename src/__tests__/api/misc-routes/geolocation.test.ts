@@ -71,8 +71,8 @@ describe('Geolocation', () => {
 
     const result = await request(api).get(url).set('X-Client-IP', clientIp)
 
-    expect(result.body).toEqual({ msg: `can't fetch ip info` })
     expect(result.status).toBe(503)
+    expect(result.body).toEqual({ msg: `can't fetch ip info` })
   })
 
   test('return 503 if ip-api.com returns invalid data', async () => {
@@ -89,14 +89,18 @@ describe('Geolocation', () => {
 
     const result = await request(api).get(url).set('X-Client-IP', clientIp)
 
-    expect(result.body).toEqual({})
+    expect(result.body).toEqual({
+      msg: expect.stringContaining("Can't parse location data")
+    })
     expect(result.status).toBe(503)
   })
 
   test('return 503 if localhost ip is detected', async () => {
     const result = await request(api).get(url).set('X-Client-IP', '::')
 
-    expect(result.body).toEqual({})
+    expect(result.body).toEqual({
+      msg: expect.stringContaining("can't detect ip")
+    })
     expect(result.status).toBe(503)
   })
 })

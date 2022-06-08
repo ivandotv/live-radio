@@ -1,4 +1,5 @@
 import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
+import { ServerError } from 'lib/server/utils'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { Koa } from 'nextjs-koa-api'
 // @ts-expect-error - no types
@@ -93,7 +94,7 @@ export async function saveStation(
   next: Koa.Next
 ) {
   const { collection, station } = ctx.request.body
-  const { radioRepository, radioApi } = ctx.deps
+  const { radioRepository, radioApi, logServerError } = ctx.deps
 
   await radioRepository.saveStation(
     ctx.state.session!.user.id,
@@ -107,10 +108,10 @@ export async function saveStation(
     }
   } catch (e) {
     //ignore errors to radio-api
+    logServerError(new Error('Radio api error'), ctx)
   }
 
-  ctx.status = 201
-  ctx.body = { msg: 'saved' }
+  ctx.status = 200
 
   return next()
 }
@@ -190,26 +191,28 @@ export async function voteForStation(
   >,
   next: Koa.Next
 ) {
-  const { radioApi, logServerError } = ctx.deps
+  const { radioApi } = ctx.deps
   const { id } = ctx.request.body
 
+  if (!id) {
+    throw new ServerError({
+      status: 400,
+      body: { msg: 'station id missing' }
+    })
+  }
+
   try {
-    if (!id) {
-      ctx.body = { msg: 'station id missing' }
-      ctx.status = 400
-
-      return
-    }
-
     await radioApi.voteForStation(id)
 
     ctx.body = { msg: 'ok' }
     ctx.status = 200
   } catch (e: unknown) {
-    ctx.body = { msg: 'radio api unavailable' }
-    ctx.status = 503
-
-    logServerError(e, {}, ctx.url)
+    throw new ServerError({
+      status: 503,
+      body: {
+        msg: 'radio api not available'
+      }
+    })
   }
 
   return next()
