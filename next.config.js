@@ -27,9 +27,7 @@ const defaultLocale = linguiConfig.fallbackLocales.default
 const nextConfig = {
   // reactStrictMode: true,
   api: {
-    bodyParser: {
-      sizeLimit: '50kb'
-    }
+    bodyParser: false
   },
   i18n: {
     locales,
