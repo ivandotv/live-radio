@@ -5,13 +5,9 @@ import { createTestContainer } from '__tests__/__utils__/utils'
 
 const container = createTestContainer()
 const url = '/api/manifest'
-let api: ReturnType<typeof withKoaApi>
+const api = withKoaApi(handler(container))
 
 describe('Manifest', () => {
-  beforeEach(() => {
-    api = withKoaApi(handler(container))
-  })
-
   test('pick locale based on header', async () => {
     const result = await request(api).get(url).set('accept-language', 'sr')
 

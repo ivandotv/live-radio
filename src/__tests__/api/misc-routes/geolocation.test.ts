@@ -11,7 +11,7 @@ const geolocationApi = 'http://ip-api.com/json/:ip'
 
 const container = createTestContainer()
 const url = '/api/geolocation'
-let api: ReturnType<typeof withKoaApi>
+const api = withKoaApi(handler(container))
 
 const countryCode = {
   code: 'RS',
@@ -40,10 +40,6 @@ describe('Geolocation', () => {
         }
       }
     })
-  })
-
-  beforeEach(() => {
-    api = withKoaApi(handler(container))
   })
 
   afterEach(() => {

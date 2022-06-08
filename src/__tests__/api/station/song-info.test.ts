@@ -11,13 +11,9 @@ const stationUrl = 'some_station_url'
 const container = createTestContainer().child()
 
 const url = '/api/station/song-info'
-let api: ReturnType<typeof withKoaApi>
+const api = withKoaApi(handler(container))
 
 describe('api/station/song-info', () => {
-  beforeEach(() => {
-    api = withKoaApi(handler(container))
-  })
-
   afterEach(() => {
     container.unbindAll()
   })

@@ -5,13 +5,9 @@ import { createTestContainer } from '__tests__/__utils__/utils'
 
 const container = createTestContainer()
 const url = '/api/share'
-let api: ReturnType<typeof withKoaApi>
+const api = withKoaApi(handler(container))
 
 describe('/api/share', () => {
-  beforeEach(() => {
-    api = withKoaApi(handler(container))
-  })
-
   test('redirect', async () => {
     const stationId = '123'
 
