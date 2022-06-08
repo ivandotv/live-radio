@@ -30,7 +30,7 @@
   "forwardPorts": [3000, 27017, 9000],
 
   // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "npm i -g pnpm@6 && pnpm install",
+  "postCreateCommand": "npm i zx --location=global && ./.devcontainer/setup.mjs",
 
   "shutdownAction": "stopCompose",
 

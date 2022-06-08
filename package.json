@@ -147,6 +147,7 @@
     "ts-essentials": "^9.1.2",
     "typescript": "^4.6.4",
     "webpack": "^5.72.1",
-    "workbox-webpack-plugin": "^6.5.3"
+    "workbox-webpack-plugin": "^6.5.3",
+    "zx": "^6.2.4"
   }
 }
