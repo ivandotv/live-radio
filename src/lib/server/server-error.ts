@@ -21,6 +21,8 @@ export class ServerError extends Error {
     } else {
       if (opts?.body?.msg) {
         message = opts.body.msg
+      } else if (opts?.body?.message) {
+        message = opts.body.message
       }
     }
 

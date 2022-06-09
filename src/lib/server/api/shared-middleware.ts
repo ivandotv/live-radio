@@ -95,14 +95,14 @@ export async function handleServerError(
 ) {
   try {
     await next()
-  } catch (err: unknown) {
+  } catch (err: any) {
     const { logServerError, config } = ctx.deps
 
     const defaultMessage = 'Internal server error'
     let status = 500
     let exposeError = false
     let logIt = true
-    let payload: string | Record<string, any> | null = defaultMessage
+    let payload: Record<string, any> | undefined
 
     if (err instanceof ServerError) {
       status = err.status
@@ -113,13 +113,23 @@ export async function handleServerError(
       }
     }
 
+    let body
+
+    if (config.isProduction) {
+      if (exposeError) {
+        body = payload
+      } else {
+        body = defaultMessage
+      }
+    } else {
+      //dev mode
+      body = { ...payload, stack: err.stack, message: err.message }
+    }
+
     if (!ctx.headerSent) {
       ctx.status = status
-      ctx.body = config.isProduction
-        ? exposeError
-          ? payload
-          : defaultMessage
-        : defaultMessage
+
+      ctx.body = body
     }
 
     if (logIt) {
