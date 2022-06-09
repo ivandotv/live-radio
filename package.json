@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "FORCE_COLOR=true next dev | pino-pretty -c -l -t ",
-    "debug": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "FORCE_COLOR=true next dev | pino-pretty -c -l -t",
+    "debug": "FORCE_COLOR=true NODE_OPTIONS=--inspect next dev | pino-pretty -c -l -t",
     "build": "pnpm generate && pnpm lang && NODE_TLS_REJECT_UNAUTHORIZED=0 next build",
     "type:check": "tsc --noEmit",
     "start": "next start",
