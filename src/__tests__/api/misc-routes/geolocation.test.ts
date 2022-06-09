@@ -9,6 +9,8 @@ import { createTestContainer } from '__tests__/__utils__/utils'
 const clientIp = faker.internet.ip()
 const geolocationApi = 'http://ip-api.com/json/:ip'
 
+console.log('ENV =', process.env.NODE_ENV)
+
 const container = createTestContainer()
 const url = '/api/geolocation'
 const api = withKoaApi(handler(container))

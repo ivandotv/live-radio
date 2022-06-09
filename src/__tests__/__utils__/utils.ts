@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/nextjs'
 import { ServerConfig } from 'lib/server/config'
 import { getServerContainer } from 'lib/server/injection-root'
 import { SharedConfig } from 'lib/shared/config'
@@ -23,6 +24,9 @@ export function createTestContainer(
   sharedConfig?: DeepPartial<SharedConfig>
 ) {
   const child = defaultTestContainer.child()
+
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  child.bindValue(Sentry, { captureException: () => {} })
 
   if (serverConfig) {
     child.bindValue(
