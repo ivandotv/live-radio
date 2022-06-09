@@ -12,6 +12,13 @@ import { getServerContainer } from 'lib/server/injection-root'
 import { ServerError } from 'lib/server/server-error'
 import { attachRouter, Koa, KoaApi, withKoaApi } from 'nextjs-koa-api'
 import { PumpIt } from 'pumpit'
+
+export const config = {
+  api: {
+    bodyParser: false
+  }
+}
+
 export function handler(container: PumpIt) {
   const api = new KoaApi<Koa.DefaultState, ApiContext>({
     koa: {
