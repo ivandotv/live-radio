@@ -1,11 +1,12 @@
 import { ServerConfig } from 'lib/server/config'
 import { RadioRepository } from 'lib/server/radio-repository'
+import { schemas } from 'lib/server/schemas'
+import { ServerError } from 'lib/server/server-error'
 import {
   countryDataByKey,
   fetchIpInfo,
   getSongInfo,
-  logServerError,
-  ServerError
+  logServerError
 } from 'lib/server/utils'
 import { SharedConfig } from 'lib/shared/config'
 import { Session } from 'next-auth'
@@ -14,7 +15,6 @@ import { Koa } from 'nextjs-koa-api'
 import { PumpIt } from 'pumpit'
 import { RadioBrowserApi } from 'radio-browser-api'
 import requestIp from 'request-ip'
-import { schemas } from '../schemas'
 
 export interface ApiContext extends Koa.DefaultContext {
   deps: {

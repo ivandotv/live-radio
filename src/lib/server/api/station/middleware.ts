@@ -314,26 +314,37 @@ export async function songInfo(
 export async function customSearch(
   ctx: Koa.ParameterizedContext<
     ApiState,
-    ApiContext & { request: { body: { name: string } } }
+    ApiContext & { request: { body: { query: string } } }
   >,
   next: Koa.Next
 ) {
   const { radioApi, config } = ctx.deps
 
-  const { name = '' } = ctx.request.body
+  const { query } = ctx.request.body
 
-  const result = await radioApi.searchStations(
-    {
-      name,
-      limit: config.customSearchStationLimit
-    },
-    undefined,
-    true
-  )
+  if (query === undefined) {
+    throw new ServerError({ body: { msg: 'query missing' }, status: 400 })
+  }
+  if (query.length) {
+    try {
+      const result = await radioApi.searchStations(
+        {
+          name: query,
+          limit: config.customSearchStationLimit
+        },
+        undefined,
+        true
+      )
 
-  const stations = dataToRadioDTO(result)
+      const stations = dataToRadioDTO(result)
 
-  ctx.body = { stations }
+      ctx.body = { stations }
+    } catch (e) {
+      throw new ServerError({ body: { msg: 'radio api not available' } })
+    }
+  } else {
+    ctx.body = { stations: [] }
+  }
 
   return next()
 }

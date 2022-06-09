@@ -22,7 +22,7 @@ export function handler(container: PumpIt) {
   api
     .use(buildContext(container))
     .use(handleServerError)
-    .use(koaBody({ jsonLimit: '100kb' }))
+    .use(koaBody({ jsonLimit: '1mb' }))
 
   attachRouter('/api', api, miscRouter())
   attachRouter('/api/collection', api, collectionRouter())
