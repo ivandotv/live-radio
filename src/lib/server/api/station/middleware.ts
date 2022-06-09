@@ -1,5 +1,5 @@
 import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
-import { ServerError } from 'lib/server/utils'
+import { ServerError } from 'lib/server/server-error'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { Koa } from 'nextjs-koa-api'
 // @ts-expect-error - no types
