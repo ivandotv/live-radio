@@ -1,12 +1,12 @@
+import faker from '@faker-js/faker'
 import { Station, StationResponse } from 'radio-browser-api'
-
 export function getMockResponse(): StationResponse {
   return {
     changeuuid: '9619b77b-0601-11e8-ae97-52543be04c81',
-    stationuuid: '9619b778-0601-11e8-ae97-52543be04c81',
+    stationuuid: faker.datatype.uuid(),
     name: 'Radio 021',
-    url: 'http://109.206.96.106:8000/',
-    url_resolved: 'http://109.206.96.106:8000/',
+    url: faker.internet.url(),
+    url_resolved: faker.internet.url(),
     homepage: 'http://www.021.rs/',
     favicon: 'http://www.021.rs/favicon.ico',
     tags: 'talk,music,news',
@@ -34,10 +34,10 @@ export function getMockResponse(): StationResponse {
 export function getMockStation(): Station {
   return {
     changeId: '9619b77b-0601-11e8-ae97-52543be04c81',
-    id: '9619b778-0601-11e8-ae97-52543be04c81',
+    id: faker.datatype.uuid(),
     name: 'Radio 021',
-    url: 'http://109.206.96.106:8000/',
-    urlResolved: 'http://109.206.96.106:8000/',
+    url: faker.internet.url(),
+    urlResolved: faker.internet.url(),
     homepage: 'http://www.021.rs/',
     favicon: 'http://www.021.rs/favicon.ico',
     tags: ['talk', 'music', 'news'],

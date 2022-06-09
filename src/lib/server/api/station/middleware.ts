@@ -136,18 +136,27 @@ export async function bulkStationInfo(
   })
 
   if (error) {
-    ctx.status = 422
-    ctx.body = {
-      msg: 'Not a valid station info payload',
-      debug: config.isProduction ? undefined : error
-    }
-
-    return next()
+    throw new ServerError({
+      body: {
+        msg: 'validation failed',
+        debug: config.isProduction ? undefined : error
+      },
+      status: 422
+    })
   }
 
-  const stations = await radioApi.getStationsById(value!.stations)
+  try {
+    const stations = await radioApi.getStationsById(value!.stations)
 
-  ctx.body = dataToRadioDTO(stations)
+    ctx.body = dataToRadioDTO(stations)
+  } catch (e) {
+    throw new ServerError({
+      body: { msg: 'radio api not available' },
+      diagnostics: {
+        error: e
+      }
+    })
+  }
 
   return next()
 }

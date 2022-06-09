@@ -9,6 +9,7 @@ import {
 import { stationRouter } from 'lib/server/api/station/routes'
 import { ServerConfig } from 'lib/server/config'
 import { getServerContainer } from 'lib/server/injection-root'
+import { ServerError } from 'lib/server/server-error'
 import { attachRouter, Koa, KoaApi, withKoaApi } from 'nextjs-koa-api'
 import { PumpIt } from 'pumpit'
 export function handler(container: PumpIt) {
@@ -22,7 +23,14 @@ export function handler(container: PumpIt) {
   api
     .use(buildContext(container))
     .use(handleServerError)
-    .use(koaBody({ jsonLimit: '1mb' }))
+    .use(
+      koaBody({
+        jsonLimit: '1mb',
+        onError: (err) => {
+          throw new ServerError({ body: { msg: err.message }, status: 400 })
+        }
+      })
+    )
 
   attachRouter('/api', api, miscRouter())
   attachRouter('/api/collection', api, collectionRouter())
