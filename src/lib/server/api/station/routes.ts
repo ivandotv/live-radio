@@ -10,7 +10,7 @@ import {
   deleteStation,
   saveStation,
   songInfo,
-  stationClick,
+  countStationClick,
   stationInfo,
   validateStation,
   voteForStation
@@ -30,7 +30,7 @@ export function stationRouter() {
     .delete('/', checkSession, checkCollectionExists, deleteStation)
     .get('/song-info', songInfo)
     .post('/bulk-info', bulkStationInfo)
-    .post('/click', stationClick)
+    .post('/click', countStationClick)
     .post('/search', customSearch)
     .post('/vote', voteForStation)
 }

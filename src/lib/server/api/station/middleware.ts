@@ -247,7 +247,7 @@ export async function stationInfo(
   return next()
 }
 
-export async function stationClick(
+export async function countStationClick(
   ctx: Koa.ParameterizedContext<
     ApiState,
     ApiContext & { request: { body: { id: string } } }
