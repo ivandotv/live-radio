@@ -1,3 +1,4 @@
+import koaBody from 'koa-body'
 import { collectionRouter } from 'lib/server/api/collection/routes'
 import { miscRouter } from 'lib/server/api/misc/routes'
 import {
@@ -10,7 +11,6 @@ import { ServerConfig } from 'lib/server/config'
 import { getServerContainer } from 'lib/server/injection-root'
 import { attachRouter, Koa, KoaApi, withKoaApi } from 'nextjs-koa-api'
 import { PumpIt } from 'pumpit'
-import koaBody from 'koa-body'
 export function handler(container: PumpIt) {
   const api = new KoaApi<Koa.DefaultState, ApiContext>({
     koa: {
@@ -19,7 +19,10 @@ export function handler(container: PumpIt) {
     attachBody: false
   })
 
-  api.use(buildContext(container)).use(handleServerError).use(koaBody())
+  api
+    .use(buildContext(container))
+    .use(handleServerError)
+    .use(koaBody({ jsonLimit: '100kb' }))
 
   attachRouter('/api', api, miscRouter())
   attachRouter('/api/collection', api, collectionRouter())
