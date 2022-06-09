@@ -1,4 +1,5 @@
 import { EnvSchema, getServerConfig, ServerConfig } from 'lib/server/config'
+import * as Sentry from '@sentry/nextjs'
 import { connectionFactory } from 'lib/server/db-connection'
 import { RadioRepository } from 'lib/server/radio-repository'
 import { schemas } from 'lib/server/schemas'
@@ -17,6 +18,7 @@ export function getServerContainer() {
   if (!container) {
     container = new PumpIt()
       .bindValue(getSession, getSession)
+      .bindValue(Sentry, Sentry)
       .bindValue('config', getServerConfig(process.env as unknown as EnvSchema))
       .bindValue('sharedConfig', SHARED_CONFIG)
       .bindFactory(connectionFactory, connectionFactory, {

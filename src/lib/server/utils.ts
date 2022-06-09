@@ -90,8 +90,12 @@ export const getStaticTranslations: GetStaticProps<
   }
 }
 
-logServerError.inject = ['logger', 'config']
-export function logServerError(logger: pino.Logger, config: ServerConfig) {
+logServerError.inject = ['logger', 'config', Sentry]
+export function logServerError(
+  logger: pino.Logger,
+  config: ServerConfig,
+  sentry: typeof Sentry
+) {
   return (
     err: any,
     koaCtx?: Koa.DefaultContext,
@@ -114,7 +118,7 @@ export function logServerError(logger: pino.Logger, config: ServerConfig) {
       }
     }
     if (config.isProduction) {
-      Sentry.captureException(err, data)
+      sentry.captureException(err, data)
     }
 
     logger.error(err, err.message || '', data)
