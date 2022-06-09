@@ -27,7 +27,13 @@ export function handler(container: PumpIt) {
       koaBody({
         jsonLimit: '1mb',
         onError: (err) => {
-          throw new ServerError({ body: { msg: err.message }, status: 400 })
+          throw new ServerError({
+            body: { msg: err.message },
+            status: 400,
+            diagnostics: {
+              error: err
+            }
+          })
         }
       })
     )

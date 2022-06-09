@@ -108,7 +108,8 @@ export function logServerError(
       extra: {
         // @ts-expect-error - Sentry typings
         ...(sentryCtx?.extra ? { ...sentryCtx.extra } : {}),
-        url: koaCtx?.url
+        url: koaCtx?.url,
+        diagnostics: err.diagnostics
       },
       tags: {
         endpoint: koaCtx?.request.path,

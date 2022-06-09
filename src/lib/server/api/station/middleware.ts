@@ -220,6 +220,9 @@ export async function voteForStation(
       status: 503,
       body: {
         msg: 'radio api not available'
+      },
+      diagnostics: {
+        error: e
       }
     })
   }
@@ -349,7 +352,12 @@ export async function customSearch(
 
       ctx.body = { stations }
     } catch (e) {
-      throw new ServerError({ body: { msg: 'radio api not available' } })
+      throw new ServerError({
+        body: { msg: 'radio api not available' },
+        diagnostics: {
+          error: e
+        }
+      })
     }
   } else {
     ctx.body = { stations: [] }
