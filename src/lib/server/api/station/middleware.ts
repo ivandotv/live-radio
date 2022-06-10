@@ -244,12 +244,23 @@ export async function stationInfo(
     ctx.body = { msg: 'station id missing' }
     ctx.status = 400
   } else {
-    const stationResponse = await radioApi.getStationsById([play])
+    let stationResponse
+    try {
+      stationResponse = await radioApi.getStationsById([play])
+    } catch (e) {
+      throw new ServerError({
+        body: { msg: 'radio api not available' },
+        diagnostics: {
+          error: e
+        },
+        status: 503
+      })
+    }
 
-    const stations = dataToRadioDTO(stationResponse)
+    const station = dataToRadioDTO(stationResponse)
 
-    if (stations.length) {
-      ctx.body = stations
+    if (station.length) {
+      ctx.body = station
     } else {
       ctx.body = { msg: 'station not found' }
       ctx.status = 404
@@ -356,7 +367,8 @@ export async function customSearch(
         body: { msg: 'radio api not available' },
         diagnostics: {
           error: e
-        }
+        },
+        status: 503
       })
     }
   } else {
