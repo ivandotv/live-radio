@@ -5,8 +5,8 @@ import request from 'supertest'
 import {
   createRadioBrowserMock,
   RadioBrowserMock
-} from '__tests__/__utils__/radio-browser-mock'
-import { createTestContainer } from '__tests__/__utils__/utils'
+} from '__tests__/__utils__/mocks/radio-browser-mock'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 const container = createTestContainer().child()
 const url = '/api/station'
@@ -67,7 +67,7 @@ describe('get station', () => {
 
     expect(result.status).toBe(400)
     expect(result.body).toEqual({
-      msg: expect.stringContaining('station id missing')
+      msg: expect.stringContaining('validation failed')
     })
   })
 

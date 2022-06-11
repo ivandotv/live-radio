@@ -2,8 +2,8 @@ import { withKoaApi } from 'nextjs-koa-api'
 import { handler } from 'pages/api/[[...routes]]'
 import { RadioBrowserApi } from 'radio-browser-api'
 import request from 'supertest'
-import { getMockStation } from '__tests__/__utils__/mock-station'
-import { createTestContainer } from '__tests__/__utils__/utils'
+import { getMockStation } from '__tests__/__utils__/mocks/station-mock'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 const container = createTestContainer().child()
 
@@ -42,16 +42,16 @@ describe('api/station/bulk-info', () => {
     expect(radioBrowserMock.getStationsById).toHaveBeenCalledWith(ids)
   })
 
-  test('if payload validation fails, return 422', async () => {
+  test('if payload validation fails, return 400', async () => {
     const result = await request(api).post(url).send({ stations: [] })
 
-    expect(result.status).toBe(422)
+    expect(result.status).toBe(400)
     expect(result.body).toEqual({
       msg: expect.stringContaining('validation failed')
     })
   })
 
-  test('if radio api is not available, return 500', async () => {
+  test('if radio api is not available, return 503', async () => {
     container.unbind(RadioBrowserApi)
     container.bindValue(
       RadioBrowserApi,
@@ -64,18 +64,17 @@ describe('api/station/bulk-info', () => {
       .post(url)
       .send({ stations: ['1', '2'] })
 
-    expect(result.status).toBe(500)
+    expect(result.status).toBe(503)
     expect(result.body).toEqual({
       msg: expect.stringContaining('radio api not available')
     })
   })
 
-  test('if payload is bigger than 1MB, return 400', async () => {
+  test('if payload is bigger than 1MB, return 413', async () => {
     const ids2 = Buffer.alloc(1.5e6).toString()
 
     const result = await request(api).post(url).send({ stations: ids2 })
 
-    console.log(result.body)
-    expect(result.status).toBe(400)
+    expect(result.status).toBe(413)
   })
 })

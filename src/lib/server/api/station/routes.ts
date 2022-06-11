@@ -13,7 +13,8 @@ import {
   countStationClick,
   stationInfo,
   validateStation,
-  voteForStation
+  voteForStation,
+  validateStationFromQuery
 } from 'lib/server/api/station/middleware'
 import { Router } from 'nextjs-koa-api'
 
@@ -27,7 +28,7 @@ export function stationRouter() {
       validateStation,
       saveStation
     )
-    .delete('/', checkSession, checkCollectionExists, deleteStation)
+    .delete('/', checkSession, validateStationFromQuery, deleteStation)
     .get('/song-info', songInfo)
     .post('/bulk-info', bulkStationInfo)
     .post('/click', countStationClick)

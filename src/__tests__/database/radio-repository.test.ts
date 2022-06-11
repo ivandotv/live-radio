@@ -1,27 +1,26 @@
 import faker from '@faker-js/faker'
 import * as dateFns from 'date-fns'
 import { ServerConfig } from 'lib/server/config'
-import { getDbConnection } from 'lib/server/db-connection'
+import { connectionFactory } from 'lib/server/db-connection'
+import { RadioRepository } from 'lib/server/radio-repository'
 import { ObjectId } from 'mongodb'
-import {
-  createStations,
-  resolveRepository,
-  seedDatabase
-} from '../__utils__/db-utils'
-import { testContainer } from '../__utils__/utils'
+import { createStations, seedDatabase } from '__tests__/__utils__/db-utils'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 let users: Awaited<ReturnType<typeof seedDatabase>>
 let client: MongoClient
 let dbName: string
 
+const container = createTestContainer().child()
+
 describe('Radio Repository', () => {
   beforeAll(async () => {
-    const config = testContainer.resolve<ServerConfig>('config')
+    const config = container.resolve<ServerConfig>('config')
 
     dbName = config.mongoDb.dbName
-    client = await testContainer.resolve<ReturnType<typeof getDbConnection>>(
-      getDbConnection
-    )
+    client = await container.resolve<ReturnType<typeof connectionFactory>>(
+      connectionFactory
+    )()
   })
 
   beforeEach(async () => {
@@ -41,21 +40,19 @@ describe('Radio Repository', () => {
 
   describe('User collection', () => {
     test('get user collection', async () => {
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.getCollection(
-        users.userWithFiveStationsInCollections.id,
+        users.userWithFiveStationsInCollection.id,
         'favorites'
       )
       expect(result).toEqual(
-        users.userWithFiveStationsInCollections.favorites.map(
-          (data) => data._id
-        )
+        users.userWithFiveStationsInCollection.favorites.map((data) => data._id)
       )
     })
 
     test('when user collection is empty, return an empty array', async () => {
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.getCollection(
         users.userWithEmptyCollections.id,
@@ -65,7 +62,7 @@ describe('Radio Repository', () => {
     })
 
     test('if the user collection does not exist, return empty array', async () => {
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.getCollection(
         users.userWithNoCollections.id,
@@ -81,7 +78,7 @@ describe('Radio Repository', () => {
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await repository.saveStation(userId, stationId, collection)
       const result = await repository.getCollection(userId, collection)
@@ -95,7 +92,7 @@ describe('Radio Repository', () => {
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await expect(
         repository.saveStation(userId.toString(), stationId, collection)
@@ -107,7 +104,7 @@ describe('Radio Repository', () => {
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await repository.saveStation(userId, stationId, collection)
 
@@ -118,11 +115,11 @@ describe('Radio Repository', () => {
     })
 
     test('new station is addded at index 0', async () => {
-      const userId = users.userWithFiveStationsInCollections.id
+      const userId = users.userWithFiveStationsInCollection.id
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await repository.saveStation(userId, stationId, collection)
 
@@ -130,17 +127,28 @@ describe('Radio Repository', () => {
 
       expect(result[0]).toEqual(stationId)
       expect(result).toHaveLength(
-        users.userWithFiveStationsInCollections[collection].length + 1
+        users.userWithFiveStationsInCollection[collection].length + 1
       )
     })
 
     test('collection is trimmed to the collection limit', async () => {
-      const userId = users.userWithFiveStationsInCollections.id
+      const userId = users.userWithFiveStationsInCollection.id
       const stationId = faker.datatype.uuid()
       const collection = 'favorites'
       const maxCollectionLimit = 3
 
-      const repository = resolveRepository(testContainer, maxCollectionLimit)
+      const childContainer = createTestContainer(
+        {
+          mongoDb: {
+            maxRadioCollectionLimit: maxCollectionLimit
+          }
+        },
+        undefined,
+        container
+      )
+
+      const repository =
+        childContainer.resolve<RadioRepository>(RadioRepository)
 
       await repository.saveStation(userId, stationId, collection)
 
@@ -153,12 +161,12 @@ describe('Radio Repository', () => {
 
   describe('Delete', () => {
     test('delete user station', async () => {
-      const userData = users.userWithFiveStationsInCollections
+      const userData = users.userWithFiveStationsInCollection
       const userId = userData.id
       const collection = 'favorites'
       const stationId = userData[collection][0]._id
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.deleteStation(
         userId,
@@ -177,12 +185,12 @@ describe('Radio Repository', () => {
     })
 
     test('when user does not exist return false', async () => {
-      const userData = users.userWithFiveStationsInCollections
+      const userData = users.userWithFiveStationsInCollection
       const userId = new ObjectId().toString()
       const collection = 'favorites'
       const stationId = userData[collection][0]._id
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.deleteStation(
         userId,
@@ -194,17 +202,16 @@ describe('Radio Repository', () => {
     })
 
     test('when collection does not exist, return false', async () => {
-      const userData = users.userWithFiveStationsInCollections
+      const userData = users.userWithFiveStationsInCollection
       const userId = userData.id
       const collection = 'old_stations'
       const stationId = userData['favorites'][0]._id
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.deleteStation(
         userId,
         stationId,
-        // @ts-expect-error - wrong collection
         collection
       )
 
@@ -212,12 +219,12 @@ describe('Radio Repository', () => {
     })
 
     test('if the station does not exist,return false', async () => {
-      const userData = users.userWithFiveStationsInCollections
+      const userData = users.userWithFiveStationsInCollection
       const userId = userData.id
       const collection = 'favorites'
       const stationId = faker.datatype.uuid()
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.deleteStation(
         userId,
@@ -230,11 +237,11 @@ describe('Radio Repository', () => {
   })
   describe('Delete user collection', () => {
     test('elete collection', async () => {
-      const userData = users.userWithFiveStationsInCollections
+      const userData = users.userWithFiveStationsInCollection
       const userId = userData.id
       const collection = 'favorites'
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.deleteCollection(userId, collection)
 
@@ -250,8 +257,7 @@ describe('Radio Repository', () => {
     test('when user is not found, return false', async () => {
       const userId = new ObjectId().toString()
       const collection = 'favorites'
-
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       const result = await repository.deleteCollection(userId, collection)
 
@@ -259,13 +265,11 @@ describe('Radio Repository', () => {
     })
 
     test('when collection is not found, return false', async () => {
-      const userData = users.userWithFiveStationsInCollections
-      const userId = userData.id
+      const userData = users.userWithFiveStationsInCollection
+      const userId = userData.id.toString()
       const collection = 'wrong_collection'
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
-      const repository = resolveRepository(testContainer)
-
-      // @ts-expect-error - wrong collection
       const result = await repository.deleteCollection(userId, collection)
 
       expect(result).toBe(false)
@@ -273,14 +277,13 @@ describe('Radio Repository', () => {
   })
 
   describe('Import stations', () => {
-    test('import stations successfuly', async () => {
+    test('import stations', async () => {
       const userData = users.userWithEmptyCollections
       const userId = userData.id
       const collection = 'favorites'
-
       const stationsToImport = createStations(10).reverse()
 
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -290,31 +293,25 @@ describe('Radio Repository', () => {
     })
 
     test('add stations to already existing stations,', async () => {
-      const userData = users.userWithFiveStationsInCollections
-      const userId = userData.id
+      const userId = users.userWithFiveStationsInCollection.id
       const collection = 'favorites'
-
       const stationsToImport = createStations(10).reverse()
-
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await repository.importCollection(userId, stationsToImport, collection)
-
       const result = await repository.getCollection(userId, collection)
 
       expect(result).toHaveLength(
         stationsToImport.length +
-          users.userWithFiveStationsInCollections[collection].length
+          users.userWithFiveStationsInCollection[collection].length
       )
     })
 
     test('throw if the user does not exist', async () => {
       const userId = new ObjectId().toString()
       const collection = 'favorites'
-
       const stationsToImport = createStations(1)
-
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await expect(
         repository.importCollection(userId, stationsToImport, collection)
@@ -326,10 +323,18 @@ describe('Radio Repository', () => {
       const userId = userData.id
       const collection = 'favorites'
       const maxCollectionLimit = 10
-
       const stationsToImport = createStations(50)
-
-      const repository = resolveRepository(testContainer, maxCollectionLimit)
+      const childContainer = createTestContainer(
+        {
+          mongoDb: {
+            maxRadioCollectionLimit: maxCollectionLimit
+          }
+        },
+        undefined,
+        container
+      )
+      const repository =
+        childContainer.resolve<RadioRepository>(RadioRepository)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -339,19 +344,16 @@ describe('Radio Repository', () => {
     })
 
     test('sort the collection by newest station first', async () => {
-      const userData = users.userWithFiveStationsInCollections
+      const userData = users.userWithFiveStationsInCollection
       const userId = userData.id
       const collection = 'favorites'
       const newStationCount = 5
-
       const stationsToImport = createStations(
         newStationCount,
         //create stations in the future
         dateFns.add(Date.now(), { years: 10 })
       )
-
-      const repository = resolveRepository(testContainer)
-
+      const repository = container.resolve<RadioRepository>(RadioRepository)
       await repository.importCollection(userId, stationsToImport, collection)
 
       const result = await repository.getCollection(userId, collection)
@@ -366,16 +368,14 @@ describe('Radio Repository', () => {
     })
 
     test('duplicate stations are removed', async () => {
-      const userData = users.userWithFiveStationsInCollections
+      const userData = users.userWithFiveStationsInCollection
       const userId = userData.id
       const collection = 'favorites'
-
       const stationsToImport = userData[collection].map((data) => ({
         _id: data._id,
         date: new Date()
       }))
-
-      const repository = resolveRepository(testContainer)
+      const repository = container.resolve<RadioRepository>(RadioRepository)
 
       await repository.importCollection(userId, stationsToImport, collection)
 
@@ -387,13 +387,10 @@ describe('Radio Repository', () => {
 
     test('if collection does not exist, it is created', async () => {
       const userData = users.userWithNoCollections
-      const userId = userData.id
+      const userId = userData.id.toString()
       const collection = 'favorites'
-
       const stationsToImport = createStations(5)
-
-      const repository = resolveRepository(testContainer)
-
+      const repository = container.resolve<RadioRepository>(RadioRepository)
       await repository.importCollection(userId, stationsToImport, collection)
 
       const result = await repository.getCollection(userId, collection)

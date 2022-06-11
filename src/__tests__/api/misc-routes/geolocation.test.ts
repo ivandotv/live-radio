@@ -4,12 +4,10 @@ import { setupServer } from 'msw/node'
 import { withKoaApi } from 'nextjs-koa-api'
 import { handler } from 'pages/api/[[...routes]]'
 import request from 'supertest'
-import { createTestContainer } from '__tests__/__utils__/utils'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 const clientIp = faker.internet.ip()
 const geolocationApi = 'http://ip-api.com/json/:ip'
-
-console.log('ENV =', process.env.NODE_ENV)
 
 const container = createTestContainer()
 const url = '/api/geolocation'

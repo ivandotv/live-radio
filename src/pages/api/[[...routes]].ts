@@ -9,7 +9,7 @@ import {
 import { stationRouter } from 'lib/server/api/station/routes'
 import { ServerConfig } from 'lib/server/config'
 import { getServerContainer } from 'lib/server/injection-root'
-import { ServerError } from 'lib/server/server-error'
+import { PublicServerError } from 'lib/server/server-error'
 import { attachRouter, Koa, KoaApi, withKoaApi } from 'nextjs-koa-api'
 import { PumpIt } from 'pumpit'
 
@@ -34,9 +34,9 @@ export function handler(container: PumpIt) {
       koaBody({
         jsonLimit: '1mb',
         onError: (err) => {
-          throw new ServerError({
-            body: { msg: err.message },
-            status: 400,
+          throw new PublicServerError({
+            body: { msg: 'Entity to large ' },
+            status: 413,
             diagnostics: {
               error: err
             }

@@ -2,8 +2,8 @@ import { withKoaApi } from 'nextjs-koa-api'
 import { handler } from 'pages/api/[[...routes]]'
 import { RadioBrowserApi } from 'radio-browser-api'
 import request from 'supertest'
-import { getMockStation } from '__tests__/__utils__/mock-station'
-import { createTestContainer } from '__tests__/__utils__/utils'
+import { getMockStation } from '__tests__/__utils__/mocks/station-mock'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 const container = createTestContainer().child()
 
@@ -57,11 +57,11 @@ describe('api/station/search', () => {
 
     expect(result.status).toBe(400)
     expect(result.body).toEqual({
-      msg: expect.stringContaining('query missing')
+      msg: expect.stringContaining('validation failed')
     })
   })
 
-  test('if radio api is not available, return 500', async () => {
+  test('if radio api is not available, return 503', async () => {
     container.unbind(RadioBrowserApi)
     container.bindValue(
       RadioBrowserApi,
@@ -72,7 +72,7 @@ describe('api/station/search', () => {
 
     const result = await request(api).post(url).send({ query: 'space techno' })
 
-    expect(result.status).toBe(500)
+    expect(result.status).toBe(503)
     expect(result.body).toEqual({
       msg: expect.stringContaining('radio api not available')
     })

@@ -2,7 +2,7 @@ import { withKoaApi } from 'nextjs-koa-api'
 import { handler } from 'pages/api/[[...routes]]'
 import { RadioBrowserApi } from 'radio-browser-api'
 import request from 'supertest'
-import { createTestContainer } from '__tests__/__utils__/utils'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 const container = createTestContainer().child()
 

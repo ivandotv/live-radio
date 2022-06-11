@@ -12,7 +12,7 @@ module.exports = {
     '<rootDir>/jestSetup.ts',
     `<rootDir>${currentPath}/jestSetup.ts`
   ],
-  testMatch: [`<rootDir>${currentPath}/**/?(*.)+(spec|test).[jt]s?(x)`]
-  // globalSetup: `<rootDir>${currentPath}/../database/jestGlobalSetup.ts`,
-  // globalTeardown: `<rootDir>${currentPath}/../database/jestGlobalTeardown.ts`
+  testMatch: [`<rootDir>${currentPath}/**/?(*.)+(spec|test).[jt]s?(x)`],
+  globalSetup: `<rootDir>${currentPath}/../database/jestGlobalSetup.ts`,
+  globalTeardown: `<rootDir>${currentPath}/../database/jestGlobalTeardown.ts`
 }

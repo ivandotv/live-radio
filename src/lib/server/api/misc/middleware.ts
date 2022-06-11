@@ -2,7 +2,7 @@ import { i18n } from '@lingui/core'
 import parser from 'accept-language-parser'
 import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
 import createManifest from 'lib/server/create-manifest'
-import { ServerError } from 'lib/server/server-error'
+import { PublicServerError } from 'lib/server/server-error'
 import { importTranslations } from 'lib/server/utils'
 import { en, sr } from 'make-plural/plurals'
 import { Koa } from 'nextjs-koa-api'
@@ -25,7 +25,7 @@ export async function geolocation(
       : detectedIp
 
   if (!queryIp.length) {
-    throw new ServerError({
+    throw new PublicServerError({
       status: 503,
       body: { msg: `can't detect ip` }
     })
@@ -34,7 +34,7 @@ export async function geolocation(
   const data = await fetchIpInfo(queryIp)
 
   if (!data) {
-    throw new ServerError({
+    throw new PublicServerError({
       status: 503,
       body: { msg: `can't fetch ip info` }
     })
@@ -43,7 +43,7 @@ export async function geolocation(
   const countryData = countryDataByKey('code', data.countryCode)
 
   if (!countryData) {
-    throw new ServerError({
+    throw new PublicServerError({
       status: 503,
       body: {
         msg: `Can't parse location data`

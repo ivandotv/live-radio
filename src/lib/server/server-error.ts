@@ -1,3 +1,5 @@
+import Joi from 'joi'
+
 export class ServerError extends Error {
   status: number
 
@@ -7,13 +9,36 @@ export class ServerError extends Error {
 
   body?: Record<string, any>
 
+  expose = false
+
+  dev?: any
+
   constructor(opts?: {
     message?: string
     status?: number
-    expose?: boolean
+    logIt?: boolean
+    diagnostics?: Record<string, any>
+    dev?: any
+  }) {
+    const message = opts?.message || 'Internal server error'
+
+    super(message)
+
+    this.status = opts?.status || 500
+    this.logIt = opts?.logIt ?? true
+    this.diagnostics = opts?.diagnostics
+    this.dev = opts?.dev
+  }
+}
+
+export class PublicServerError extends ServerError {
+  constructor(opts?: {
+    message?: string
+    status?: number
     body?: Record<string, any>
     logIt?: boolean
     diagnostics?: Record<string, any>
+    dev?: any
   }) {
     let message = 'Internal server error'
     if (opts?.message) {
@@ -26,17 +51,39 @@ export class ServerError extends Error {
       }
     }
 
-    super(message)
+    super({
+      message,
+      status: opts?.status,
+      logIt: opts?.logIt,
+      diagnostics: opts?.diagnostics,
+      dev: opts?.dev
+    })
+    this.expose = true
+    this.body = opts?.body || { msg: message }
+  }
+}
 
-    this.status = opts?.status || 500
-    this.logIt = opts?.logIt || true
-    this.diagnostics = opts?.diagnostics
+export class ValidationError extends PublicServerError {
+  validationError?: Joi.ValidationError
 
-    if (opts?.body) {
-      this.body = opts.body
-      if (message && opts.body.message === undefined) {
-        this.body.msg = message
-      }
-    }
+  constructor(opts?: {
+    body?: Record<string, any>
+    error?: Joi.ValidationError
+    dev?: any
+  }) {
+    super({
+      logIt: false,
+      status: 400,
+      body: opts?.body || { msg: 'validation failed' },
+      dev: opts?.dev
+    })
+
+    this.validationError = opts?.error
+  }
+}
+
+export class RadioApiError extends PublicServerError {
+  constructor(e: any) {
+    super({ message: 'radio api not available', diagnostics: e, status: 503 })
   }
 }

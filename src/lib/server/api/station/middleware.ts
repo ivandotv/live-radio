@@ -1,5 +1,6 @@
 import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
-import { ServerError } from 'lib/server/server-error'
+import { ValidationError } from 'lib/server/server-error'
+import { maybeThrowRadioError } from 'lib/server/utils'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { Koa } from 'nextjs-koa-api'
 // @ts-expect-error - no types
@@ -12,27 +13,21 @@ export async function deleteStation(
   ctx: Koa.ParameterizedContext<
     ApiState,
     ApiContext & {
-      request: { body: { collection?: string; station?: string } }
+      request: { query: { collection: string; station: string } }
     }
   >,
-  next: Koa.Next
+  _next: Koa.Next
 ) {
-  const { station, collection } = ctx.request.body
-
   const { radioRepository } = ctx.deps
 
-  if (!station) {
-    ctx.status = 400
-    ctx.body = { msg: 'Station ID expected' }
-
-    return
-  }
+  const { station, collection } = ctx.request.query
 
   const result = await radioRepository.deleteStation(
     ctx.state.session!.user.id,
     station,
     collection!
   )
+
   if (result) {
     ctx.status = 200
     ctx.body = { msg: 'deleted' }
@@ -40,7 +35,6 @@ export async function deleteStation(
     ctx.status = 404
     ctx.body = { msg: 'station not found' }
   }
-  await next()
 }
 
 /**
@@ -75,6 +69,33 @@ export async function validateStation(
     }
 
     return
+  }
+
+  await next()
+}
+
+export async function validateStationFromQuery(
+  ctx: Koa.ParameterizedContext<
+    ApiState,
+    ApiContext & {
+      request: {
+        query: {
+          station: string
+          collection: string
+        }
+      }
+    }
+  >,
+  next: Koa.Next
+) {
+  const { schemas } = ctx.deps
+
+  const { error } = schemas.stationCrud.validate(ctx.request.query, {
+    errors: { render: false }
+  })
+
+  if (error) {
+    throw new ValidationError({ error })
   }
 
   await next()
@@ -127,8 +148,7 @@ export async function bulkStationInfo(
 ) {
   const {
     schemas: { multipleStations },
-    radioApi,
-    config
+    radioApi
   } = ctx.deps
 
   const { error, value } = multipleStations.validate(ctx.request.body, {
@@ -136,27 +156,13 @@ export async function bulkStationInfo(
   })
 
   if (error) {
-    throw new ServerError({
-      body: {
-        msg: 'validation failed',
-        debug: config.isProduction ? undefined : error
-      },
-      status: 422
-    })
+    throw new ValidationError({ error })
   }
 
-  try {
-    const stations = await radioApi.getStationsById(value!.stations)
-
-    ctx.body = dataToRadioDTO(stations)
-  } catch (e) {
-    throw new ServerError({
-      body: { msg: 'radio api not available' },
-      diagnostics: {
-        error: e
-      }
-    })
-  }
+  const stations = await maybeThrowRadioError(
+    radioApi.getStationsById(value!.stations)
+  )
+  ctx.body = dataToRadioDTO(stations)
 
   return next()
 }
@@ -169,26 +175,20 @@ export async function checkCollectionExists(
   ctx: Koa.ParameterizedContext<
     ApiState,
     ApiContext & {
-      request: { body: { collection?: string; station?: string } }
+      request: { query: { collection?: string; station?: string } }
     }
   >,
-  next: Koa.Next
+  _next: Koa.Next
 ) {
-  const { collection } = ctx.request.body
+  const { collection } = ctx.request.query
 
   if (!collection) {
     ctx.response.status = 400
     ctx.body = { msg: 'collection name required' }
-
-    return
   } else if (-1 === ['favorites', 'recent'].indexOf(collection)) {
     ctx.response.status = 404
     ctx.body = { msg: 'collection not found' }
-
-    return
   }
-
-  return next()
 }
 
 export async function voteForStation(
@@ -204,28 +204,13 @@ export async function voteForStation(
   const { id } = ctx.request.body
 
   if (!id) {
-    throw new ServerError({
-      status: 400,
-      body: { msg: 'station id missing' }
-    })
+    throw new ValidationError({ dev: 'station id missing' })
   }
 
-  try {
-    await radioApi.voteForStation(id)
+  await maybeThrowRadioError(radioApi.voteForStation(id))
 
-    ctx.body = { msg: 'ok' }
-    ctx.status = 200
-  } catch (e: unknown) {
-    throw new ServerError({
-      status: 503,
-      body: {
-        msg: 'radio api not available'
-      },
-      diagnostics: {
-        error: e
-      }
-    })
-  }
+  ctx.body = { msg: 'ok' }
+  ctx.status = 200
 
   return next()
 }
@@ -241,23 +226,13 @@ export async function stationInfo(
 
   const { play } = ctx.request.query
   if (!play) {
-    ctx.body = { msg: 'station id missing' }
-    ctx.status = 400
+    throw new ValidationError({ dev: 'station id missing' })
   } else {
-    let stationResponse
-    try {
-      stationResponse = await radioApi.getStationsById([play])
-    } catch (e) {
-      throw new ServerError({
-        body: { msg: 'radio api not available' },
-        diagnostics: {
-          error: e
-        },
-        status: 503
-      })
-    }
+    const stations = await maybeThrowRadioError(
+      radioApi.getStationsById([play])
+    )
 
-    const station = dataToRadioDTO(stationResponse)
+    const station = dataToRadioDTO(stations)
 
     if (station.length) {
       ctx.body = station
@@ -346,11 +321,11 @@ export async function customSearch(
   const { query } = ctx.request.body
 
   if (query === undefined) {
-    throw new ServerError({ body: { msg: 'query missing' }, status: 400 })
+    throw new ValidationError({ dev: 'body missing' })
   }
   if (query.length) {
-    try {
-      const result = await radioApi.searchStations(
+    const result = await maybeThrowRadioError(
+      radioApi.searchStations(
         {
           name: query,
           limit: config.customSearchStationLimit
@@ -358,19 +333,10 @@ export async function customSearch(
         undefined,
         true
       )
+    )
+    const stations = dataToRadioDTO(result)
 
-      const stations = dataToRadioDTO(result)
-
-      ctx.body = { stations }
-    } catch (e) {
-      throw new ServerError({
-        body: { msg: 'radio api not available' },
-        diagnostics: {
-          error: e
-        },
-        status: 503
-      })
-    }
+    ctx.body = { stations }
   } else {
     ctx.body = { stations: [] }
   }

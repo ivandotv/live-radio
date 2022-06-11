@@ -1,7 +1,7 @@
 import { withKoaApi } from 'nextjs-koa-api'
 import { handler } from 'pages/api/[[...routes]]'
 import request from 'supertest'
-import { createTestContainer } from '__tests__/__utils__/utils'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 const container = createTestContainer()
 const url = '/api/manifest'

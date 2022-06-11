@@ -1,4 +1,5 @@
 import Joi from 'joi'
+import { Level } from 'pino'
 
 /**
  * ! Configuration in this file should ONLY be used in server side code!
@@ -19,7 +20,8 @@ const envSchema = {
       .required()
   ) as 'production' | 'development' | 'test' | 'preview',
   APP_ENV: asString(Joi.string()),
-  LOG_LEVEL: asString(Joi.string().default('silent')),
+  TESTING: asBoolean(Joi.boolean().default(false)),
+  LOG_LEVEL: asString(Joi.string().default('silent')) as Level,
   MONGO_DB_URI: asString(Joi.string().required()),
   MONGO_DB_NAME: asString(Joi.string().required()),
   GH_ID: asString(Joi.string().required()),
@@ -42,7 +44,7 @@ export function getServerConfig(env: EnvSchema) {
 
   const isProduction = envData.NODE_ENV === 'production'
   const isDevelopment = envData.NODE_ENV === 'development'
-  const isTest = envData.NODE_ENV === 'test'
+  const isTest = envData.TESTING
 
   return {
     env: envData.NODE_ENV,
@@ -82,6 +84,11 @@ export function getServerConfig(env: EnvSchema) {
 export function asString(value: Joi.ValidationResult | Joi.AnySchema) {
   return value as unknown as string
 }
+
 export function asNumber(value: Joi.ValidationResult | Joi.AnySchema) {
   return value as unknown as number
+}
+
+export function asBoolean(value: Joi.ValidationResult | Joi.AnySchema) {
+  return value as unknown as boolean
 }

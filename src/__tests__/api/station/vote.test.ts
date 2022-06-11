@@ -2,7 +2,7 @@ import { withKoaApi } from 'nextjs-koa-api'
 import { handler } from 'pages/api/[[...routes]]'
 import { RadioBrowserApi } from 'radio-browser-api'
 import request from 'supertest'
-import { createTestContainer } from '__tests__/__utils__/utils'
+import { createTestContainer } from '__tests__/__utils__/test-container'
 
 const container = createTestContainer().child()
 
@@ -32,11 +32,11 @@ describe('api/station/vote', () => {
 
     expect(result.status).toBe(400)
     expect(result.body).toEqual({
-      msg: expect.stringContaining('station id missing')
+      msg: expect.stringContaining('validation failed')
     })
   })
 
-  test('return 500 if radio api errors out', async () => {
+  test('return 503 if radio api errors out', async () => {
     const radioMock = {
       voteForStation: jest.fn().mockRejectedValue(new Error())
     }

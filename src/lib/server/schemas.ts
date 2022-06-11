@@ -52,7 +52,7 @@ const importStations = Joi.object<{
 const stationCrud = Joi.object()
   .keys({
     station,
-    collection: Joi.string().required()
+    collection: Joi.string().equal('favorites', 'recent').required()
   })
   .required()
 

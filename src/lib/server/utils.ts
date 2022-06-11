@@ -9,6 +9,7 @@ import { getStationInfo as getSongInfoCb } from 'node-internet-radio'
 import type pino from 'pino'
 import { promisify } from 'util'
 import { getServerContainer } from './injection-root'
+import { PublicServerError } from './server-error'
 
 export type StationCollection = 'favorites' | 'recent'
 
@@ -131,5 +132,19 @@ export async function fetchIpInfo(ip: string) {
 
   if (response.ok) {
     return (await response.json()) as unknown as { countryCode: string }
+  }
+}
+
+export async function maybeThrowRadioError<T extends Promise<any>>(
+  p: T
+): Promise<T> {
+  try {
+    return await p
+  } catch (e: any) {
+    throw new PublicServerError({
+      message: 'radio api not available',
+      diagnostics: e,
+      status: 503
+    })
   }
 }

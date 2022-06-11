@@ -10,7 +10,6 @@ export function connectionFactory(config: ServerConfig) {
 
   return async () => {
     if (!client) {
-      console.log('create mongodb client')
       client = new MongoClient(uri, clientOptions).connect()
     }
 

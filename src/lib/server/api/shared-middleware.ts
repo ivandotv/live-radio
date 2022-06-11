@@ -1,7 +1,12 @@
+import Joi from 'joi'
 import { ServerConfig } from 'lib/server/config'
 import { RadioRepository } from 'lib/server/radio-repository'
 import { schemas } from 'lib/server/schemas'
-import { ServerError } from 'lib/server/server-error'
+import {
+  PublicServerError,
+  ServerError,
+  ValidationError
+} from 'lib/server/server-error'
 import {
   countryDataByKey,
   fetchIpInfo,
@@ -74,14 +79,15 @@ export async function checkSession(
 ) {
   const { getSession } = ctx.deps
   const session = await getSession({ req: ctx.req })
-  if (!session) {
-    ctx.status = 401
-    ctx.body = { msg: 'Unauthorized' }
 
-    return
-  } else {
-    ctx.state.session = session
+  if (!session) {
+    throw new PublicServerError({
+      body: { msg: 'not authenticated' },
+      status: 401
+    })
   }
+
+  ctx.state.session = session
 
   return next()
 }
@@ -98,38 +104,39 @@ export async function handleServerError(
   } catch (err: any) {
     const { logServerError, config } = ctx.deps
 
-    const defaultMessage = 'Internal server error'
     let status = 500
     let exposeError = false
     let logIt = true
-    let payload: Record<string, any> | undefined
+    let payload: Record<string, any> | undefined = {
+      msg: 'internal server error'
+    }
+    let validationError: Joi.ValidationError | undefined
 
     if (err instanceof ServerError) {
       status = err.status
       logIt = err.logIt
-      if (err.body) {
-        exposeError = true
+      exposeError = err.expose
+      if (exposeError && err.body) {
         payload = err.body
+      }
+      if (err instanceof ValidationError) {
+        validationError = err.validationError
       }
     }
 
-    let body
-
-    if (config.isProduction) {
-      if (exposeError) {
-        body = payload
-      } else {
-        body = defaultMessage
+    if (config.isDevelopment) {
+      payload = {
+        ...payload,
+        stack: err.stack,
+        message: err.message,
+        validationError,
+        dev: err.dev
       }
-    } else {
-      //dev mode
-      body = { ...payload, stack: err.stack, message: err.message }
     }
 
     if (!ctx.headerSent) {
       ctx.status = status
-
-      ctx.body = body
+      ctx.body = payload
     }
 
     if (logIt) {

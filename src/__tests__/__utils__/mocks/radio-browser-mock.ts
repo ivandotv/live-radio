@@ -1,5 +1,5 @@
 import { RadioBrowserApi } from 'radio-browser-api'
-import { getMockStation } from './mock-station'
+import { getMockStation } from './station-mock'
 
 export type RadioBrowserMock = ReturnType<typeof createRadioBrowserMock>
 
