@@ -41,7 +41,7 @@ export async function deleteStation(
  * Validate station payload
  */
 
-export async function validateStation(
+export async function validateStationFromBody(
   ctx: Koa.ParameterizedContext<
     ApiState,
     ApiContext & {
@@ -55,23 +55,17 @@ export async function validateStation(
   >,
   next: Koa.Next
 ) {
-  const { schemas, config } = ctx.deps
+  const { schemas } = ctx.deps
 
   const { error } = schemas.stationCrud.validate(ctx.request.body, {
     errors: { render: false }
   })
 
   if (error) {
-    ctx.status = 422
-    ctx.body = {
-      msg: 'Not a valid Station object',
-      debug: config.isProduction ? undefined : error
-    }
-
-    return
+    throw new ValidationError({ error })
   }
 
-  await next()
+  return next()
 }
 
 export async function validateStationFromQuery(
@@ -109,7 +103,7 @@ export async function saveStation(
   ctx: Koa.ParameterizedContext<
     ApiState,
     ApiContext & {
-      request: { body: { collection?: string; station?: string } }
+      request: { body: { collection: string; station: string } }
     }
   >,
   next: Koa.Next
@@ -119,20 +113,21 @@ export async function saveStation(
 
   await radioRepository.saveStation(
     ctx.state.session!.user.id,
-    station!,
-    collection!
+    station,
+    collection
   )
 
   try {
-    if (collection === 'favorite') {
-      await radioApi.voteForStation(station!)
+    if (collection === 'favorites') {
+      await radioApi.voteForStation(station)
     }
   } catch (e) {
     //ignore errors to radio-api
-    logServerError(new Error('Radio api error'), ctx)
+    logServerError(new Error('Radio api not available'), ctx)
   }
 
-  ctx.status = 200
+  ctx.status = 201
+  ctx.body = { msg: 'station saved' }
 
   return next()
 }

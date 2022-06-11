@@ -5,29 +5,22 @@ import {
 } from 'lib/server/api/shared-middleware'
 import {
   bulkStationInfo,
-  checkCollectionExists,
+  countStationClick,
   customSearch,
   deleteStation,
   saveStation,
   songInfo,
-  countStationClick,
   stationInfo,
-  validateStation,
-  voteForStation,
-  validateStationFromQuery
+  validateStationFromBody,
+  validateStationFromQuery,
+  voteForStation
 } from 'lib/server/api/station/middleware'
 import { Router } from 'nextjs-koa-api'
 
 export function stationRouter() {
   return new Router<ApiState, ApiContext>()
     .get('/', stationInfo)
-    .post(
-      '/',
-      checkSession,
-      checkCollectionExists,
-      validateStation,
-      saveStation
-    )
+    .post('/', checkSession, validateStationFromBody, saveStation)
     .delete('/', checkSession, validateStationFromQuery, deleteStation)
     .get('/song-info', songInfo)
     .post('/bulk-info', bulkStationInfo)
