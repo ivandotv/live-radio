@@ -184,7 +184,7 @@ export async function validateCollectionPayload(
 ) {
   const { collection } = ctx.request.params
 
-  if (['favorites', 'recent'].indexOf(collection)) {
+  if (-1 === ['favorites', 'recent'].indexOf(collection)) {
     throw new PublicServerError({
       body: { msg: 'collection not found' },
       status: 404
