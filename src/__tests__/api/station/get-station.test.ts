@@ -38,7 +38,7 @@ describe('api/station', () => {
         expect.objectContaining({ _id: expect.any(String) })
       ])
 
-      expect(radioBrowserMock.getStationsById.mock.calls[0][0]).toEqual(
+      expect(radioBrowserMock.getStationsById!.mock.calls[0][0]).toEqual(
         expect.objectContaining([play])
       )
     })

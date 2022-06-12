@@ -1,5 +1,5 @@
 import {
-  checkCollectionExists,
+  validateCollectionPayload,
   deleteCollection,
   getUserCollection,
   importStations,
@@ -11,7 +11,7 @@ import { Koa, Router } from 'nextjs-koa-api'
 export function collectionRouter() {
   return new Router<Koa.DefaultState, ApiContext>()
     .use(checkSession)
-    .get('/:collection', checkCollectionExists, getUserCollection)
+    .get('/:collection', validateCollectionPayload, getUserCollection)
     .post('/batch/import', validateImportStations, importStations)
-    .delete('/:collection', checkCollectionExists, deleteCollection)
+    .delete('/:collection', validateCollectionPayload, deleteCollection)
 }

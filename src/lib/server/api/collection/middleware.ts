@@ -1,5 +1,6 @@
 import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
-import { StationCollection } from 'lib/server/utils'
+import { PublicServerError, ServerError } from 'lib/server/server-error'
+import { maybeThrowRadioError, StationCollection } from 'lib/server/utils'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { Koa } from 'nextjs-koa-api'
 
@@ -27,9 +28,15 @@ export async function getUserCollection(
     collection
   )
 
-  const stations = await radioApi.getStationsById(stationIds)
+  if (stationIds.length) {
+    const stations = await maybeThrowRadioError(
+      radioApi.getStationsById(stationIds)
+    )
 
-  ctx.body = dataToRadioDTO(stations)
+    ctx.body = dataToRadioDTO(stations)
+  } else {
+    ctx.body = []
+  }
 
   return next()
 }
@@ -91,10 +98,9 @@ export async function deleteCollection(
     collection
   )
   if (result) {
-    ctx.body = { msg: 'deleted' }
+    ctx.body = { msg: 'success' }
   } else {
-    ctx.status = 404
-    ctx.body = { msg: 'collection not found' }
+    throw new ServerError()
   }
 
   return next()
@@ -169,7 +175,7 @@ export async function importStations(
  * Check if collection exists
  */
 
-export async function checkCollectionExists(
+export async function validateCollectionPayload(
   ctx: Koa.ParameterizedContext<
     ApiState,
     ApiContext & { request: { params: { collection: string } } }
@@ -178,16 +184,11 @@ export async function checkCollectionExists(
 ) {
   const { collection } = ctx.request.params
 
-  if (!collection) {
-    ctx.response.status = 400
-    ctx.body = { msg: 'collection name required' }
-
-    return
-  } else if (-1 === ['favorites', 'recent'].indexOf(collection)) {
-    ctx.response.status = 404
-    ctx.body = { msg: 'collection not found' }
-
-    return
+  if (['favorites', 'recent'].indexOf(collection)) {
+    throw new PublicServerError({
+      body: { msg: 'collection not found' },
+      status: 404
+    })
   }
   await next()
 }

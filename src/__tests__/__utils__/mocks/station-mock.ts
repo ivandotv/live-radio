@@ -31,10 +31,10 @@ export function getMockResponse(): StationResponse {
   }
 }
 
-export function getMockStation(): Station {
+export function getMockStation(id?: string): Station {
   return {
     changeId: '9619b77b-0601-11e8-ae97-52543be04c81',
-    id: faker.datatype.uuid(),
+    id: id || faker.datatype.uuid(),
     name: 'Radio 021',
     url: faker.internet.url(),
     urlResolved: faker.internet.url(),

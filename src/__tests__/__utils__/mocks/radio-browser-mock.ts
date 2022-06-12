@@ -10,7 +10,11 @@ export function createRadioBrowserMock<T extends Partial<RadioMock>>(
   override: T = {}
 ): T {
   return {
-    getStationsById: jest.fn().mockResolvedValue([getMockStation()]),
+    getStationsById: jest.fn().mockImplementation((ids: string[]) => {
+      return ids.map((id: string) => {
+        return getMockStation(id)
+      })
+    }),
     ...override
   }
 }
