@@ -25,7 +25,7 @@ const defaultLocale = linguiConfig.fallbackLocales.default
 
 /** @type {import('next/dist/server/config').NextConfig}*/
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false, // MUI v4 fails with strict mode
   i18n: {
     locales,
     defaultLocale
