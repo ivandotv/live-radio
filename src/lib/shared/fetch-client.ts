@@ -3,6 +3,7 @@ export type FetchClient = typeof client
 export type ClientRequest = RequestInit & {
   token?: string
   data?: Record<string, unknown>
+  query?: Record<string, string>
 }
 
 export async function client<T = any>(
@@ -11,6 +12,9 @@ export async function client<T = any>(
 ): Promise<T> {
   const { data, token, headers: customHeaders, ...rest } = customConfig
 
+  endpoint = customConfig.query
+    ? `${endpoint}?${new URLSearchParams(customConfig.query).toString()}`
+    : endpoint
   const config: RequestInit = {
     method: data ? 'POST' : 'GET',
     body: data ? JSON.stringify(data) : undefined,

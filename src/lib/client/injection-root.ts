@@ -15,6 +15,7 @@ import { client } from 'lib/shared/fetch-client'
 import { isSSR } from 'lib/shared/utils'
 import { getSession } from 'next-auth/react'
 import { PumpIt, SCOPE } from 'pumpit'
+import { CustomSearchStore } from './stores/custom-search-store'
 
 let store: RootStore
 let container: PumpIt
@@ -36,6 +37,9 @@ export function getClientContainer() {
       .bindClass(RootStore, RootStore)
       .bindClass(StorageService, StorageService, {
         scope: SCOPE.SINGLETON
+      })
+      .bindClass(CustomSearchStore, CustomSearchStore, {
+        scope: SCOPE.CONTAINER_SINGLETON
       })
       .bindClass(LocalStorageService, LocalStorageService, {
         scope: SCOPE.SINGLETON

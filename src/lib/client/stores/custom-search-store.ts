@@ -1,9 +1,8 @@
 import { RadioModel } from 'lib/client/radio-model'
-import { SHARED_CONFIG } from 'lib/shared/config'
-import { client } from 'lib/shared/fetch-client'
 import { createRadioModels } from 'lib/shared/utils'
 import { action, makeObservable, observable, runInAction } from 'mobx'
 import { logger } from '../logger-browser'
+import { RemoteStorageService } from '../services/storage/remote-storage-service'
 
 export class CustomSearchStore {
   query = ''
@@ -18,7 +17,9 @@ export class CustomSearchStore {
 
   protected requestToken?: Record<string, unknown>
 
-  constructor() {
+  static inject = [RemoteStorageService]
+
+  constructor(protected storage: RemoteStorageService) {
     makeObservable<CustomSearchStore, 'searchData'>(this, {
       search: action,
       searchData: action,
@@ -56,9 +57,7 @@ export class CustomSearchStore {
     this.searchInProgress = true
 
     try {
-      const result = await client(`${SHARED_CONFIG.url}/api/custom-search`, {
-        data: { name: query }
-      })
+      const result = await this.storage.search(query)
       if (this.requestToken === localToken) {
         // process stations
         runInAction(() => {

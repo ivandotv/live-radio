@@ -30,8 +30,8 @@ export class RemoteStorageService {
 
   async removeStation(station: string, collection: StationCollection) {
     return this.fetchClient(`/api/station`, {
-      data: { station, collection },
-      method: 'DELETE'
+      method: 'DELETE',
+      query: { station, collection }
     }).catch(this.checkAuthError)
   }
 
@@ -48,6 +48,12 @@ export class RemoteStorageService {
     return this.fetchClient(`/api/collection/${collection}`, {}).catch(
       this.checkAuthError
     )
+  }
+
+  async search(query: string) {
+    return this.fetchClient(`/api/station/search`, {
+      data: { query }
+    })
   }
 
   protected checkAuthError(err: unknown) {

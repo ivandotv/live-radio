@@ -1,3 +1,4 @@
+import { getClientContainer } from 'lib/client/injection-root'
 import { CustomSearchStore } from 'lib/client/stores/custom-search-store'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
@@ -24,7 +25,10 @@ export function CustomSearchStoreProvider({
 }: {
   children: ReactNode
 }) {
-  const store = useMemo(() => new CustomSearchStore(), [])
+  const store = useMemo(
+    () => getClientContainer().resolve<CustomSearchStore>(CustomSearchStore),
+    []
+  )
 
   return (
     <CustomSearchContext.Provider value={store}>
