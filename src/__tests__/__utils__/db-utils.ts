@@ -5,10 +5,10 @@ import { ObjectId } from 'mongodb'
 export function createStations(count = 0, startDate = new Date()) {
   const stations = []
 
-  for (let i = 0; i < count; i++) {
+  for (let i = 1; i <= count; i++) {
     stations.push({
       _id: faker.datatype.uuid(),
-      date: dateFns.sub(startDate, { months: i++ })
+      date: dateFns.sub(startDate, { months: i })
     })
   }
 
