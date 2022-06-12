@@ -1,5 +1,9 @@
 import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
-import { PublicServerError, ServerError } from 'lib/server/server-error'
+import {
+  PublicServerError,
+  ServerError,
+  ValidationError
+} from 'lib/server/server-error'
 import { maybeThrowRadioError, StationCollection } from 'lib/server/utils'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { Koa } from 'nextjs-koa-api'
@@ -59,8 +63,7 @@ export async function validateImportStations(
   next: Koa.Next
 ) {
   const {
-    schemas: { importStations },
-    config
+    schemas: { importStations }
   } = ctx.deps
 
   const { error } = importStations.validate(ctx.request.body, {
@@ -68,13 +71,7 @@ export async function validateImportStations(
   })
 
   if (error) {
-    ctx.status = 422
-    ctx.body = {
-      msg: 'Not all stations are valid',
-      debug: config.isProduction ? undefined : error
-    }
-
-    return
+    throw new ValidationError({ dev: 'import collection validation failed ' })
   }
 
   return next()
@@ -125,10 +122,7 @@ export async function importStations(
 ) {
   const { radioRepository, radioApi } = ctx.deps
 
-  const payload = ctx.request.body as Record<
-    StationCollection,
-    { station: string; date: string }[]
-  >
+  const payload = ctx.request.body
 
   //TODO - make single import call
   const favImportPromise = radioRepository.importCollection(
@@ -154,10 +148,16 @@ export async function importStations(
   //TODO - make single radio api call
   const [favorites, recent] = await Promise.all([
     payload.favorites.length > 0
-      ? radioApi.getStationsById(payload.favorites.map((data) => data.station))
+      ? maybeThrowRadioError(
+          radioApi.getStationsById(
+            payload.favorites.map((data) => data.station)
+          )
+        )
       : [],
     payload.recent.length > 0
-      ? radioApi.getStationsById(payload.recent.map((data) => data.station))
+      ? maybeThrowRadioError(
+          radioApi.getStationsById(payload.recent.map((data) => data.station))
+        )
       : []
   ])
 

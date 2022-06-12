@@ -3,17 +3,19 @@ import * as dateFns from 'date-fns'
 import { ObjectId } from 'mongodb'
 
 export function createStations(count = 0, startDate = new Date()) {
-  let i = 1
+  const stations = []
 
-  return Array.from({ length: count }).map(() => {
-    return {
+  for (let i = 0; i < count; i++) {
+    stations.push({
       _id: faker.datatype.uuid(),
       date: dateFns.sub(startDate, { months: i++ })
-    }
-  })
+    })
+  }
+
+  return stations
 }
 
-export function createUserData(recent = 0, favorites = 0) {
+export function createUserData(recentCount = 0, favoritesCount = 0) {
   const id = new ObjectId()
 
   return {
@@ -23,8 +25,8 @@ export function createUserData(recent = 0, favorites = 0) {
     email: faker.internet.email(),
     image: faker.image.avatar(),
     emailVerified: null,
-    recent: createStations(recent),
-    favorites: createStations(favorites)
+    recent: createStations(recentCount),
+    favorites: createStations(favoritesCount)
   }
 }
 
