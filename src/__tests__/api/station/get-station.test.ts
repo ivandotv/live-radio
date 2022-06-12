@@ -38,7 +38,7 @@ describe('api/station', () => {
         expect.objectContaining({ _id: expect.any(String) })
       ])
 
-      expect(radioBrowserMock.getStationsById!.mock.calls[0][0]).toEqual(
+      expect(radioBrowserMock.getStationsById!).toHaveBeenLastCalledWith(
         expect.objectContaining([play])
       )
     })
@@ -58,7 +58,7 @@ describe('api/station', () => {
         msg: expect.stringContaining('station not found')
       })
 
-      expect(radioBrowserMock.getStationsById.mock.calls[0][0]).toEqual(
+      expect(radioBrowserMock.getStationsById).toHaveBeenCalledWith(
         expect.objectContaining([play])
       )
     })

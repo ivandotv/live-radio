@@ -89,7 +89,7 @@ describe('/api/station', () => {
 
       await request(api).post(url).send({ collection, station })
 
-      expect(radioBrowserMock.voteForStation.mock.calls[0][0]).toEqual(station)
+      expect(radioBrowserMock.voteForStation).toHaveBeenCalledWith(station)
     })
 
     test('if station parameter is missing, return 400', async () => {

@@ -36,8 +36,10 @@ describe('api/station/search', () => {
       stations: [expect.objectContaining({ _id: expect.any(String) })]
     })
 
-    expect(radioBrowserMock.searchStations.mock.calls[0][0]).toEqual(
-      expect.objectContaining({ name: query })
+    expect(radioBrowserMock.searchStations).toHaveBeenCalledWith(
+      expect.objectContaining({ name: query }),
+      undefined,
+      true
     )
   })
 
