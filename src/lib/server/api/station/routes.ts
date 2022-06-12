@@ -24,7 +24,7 @@ export function stationRouter() {
     .delete('/', checkSession, validateStationFromQuery, deleteStation)
     .get('/song-info', songInfo)
     .post('/bulk-info', bulkStationInfo)
-    .post('/click', countStationClick)
     .post('/search', customSearch)
+    .post('/click', countStationClick)
     .post('/vote', voteForStation)
 }

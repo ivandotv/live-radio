@@ -18,6 +18,8 @@ export async function geolocation(
 
   const detectedIp = requestIp.getClientIp(ctx.req)
 
+  console.log('detectd ip ', detectedIp)
+
   // if localhost is detected , send empty string
   const queryIp =
     detectedIp?.indexOf('::') !== -1 || detectedIp === '127.0.0.1'

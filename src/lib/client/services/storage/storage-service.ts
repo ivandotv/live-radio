@@ -128,9 +128,9 @@ export class StorageService {
   }
 
   async getStationInfo(id: string) {
-    const [data] = await this.httpClient<RadioDTO[]>(
-      `/api/station-info?play=${encodeURIComponent(id)}`
-    )
+    const [data] = await this.httpClient<RadioDTO[]>(`/api/station`, {
+      query: { play: id }
+    })
 
     return data
   }
