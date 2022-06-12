@@ -36,7 +36,7 @@ describe('api/station/click', () => {
     })
   })
 
-  test('return 500 if radio api errors out', async () => {
+  test('return 200 if radio api errors out', async () => {
     const radioMock = {
       sendStationClick: jest.fn().mockRejectedValue(new Error())
     }
@@ -44,6 +44,6 @@ describe('api/station/click', () => {
 
     const result = await request(api).post(url).send({ id: 123 })
 
-    expect(result.status).toBe(500)
+    expect(result.status).toBe(200)
   })
 })

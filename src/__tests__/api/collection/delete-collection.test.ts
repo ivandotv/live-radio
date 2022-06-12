@@ -56,7 +56,7 @@ describe('api/collection', () => {
       const getResult = await request(api).get(`${url}/${collection}`)
 
       expect(result.status).toBe(200)
-      expect(result.body).toEqual({ msg: 'success' })
+      expect(result.body).toEqual({ msg: 'ok' })
 
       expect(getResult.body).toEqual([])
     })
@@ -73,7 +73,7 @@ describe('api/collection', () => {
       const result = await request(api).delete(`${url}/${collection}`)
 
       expect(result.status).toBe(200)
-      expect(result.body).toEqual({ msg: 'success' })
+      expect(result.body).toEqual({ msg: 'ok' })
     })
 
     test("if collection can't be found, return 404", async () => {

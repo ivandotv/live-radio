@@ -95,7 +95,7 @@ export async function deleteCollection(
     collection
   )
   if (result) {
-    ctx.body = { msg: 'success' }
+    ctx.body = { msg: 'ok' }
   } else {
     throw new ServerError()
   }

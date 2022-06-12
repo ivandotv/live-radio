@@ -1,5 +1,5 @@
 import { ApiContext, ApiState } from 'lib/server/api/shared-middleware'
-import { ValidationError } from 'lib/server/server-error'
+import { RadioApiError, ValidationError } from 'lib/server/server-error'
 import { maybeThrowRadioError } from 'lib/server/utils'
 import { dataToRadioDTO } from 'lib/shared/utils'
 import { Koa } from 'nextjs-koa-api'
@@ -30,7 +30,7 @@ export async function deleteStation(
 
   if (result) {
     ctx.status = 200
-    ctx.body = { msg: 'deleted' }
+    ctx.body = { msg: 'ok' }
   } else {
     ctx.status = 404
     ctx.body = { msg: 'station not found' }
@@ -123,11 +123,11 @@ export async function saveStation(
     }
   } catch (e) {
     //ignore errors to radio-api
-    logServerError(new Error('Radio api not available'), ctx)
+    logServerError(new RadioApiError(e), ctx)
   }
 
   ctx.status = 201
-  ctx.body = { msg: 'station saved' }
+  ctx.body = { msg: 'ok' }
 
   return next()
 }
@@ -160,30 +160,6 @@ export async function bulkStationInfo(
   ctx.body = dataToRadioDTO(stations)
 
   return next()
-}
-
-/**
- * Check if collection exists
- */
-
-export async function checkCollectionExists(
-  ctx: Koa.ParameterizedContext<
-    ApiState,
-    ApiContext & {
-      request: { query: { collection?: string; station?: string } }
-    }
-  >,
-  _next: Koa.Next
-) {
-  const { collection } = ctx.request.query
-
-  if (!collection) {
-    ctx.response.status = 400
-    ctx.body = { msg: 'collection name required' }
-  } else if (-1 === ['favorites', 'recent'].indexOf(collection)) {
-    ctx.response.status = 404
-    ctx.body = { msg: 'collection not found' }
-  }
 }
 
 export async function voteForStation(
@@ -247,15 +223,18 @@ export async function countStationClick(
   >,
   next: Koa.Next
 ) {
-  const { radioApi } = ctx.deps
+  const { radioApi, logServerError } = ctx.deps
 
   const { id } = ctx.request.body
 
   if (!id) {
-    ctx.body = { msg: 'station id missing' }
-    ctx.status = 400
+    throw new ValidationError({ body: { msg: 'station id missing' } })
   } else {
-    await radioApi.sendStationClick(id)
+    try {
+      await radioApi.sendStationClick(id)
+    } catch (e) {
+      logServerError(new RadioApiError(e), ctx)
+    }
 
     ctx.body = { msg: 'ok' }
     ctx.status = 200
@@ -275,8 +254,7 @@ export async function songInfo(
   const { station } = ctx.request.query
 
   if (!station) {
-    ctx.body = { msg: 'station url missing' }
-    ctx.status = 400
+    throw new ValidationError({ body: { msg: 'station url missing' } })
   } else {
     try {
       const response: { title: string } = await getSongInfo(
@@ -292,12 +270,10 @@ export async function songInfo(
         }
       } else {
         ctx.status = 204
-        ctx.body = {}
       }
     } catch (e) {
-      // don't do anything
+      // ignore errors to song info api
       ctx.status = 204
-      ctx.body = {}
     }
   }
 

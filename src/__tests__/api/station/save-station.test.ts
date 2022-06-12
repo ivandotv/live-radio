@@ -62,7 +62,7 @@ describe('/api/station', () => {
       const result = await request(api).post(url).send({ collection, station })
 
       expect(result.status).toBe(201)
-      expect(result.body).toEqual({ msg: 'station saved' })
+      expect(result.body).toEqual({ msg: 'ok' })
     })
 
     test('if trying to save already saved station, override previous', async () => {
@@ -73,7 +73,7 @@ describe('/api/station', () => {
       const result = await request(api).post(url).send({ collection, station })
 
       expect(result.status).toBe(201)
-      expect(result.body).toEqual({ msg: 'station saved' })
+      expect(result.body).toEqual({ msg: 'ok' })
     })
 
     test('if the station is saved in the "favorites" collection, "vote" for station via radio api', async () => {
