@@ -78,6 +78,7 @@ specifiers:
   next-auth: ^4.3.4
   next-compose-plugins: ^2.2.1
   nextjs-koa-api: ^2.0.2
+  nextjs-workbox-config: ^2.0.0
   node-internet-radio: ^0.2.1
   node-mocks-http: ^1.11.0
   notistack: 1.0.10
@@ -222,6 +223,7 @@ devDependencies:
   lodash: 4.17.21
   msw: 0.42.1_typescript@4.6.4
   next-compose-plugins: 2.2.1
+  nextjs-workbox-config: 2.0.0_webpack@5.72.1
   node-mocks-http: 1.11.0
   npm-run-all: 4.1.5
   patch-package: 6.4.7
@@ -5819,7 +5821,7 @@ packages:
     dev: true
 
   /fs.realpath/1.0.0:
-    resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}
+    resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
     dev: true
 
   /fsevents/2.3.2:
@@ -5972,6 +5974,17 @@ packages:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
+    dev: true
+
+  /glob/8.0.3:
+    resolution: {integrity: sha512-ull455NHSHI/Y1FqGaaYFaLGkNMMJbavMrEGFXG/PGrg6y7sutWHUHrz6gy6WEBH6akM1M414dWKCNs+IhKdiQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      fs.realpath: 1.0.0
+      inflight: 1.0.6
+      inherits: 2.0.4
+      minimatch: 5.1.0
+      once: 1.4.0
     dev: true
 
   /globals/11.12.0:
@@ -6335,7 +6348,7 @@ packages:
     dev: false
 
   /inflight/1.0.6:
-    resolution: {integrity: sha1-Sb1jMdfQLQwJvJEKEHW6gWW1bfk=}
+    resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
@@ -8399,6 +8412,17 @@ packages:
       - supports-color
     dev: false
 
+  /nextjs-workbox-config/2.0.0_webpack@5.72.1:
+    resolution: {integrity: sha512-8pclgePVts/bXAhKXI43LGLM+4UOx15CEwMiOMfr3LR2oQjHDbj6JSI1OkhhFicWm+zbJHAQ4zTN8jfMiD5bgA==}
+    dependencies:
+      glob: 8.0.3
+      workbox-webpack-plugin: 6.5.3_webpack@5.72.1
+    transitivePeerDependencies:
+      - '@types/babel__core'
+      - supports-color
+      - webpack
+    dev: true
+
   /nice-try/1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
     dev: true
@@ -8633,7 +8657,7 @@ packages:
     dev: false
 
   /once/1.4.0:
-    resolution: {integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=}
+    resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
     dependencies:
       wrappy: 1.0.2
 
@@ -11530,7 +11554,7 @@ packages:
     dev: true
 
   /wrappy/1.0.2:
-    resolution: {integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=}
+    resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
 
   /write-file-atomic/4.0.1:
     resolution: {integrity: sha512-nSKUxgAbyioruk6hU87QzVbY279oYT6uiwgDoujth2ju4mJ+TZau7SQBhtbTmUyuNYTuXnSyRn66FV0+eCgcrQ==}

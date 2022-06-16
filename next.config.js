@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 // @ts-check
 const withPlugins = require('next-compose-plugins')
-const withWorkbox = require('./workbox.webpack.config')
 const linguiConfig = require('./lingui.config')
 const { withSentryConfig } = require('@sentry/nextjs')
+const { withWorkbox } = require('nextjs-workbox-config')
 
 const sentryWebpackPluginOptions = {
   // Additional config options for the Sentry Webpack plugin. Keep in mind that
@@ -31,8 +31,7 @@ const nextConfig = {
     defaultLocale
   },
   workbox: {
-    // disable: process.env.NODE_ENV !== 'production',
-    disable: false,
+    enable: process.env.NEXT_PUBLIC_ENABLE_SERVICE_WORKER === 'true',
     swSrc: 'src/lib/client/service-worker/sw.ts',
     swDest: 'sw.js'
   },
