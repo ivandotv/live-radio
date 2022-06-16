@@ -31,8 +31,8 @@ const nextConfig = {
     defaultLocale
   },
   workbox: {
-    disable: process.env.NODE_ENV !== 'production',
-    // disable: false,
+    // disable: process.env.NODE_ENV !== 'production',
+    disable: false,
     swSrc: 'src/lib/client/service-worker/sw.ts',
     swDest: 'sw.js'
   },

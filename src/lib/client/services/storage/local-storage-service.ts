@@ -19,6 +19,7 @@ interface LocalSchema extends DBSchema {
   }
 }
 
+//TODO - use transactions
 export class LocalStorageService {
   protected db!: IDBPDatabase<LocalSchema>
 

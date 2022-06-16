@@ -54,6 +54,23 @@ export default function createManifest(startUrl = '') {
         url: `${startUrl}/app/recent-stations`,
         icons: [{ src: '../pwa-shortcuts/recent.png', sizes: '192x192' }]
       }
+    ],
+    screenshots: [
+      {
+        src: '../pwa-promotion/screenshot-1.png',
+        sizes: '1080x2280',
+        type: 'image/png'
+      },
+      {
+        src: '../pwa-promotion/screenshot-2.png',
+        sizes: '1080x2280',
+        type: 'image/png'
+      },
+      {
+        src: '../pwa-promotion/screenshot-3.png',
+        sizes: '1080x2280',
+        type: 'image/png'
+      }
     ]
   }
 }
