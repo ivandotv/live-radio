@@ -23,6 +23,7 @@ import { searchTranslation } from 'lib/shared/utils'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useState } from 'react'
+import { AboutAppModal } from 'components/AboutAppModal'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -86,6 +87,16 @@ export const AppToolbar = observer(function AppToolbar() {
 
   const [openTranslationHelp, setOpenTranslationHelp] = useState(false)
 
+  const [openAboutAppModal, setOpenAboutAppModal] = useState(false)
+
+  const handleCloseAppModal = useCallback(() => {
+    setOpenAboutAppModal(false)
+  }, [])
+
+  const handleOpenAppModal = useCallback(() => {
+    setOpenAboutAppModal(true)
+  }, [])
+
   const closeTransHelpModal = useCallback(() => {
     setOpenTranslationHelp(false)
   }, [])
@@ -126,8 +137,9 @@ export const AppToolbar = observer(function AppToolbar() {
             {appTitle}
           </Typography>
         </div>
-        <UserProfileDropdown />
+        <UserProfileDropdown handleOpenAppModal={handleOpenAppModal} />
         <LanguageSwitcher onChange={onLanguageSwitch} />
+        <AboutAppModal open={openAboutAppModal} onClose={handleCloseAppModal} />
         <TranslateHelpModal
           open={openTranslationHelp}
           onClose={closeTransHelpModal}

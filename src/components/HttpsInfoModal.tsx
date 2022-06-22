@@ -35,10 +35,10 @@ export function HttpsInfoModal({
     <Dialog
       open={open}
       onClose={onClose}
-      aria-describedby="alert-dialog-description"
+      aria-describedby={t`https explanation`}
     >
       <DialogContent className={classes.modal}>
-        <DialogContentText component="div" id="alert-dialog-description">
+        <DialogContentText component="div">
           <Typography>{text}</Typography>
         </DialogContentText>
       </DialogContent>

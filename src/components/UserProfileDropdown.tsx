@@ -10,19 +10,28 @@ import {
   Typography
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { useClientUrl } from 'lib/client/hooks'
 import { logger } from 'lib/client/logger-browser'
 import { PlayerStatus } from 'lib/client/stores/music-player-store'
-import { useClientUrl } from 'lib/client/hooks'
 import { observer } from 'mobx-react-lite'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import { useRootStore } from './providers/RootStoreProvider'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     avatarWrap: {
       display: 'flex',
       alignItems: 'center'
+    },
+    dropdownWrap: {
+      padding: theme.spacing(1),
+      display: 'flex',
+      alignItems: 'center',
+      cursor: 'pointer'
     },
     avatar: {
       marginInlineStart: theme.spacing(1),
@@ -36,6 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
+// TODO - setup settings page
 // eslint-disable-next-line
 function SettingsItem({
   handleClose
@@ -57,17 +67,18 @@ function SettingsItem({
 }
 
 function AboutItem({
-  handleClose
+  handleClose,
+  handleOpenAppModal
 }: {
   handleClose: (event: React.MouseEvent<EventTarget>) => void
+  handleOpenAppModal: () => void
 }) {
-  const router = useRouter()
-
   return (
     <MenuItem
       onClick={(e: React.MouseEvent<EventTarget>) => {
-        router.push('/app/about')
+        // router.push('/app/about')
         handleClose(e)
+        handleOpenAppModal()
       }}
     >
       {t`About`}
@@ -75,7 +86,11 @@ function AboutItem({
   )
 }
 
-export const UserProfileDropdown = observer(function UserProfileDropdown() {
+export const UserProfileDropdown = observer(function UserProfileDropdown({
+  handleOpenAppModal
+}: {
+  handleOpenAppModal: () => void
+}) {
   const { data: session, status } = useSession()
   const classes = useStyles()
   const router = useRouter()
@@ -118,7 +133,11 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
           {t`Sign out`}
         </MenuItem>,
         // <SettingsItem key="settings" handleClose={handleClose} />,
-        <AboutItem key="about" handleClose={handleClose} />
+        <AboutItem
+          key="about"
+          handleClose={handleClose}
+          handleOpenAppModal={handleOpenAppModal}
+        />
       ]
     : [
         <MenuItem
@@ -137,7 +156,11 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
           {t`Sign in`}
         </MenuItem>,
         // <SettingsItem key="settings" handleClose={handleClose} />,
-        <AboutItem key="about" handleClose={handleClose} />
+        <AboutItem
+          key="about"
+          handleClose={handleClose}
+          handleOpenAppModal={handleOpenAppModal}
+        />
       ]
 
   return (
@@ -145,13 +168,15 @@ export const UserProfileDropdown = observer(function UserProfileDropdown() {
       <Typography className={classes.username}>
         {session?.user?.name ? session.user.name : t`Anonymous`}
       </Typography>
-      <div ref={anchorRef}>
-        <Avatar
-          alt={session?.user?.name ?? t`Anonymous`}
-          className={classes.avatar}
-          onClick={handleToggle}
-          src={session?.user?.image as string}
-        ></Avatar>
+      <div onClick={handleToggle} className={classes.dropdownWrap}>
+        <div ref={anchorRef}>
+          <Avatar
+            alt={session?.user?.name ?? t`Anonymous`}
+            className={classes.avatar}
+            src={session?.user?.image as string}
+          ></Avatar>
+        </div>
+        {open ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
       </div>
       <div>
         <Popper
