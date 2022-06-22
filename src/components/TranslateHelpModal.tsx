@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro'
+import { t, Trans } from '@lingui/macro'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -7,7 +7,6 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
-import { useCallback } from 'react'
 
 const useStyles = makeStyles((_theme: Theme) => {
   return createStyles({
@@ -31,11 +30,6 @@ export function TranslateHelpModal({
 }) {
   const classes = useStyles()
 
-  const goToSite = useCallback(() => {
-    onClose()
-    window.open(`https://www.google.com`, '_blank')
-  }, [onClose])
-
   return (
     <Dialog
       open={open}
@@ -43,22 +37,41 @@ export function TranslateHelpModal({
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle className={classes.modalTitle} id="alert-dialog-title">
-        {t`Help me Translate`}
+      <DialogTitle className={classes.modalTitle} id="help-me-translate">
+        {t`Help me translate`}
       </DialogTitle>
       <DialogContent className={classes.modal}>
-        <DialogContentText component="div" id="alert-dialog-description">
-          <Typography>{t`
-	 If you are enjoying the application you could help me translate it to more languages.
-Just head over to site.com to start translating. Thanks! 👍`}</Typography>
+        <DialogContentText component="div" id="help-me-translate">
+          <Typography>
+            <Trans>Help me translate the application to more languages.</Trans>
+          </Typography>
+          <Typography>
+            <Trans>
+              Just head over to the{' '}
+              <a
+                href="https://github.com/ivandotv/live-radio"
+                target="_blank"
+                rel="noreferrer"
+              >
+                code repository
+              </a>{' '}
+              and open an issue.{' '}
+            </Trans>
+          </Typography>
+          <Typography>
+            <Trans>
+              For example, Spanish translation (if not already open):{' '}
+              <strong>[translation][Spanish]</strong>
+            </Trans>
+          </Typography>
+          <Typography>
+            <Trans>Thanks! 👍</Trans>
+          </Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary" autoFocus>
-          {t`Not right now`}
-        </Button>
-        <Button onClick={goToSite} color="primary">
-          {t`Sure, let's go`}
+          {t`OK`}
         </Button>
       </DialogActions>
     </Dialog>
