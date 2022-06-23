@@ -55,21 +55,19 @@ export function AboutAppModal({
         />
         <DialogContentText component="div">
           <Typography>
+            <Trans>Web application for listening to online radio.</Trans>
+          </Typography>
+          <Typography>
             <Trans>
-              <p>Web application for listening to online radio.</p>
-            </Trans>
-            <Trans>
-              <p>
-                If you want to learn about technologies used, or look at the
-                source code, check out the{' '}
-                <a
-                  href="https://github.com/ivandotv/live-radio"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  repository{' '}
-                </a>
-              </p>
+              If you want to learn about technologies used, or look at the
+              source code, check out the{' '}
+              <a
+                href="https://github.com/ivandotv/live-radio"
+                target="_blank"
+                rel="noreferrer"
+              >
+                repository{' '}
+              </a>
             </Trans>
           </Typography>
         </DialogContentText>
