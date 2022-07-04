@@ -80,7 +80,7 @@ msgid "Algeria"
 msgstr "Alžir"
 
 #: src/pages/auth/sign-in.tsx:90
-#: src/pages/index.tsx:70
+#: src/pages/index.tsx:66
 msgid "All data will be stored locally in your browser."
 msgstr "Svi podaci će biti lokalno pohranjeni u vašem pregledaču."
 
@@ -118,7 +118,7 @@ msgid "Anonymous"
 msgstr "Anonimno"
 
 #: src/pages/auth/sign-in.tsx:92
-#: src/pages/index.tsx:85
+#: src/pages/index.tsx:81
 msgid "Anonymous User"
 msgstr "Anonimni korisnik"
 
@@ -1048,8 +1048,9 @@ msgstr "Instaliraj"
 msgid ""
 "Installing Live Radio uses almost no storage and provides a quick way to\n"
 "launch it from the home screen."
-msgstr "Instaliranje "Live Radio" aplikacije koristi vrlo malo prostora i pruža brzu\n
-metodu za pokretanje sa početnog ekrana."
+msgstr ""
+"Instaliranje \"Live Radio\" aplikacije koristi vrlo malo prostora i pruža brzu\n"
+""
 
 #: src/generated/genres.js:33
 msgid "Instrumental"
@@ -1099,418 +1100,417 @@ msgstr "Izrael"
 msgid "It appears that you are offline"
 msgstr "Izlgleda da set oflajn"
 
-#: src/components/AuthExpiredModal.tsx:63
-msgid ""
-"It appears that you have been signed out.\n"
-"You will need to sign in again in order to continue to use the application"
-msgstr "Izgleda da se niste prijavili.\n" ""
+#: src/components/AuthExpiredModal.tsx:64
+msgid "It appears that you have been signed out. You will need to sign in again in order to continue to use the application"
+msgstr "Izlgleda da ste se odjavili. Morate se ponovo prijaviti da biste nastavili da koristite aplikaciju"
 
 #: src/components/ImportAnonymousData.tsx:131
 msgid ""
 "It appears that you have switched from the anonymous mode.\n"
 "Would you like to import your favorite and recently listened stations\n"
 "from the anonymous account to your current account?"
-msgstr ""
+msgstr "Izlgleda da ste prešli na privatni nalog.\n"
+"Želite li da uvezete omiljene i nedavno slušane stanice iz anonimnog naloga u trenutni nalog?"
 
 #: src/generated/languages.js:76
 msgid "Italian"
-msgstr ""
+msgstr "Italijanski"
 
 #: src/generated/countries.js:38
 msgid "Italy"
-msgstr ""
+msgstr "Italija"
 
 #: src/generated/countries.js:270
 msgid "Ivory Coast"
-msgstr ""
+msgstr "Obala Slonovače"
 
 #: src/generated/countries.js:190
 msgid "Jamaica"
-msgstr ""
+msgstr "Jamajka"
 
 #: src/generated/countries.js:115
 msgid "Japan"
-msgstr ""
+msgstr "Japan"
 
 #: src/generated/languages.js:78
 msgid "Japanese"
-msgstr ""
+msgstr "Japanski"
 
 #: src/generated/languages.js:79
 msgid "Javanese"
-msgstr ""
+msgstr "Javanski"
 
 #: src/generated/genres.js:34
 msgid "Jazz"
-msgstr ""
+msgstr "Džez"
 
 #: src/generated/countries.js:39
 msgid "Jersey"
-msgstr ""
+msgstr "Jersey"
 
 #: src/generated/countries.js:114
 msgid "Jordan"
-msgstr ""
+msgstr "Jordan"
 
 #: src/generated/genres.js:35
 msgid "Jungle"
-msgstr ""
+msgstr "Džangl"
 
 #: src/components/ImportAnonymousData.tsx:158
 msgid "Just delete anonymous data"
-msgstr ""
+msgstr "Samo obriši anonimne podatke"
 
 #: src/components/TranslateHelpModal.tsx:49
 msgid "Just head over to the <0>code repository</0> and open an issue."
-msgstr ""
+msgstr "Samo idite na <0>kodni repozitorij</0> i otvorite novi problem."
 
 #: src/generated/genres.js:36
 msgid "K-pop"
-msgstr ""
+msgstr "K-pop"
 
 #: src/generated/languages.js:85
 msgid "Kalaallisut"
-msgstr ""
+msgstr "Kalaallisut"
 
 #: src/generated/languages.js:87
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #: src/generated/languages.js:89
 msgid "Kanuri"
-msgstr ""
+msgstr "Kanuri"
 
 #: src/generated/languages.js:90
 msgid "Kashmiri"
-msgstr ""
+msgstr "Kashmiri"
 
 #: src/generated/languages.js:84
 msgid "Kazakh"
-msgstr ""
+msgstr "Kazahk"
 
 #: src/generated/countries.js:121
 msgid "Kazakhstan"
-msgstr ""
+msgstr "Kazahstan"
 
 #: src/generated/countries.js:290
 msgid "Kenya"
-msgstr ""
+msgstr "Kenija"
 
 #: src/generated/languages.js:86
 msgid "Khmer"
-msgstr ""
+msgstr "Khmèr"
 
 #: src/generated/languages.js:82
 msgid "Kikuyu"
-msgstr ""
+msgstr "Kikuyu"
 
 #: src/generated/languages.js:140
 msgid "Kinyarwanda"
-msgstr ""
+msgstr "Kinyarwanda"
 
 #: src/generated/countries.js:381
 msgid "Kiribati"
-msgstr ""
+msgstr "Kiribati"
 
 #: src/generated/languages.js:137
 msgid "Kirundi"
-msgstr ""
+msgstr "Kirundi"
 
 #: src/generated/languages.js:92
 msgid "Komi"
-msgstr ""
+msgstr "Komi"
 
 #: src/generated/languages.js:81
 msgid "Kongo"
-msgstr ""
+msgstr "Kongo"
 
 #: src/generated/languages.js:88
 msgid "Korean"
-msgstr ""
+msgstr "Korejski"
 
 #: src/generated/languages.js:91
 msgid "Kurdish"
-msgstr ""
+msgstr "Kurdski"
 
 #: src/generated/countries.js:120
 msgid "Kuwait"
-msgstr ""
+msgstr "Kuvajt"
 
 #: src/generated/languages.js:83
 msgid "Kwanyama"
-msgstr ""
+msgstr "Kwanyama"
 
 #: src/generated/languages.js:94
 msgid "Kyrgyz"
-msgstr ""
+msgstr "Kirkizki"
 
 #: src/generated/countries.js:116
 msgid "Kyrgyzstan"
-msgstr ""
+msgstr "Kirgistan"
 
 #: src/generated/languages.js:100
 msgid "Lao"
-msgstr ""
+msgstr "Lao"
 
 #: src/generated/countries.js:122
 msgid "Laos"
-msgstr ""
+msgstr "Laos"
 
 #: src/generated/genres.js:37
 #: src/generated/languages.js:95
 msgid "Latin"
-msgstr ""
+msgstr "Latinski"
 
 #: src/generated/countries.js:43
 msgid "Latvia"
-msgstr ""
+msgstr "Latvija"
 
 #: src/generated/languages.js:103
 msgid "Latvian"
-msgstr ""
+msgstr "Latvijski"
 
 #: src/generated/countries.js:123
 msgid "Lebanon"
-msgstr ""
+msgstr "Liban"
 
 #: src/generated/countries.js:293
 msgid "Lesotho"
-msgstr ""
+msgstr "Lesoto"
 
 #: src/components/LocationModal.tsx:132
 msgid "Let me choose different location"
-msgstr ""
+msgstr "Pusti me da izaberem drugu lokaciju"
 
 #: src/components/LocationModal.tsx:134
 msgid "Let me choose the location"
-msgstr ""
+msgstr "Pusti me da izaberem lokaciju"
 
 #: src/generated/countries.js:292
 msgid "Liberia"
-msgstr ""
+msgstr "Liberija"
 
 #: src/generated/countries.js:294
 msgid "Libya"
-msgstr ""
+msgstr "Libija"
 
 #: src/generated/countries.js:40
 msgid "Liechtenstein"
-msgstr ""
+msgstr "Lihtenštajn"
 
 #: src/generated/languages.js:98
 msgid "Limburgish"
-msgstr ""
+msgstr "Limburgština"
 
 #: src/generated/languages.js:99
 msgid "Lingala"
-msgstr ""
+msgstr "Lingala"
 
 #: src/pages/_app.tsx:69
 msgid "Listen live radio online"
-msgstr ""
+msgstr "Slušajte radio online"
 
 #: src/lib/server/create-manifest.ts:13
 msgid "Listen to live radio"
-msgstr ""
+msgstr "Slušajte radio"
 
 #: src/generated/countries.js:41
 msgid "Lithuania"
-msgstr ""
+msgstr "Litvanija"
 
 #: src/generated/languages.js:101
 msgid "Lithuanian"
-msgstr ""
+msgstr "Litvanski"
 
 #: src/lib/server/create-manifest.ts:11
 #: src/lib/server/create-manifest.ts:12
 #: src/pages/_app.tsx:77
 msgid "Live Radio"
-msgstr ""
+msgstr "Radio"
 
 #: src/components/GlobalErrorFallback.tsx:10
 msgid "Live Radio ecountered an error. Please reload the page."
-msgstr ""
+msgstr "Došlo je do greške. Molimo ponovo učitajte stranicu."
 
 #: src/pages/app/index.tsx:55
 msgid "Local Radio"
-msgstr ""
+msgstr "Lokalni radio"
 
 #: src/generated/languages.js:102
 msgid "Luba-Katanga"
-msgstr ""
+msgstr "Luba-Katanga"
 
 #: src/generated/countries.js:42
 msgid "Luxembourg"
-msgstr ""
+msgstr "Luksemburg"
 
 #: src/generated/languages.js:96
 msgid "Luxembourgish"
-msgstr ""
+msgstr "Luksemburški"
 
 #: src/generated/countries.js:132
 msgid "Macao"
-msgstr ""
+msgstr "Makao"
 
 #: src/generated/languages.js:107
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedonski"
 
 #: src/generated/countries.js:296
 msgid "Madagascar"
-msgstr ""
+msgstr "Madagaskar"
 
 #: src/generated/languages.js:104
 msgid "Malagasy"
-msgstr ""
+msgstr "Malagasi"
 
 #: src/generated/countries.js:300
 msgid "Malawi"
-msgstr ""
+msgstr "Malavi"
 
 #: src/generated/languages.js:111
 msgid "Malay"
-msgstr ""
+msgstr "Malajski"
 
 #: src/generated/languages.js:108
 msgid "Malayalam"
-msgstr ""
+msgstr "Malajalamski"
 
 #: src/generated/countries.js:134
 msgid "Malaysia"
-msgstr ""
+msgstr "Malezija"
 
 #: src/generated/countries.js:133
 msgid "Maldives"
-msgstr ""
+msgstr "Maldivi"
 
 #: src/generated/countries.js:297
 msgid "Mali"
-msgstr ""
+msgstr "Mali"
 
 #: src/generated/countries.js:53
 msgid "Malta"
-msgstr ""
+msgstr "Malta"
 
 #: src/generated/languages.js:112
 msgid "Maltese"
-msgstr ""
+msgstr "Maltijski"
 
 #: src/lib/server/create-manifest.ts:46
 msgid "Manage your favorite stations"
-msgstr ""
+msgstr "Upravljajte svojim omiljenim stanicama"
 
 #: src/lib/server/create-manifest.ts:53
 msgid "Manage your recent stations"
-msgstr ""
+msgstr "Upravljajte svojim nedavnim stanicama"
 
 #: src/generated/languages.js:58
 msgid "Manx"
-msgstr ""
+msgstr "Manx"
 
 #: src/generated/languages.js:110
 msgid "Marathi"
-msgstr ""
+msgstr "Marathi"
 
 #: src/generated/countries.js:383
 msgid "Marshall Islands"
-msgstr ""
+msgstr "Maršalova ostrva"
 
 #: src/generated/languages.js:105
 msgid "Marshallese"
-msgstr ""
+msgstr "Maršalski"
 
 #: src/generated/countries.js:200
 msgid "Martinique"
-msgstr ""
+msgstr "Martinik"
 
 #: src/generated/countries.js:298
 msgid "Mauritania"
-msgstr ""
+msgstr "Mauritanija"
 
 #: src/generated/countries.js:299
 msgid "Mauritius"
-msgstr ""
+msgstr "Mauricijus"
 
 #: src/generated/countries.js:326
 msgid "Mayotte"
-msgstr ""
+msgstr "Mayotte"
 
 #: src/generated/genres.js:38
 msgid "Metal"
-msgstr ""
+msgstr "Metal"
 
 #: src/generated/countries.js:202
 msgid "Mexico"
-msgstr ""
+msgstr "Meksiko"
 
 #: src/generated/countries.js:379
 msgid "Micronesia"
-msgstr ""
+msgstr "Mikronezija"
 
 #: src/generated/genres.js:39
 msgid "Minimal"
-msgstr ""
+msgstr "Minimal"
 
 #: src/generated/countries.js:45
 msgid "Moldova"
-msgstr ""
+msgstr "Moldavija"
 
 #: src/generated/countries.js:44
 msgid "Monaco"
-msgstr ""
+msgstr "Monako"
 
 #: src/generated/countries.js:131
 msgid "Mongolia"
-msgstr ""
+msgstr "Mongolija"
 
 #: src/generated/languages.js:109
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongolski"
 
 #: src/generated/countries.js:46
 msgid "Montenegro"
-msgstr ""
+msgstr "Crna Gora"
 
 #: src/generated/countries.js:201
 msgid "Montserrat"
-msgstr ""
+msgstr "Montserrat"
 
 #: src/generated/countries.js:295
 msgid "Morocco"
-msgstr ""
+msgstr "Maroko"
 
 #: src/generated/countries.js:301
 msgid "Mozambique"
-msgstr ""
+msgstr "Mozambik"
 
 #: src/generated/countries.js:126
 msgid "Myanmar [Burma]"
-msgstr ""
+msgstr "Mjanmar [Burma]"
 
 #: src/generated/languages.js:106
 msgid "Māori"
-msgstr ""
+msgstr "Maori"
 
 #: src/generated/countries.js:302
 msgid "Namibia"
-msgstr ""
+msgstr "Namibija"
 
 #: src/generated/countries.js:396
 #: src/generated/languages.js:114
 msgid "Nauru"
-msgstr ""
+msgstr "Nauru"
 
 #: src/generated/languages.js:123
 msgid "Navajo"
-msgstr ""
+msgstr "Navajo"
 
 #: src/generated/languages.js:118
 msgid "Ndonga"
-msgstr ""
+msgstr "Ndonga"
 
 #: src/generated/countries.js:135
 msgid "Nepal"
-msgstr ""
+msgstr "Nepal"
 
 #: src/generated/languages.js:117
 msgid "Nepali"
@@ -2019,7 +2019,7 @@ msgstr ""
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr ""
 
-#: src/pages/index.tsx:56
+#: src/pages/index.tsx:53
 msgid "Sign in or Register"
 msgstr ""
 
@@ -2478,7 +2478,7 @@ msgstr ""
 msgid "Web application for listening to online radio."
 msgstr ""
 
-#: src/pages/index.tsx:49
+#: src/pages/index.tsx:53
 msgid "Welcome Back"
 msgstr ""
 
@@ -2563,7 +2563,7 @@ msgid "about app explanation"
 msgstr ""
 
 #: src/components/AboutAppModal.tsx:43
-#: src/pages/index.tsx:26
+#: src/pages/index.tsx:30
 msgid "application name"
 msgstr ""
 
@@ -2593,7 +2593,7 @@ msgid "landing"
 msgstr ""
 
 #: src/components/AboutAppModal.tsx:50
-#: src/pages/index.tsx:35
+#: src/pages/index.tsx:39
 msgid "landing page image"
 msgstr ""
 
