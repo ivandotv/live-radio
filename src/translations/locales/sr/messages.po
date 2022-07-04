@@ -15,7 +15,7 @@ msgstr ""
 
 #: src/pages/app/by-language/[language].tsx:117
 msgid "<0>Currently there is no data for <1> {0}</1>.</0>"
-msgstr "Trenutno nema podataka za"
+msgstr "<0>Trenutno nema podataka za <1> {0}</1>.</0>"
 
 #: src/components/CustomSearchResults.tsx:66
 msgid "<0>Currently there is no data for your query.</0>"
@@ -23,15 +23,15 @@ msgstr "<0>nema podataka za ovaj query</0>"
 
 #: src/pages/app/by-location/[continent]/[country].tsx:132
 msgid "<0>Currently there is no data for<1> {0}</1>.</0>"
-msgstr "Trenutno nema podataka za"
+msgstr "<0>Trenutno nema podataka za<1> {0}</1>.</0>"
 
 #: src/components/FilterList.tsx:32
 msgid "<0>No results</0>"
-msgstr "Nema rezultata"
+msgstr "<0>Nema rezultata</0>"
 
 #: src/components/CustomSearchResults.tsx:104
 msgid "<0>Search service is not available at the moment. Sorry for the inconvenience.</0>"
-msgstr "Servis trenutno nije dostupan. Izvinite za neugodnosti."
+msgstr "<0>Servis pretrage nije dostupan u ovom trenutku. Izvinjavamo se zbog neugodnosti.</0>"
 
 #: src/generated/languages.js:6
 msgid "Abkhaz"
@@ -1057,51 +1057,53 @@ msgstr "Instrumental"
 
 #: src/generated/languages.js:68
 msgid "Interlingua"
-msgstr ""
+msgstr "Interlingua"
 
 #: src/generated/languages.js:70
 msgid "Interlingue"
-msgstr ""
+msgstr "Interlingue"
 
 #: src/generated/languages.js:77
 msgid "Inuktitut"
-msgstr ""
+msgstr "Inuktitut"
 
 #: src/generated/languages.js:73
 msgid "Inupiaq"
-msgstr ""
+msgstr "Inupiaq"
 
 #: src/generated/countries.js:113
 msgid "Iran"
-msgstr ""
+msgstr "Iran"
 
 #: src/generated/countries.js:112
 msgid "Iraq"
-msgstr ""
+msgstr "Irak"
 
 #: src/generated/countries.js:35
 msgid "Ireland"
-msgstr ""
+msgstr "Irska"
 
 #: src/generated/languages.js:53
 msgid "Irish"
-msgstr ""
+msgstr "Irski"
 
 #: src/generated/countries.js:36
 msgid "Isle of Man"
-msgstr ""
+msgstr "Ostrvo Man"
 
 #: src/generated/countries.js:104
 msgid "Israel"
-msgstr ""
+msgstr "Izrael"
 
 #: src/components/OfflineIndicator.tsx:42
 msgid "It appears that you are offline"
-msgstr ""
+msgstr "Izlgleda da set oflajn"
 
-#: src/components/AuthExpiredModal.tsx:64
-msgid "It appears that you have been signed out. You will need to sign in again in order to continue to use the application"
-msgstr ""
+#: src/components/AuthExpiredModal.tsx:63
+msgid ""
+"It appears that you have been signed out.\n"
+"You will need to sign in again in order to continue to use the application"
+msgstr "Izgleda da se niste prijavili.\n" ""
 
 #: src/components/ImportAnonymousData.tsx:131
 msgid ""
