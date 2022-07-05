@@ -163,11 +163,15 @@ export const UserProfileDropdown = observer(function UserProfileDropdown({
         />
       ]
 
+  if (!session) return null
+
   return (
     <div className={classes.avatarWrap}>
-      <Typography className={classes.username}>
-        {session?.user?.name ? session.user.name : t`Anonymous`}
-      </Typography>
+      {session?.user ? (
+        <Typography className={classes.username}>
+          {session?.user?.name ? session.user.name : t`Anonymous`}
+        </Typography>
+      ) : null}
       <div onClick={handleToggle} className={classes.dropdownWrap}>
         <div ref={anchorRef}>
           <Avatar
