@@ -47,6 +47,7 @@ export default function Search() {
       <LocationModal open={dialogOpen} onClose={handleCloseDialog} />
       <List>
         <AppMenuItem
+          testId="local-radio"
           onClick={(e: SyntheticEvent) => {
             e.preventDefault()
             handleOpenDialog()
@@ -54,15 +55,24 @@ export default function Search() {
           primary={t`Local Radio`}
         />
         <AppMenuItem
-          link={{ href: '/app/by-location' }}
+          testId="by-location"
+          link={{
+            href: '/app/by-location'
+          }}
           primary={t`By Location`}
         />
         <AppMenuItem
+          testId="by-language"
           link={{ href: '/app/by-language' }}
           primary={t`By Language`}
         />
-        <AppMenuItem link={{ href: '/app/by-genre' }} primary={t`By Genre`} />
         <AppMenuItem
+          testId="by-genre"
+          link={{ href: '/app/by-genre' }}
+          primary={t`By Genre`}
+        />
+        <AppMenuItem
+          testId="custom-search"
           link={{ href: '/app/custom' }}
           primary={t`Custom Search`}
         />

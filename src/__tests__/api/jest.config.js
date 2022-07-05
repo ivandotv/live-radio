@@ -8,10 +8,7 @@ module.exports = {
   ...parenConfig,
   displayName: 'api',
   rootDir: '../../../',
-  setupFiles: [
-    '<rootDir>/jestSetup.ts',
-    `<rootDir>${currentPath}/jestSetup.ts`
-  ],
+  setupFiles: ['<rootDir>/jestSetup.ts'],
   testMatch: [`<rootDir>${currentPath}/**/?(*.)+(spec|test).[jt]s?(x)`],
   globalSetup: `<rootDir>${currentPath}/../database/jestGlobalSetup.ts`,
   globalTeardown: `<rootDir>${currentPath}/../database/jestGlobalTeardown.ts`

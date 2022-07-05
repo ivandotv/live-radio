@@ -9,9 +9,11 @@ export function AppMenuItem({
   icon,
   primary,
   secondary = '',
-  selected = false
+  selected = false,
+  testId
 }: {
   link?: LinkProps
+  testId?: string
   primary?: string
   secondary?: string
   onClick?: (...args: any[]) => void
@@ -36,6 +38,7 @@ export function AppMenuItem({
     <ListItem
       button
       component="a"
+      data-test={testId}
       onClick={handleClick}
       selected={clientRender && selected}
     >

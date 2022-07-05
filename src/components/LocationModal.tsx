@@ -93,6 +93,7 @@ export const LocationModal = observer(function LocationModal({
   return (
     <Dialog
       open={open}
+      data-test="location-modal"
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
@@ -103,11 +104,11 @@ export const LocationModal = observer(function LocationModal({
         ) : state.error ? (
           <Trans> Sorry, couldn&apos;t get your location</Trans>
         ) : (
-          <Trans>Determinig your location</Trans>
+          <Trans>Determining your location</Trans>
         )}
       </DialogTitle>
       <DialogContent className={classes.modal}>
-        <DialogContentText component="div" id="alert-dialog-description">
+        <DialogContentText component="div" id="dialog-content">
           {countryData ? (
             <Typography component="h3" variant="h3" color="textPrimary">
               <span className={classes.flag}>{countryData.flag}</span>

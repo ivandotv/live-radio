@@ -22,6 +22,8 @@ export function WindowErrorHandler() {
       if (event.message?.search(/resizeobserver/i) === -1) {
         logger.warn('unhandled error', event)
         handleError(event)
+      } else {
+        event.stopImmediatePropagation()
       }
     }
 

@@ -13,7 +13,7 @@ import {
   RadioBrowserMock
 } from '__tests__/__utils__/mocks/radio-browser-mock'
 import { sessionMock } from '__tests__/__utils__/mocks/session-mock'
-import { createTestContainer } from '__tests__/__utils__/test-container'
+import { createTestContainer } from '__tests__/__utils__/test-di-container'
 
 faker.seed(1)
 

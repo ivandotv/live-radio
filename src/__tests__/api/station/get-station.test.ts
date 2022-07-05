@@ -6,7 +6,7 @@ import {
   createRadioBrowserMock,
   RadioBrowserMock
 } from '__tests__/__utils__/mocks/radio-browser-mock'
-import { createTestContainer } from '__tests__/__utils__/test-container'
+import { createTestContainer } from '__tests__/__utils__/test-di-container'
 
 const container = createTestContainer().child()
 const url = '/api/station'

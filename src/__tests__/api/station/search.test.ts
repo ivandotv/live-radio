@@ -3,7 +3,7 @@ import { handler } from 'pages/api/[[...routes]]'
 import { RadioBrowserApi } from 'radio-browser-api'
 import request from 'supertest'
 import { getMockStation } from '__tests__/__utils__/mocks/station-mock'
-import { createTestContainer } from '__tests__/__utils__/test-container'
+import { createTestContainer } from '__tests__/__utils__/test-di-container'
 
 const container = createTestContainer().child()
 

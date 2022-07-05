@@ -15,6 +15,7 @@ export function createRadioBrowserMock<T extends Partial<RadioMock>>(
         return getMockStation(id)
       })
     }),
+    sendStationClick: jest.fn(),
     ...override
   }
 }

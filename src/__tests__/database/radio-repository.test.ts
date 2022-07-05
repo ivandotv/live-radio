@@ -5,7 +5,7 @@ import { connectionFactory } from 'lib/server/db-connection'
 import { RadioRepository } from 'lib/server/radio-repository'
 import { ObjectId } from 'mongodb'
 import { createStations, seedDatabase } from '__tests__/__utils__/db-utils'
-import { createTestContainer } from '__tests__/__utils__/test-container'
+import { createTestContainer } from '__tests__/__utils__/test-di-container'
 
 let users: Awaited<ReturnType<typeof seedDatabase>>
 let client: MongoClient

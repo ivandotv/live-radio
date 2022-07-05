@@ -10,9 +10,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import globalStyles from 'lib/client/global-styles'
+import { getServerContainer } from 'lib/server/injection-root'
 
 export default function Index() {
   const { data: session } = useSession()
+
+  console.log('session data ', session)
+
   const router = useRouter()
 
   const callback = useClientUrl(`/${router.locale}/app`)
@@ -45,7 +49,10 @@ export default function Index() {
             passHref={true}
             prefetch={false}
           >
-            <a className={clsx('app-btn', { 'has-session': session })}>
+            <a
+              data-test="login"
+              className={clsx('app-btn', { 'has-session': session })}
+            >
               {session ? t`Welcome Back` : t`Sign in or Register`}
               {session ? (
                 <div className="avatar avatar-user">
@@ -59,6 +66,7 @@ export default function Index() {
           </Link>
           <Link passHref={true} prefetch={false} href="/app">
             <a
+              data-test="anonymous"
               title={t`All data will be stored locally in your browser.`}
               onClick={(e: React.MouseEvent) => {
                 if (session) {
@@ -134,7 +142,10 @@ export default function Index() {
 export async function getServerSideProps(
   ctx: NextPageContext & { locale: string }
 ) {
-  const session = await getSession(ctx)
+  // const session = await getSession(ctx)
+  const session = await getServerContainer().resolve<typeof getSession>(
+    getSession
+  )()
   const translation = await importTranslations(ctx.locale!)
 
   return {

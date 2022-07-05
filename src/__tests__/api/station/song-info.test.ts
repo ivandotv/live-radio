@@ -2,7 +2,7 @@ import { getSongInfo } from 'lib/server/utils'
 import { withKoaApi } from 'nextjs-koa-api'
 import { handler } from 'pages/api/[[...routes]]'
 import request from 'supertest'
-import { createTestContainer } from '__tests__/__utils__/test-container'
+import { createTestContainer } from '__tests__/__utils__/test-di-container'
 
 const artist = 'Artist Name'
 const song = 'Song Name'

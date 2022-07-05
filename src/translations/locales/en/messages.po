@@ -13,7 +13,7 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-#: src/pages/app/by-language/[language].tsx:116
+#: src/pages/app/by-language/[language].tsx:117
 msgid "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for <1> {0}</1>.</0>"
 
@@ -21,7 +21,7 @@ msgstr "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgid "<0>Currently there is no data for your query.</0>"
 msgstr "<0>Currently there is no data for your query.</0>"
 
-#: src/pages/app/by-location/[continent]/[country].tsx:134
+#: src/pages/app/by-location/[continent]/[country].tsx:132
 msgid "<0>Currently there is no data for<1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for<1> {0}</1>.</0>"
 
@@ -37,9 +37,9 @@ msgstr "<0>Search service is not available at the moment. Sorry for the inconven
 msgid "Abkhaz"
 msgstr "Abkhaz"
 
-#: src/components/UserProfileDropdown.tsx:73
+#: src/components/UserProfileDropdown.tsx:84
 #: src/components/navigation/desktop/Menu.tsx:36
-#: src/lib/shared/utils.ts:107
+#: src/lib/shared/utils.ts:94
 msgid "About"
 msgstr "About"
 
@@ -55,7 +55,7 @@ msgstr "Afar"
 msgid "Afghanistan"
 msgstr "Afghanistan"
 
-#: src/lib/client/utils/misc-utils.ts:12
+#: src/lib/shared/utils.ts:102
 msgid "Africa"
 msgstr "Africa"
 
@@ -80,7 +80,7 @@ msgid "Algeria"
 msgstr "Algeria"
 
 #: src/pages/auth/sign-in.tsx:90
-#: src/pages/index.tsx:62
+#: src/pages/index.tsx:66
 msgid "All data will be stored locally in your browser."
 msgstr "All data will be stored locally in your browser."
 
@@ -112,13 +112,13 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/components/UserProfileDropdown.tsx:146
-#: src/components/UserProfileDropdown.tsx:150
+#: src/components/UserProfileDropdown.tsx:169
+#: src/components/UserProfileDropdown.tsx:174
 msgid "Anonymous"
 msgstr "Anonymous"
 
 #: src/pages/auth/sign-in.tsx:92
-#: src/pages/index.tsx:77
+#: src/pages/index.tsx:81
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
@@ -131,7 +131,7 @@ msgid "Anonymous data imported"
 msgstr "Anonymous data imported"
 
 #: src/generated/countries.js:332
-#: src/lib/client/utils/misc-utils.ts:16
+#: src/lib/shared/utils.ts:106
 msgid "Antarctica"
 msgstr "Antarctica"
 
@@ -171,7 +171,7 @@ msgstr "Armenian"
 msgid "Aruba"
 msgstr "Aruba"
 
-#: src/lib/client/utils/misc-utils.ts:20
+#: src/lib/shared/utils.ts:110
 msgid "Asia"
 msgstr "Asia"
 
@@ -343,22 +343,22 @@ msgstr "Burmese"
 msgid "Burundi"
 msgstr "Burundi"
 
-#: src/lib/shared/utils.ts:105
-#: src/pages/app/by-genre/[genre].tsx:93
+#: src/lib/shared/utils.ts:92
+#: src/pages/app/by-genre/[genre].tsx:94
 #: src/pages/app/by-genre/index.tsx:20
 #: src/pages/app/index.tsx:64
 msgid "By Genre"
 msgstr "By Genre"
 
-#: src/lib/shared/utils.ts:104
-#: src/pages/app/by-language/[language].tsx:92
+#: src/lib/shared/utils.ts:91
+#: src/pages/app/by-language/[language].tsx:93
 #: src/pages/app/by-language/index.tsx:29
 #: src/pages/app/index.tsx:62
 msgid "By Language"
 msgstr "By Language"
 
-#: src/lib/shared/utils.ts:103
-#: src/pages/app/by-location/[continent]/[country].tsx:103
+#: src/lib/shared/utils.ts:90
+#: src/pages/app/by-location/[continent]/[country].tsx:101
 #: src/pages/app/by-location/[continent]/index.tsx:57
 #: src/pages/app/by-location/index.tsx:40
 #: src/pages/app/index.tsx:58
@@ -505,11 +505,11 @@ msgstr "Cuba"
 msgid "Curacao"
 msgstr "Curacao"
 
-#: src/pages/app/by-genre/[genre].tsx:116
+#: src/pages/app/by-genre/[genre].tsx:117
 msgid "Currently there is no data for <0> ${0}</0>."
 msgstr "Currently there is no data for <0> ${0}</0>."
 
-#: src/lib/shared/utils.ts:101
+#: src/lib/shared/utils.ts:88
 #: src/pages/app/custom.tsx:21
 #: src/pages/app/index.tsx:67
 msgid "Custom Search"
@@ -676,7 +676,7 @@ msgstr "Estonian"
 msgid "Ethiopia"
 msgstr "Ethiopia"
 
-#: src/lib/client/utils/misc-utils.ts:24
+#: src/lib/shared/utils.ts:114
 msgid "Europe"
 msgstr "Europe"
 
@@ -699,7 +699,7 @@ msgstr "Faroese"
 #: src/components/navigation/desktop/Menu.tsx:21
 #: src/components/navigation/mobile/MobileNavigation.tsx:57
 #: src/lib/server/create-manifest.ts:45
-#: src/lib/shared/utils.ts:100
+#: src/lib/shared/utils.ts:87
 msgid "Favorites"
 msgstr "Favorites"
 
@@ -738,6 +738,10 @@ msgstr "Finnish"
 #: src/generated/genres.js:18
 msgid "Folk"
 msgstr "Folk"
+
+#: src/components/TranslateHelpModal.tsx:62
+msgid "For example, Spanish translation (if not already open): <0>[translation][Spanish]</0>"
+msgstr "For example, Spanish translation (if not already open): <0>[translation][Spanish]</0>"
 
 #: src/generated/countries.js:28
 msgid "France"
@@ -931,9 +935,13 @@ msgstr "Hebrew"
 msgid "Help Translate"
 msgstr "Help Translate"
 
-#: src/components/TranslateHelpModal.tsx:47
-msgid "Help me Translate"
-msgstr "Help me Translate"
+#: src/components/TranslateHelpModal.tsx:41
+msgid "Help me translate"
+msgstr "Help me translate"
+
+#: src/components/TranslateHelpModal.tsx:46
+msgid "Help me translate the application to more languages."
+msgstr "Help me translate the application to more languages."
 
 #: src/generated/languages.js:67
 msgid "Herero"
@@ -983,13 +991,9 @@ msgstr "Icelandic"
 msgid "Ido"
 msgstr "Ido"
 
-#: src/components/TranslateHelpModal.tsx:51
-msgid ""
-"If you are enjoying the application you could help me translate it to more languages.\n"
-"Just head over to site.com to start translating. Thanks! 👍"
-msgstr ""
-"If you are enjoying the application you could help me translate it to more languages.\n"
-"Just head over to site.com to start translating. Thanks! 👍"
+#: src/components/AboutAppModal.tsx:61
+msgid "If you want to learn about technologies used, or look at the source code, check out the <0>repository </0>"
+msgstr "If you want to learn about technologies used, or look at the source code, check out the <0>repository </0>"
 
 #: src/generated/languages.js:71
 msgid "Igbo"
@@ -1092,13 +1096,9 @@ msgstr "Israel"
 msgid "It appears that you are offline"
 msgstr "It appears that you are offline"
 
-#: src/components/AuthExpiredModal.tsx:63
-msgid ""
-"It appears that you have been signed out.\n"
-"You will need to sign in again in order to continue to use the application"
-msgstr ""
-"It appears that you have been signed out.\n"
-"You will need to sign in again in order to continue to use the application"
+#: src/components/AuthExpiredModal.tsx:64
+msgid "It appears that you have been signed out. You will need to sign in again in order to continue to use the application"
+msgstr "It appears that you have been signed out. You will need to sign in again in order to continue to use the application"
 
 #: src/components/ImportAnonymousData.tsx:131
 msgid ""
@@ -1157,6 +1157,10 @@ msgstr "Jungle"
 #: src/components/ImportAnonymousData.tsx:158
 msgid "Just delete anonymous data"
 msgstr "Just delete anonymous data"
+
+#: src/components/TranslateHelpModal.tsx:49
+msgid "Just head over to the <0>code repository</0> and open an issue."
+msgstr "Just head over to the <0>code repository</0> and open an issue."
 
 #: src/generated/genres.js:36
 msgid "K-pop"
@@ -1299,7 +1303,7 @@ msgstr "Limburgish"
 msgid "Lingala"
 msgstr "Lingala"
 
-#: src/pages/_app.tsx:72
+#: src/pages/_app.tsx:69
 msgid "Listen live radio online"
 msgstr "Listen live radio online"
 
@@ -1317,7 +1321,7 @@ msgstr "Lithuanian"
 
 #: src/lib/server/create-manifest.ts:11
 #: src/lib/server/create-manifest.ts:12
-#: src/pages/_app.tsx:80
+#: src/pages/_app.tsx:77
 msgid "Live Radio"
 msgstr "Live Radio"
 
@@ -1563,7 +1567,7 @@ msgstr "No thanks"
 msgid "Norfolk Island"
 msgstr "Norfolk Island"
 
-#: src/lib/client/utils/misc-utils.ts:28
+#: src/lib/shared/utils.ts:118
 msgid "North America"
 msgstr "North America"
 
@@ -1603,19 +1607,20 @@ msgstr "Norwegian Bokmål"
 msgid "Norwegian Nynorsk"
 msgstr "Norwegian Nynorsk"
 
-#: src/components/TranslateHelpModal.tsx:58
-msgid "Not right now"
-msgstr "Not right now"
-
 #: src/generated/languages.js:72
 msgid "Nuosu"
 msgstr "Nuosu"
+
+#: src/components/AboutAppModal.tsx:77
+#: src/components/TranslateHelpModal.tsx:74
+msgid "OK"
+msgstr "OK"
 
 #: src/generated/languages.js:125
 msgid "Occitan"
 msgstr "Occitan"
 
-#: src/lib/client/utils/misc-utils.ts:32
+#: src/lib/shared/utils.ts:122
 msgid "Oceania"
 msgstr "Oceania"
 
@@ -1780,12 +1785,9 @@ msgstr "Rap"
 #: src/components/navigation/desktop/Menu.tsx:26
 #: src/components/navigation/mobile/MobileNavigation.tsx:59
 #: src/lib/server/create-manifest.ts:52
+#: src/lib/shared/utils.ts:89
 msgid "Recent"
 msgstr "Recent"
-
-#: src/lib/shared/utils.ts:102
-msgid "Recent Stations"
-msgstr "Recent Stations"
 
 #: src/lib/server/create-manifest.ts:51
 msgid "Recently played"
@@ -1921,12 +1923,12 @@ msgstr "Scottish Gaelic"
 
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:53
-#: src/lib/shared/utils.ts:99
-#: src/pages/app/by-genre/[genre].tsx:89
+#: src/lib/shared/utils.ts:86
+#: src/pages/app/by-genre/[genre].tsx:90
 #: src/pages/app/by-genre/index.tsx:16
-#: src/pages/app/by-language/[language].tsx:88
+#: src/pages/app/by-language/[language].tsx:89
 #: src/pages/app/by-language/index.tsx:25
-#: src/pages/app/by-location/[continent]/[country].tsx:99
+#: src/pages/app/by-location/[continent]/[country].tsx:97
 #: src/pages/app/by-location/[continent]/index.tsx:53
 #: src/pages/app/by-location/index.tsx:36
 #: src/pages/app/custom.tsx:18
@@ -1953,9 +1955,9 @@ msgstr "Search For Stations by Genre"
 msgid "Search For Stations by Language"
 msgstr "Search For Stations by Language"
 
-#: src/pages/app/by-genre/[genre].tsx:110
-#: src/pages/app/by-language/[language].tsx:109
-#: src/pages/app/by-location/[continent]/[country].tsx:125
+#: src/pages/app/by-genre/[genre].tsx:111
+#: src/pages/app/by-language/[language].tsx:110
+#: src/pages/app/by-location/[continent]/[country].tsx:123
 msgid "Search For Stations in {0}"
 msgstr "Search For Stations in {0}"
 
@@ -1976,8 +1978,8 @@ msgstr "Serbia"
 msgid "Serbian"
 msgstr "Serbian"
 
-#: src/components/UserProfileDropdown.tsx:54
-#: src/lib/shared/utils.ts:106
+#: src/components/UserProfileDropdown.tsx:64
+#: src/lib/shared/utils.ts:93
 msgid "Settings"
 msgstr "Settings"
 
@@ -2002,12 +2004,12 @@ msgstr "Shona"
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/components/UserProfileDropdown.tsx:137
+#: src/components/UserProfileDropdown.tsx:156
 #: src/pages/auth/sign-in.tsx:49
 msgid "Sign in"
 msgstr "Sign in"
 
-#: src/components/AuthExpiredModal.tsx:74
+#: src/components/AuthExpiredModal.tsx:77
 msgid "Sign in again"
 msgstr "Sign in again"
 
@@ -2015,7 +2017,7 @@ msgstr "Sign in again"
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr "Sign in failed. Check the details you provided are correct."
 
-#: src/pages/index.tsx:49
+#: src/pages/index.tsx:53
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
@@ -2023,7 +2025,7 @@ msgstr "Sign in or Register"
 msgid "Sign in with"
 msgstr "Sign in with"
 
-#: src/components/UserProfileDropdown.tsx:118
+#: src/components/UserProfileDropdown.tsx:133
 msgid "Sign out"
 msgstr "Sign out"
 
@@ -2103,7 +2105,7 @@ msgstr "Soul"
 msgid "South Africa"
 msgstr "South Africa"
 
-#: src/lib/client/utils/misc-utils.ts:36
+#: src/lib/shared/utils.ts:126
 msgid "South America"
 msgstr "South America"
 
@@ -2172,10 +2174,6 @@ msgstr "Sudan"
 msgid "Sundanese"
 msgstr "Sundanese"
 
-#: src/components/TranslateHelpModal.tsx:61
-msgid "Sure, let's go"
-msgstr "Sure, let's go"
-
 #: src/generated/countries.js:370
 msgid "Suriname"
 msgstr "Suriname"
@@ -2208,11 +2206,11 @@ msgstr "Swedish"
 msgid "Swing"
 msgstr "Swing"
 
-#: src/components/layout/AppToolbar.tsx:139
+#: src/components/layout/AppToolbar.tsx:151
 msgid "Switch to Dark Theme"
 msgstr "Switch to Dark Theme"
 
-#: src/components/layout/AppToolbar.tsx:138
+#: src/components/layout/AppToolbar.tsx:150
 msgid "Switch to Light Theme"
 msgstr "Switch to Light Theme"
 
@@ -2279,6 +2277,10 @@ msgstr "Thai"
 #: src/generated/countries.js:144
 msgid "Thailand"
 msgstr "Thailand"
+
+#: src/components/TranslateHelpModal.tsx:68
+msgid "Thanks! 👍"
+msgstr "Thanks! 👍"
 
 #: src/components/RemovableItemsList.tsx:72
 msgid "There was an error trying to load your stations."
@@ -2470,11 +2472,15 @@ msgstr "Wallis and Futuna"
 msgid "Walloon"
 msgstr "Walloon"
 
-#: src/pages/index.tsx:49
+#: src/components/AboutAppModal.tsx:58
+msgid "Web application for listening to online radio."
+msgstr "Web application for listening to online radio."
+
+#: src/pages/index.tsx:53
 msgid "Welcome Back"
 msgstr "Welcome Back"
 
-#: src/pages/index.tsx:23
+#: src/pages/index.tsx:27
 msgid "Welcome to Live Radio App"
 msgstr "Welcome to Live Radio App"
 
@@ -2550,7 +2556,12 @@ msgstr "Zimbabwe"
 msgid "Zulu"
 msgstr "Zulu"
 
-#: src/pages/index.tsx:26
+#: src/components/AboutAppModal.tsx:39
+msgid "about app explanation"
+msgstr "about app explanation"
+
+#: src/components/AboutAppModal.tsx:43
+#: src/pages/index.tsx:30
 msgid "application name"
 msgstr "application name"
 
@@ -2567,6 +2578,10 @@ msgstr "check this out"
 msgid "close"
 msgstr "close"
 
+#: src/components/HttpsInfoModal.tsx:38
+msgid "https explanation"
+msgstr "https explanation"
+
 #: src/components/ImportAnonymousData.tsx:241
 msgid "import data"
 msgstr "import data"
@@ -2575,7 +2590,8 @@ msgstr "import data"
 msgid "landing"
 msgstr "landing"
 
-#: src/pages/index.tsx:35
+#: src/components/AboutAppModal.tsx:50
+#: src/pages/index.tsx:39
 msgid "landing page image"
 msgstr "landing page image"
 

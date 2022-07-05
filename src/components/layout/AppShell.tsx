@@ -147,6 +147,7 @@ export const AppShell = observer(function AppShell({
       </Head>
       <CssBaseline />
       <div
+        data-test="app-shell"
         style={{ opacity: appShell.showApp ? 1 : 0 }}
         className={classes.root}
       >

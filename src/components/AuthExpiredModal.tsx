@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro'
+import { t, Trans } from '@lingui/macro'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
@@ -27,7 +27,7 @@ const useStyles = makeStyles((_theme: Theme) => {
   })
 })
 
-export const AuthExpiredModal = observer(function TranslateHelpModal() {
+export const AuthExpiredModal = observer(function AuthExpiredModal() {
   const { appShell } = useRootStore()
   const classes = useStyles()
   const [open, setOpen] = useState(false)
@@ -60,9 +60,12 @@ export const AuthExpiredModal = observer(function TranslateHelpModal() {
       </DialogTitle>
       <DialogContent className={classes.modal}>
         <DialogContentText component="div" id="alert-dialog-description">
-          <Typography>{t`
-	 It appears that you have been signed out.
-   You will need to sign in again in order to continue to use the application`}</Typography>
+          <Typography>
+            <Trans>
+              It appears that you have been signed out. You will need to sign in
+              again in order to continue to use the application
+            </Trans>
+          </Typography>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

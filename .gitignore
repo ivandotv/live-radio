@@ -51,5 +51,6 @@ yarn-error.log*
 # Sentry
 .sentryclirc
 
-# Sentry
-.sentryclirc
+# Cypress
+cypress/videos
+cypress/screenshots

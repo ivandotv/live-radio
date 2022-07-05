@@ -10,6 +10,7 @@ module.exports = {
   rootDir: '../../../',
   testMatch: [`<rootDir>${currentPath}/**/?(*.)+(spec|test).[jt]s?(x)`],
   testEnvironment: 'node',
+  setupFiles: ['<rootDir>/jestSetup.ts'],
   globalSetup: `<rootDir>${currentPath}/jestGlobalSetup.ts`,
   globalTeardown: `<rootDir>${currentPath}/jestGlobalTeardown.ts`
 }

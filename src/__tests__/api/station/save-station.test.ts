@@ -9,7 +9,7 @@ import request from 'supertest'
 import { seedDatabase } from '__tests__/__utils__/db-utils'
 import { createRadioBrowserMock } from '__tests__/__utils__/mocks/radio-browser-mock'
 import { sessionMock } from '__tests__/__utils__/mocks/session-mock'
-import { createTestContainer } from '__tests__/__utils__/test-container'
+import { createTestContainer } from '__tests__/__utils__/test-di-container'
 
 const container = createTestContainer()
 const url = '/api/station'
