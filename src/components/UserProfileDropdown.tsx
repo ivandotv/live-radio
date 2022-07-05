@@ -46,25 +46,25 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 // TODO - setup settings page
-// eslint-disable-next-line
-function SettingsItem({
-  handleClose
-}: {
-  handleClose: (event: React.MouseEvent<EventTarget>) => void
-}) {
-  const router = useRouter()
 
-  return (
-    <MenuItem
-      onClick={(e: React.MouseEvent<EventTarget>) => {
-        router.push('/app/settings')
-        handleClose(e)
-      }}
-    >
-      {t`Settings`}
-    </MenuItem>
-  )
-}
+// function SettingsItem({
+//   handleClose
+// }: {
+//   handleClose: (event: React.MouseEvent<EventTarget>) => void
+// }) {
+//   const router = useRouter()
+
+//   return (
+//     <MenuItem
+//       onClick={(e: React.MouseEvent<EventTarget>) => {
+//         router.push('/app/settings')
+//         handleClose(e)
+//       }}
+//     >
+//       {t`Settings`}
+//     </MenuItem>
+//   )
+// }
 
 function AboutItem({
   handleClose,
@@ -97,6 +97,7 @@ export const UserProfileDropdown = observer(function UserProfileDropdown({
   const { musicPlayer } = useRootStore()
 
   const [open, setOpen] = useState(false)
+
   const anchorRef = useRef<HTMLDivElement>(null)
 
   const callbackUrl = useClientUrl(`/${router.locale}${router.asPath}`)
@@ -163,15 +164,13 @@ export const UserProfileDropdown = observer(function UserProfileDropdown({
         />
       ]
 
-  if (!session) return null
+  if (status === 'loading') return null
 
   return (
     <div className={classes.avatarWrap}>
-      {session?.user ? (
-        <Typography className={classes.username}>
-          {session?.user?.name ? session.user.name : t`Anonymous`}
-        </Typography>
-      ) : null}
+      <Typography className={classes.username}>
+        {session?.user?.name ? session.user.name : t`Anonymous`}
+      </Typography>
       <div onClick={handleToggle} className={classes.dropdownWrap}>
         <div ref={anchorRef}>
           <Avatar
