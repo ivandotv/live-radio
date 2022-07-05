@@ -34,7 +34,6 @@
   "dependencies": {
     "@faker-js/faker": "^6.3.1",
     "@fuerte/core": "^4.0.0",
-    "@fuerte/transport-idb": "^5.0.0",
     "@lingui/core": "^3.13.3",
     "@lingui/react": "^3.13.3",
     "@material-ui/core": "^4.12.4",
