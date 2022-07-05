@@ -7,12 +7,11 @@ import { FilterDataStoreProvider } from 'components/providers/FilterDataStorePro
 import { useRootStore } from 'components/providers/RootStoreProvider'
 import { languages } from 'generated/languages'
 import { createStationListRow } from 'lib/client/utils/component-utils'
-import { createRadioModels } from 'lib/shared/utils'
 import { ServerConfig } from 'lib/server/config'
 import { getServerContainer } from 'lib/server/injection-root'
 import { importTranslations, paramsWithLocales } from 'lib/server/utils'
 import { SHARED_CONFIG } from 'lib/shared/config'
-import { dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
+import { createRadioModels, dataToRadioDTO, RadioDTO } from 'lib/shared/utils'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useRouter } from 'next/router'
 import { RadioBrowserApi } from 'radio-browser-api'
@@ -43,7 +42,8 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const translation = await importTranslations(ctx.locale!)
 
-  const api = new RadioBrowserApi(SHARED_CONFIG.radioAPIUserAgent)
+  const api = getServerContainer().resolve<RadioBrowserApi>(RadioBrowserApi)
+
   const stations = await api.searchStations(
     {
       language,

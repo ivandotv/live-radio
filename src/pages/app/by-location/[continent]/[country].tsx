@@ -40,7 +40,8 @@ export const getStaticProps: GetStaticProps = async function (ctx) {
 
   const flag = getFlag(countryCode)
 
-  const api = new RadioBrowserApi(SHARED_CONFIG.radioAPIUserAgent)
+  const api = getServerContainer().resolve<RadioBrowserApi>(RadioBrowserApi)
+
   const stationResults = await api.searchStations(
     {
       countryCode: countryCode.toUpperCase(),
