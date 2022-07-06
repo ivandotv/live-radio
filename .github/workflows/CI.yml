@@ -39,11 +39,11 @@ jobs:
         run: |
           pnpm lint:ci
 
-      - name: Build package
-        run: |
-          pnpm build
-        env:
-          SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
+      # - name: Build package
+      #   run: |
+      #     pnpm build
+      #   env:
+      #     SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
 
       - name: Run DB tests
         run: |
