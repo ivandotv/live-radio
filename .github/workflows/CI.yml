@@ -39,9 +39,9 @@ jobs:
         run: |
           pnpm lint:ci
 
-      - name: Build package
-        run: |
-          pnpm build
+      # - name: Build package
+      #   run: |
+      #     pnpm build
 
       - name: Run DB tests
         run: |
