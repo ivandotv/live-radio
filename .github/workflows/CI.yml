@@ -62,7 +62,7 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
         with:
-          # build: pnpm build
+          build: pnpm build
           install: false #pnpm fix
           start: pnpm start
           browser: chrome
