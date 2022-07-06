@@ -39,9 +39,9 @@ jobs:
         run: |
           pnpm lint:ci
 
-      # - name: Build package
-      #   run: |
-      #     pnpm build
+      - name: Build package
+        run: |
+          pnpm build
 
       - name: Run DB tests
         run: |
@@ -60,7 +60,7 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
         with:
-          build: pnpm build
+          # build: pnpm build
           start: pnpm start
           browser: chrome
           wait-on: http://localhost:3000
