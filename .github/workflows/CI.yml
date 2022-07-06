@@ -1,0 +1,66 @@
+name: Test
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  build:
+    name: Node unit tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['16']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Cache .pnpm-store
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 6.23.6
+          run_install: true
+
+      - name: Lint source
+        run: |
+          pnpm lint:ci
+
+      - name: Build package
+        run: |
+          pnpm build
+
+      - name: Run DB tests
+        run: |
+          pnpm test:db
+        env:
+          CI: true
+
+      - name: Run API tests
+        run: |
+          pnpm test:db
+        env:
+          CI: true
+
+      - name: Run E2E tests
+        uses: cypress-io/github-action@v4
+        env:
+          SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
+        with:
+          build: pnpm build
+          start: pnpm start
+          browser: chrome
+          wait-on: http://localhost:3000
