@@ -61,6 +61,7 @@ jobs:
         uses: cypress-io/github-action@v4
         env:
           SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
+          MONGO_DB_URI: 'not_needed'
         with:
           install: false #pnpm fix
           build: pnpm build:e2e

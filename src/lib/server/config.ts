@@ -46,9 +46,6 @@ export function getServerConfig(env: EnvSchema) {
   const isDevelopment = envData.NODE_ENV === 'development'
   const isTest = envData.TESTING
 
-  console.log('node env !', envData.NODE_ENV)
-  console.log('mongo db uri !', envData.MONGO_DB_URI)
-
   return Object.freeze({
     env: envData.NODE_ENV,
     isProduction,
