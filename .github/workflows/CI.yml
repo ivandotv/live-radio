@@ -62,8 +62,8 @@ jobs:
         env:
           SENTRY_AUTH_TOKEN: ${{secrets.SENTRY_AUTH_TOKEN}}
         with:
-          build: pnpm build
           install: false #pnpm fix
-          start: pnpm start
+          build: pnpm build:e2e
+          start: pnpm test:e2e
           browser: chrome
           wait-on: http://localhost:3000
