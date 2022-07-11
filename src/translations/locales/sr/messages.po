@@ -21,7 +21,7 @@ msgstr "<0>Trenutno nema podataka za <1> {0}</1>.</0>"
 msgid "<0>Currently there is no data for your query.</0>"
 msgstr "<0>nema podataka za ovaj query</0>"
 
-#: src/pages/app/by-location/[continent]/[country].tsx:132
+#: src/pages/app/by-location/[continent]/[country].tsx:133
 msgid "<0>Currently there is no data for<1> {0}</1>.</0>"
 msgstr "<0>Trenutno nema podataka za<1> {0}</1>.</0>"
 
@@ -80,7 +80,7 @@ msgid "Algeria"
 msgstr "Alžir"
 
 #: src/pages/auth/sign-in.tsx:90
-#: src/pages/index.tsx:66
+#: src/pages/index.tsx:68
 msgid "All data will be stored locally in your browser."
 msgstr "Svi podaci će biti lokalno pohranjeni u vašem pregledaču."
 
@@ -112,13 +112,13 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/components/UserProfileDropdown.tsx:169
-#: src/components/UserProfileDropdown.tsx:174
+#: src/components/UserProfileDropdown.tsx:172
+#: src/components/UserProfileDropdown.tsx:177
 msgid "Anonymous"
 msgstr "Anonimno"
 
 #: src/pages/auth/sign-in.tsx:92
-#: src/pages/index.tsx:81
+#: src/pages/index.tsx:83
 msgid "Anonymous User"
 msgstr "Anonimni korisnik"
 
@@ -358,7 +358,7 @@ msgid "By Language"
 msgstr "Po Jeziku"
 
 #: src/lib/shared/utils.ts:90
-#: src/pages/app/by-location/[continent]/[country].tsx:101
+#: src/pages/app/by-location/[continent]/[country].tsx:102
 #: src/pages/app/by-location/[continent]/index.tsx:57
 #: src/pages/app/by-location/index.tsx:40
 #: src/pages/app/index.tsx:62
@@ -559,9 +559,9 @@ msgstr "Danska"
 msgid "Depending on your browser configuration this station might not load beacuse it is not served over a secure (https) connection."
 msgstr "U zavisnosti od konfiguracije vašeg pretraživača, stanica se možda neće učitati jer nije dostupna preko (https) protokola."
 
-#: src/components/LocationModal.tsx:106
-msgid "Determinig your location"
-msgstr "Određujem vašu lokaciju"
+#: src/components/LocationModal.tsx:107
+msgid "Determining your location"
+msgstr ""
 
 #: src/generated/genres.js:14
 msgid "Disco"
@@ -738,10 +738,6 @@ msgstr "Finski"
 #: src/generated/genres.js:18
 msgid "Folk"
 msgstr "Folk"
-
-#: src/components/TranslateHelpModal.tsx:62
-msgid "For example, Spanish translation (if not already open): <0>[translation][Spanish]</0>"
-msgstr "Na primer, prevod na Španski (ako nije već otvoren): <0>[translation][Spanish]</0>"
 
 #: src/components/TranslateHelpModal.tsx:62
 msgid "For example, Spanish translation (if not already open): <0>[translation][Spanish]</0>"
@@ -1050,7 +1046,7 @@ msgid ""
 "launch it from the home screen."
 msgstr ""
 "Instaliranje \"Live Radio\" aplikacije koristi vrlo malo prostora i pruža brzu\n"
-""
+"način da se pokrene sa početnog ekrana."
 
 #: src/generated/genres.js:33
 msgid "Instrumental"
@@ -1098,18 +1094,19 @@ msgstr "Izrael"
 
 #: src/components/OfflineIndicator.tsx:42
 msgid "It appears that you are offline"
-msgstr "Izlgleda da set oflajn"
+msgstr "Izgleda da set oflajn"
 
 #: src/components/AuthExpiredModal.tsx:64
 msgid "It appears that you have been signed out. You will need to sign in again in order to continue to use the application"
-msgstr "Izlgleda da ste se odjavili. Morate se ponovo prijaviti da biste nastavili da koristite aplikaciju"
+msgstr "Izgleda da ste se odjavili. Morate se ponovo prijaviti da biste nastavili da koristite aplikaciju"
 
 #: src/components/ImportAnonymousData.tsx:131
 msgid ""
 "It appears that you have switched from the anonymous mode.\n"
 "Would you like to import your favorite and recently listened stations\n"
 "from the anonymous account to your current account?"
-msgstr "Izlgleda da ste prešli na privatni nalog.\n"
+msgstr ""
+"Izlgleda da ste prešli na privatni nalog.\n"
 "Želite li da uvezete omiljene i nedavno slušane stanice iz anonimnog naloga u trenutni nalog?"
 
 #: src/generated/languages.js:76
@@ -1162,7 +1159,7 @@ msgstr "Samo obriši anonimne podatke"
 
 #: src/components/TranslateHelpModal.tsx:49
 msgid "Just head over to the <0>code repository</0> and open an issue."
-msgstr "Samo idite na <0>kodni repozitorij</0> i otvorite novi problem."
+msgstr "Samo idite na <0>Github repozitorij</0> i otvorite novi problem."
 
 #: src/generated/genres.js:36
 msgid "K-pop"
@@ -1206,7 +1203,7 @@ msgstr "Kikuyu"
 
 #: src/generated/languages.js:140
 msgid "Kinyarwanda"
-msgstr "Kinyarwanda"
+msgstr "Kinyarvanda"
 
 #: src/generated/countries.js:381
 msgid "Kiribati"
@@ -1514,174 +1511,174 @@ msgstr "Nepal"
 
 #: src/generated/languages.js:117
 msgid "Nepali"
-msgstr ""
+msgstr "Nepalski"
 
 #: src/generated/countries.js:54
 msgid "Netherlands"
-msgstr ""
+msgstr "Holandija"
 
 #: src/generated/countries.js:394
 msgid "New Caledonia"
-msgstr ""
+msgstr "Nova Kaledonija"
 
 #: src/components/pwa-prompt/UpdateBanner.tsx:18
 msgid "New Version Available"
-msgstr ""
+msgstr "Nova verzija je dostupna"
 
 #: src/generated/genres.js:40
 msgid "New Wave"
-msgstr ""
+msgstr "Novi talas"
 
 #: src/generated/countries.js:398
 msgid "New Zealand"
-msgstr ""
+msgstr "Novi Zeland"
 
 #: src/components/pwa-prompt/UpdateBanner.tsx:22
 msgid "New version of the application is available. Reload to update."
-msgstr ""
+msgstr "Novi verzije aplikacije je dostupna. Ponovo učitajte stranicu da biste ažurirali aplikaciju."
 
 #: src/generated/countries.js:203
 msgid "Nicaragua"
-msgstr ""
+msgstr "Nikaragva"
 
 #: src/generated/countries.js:303
 msgid "Niger"
-msgstr ""
+msgstr "Niger"
 
 #: src/generated/countries.js:304
 msgid "Nigeria"
-msgstr ""
+msgstr "Nigerija"
 
 #: src/generated/countries.js:397
 msgid "Niue"
-msgstr ""
+msgstr "Niue"
 
 #: src/components/music-player/SongInfo.tsx:19
 #: src/components/music-player/SongInfo.tsx:20
 msgid "No Artist Data"
-msgstr ""
+msgstr "Nema podataka o izvođaču"
 
 #: src/components/ImportAnonymousData.tsx:155
 msgid "No thanks"
-msgstr ""
+msgstr "Ne, hvala"
 
 #: src/generated/countries.js:395
 msgid "Norfolk Island"
-msgstr ""
+msgstr "Norfolk"
 
 #: src/lib/shared/utils.ts:118
 msgid "North America"
-msgstr ""
+msgstr "Severna Amerika"
 
 #: src/generated/countries.js:118
 msgid "North Korea"
-msgstr ""
+msgstr "Sjeverna Koreja"
 
 #: src/generated/countries.js:48
 msgid "North Macedonia"
-msgstr ""
+msgstr "Sjeverna Makedonija"
 
 #: src/generated/countries.js:389
 msgid "Northern Mariana Islands"
-msgstr ""
+msgstr "Sjeverna Marijanska ostrva"
 
 #: src/generated/languages.js:116
 msgid "Northern Ndebele"
-msgstr ""
+msgstr "Sjeverni ndebel"
 
 #: src/generated/languages.js:144
 msgid "Northern Sami"
-msgstr ""
+msgstr "Sjeverni sami"
 
 #: src/generated/countries.js:55
 msgid "Norway"
-msgstr ""
+msgstr "Norveška"
 
 #: src/generated/languages.js:121
 msgid "Norwegian"
-msgstr ""
+msgstr "Norveški"
 
 #: src/generated/languages.js:115
 msgid "Norwegian Bokmål"
-msgstr ""
+msgstr "Norveški bokmål"
 
 #: src/generated/languages.js:120
 msgid "Norwegian Nynorsk"
-msgstr ""
+msgstr "Norveški nynorsk"
 
 #: src/generated/languages.js:72
 msgid "Nuosu"
-msgstr ""
+msgstr "Nuosu"
 
 #: src/components/AboutAppModal.tsx:77
 #: src/components/TranslateHelpModal.tsx:74
 msgid "OK"
-msgstr ""
+msgstr "U redu"
 
 #: src/generated/languages.js:125
 msgid "Occitan"
-msgstr ""
+msgstr "Okcitan"
 
 #: src/lib/shared/utils.ts:122
 msgid "Oceania"
-msgstr ""
+msgstr "Okeanija"
 
 #: src/components/GlobalErrorFallback.tsx:7
 msgid "Oh My!"
-msgstr ""
+msgstr "Oh, greska!!"
 
 #: src/generated/languages.js:126
 msgid "Ojibwe"
-msgstr ""
+msgstr "Ojibwe"
 
 #: src/components/ImportAnonymousData.tsx:213
 #: src/components/ImportAnonymousData.tsx:231
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 #: src/components/ImportAnonymousData.tsx:165
 msgid "Okay"
-msgstr ""
+msgstr "U redu"
 
 #: src/components/LocationModal.tsx:141
 msgid "Okay, let's go"
-msgstr ""
+msgstr "U redu, idemo"
 
 #: src/generated/languages.js:32
 msgid "Old Church Slavonic"
-msgstr ""
+msgstr "Staro srbo-slavenski"
 
 #: src/generated/countries.js:136
 msgid "Oman"
-msgstr ""
+msgstr "Oman"
 
 #: src/generated/languages.js:128
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #: src/generated/languages.js:127
 msgid "Oromo"
-msgstr ""
+msgstr "Oromo"
 
 #: src/generated/languages.js:129
 msgid "Ossetian"
-msgstr ""
+msgstr "Ossetian"
 
 #: src/generated/countries.js:138
 msgid "Pakistan"
-msgstr ""
+msgstr "Pakistan"
 
 #: src/generated/countries.js:417
 msgid "Palau"
-msgstr ""
+msgstr "Palau"
 
 #: src/generated/countries.js:139
 msgid "Palestine"
-msgstr ""
+msgstr "Palestinski"
 
 #: src/generated/countries.js:204
 msgid "Panama"
-msgstr ""
+msgstr "Panama"
 
 #: src/generated/languages.js:130
 msgid "Panjabi"
@@ -1930,7 +1927,7 @@ msgstr ""
 #: src/pages/app/by-genre/index.tsx:16
 #: src/pages/app/by-language/[language].tsx:89
 #: src/pages/app/by-language/index.tsx:25
-#: src/pages/app/by-location/[continent]/[country].tsx:97
+#: src/pages/app/by-location/[continent]/[country].tsx:98
 #: src/pages/app/by-location/[continent]/index.tsx:53
 #: src/pages/app/by-location/index.tsx:36
 #: src/pages/app/custom.tsx:18
@@ -1959,7 +1956,7 @@ msgstr ""
 
 #: src/pages/app/by-genre/[genre].tsx:111
 #: src/pages/app/by-language/[language].tsx:110
-#: src/pages/app/by-location/[continent]/[country].tsx:123
+#: src/pages/app/by-location/[continent]/[country].tsx:124
 msgid "Search For Stations in {0}"
 msgstr ""
 
@@ -1980,7 +1977,6 @@ msgstr ""
 msgid "Serbian"
 msgstr ""
 
-#: src/components/UserProfileDropdown.tsx:64
 #: src/lib/shared/utils.ts:93
 msgid "Settings"
 msgstr ""
@@ -2006,7 +2002,7 @@ msgstr ""
 msgid "Sierra Leone"
 msgstr ""
 
-#: src/components/UserProfileDropdown.tsx:156
+#: src/components/UserProfileDropdown.tsx:157
 #: src/pages/auth/sign-in.tsx:49
 msgid "Sign in"
 msgstr ""
@@ -2019,7 +2015,7 @@ msgstr ""
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr ""
 
-#: src/pages/index.tsx:53
+#: src/pages/index.tsx:54
 msgid "Sign in or Register"
 msgstr ""
 
@@ -2027,7 +2023,7 @@ msgstr ""
 msgid "Sign in with"
 msgstr ""
 
-#: src/components/UserProfileDropdown.tsx:133
+#: src/components/UserProfileDropdown.tsx:134
 msgid "Sign out"
 msgstr ""
 
@@ -2478,11 +2474,11 @@ msgstr ""
 msgid "Web application for listening to online radio."
 msgstr ""
 
-#: src/pages/index.tsx:53
+#: src/pages/index.tsx:54
 msgid "Welcome Back"
 msgstr ""
 
-#: src/pages/index.tsx:27
+#: src/pages/index.tsx:25
 msgid "Welcome to Live Radio App"
 msgstr ""
 
@@ -2563,7 +2559,7 @@ msgid "about app explanation"
 msgstr ""
 
 #: src/components/AboutAppModal.tsx:43
-#: src/pages/index.tsx:30
+#: src/pages/index.tsx:28
 msgid "application name"
 msgstr ""
 
@@ -2593,7 +2589,7 @@ msgid "landing"
 msgstr ""
 
 #: src/components/AboutAppModal.tsx:50
-#: src/pages/index.tsx:39
+#: src/pages/index.tsx:37
 msgid "landing page image"
 msgstr ""
 
