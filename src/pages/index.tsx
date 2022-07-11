@@ -2,20 +2,18 @@ import { t } from '@lingui/macro'
 import { Avatar } from '@material-ui/core'
 import clsx from 'clsx'
 import { PageTitle } from 'components/PageTitle'
-import { importTranslations } from 'lib/server/utils'
+import globalStyles from 'lib/client/global-styles'
 import { useClientUrl } from 'lib/client/hooks'
+import { getServerContainer } from 'lib/server/injection-root'
+import { importTranslations } from 'lib/server/utils'
 import { NextPageContext } from 'next'
 import { getSession, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import globalStyles from 'lib/client/global-styles'
-import { getServerContainer } from 'lib/server/injection-root'
 
 export default function Index() {
   const { data: session } = useSession()
-
-  console.log('session data ', session)
 
   const router = useRouter()
 

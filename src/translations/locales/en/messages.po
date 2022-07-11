@@ -21,7 +21,7 @@ msgstr "<0>Currently there is no data for <1> {0}</1>.</0>"
 msgid "<0>Currently there is no data for your query.</0>"
 msgstr "<0>Currently there is no data for your query.</0>"
 
-#: src/pages/app/by-location/[continent]/[country].tsx:132
+#: src/pages/app/by-location/[continent]/[country].tsx:133
 msgid "<0>Currently there is no data for<1> {0}</1>.</0>"
 msgstr "<0>Currently there is no data for<1> {0}</1>.</0>"
 
@@ -80,7 +80,7 @@ msgid "Algeria"
 msgstr "Algeria"
 
 #: src/pages/auth/sign-in.tsx:90
-#: src/pages/index.tsx:66
+#: src/pages/index.tsx:70
 msgid "All data will be stored locally in your browser."
 msgstr "All data will be stored locally in your browser."
 
@@ -112,13 +112,13 @@ msgstr "Angola"
 msgid "Anguilla"
 msgstr "Anguilla"
 
-#: src/components/UserProfileDropdown.tsx:169
-#: src/components/UserProfileDropdown.tsx:174
+#: src/components/UserProfileDropdown.tsx:172
+#: src/components/UserProfileDropdown.tsx:177
 msgid "Anonymous"
 msgstr "Anonymous"
 
 #: src/pages/auth/sign-in.tsx:92
-#: src/pages/index.tsx:81
+#: src/pages/index.tsx:85
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
@@ -346,22 +346,22 @@ msgstr "Burundi"
 #: src/lib/shared/utils.ts:92
 #: src/pages/app/by-genre/[genre].tsx:94
 #: src/pages/app/by-genre/index.tsx:20
-#: src/pages/app/index.tsx:64
+#: src/pages/app/index.tsx:72
 msgid "By Genre"
 msgstr "By Genre"
 
 #: src/lib/shared/utils.ts:91
 #: src/pages/app/by-language/[language].tsx:93
 #: src/pages/app/by-language/index.tsx:29
-#: src/pages/app/index.tsx:62
+#: src/pages/app/index.tsx:67
 msgid "By Language"
 msgstr "By Language"
 
 #: src/lib/shared/utils.ts:90
-#: src/pages/app/by-location/[continent]/[country].tsx:101
+#: src/pages/app/by-location/[continent]/[country].tsx:102
 #: src/pages/app/by-location/[continent]/index.tsx:57
 #: src/pages/app/by-location/index.tsx:40
-#: src/pages/app/index.tsx:58
+#: src/pages/app/index.tsx:62
 msgid "By Location"
 msgstr "By Location"
 
@@ -511,7 +511,7 @@ msgstr "Currently there is no data for <0> ${0}</0>."
 
 #: src/lib/shared/utils.ts:88
 #: src/pages/app/custom.tsx:21
-#: src/pages/app/index.tsx:67
+#: src/pages/app/index.tsx:77
 msgid "Custom Search"
 msgstr "Custom Search"
 
@@ -559,9 +559,9 @@ msgstr "Denmark"
 msgid "Depending on your browser configuration this station might not load beacuse it is not served over a secure (https) connection."
 msgstr "Depending on your browser configuration this station might not load beacuse it is not served over a secure (https) connection."
 
-#: src/components/LocationModal.tsx:106
-msgid "Determinig your location"
-msgstr "Determinig your location"
+#: src/components/LocationModal.tsx:107
+msgid "Determining your location"
+msgstr "Determining your location"
 
 #: src/generated/genres.js:14
 msgid "Disco"
@@ -1275,11 +1275,11 @@ msgstr "Lebanon"
 msgid "Lesotho"
 msgstr "Lesotho"
 
-#: src/components/LocationModal.tsx:131
+#: src/components/LocationModal.tsx:132
 msgid "Let me choose different location"
 msgstr "Let me choose different location"
 
-#: src/components/LocationModal.tsx:133
+#: src/components/LocationModal.tsx:134
 msgid "Let me choose the location"
 msgstr "Let me choose the location"
 
@@ -1329,7 +1329,7 @@ msgstr "Live Radio"
 msgid "Live Radio ecountered an error. Please reload the page."
 msgstr "Live Radio ecountered an error. Please reload the page."
 
-#: src/pages/app/index.tsx:54
+#: src/pages/app/index.tsx:55
 msgid "Local Radio"
 msgstr "Local Radio"
 
@@ -1641,7 +1641,7 @@ msgstr "Ok"
 msgid "Okay"
 msgstr "Okay"
 
-#: src/components/LocationModal.tsx:140
+#: src/components/LocationModal.tsx:141
 msgid "Okay, let's go"
 msgstr "Okay, let's go"
 
@@ -1928,7 +1928,7 @@ msgstr "Scottish Gaelic"
 #: src/pages/app/by-genre/index.tsx:16
 #: src/pages/app/by-language/[language].tsx:89
 #: src/pages/app/by-language/index.tsx:25
-#: src/pages/app/by-location/[continent]/[country].tsx:97
+#: src/pages/app/by-location/[continent]/[country].tsx:98
 #: src/pages/app/by-location/[continent]/index.tsx:53
 #: src/pages/app/by-location/index.tsx:36
 #: src/pages/app/custom.tsx:18
@@ -1957,7 +1957,7 @@ msgstr "Search For Stations by Language"
 
 #: src/pages/app/by-genre/[genre].tsx:111
 #: src/pages/app/by-language/[language].tsx:110
-#: src/pages/app/by-location/[continent]/[country].tsx:123
+#: src/pages/app/by-location/[continent]/[country].tsx:124
 msgid "Search For Stations in {0}"
 msgstr "Search For Stations in {0}"
 
@@ -1978,7 +1978,6 @@ msgstr "Serbia"
 msgid "Serbian"
 msgstr "Serbian"
 
-#: src/components/UserProfileDropdown.tsx:64
 #: src/lib/shared/utils.ts:93
 msgid "Settings"
 msgstr "Settings"
@@ -2004,7 +2003,7 @@ msgstr "Shona"
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/components/UserProfileDropdown.tsx:156
+#: src/components/UserProfileDropdown.tsx:157
 #: src/pages/auth/sign-in.tsx:49
 msgid "Sign in"
 msgstr "Sign in"
@@ -2017,7 +2016,7 @@ msgstr "Sign in again"
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr "Sign in failed. Check the details you provided are correct."
 
-#: src/pages/index.tsx:53
+#: src/pages/index.tsx:56
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
@@ -2025,7 +2024,7 @@ msgstr "Sign in or Register"
 msgid "Sign in with"
 msgstr "Sign in with"
 
-#: src/components/UserProfileDropdown.tsx:133
+#: src/components/UserProfileDropdown.tsx:134
 msgid "Sign out"
 msgstr "Sign out"
 
@@ -2089,7 +2088,7 @@ msgstr "Somali"
 msgid "Somalia"
 msgstr "Somalia"
 
-#: src/components/LocationModal.tsx:104
+#: src/components/LocationModal.tsx:105
 msgid "Sorry, couldn't get your location"
 msgstr "Sorry, couldn't get your location"
 
@@ -2476,7 +2475,7 @@ msgstr "Walloon"
 msgid "Web application for listening to online radio."
 msgstr "Web application for listening to online radio."
 
-#: src/pages/index.tsx:53
+#: src/pages/index.tsx:56
 msgid "Welcome Back"
 msgstr "Welcome Back"
 
@@ -2532,7 +2531,7 @@ msgstr "Your Recently Listened Stations"
 msgid "Your favorite stations will appear here"
 msgstr "Your favorite stations will appear here"
 
-#: src/components/LocationModal.tsx:102
+#: src/components/LocationModal.tsx:103
 msgid "Your location is"
 msgstr "Your location is"
 
@@ -2573,7 +2572,7 @@ msgstr "background"
 msgid "check this out"
 msgstr "check this out"
 
-#: src/components/LocationModal.tsx:124
+#: src/components/LocationModal.tsx:125
 #: src/components/PlayFromShareModal.tsx:87
 msgid "close"
 msgstr "close"

@@ -46,7 +46,7 @@ export function getServerConfig(env: EnvSchema) {
   const isDevelopment = envData.NODE_ENV === 'development'
   const isTest = envData.TESTING
 
-  return {
+  return Object.freeze({
     env: envData.NODE_ENV,
     isProduction,
     isDevelopment,
@@ -78,7 +78,7 @@ export function getServerConfig(env: EnvSchema) {
     // the amount in seconds after which page re-generation can occur
     revalidate: envData.REVALIDATE,
     customSearchStationLimit: envData.CUSTOM_SEARCH_LIMIT
-  }
+  })
 }
 
 export function asString(value: Joi.ValidationResult | Joi.AnySchema) {

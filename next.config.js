@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-// @ts-check
 const withPlugins = require('next-compose-plugins')
 const linguiConfig = require('./lingui.config')
 const { withSentryConfig } = require('@sentry/nextjs')
@@ -62,7 +61,11 @@ const nextConfig = {
   }
 }
 
-if (process.env.NODE_ENV === 'development') {
+if (
+  process.env.NODE_ENV === 'development' ||
+  // @ts-expect-error - TODO need to extend process type
+  process.env.NO_SENTRY === 'true'
+) {
   module.exports = withPlugins([withBundleAnalyzer, withWorkbox], nextConfig)
 } else {
   module.exports = withSentryConfig(

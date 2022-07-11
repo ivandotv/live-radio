@@ -118,4 +118,4 @@ export const SHARED_CONFIG = Object.freeze({
     process.env.NEXT_PUBLIC_ENABLE_PWA_INSTALL,
     false
   )
-} as const)
+})
