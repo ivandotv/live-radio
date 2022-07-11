@@ -1,14 +1,27 @@
+import * as dotenv from 'dotenv'
 import { type } from 'node:os'
+import path, { dirname } from 'node:path'
 import { GenericContainer } from 'testcontainers'
+import { fileURLToPath } from 'url'
 import { $ } from 'zx'
 import 'zx/globals'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 ;(async function main() {
   //disable automatic cleanup of test containers
   process.env.TESTCONTAINERS_RYUK_DISABLED = true
+
   let mongoContainer
   let server
   let hasError = false
   try {
+    dotenv.config({
+      debug: true,
+      override: true,
+      path: path.resolve(__dirname, '../', '.env.test')
+    })
+
     mongoContainer = await startMongo()
 
     process.env.NODE_ENV = 'test'
@@ -19,6 +32,7 @@ import 'zx/globals'
     await $`pnpm cypress run --browser chrome`
   } catch (e) {
     hasError = true
+    console.log(e)
   } finally {
     if (mongoContainer) {
       console.log('stopping mongo')
