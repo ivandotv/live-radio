@@ -61,7 +61,10 @@ const nextConfig = {
   }
 }
 
-console.log('build with sentry ? ', process.env.NO_SENTRY)
+console.log('disable sentry ? ', process.env.NO_SENTRY)
+console.log('from test file ', process.env.MY_NAME)
+console.log('db use transactions', process.env.DB_USE_TRANSACTIONS)
+
 if (
   process.env.NODE_ENV === 'development' ||
   // @ts-expect-error - TODO need to extend process type

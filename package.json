@@ -6,7 +6,7 @@
     "dev": "FORCE_COLOR=true next dev | pino-pretty -c -l -t",
     "debug": "FORCE_COLOR=true NODE_OPTIONS=--inspect next dev | pino-pretty -c -l -t",
     "build": "pnpm generate && pnpm lang && NODE_TLS_REJECT_UNAUTHORIZED=0 next build",
-    "build:e2e": "pnpm generate && pnpm lang && NODE_TLS_REJECT_UNAUTHORIZED=0 NO_SENTRY=true next build",
+    "build:e2e": "pnpm generate && pnpm lang && dotenv -e .env.test next build",
     "type:check": "tsc --noEmit",
     "start": "next start",
     "test:db": "jest --selectProjects database",
