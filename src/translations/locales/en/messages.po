@@ -80,7 +80,7 @@ msgid "Algeria"
 msgstr "Algeria"
 
 #: src/pages/auth/sign-in.tsx:90
-#: src/pages/index.tsx:70
+#: src/pages/index.tsx:68
 msgid "All data will be stored locally in your browser."
 msgstr "All data will be stored locally in your browser."
 
@@ -118,7 +118,7 @@ msgid "Anonymous"
 msgstr "Anonymous"
 
 #: src/pages/auth/sign-in.tsx:92
-#: src/pages/index.tsx:85
+#: src/pages/index.tsx:83
 msgid "Anonymous User"
 msgstr "Anonymous User"
 
@@ -2016,7 +2016,7 @@ msgstr "Sign in again"
 msgid "Sign in failed. Check the details you provided are correct."
 msgstr "Sign in failed. Check the details you provided are correct."
 
-#: src/pages/index.tsx:56
+#: src/pages/index.tsx:54
 msgid "Sign in or Register"
 msgstr "Sign in or Register"
 
@@ -2475,11 +2475,11 @@ msgstr "Walloon"
 msgid "Web application for listening to online radio."
 msgstr "Web application for listening to online radio."
 
-#: src/pages/index.tsx:56
+#: src/pages/index.tsx:54
 msgid "Welcome Back"
 msgstr "Welcome Back"
 
-#: src/pages/index.tsx:27
+#: src/pages/index.tsx:25
 msgid "Welcome to Live Radio App"
 msgstr "Welcome to Live Radio App"
 
@@ -2560,7 +2560,7 @@ msgid "about app explanation"
 msgstr "about app explanation"
 
 #: src/components/AboutAppModal.tsx:43
-#: src/pages/index.tsx:30
+#: src/pages/index.tsx:28
 msgid "application name"
 msgstr "application name"
 
@@ -2590,7 +2590,7 @@ msgid "landing"
 msgstr "landing"
 
 #: src/components/AboutAppModal.tsx:50
-#: src/pages/index.tsx:39
+#: src/pages/index.tsx:37
 msgid "landing page image"
 msgstr "landing page image"
 
