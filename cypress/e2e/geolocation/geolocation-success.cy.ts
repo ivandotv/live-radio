@@ -91,6 +91,6 @@ describe('Geolocation success', () => {
       `/app/by-location/${countryCode.cont}/${countryCode.code}$`
     )
 
-    cy.location('pathname', { timeout: 20000 }).should('match', location)
+    cy.location('pathname', { timeout: 10000 }).should('match', location)
   })
 })
