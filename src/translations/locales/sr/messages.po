@@ -1682,243 +1682,243 @@ msgstr "Panama"
 
 #: src/generated/languages.js:130
 msgid "Panjabi"
-msgstr ""
+msgstr "Pandžabi"
 
 #: src/generated/countries.js:406
 msgid "Papua New Guinea"
-msgstr ""
+msgstr "Papua Nova Gvineja"
 
 #: src/generated/countries.js:369
 msgid "Paraguay"
-msgstr ""
+msgstr "Paragvaj"
 
 #: src/generated/languages.js:133
 msgid "Pashto"
-msgstr ""
+msgstr "Pašto"
 
 #: src/generated/languages.js:46
 msgid "Persian"
-msgstr ""
+msgstr "Persijski"
 
 #: src/generated/countries.js:368
 msgid "Peru"
-msgstr ""
+msgstr "Peru"
 
 #: src/generated/countries.js:137
 msgid "Philippines"
-msgstr ""
+msgstr "Filipini"
 
 #: src/generated/countries.js:412
 msgid "Pitcairn Islands"
-msgstr ""
+msgstr "Pitcairn ostrva"
 
 #: src/components/PlayFromShareModal.tsx:77
 #: src/components/music-player/PlayerToggleBtn.tsx:64
 msgid "Play"
-msgstr ""
+msgstr "Pusti"
 
 #: src/generated/countries.js:56
 msgid "Poland"
-msgstr ""
+msgstr "Poljska"
 
 #: src/generated/languages.js:132
 msgid "Polish"
-msgstr ""
+msgstr "Poljski"
 
 #: src/generated/genres.js:41
 msgid "Pop"
-msgstr ""
+msgstr "Pop"
 
 #: src/generated/countries.js:57
 msgid "Portugal"
-msgstr ""
+msgstr "Portugal"
 
 #: src/generated/languages.js:134
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugalski"
 
 #: src/generated/genres.js:42
 msgid "Progressive House"
-msgstr ""
+msgstr "Progressive House"
 
 #: src/generated/genres.js:43
 msgid "Progressive Rock"
-msgstr ""
+msgstr "Progressive Rock"
 
 #: src/components/LanguageSwitcher.tsx:37
 msgid "Pseudo"
-msgstr ""
+msgstr "Pseudo"
 
 #: src/generated/genres.js:44
 msgid "Psychedelic Rock"
-msgstr ""
+msgstr "Psychedelic Rock"
 
 #: src/generated/countries.js:211
 msgid "Puerto Rico"
-msgstr ""
+msgstr "Puerto Riko"
 
 #: src/generated/genres.js:45
 msgid "Punk"
-msgstr ""
+msgstr "Punk"
 
 #: src/generated/genres.js:46
 msgid "Punk Rock"
-msgstr ""
+msgstr "Punk Rock"
 
 #: src/generated/languages.js:131
 msgid "Pāli"
-msgstr ""
+msgstr "Pāli"
 
 #: src/generated/countries.js:140
 msgid "Qatar"
-msgstr ""
+msgstr "Katar"
 
 #: src/generated/languages.js:135
 msgid "Quechua"
-msgstr ""
+msgstr "Kecuva"
 
 #: src/generated/genres.js:47
 msgid "Rap"
-msgstr ""
+msgstr "Rep"
 
 #: src/components/navigation/desktop/Menu.tsx:26
 #: src/components/navigation/mobile/MobileNavigation.tsx:59
 #: src/lib/server/create-manifest.ts:52
 #: src/lib/shared/utils.ts:89
 msgid "Recent"
-msgstr ""
+msgstr "Nedavno"
 
 #: src/lib/server/create-manifest.ts:51
 msgid "Recently played"
-msgstr ""
+msgstr "Nedavno pusteno"
 
 #: src/generated/genres.js:48
 msgid "Reggae"
-msgstr ""
+msgstr "Reggae"
 
 #: src/generated/genres.js:49
 msgid "Reggaeton"
-msgstr ""
+msgstr "Reggaeton"
 
 #: src/components/pwa-prompt/UpdateBanner.tsx:19
 msgid "Reload"
-msgstr ""
+msgstr "Ponovo učitaj"
 
 #: src/components/ImportAnonymousData.tsx:148
 msgid "Remove anonymous data after import"
-msgstr ""
+msgstr "Ukloni anonimne podatke nakon uvoza"
 
 #: src/components/StationRowRemoveBtn.tsx:86
 msgid "Remove station"
-msgstr ""
+msgstr "Ukloni stanicu"
 
 #: src/components/music-player/AddToFavoritesBtn.tsx:42
 msgid "Remove station from favorites"
-msgstr ""
+msgstr "Ukloni stanicu iz omiljenih"
 
 #: src/generated/countries.js:265
 msgid "Republic of the Congo"
-msgstr ""
+msgstr "Republika Kongo"
 
 #: src/generated/genres.js:50
 msgid "Rhythm And Blues"
-msgstr ""
+msgstr "Rhythm And Blues"
 
 #: src/generated/genres.js:51
 msgid "Rock"
-msgstr ""
+msgstr "Rock"
 
 #: src/generated/countries.js:58
 msgid "Romania"
-msgstr ""
+msgstr "Rumunija"
 
 #: src/generated/languages.js:138
 msgid "Romanian"
-msgstr ""
+msgstr "Rumunski"
 
 #: src/generated/languages.js:136
 msgid "Romansh"
-msgstr ""
+msgstr "Romanski"
 
 #: src/generated/countries.js:60
 msgid "Russia"
-msgstr ""
+msgstr "Rusija"
 
 #: src/generated/languages.js:139
 msgid "Russian"
-msgstr ""
+msgstr "Ruski"
 
 #: src/generated/countries.js:306
 msgid "Rwanda"
-msgstr ""
+msgstr "Ruanda"
 
 #: src/generated/countries.js:305
 msgid "Réunion"
-msgstr ""
+msgstr "Réunion"
 
 #: src/generated/countries.js:164
 msgid "Saint Barthélemy"
-msgstr ""
+msgstr "Sveti Bartolomej"
 
 #: src/generated/countries.js:309
 msgid "Saint Helena"
-msgstr ""
+msgstr "Sveta Helena"
 
 #: src/generated/countries.js:192
 msgid "Saint Kitts and Nevis"
-msgstr ""
+msgstr "Sveti Kristofor i Nevis"
 
 #: src/generated/countries.js:198
 msgid "Saint Lucia"
-msgstr ""
+msgstr "Sveta Lucija"
 
 #: src/generated/countries.js:199
 msgid "Saint Martin"
-msgstr ""
+msgstr "Sveti Martin"
 
 #: src/generated/countries.js:206
 msgid "Saint Pierre and Miquelon"
-msgstr ""
+msgstr "Sveti Petar i Mikelon"
 
 #: src/generated/countries.js:228
 msgid "Saint Vincent and the Grenadines"
-msgstr ""
+msgstr "Sveti Vincent i Grenadini"
 
 #: src/generated/genres.js:52
 msgid "Salsa"
-msgstr ""
+msgstr "Salsa"
 
 #: src/generated/countries.js:441
 msgid "Samoa"
-msgstr ""
+msgstr "Samoa"
 
 #: src/generated/languages.js:149
 msgid "Samoan"
-msgstr ""
+msgstr "Samoanski"
 
 #: src/generated/countries.js:70
 msgid "San Marino"
-msgstr ""
+msgstr "San Marino"
 
 #: src/generated/languages.js:145
 msgid "Sango"
-msgstr ""
+msgstr "Sango"
 
 #: src/generated/languages.js:141
 msgid "Sanskrit"
-msgstr ""
+msgstr "Sanskrit"
 
 #: src/generated/languages.js:142
 msgid "Sardinian"
-msgstr ""
+msgstr "Sardinijski"
 
 #: src/generated/countries.js:141
 msgid "Saudi Arabia"
-msgstr ""
+msgstr "Saudijska Arabija"
 
 #: src/generated/languages.js:54
 msgid "Scottish Gaelic"
-msgstr ""
+msgstr "Škotski galski"
 
 #: src/components/navigation/desktop/Menu.tsx:13
 #: src/components/navigation/mobile/MobileNavigation.tsx:53
@@ -1932,273 +1932,273 @@ msgstr ""
 #: src/pages/app/by-location/index.tsx:36
 #: src/pages/app/custom.tsx:18
 msgid "Search"
-msgstr ""
+msgstr "Pretraži"
 
 #: src/pages/app/by-location/index.tsx:46
 msgid "Search By Location"
-msgstr ""
+msgstr "Pretraži po lokaciji"
 
 #: src/pages/app/index.tsx:46
 msgid "Search For Radio Stations"
-msgstr ""
+msgstr "Pretraži radio stanice"
 
 #: src/pages/app/custom.tsx:29
 msgid "Search For Stations"
-msgstr ""
+msgstr "Pretraži stanice"
 
 #: src/pages/app/by-genre/index.tsx:38
 msgid "Search For Stations by Genre"
-msgstr ""
+msgstr "Pretraži stanice po žanru"
 
 #: src/pages/app/by-language/index.tsx:39
 msgid "Search For Stations by Language"
-msgstr ""
+msgstr "Pretraži stanice po jeziku"
 
 #: src/pages/app/by-genre/[genre].tsx:111
 #: src/pages/app/by-language/[language].tsx:110
 #: src/pages/app/by-location/[continent]/[country].tsx:124
 msgid "Search For Stations in {0}"
-msgstr ""
+msgstr "Pretraži stanice u {0}"
 
 #: src/pages/app/by-location/[continent]/index.tsx:70
 msgid "Search for stations by country"
-msgstr ""
+msgstr "Pretraži stanice po državi"
 
 #: src/generated/countries.js:311
 msgid "Senegal"
-msgstr ""
+msgstr "Senegal"
 
 #: src/generated/countries.js:59
 msgid "Serbia"
-msgstr ""
+msgstr "Srbija"
 
 #: src/components/LanguageSwitcher.tsx:33
 #: src/generated/languages.js:153
 msgid "Serbian"
-msgstr ""
+msgstr "Srpski"
 
 #: src/lib/shared/utils.ts:93
 msgid "Settings"
-msgstr ""
+msgstr "Postavke"
 
 #: src/generated/countries.js:307
 msgid "Seychelles"
-msgstr ""
+msgstr "Sejšeli"
 
 #: src/components/music-player/ShareStationBtn.tsx:34
 msgid "Share Station -"
-msgstr ""
+msgstr "Podeli stanicu -"
 
 #: src/components/music-player/ShareStationBtn.tsx:74
 #: src/components/music-player/ShareStationBtn.tsx:75
 msgid "Share station"
-msgstr ""
+msgstr "Podeli stanicu"
 
 #: src/generated/languages.js:150
 msgid "Shona"
-msgstr ""
+msgstr "Shona"
 
 #: src/generated/countries.js:310
 msgid "Sierra Leone"
-msgstr ""
+msgstr "Sijera Leone"
 
 #: src/components/UserProfileDropdown.tsx:157
 #: src/pages/auth/sign-in.tsx:49
 msgid "Sign in"
-msgstr ""
+msgstr "Prijavi se"
 
 #: src/components/AuthExpiredModal.tsx:77
 msgid "Sign in again"
-msgstr ""
+msgstr "Ponovno se prijavi"
 
 #: src/pages/auth/sign-in.tsx:31
 msgid "Sign in failed. Check the details you provided are correct."
-msgstr ""
+msgstr "Prijavljivanje nije uspelo. Proverite da li ste ispravno uneli podatke."
 
 #: src/pages/index.tsx:54
 msgid "Sign in or Register"
-msgstr ""
+msgstr "Prijavite se ili se registrujte"
 
 #: src/pages/auth/sign-in.tsx:83
 msgid "Sign in with"
-msgstr ""
+msgstr "Prijavite se sa"
 
 #: src/components/UserProfileDropdown.tsx:134
 msgid "Sign out"
-msgstr ""
+msgstr "Odjavite se"
 
 #: src/components/AuthExpiredModal.tsx:59
 msgid "Signed Out"
-msgstr ""
+msgstr "Odjavljeni ste"
 
 #: src/components/LoginNotification.tsx:19
 msgid "Signed in Anonymously"
-msgstr ""
+msgstr "Prijavljeni ste Anonimno"
 
 #: src/components/LoginNotification.tsx:18
 msgid "Signed in as {0}"
-msgstr ""
+msgstr "Prijavljeni ste kao {0}"
 
 #: src/generated/languages.js:143
 msgid "Sindhi"
-msgstr ""
+msgstr "Sindhi"
 
 #: src/generated/countries.js:142
 msgid "Singapore"
-msgstr ""
+msgstr "Singapur"
 
 #: src/generated/languages.js:146
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #: src/generated/countries.js:213
 msgid "Sint Maarten"
-msgstr ""
+msgstr "Sint Maarten"
 
 #: src/generated/genres.js:53
 msgid "Ska"
-msgstr ""
+msgstr "Ska"
 
 #: src/generated/languages.js:147
 msgid "Slovak"
-msgstr ""
+msgstr "Slovački"
 
 #: src/generated/countries.js:69
 msgid "Slovakia"
-msgstr ""
+msgstr "Slovačka"
 
 #: src/generated/countries.js:62
 msgid "Slovenia"
-msgstr ""
+msgstr "Slovenija"
 
 #: src/generated/languages.js:148
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenski"
 
 #: src/generated/countries.js:419
 msgid "Solomon Islands"
-msgstr ""
+msgstr "Solomonski otoci"
 
 #: src/generated/languages.js:151
 msgid "Somali"
-msgstr ""
+msgstr "Somalijski"
 
 #: src/generated/countries.js:312
 msgid "Somalia"
-msgstr ""
+msgstr "Somalija"
 
 #: src/components/LocationModal.tsx:105
 msgid "Sorry, couldn't get your location"
-msgstr ""
+msgstr "Žao nam je, ne mogu dobiti vašu lokaciju"
 
 #: src/components/PlayFromShareModal.tsx:42
 msgid "Sorry, requested station is not available"
-msgstr ""
+msgstr "Žao nam je, tražena stanica nije dostupna"
 
 #: src/generated/genres.js:54
 msgid "Soul"
-msgstr ""
+msgstr "Soul"
 
 #: src/generated/countries.js:327
 msgid "South Africa"
-msgstr ""
+msgstr "Južna Afrika"
 
 #: src/lib/shared/utils.ts:126
 msgid "South America"
-msgstr ""
+msgstr "Južna Amerika"
 
 #: src/generated/countries.js:335
 msgid "South Georgia and the South Sandwich Islands"
-msgstr ""
+msgstr "Južna Džordžija i Južni Sendvički otoci"
 
 #: src/generated/countries.js:119
 msgid "South Korea"
-msgstr ""
+msgstr "Južna Koreja"
 
 #: src/generated/countries.js:313
 msgid "South Sudan"
-msgstr ""
+msgstr "Južni Sudan"
 
 #: src/generated/languages.js:122
 msgid "Southern Ndebele"
-msgstr ""
+msgstr "Sudanski Ndebele"
 
 #: src/generated/languages.js:155
 msgid "Southern Sotho"
-msgstr ""
+msgstr "Južni Soto"
 
 #: src/generated/countries.js:25
 msgid "Spain"
-msgstr ""
+msgstr "Španija"
 
 #: src/generated/languages.js:43
 msgid "Spanish"
-msgstr ""
+msgstr "Španski"
 
 #: src/generated/countries.js:124
 msgid "Sri Lanka"
-msgstr ""
+msgstr "Šri Lanka"
 
 #: src/components/PlayFromShareModal.tsx:41
 msgid "Station found"
-msgstr ""
+msgstr "Stanica pronađena"
 
 #: src/components/StationRowItem.tsx:96
 msgid "Station is in your favorites list"
-msgstr ""
+msgstr "Stanica je u vašoj listi omiljenih"
 
 #: src/components/music-player/PlayerToggleBtn.tsx:90
 msgid "Station is loading"
-msgstr ""
+msgstr "Stanica se učitava"
 
 #: src/components/music-player/ShareStationDesktop.tsx:60
 msgid "Station link copied to clipboard"
-msgstr ""
+msgstr "Link stanice je kopiran"
 
 #: src/components/music-player/PlayerToggleBtn.tsx:77
 msgid "Stop"
-msgstr ""
+msgstr "Zaustavi"
 
 #: src/components/ImportAnonymousData.tsx:202
 #: src/components/ImportAnonymousData.tsx:222
 msgid "Success"
-msgstr ""
+msgstr "Uspeh"
 
 #: src/generated/countries.js:308
 msgid "Sudan"
-msgstr ""
+msgstr "Sudan"
 
 #: src/generated/languages.js:156
 msgid "Sundanese"
-msgstr ""
+msgstr "Sundanski"
 
 #: src/generated/countries.js:370
 msgid "Suriname"
-msgstr ""
+msgstr "Surinam"
 
 #: src/generated/countries.js:64
 msgid "Svalbard and Jan Mayen"
-msgstr ""
+msgstr "Svalbard i Jan Mayen"
 
 #: src/generated/languages.js:158
 msgid "Swahili"
-msgstr ""
+msgstr "Svahili"
 
 #: src/generated/languages.js:154
 msgid "Swati"
-msgstr ""
+msgstr "Svati"
 
 #: src/generated/countries.js:320
 msgid "Swaziland"
-msgstr ""
+msgstr "Svaziland"
 
 #: src/generated/countries.js:61
 msgid "Sweden"
-msgstr ""
+msgstr "Švedska"
 
 #: src/generated/languages.js:157
 msgid "Swedish"
-msgstr ""
+msgstr "Švedski"
 
 #: src/generated/genres.js:55
 msgid "Swing"
