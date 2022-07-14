@@ -92,9 +92,6 @@ export async function checkSession(
   return next()
 }
 
-/**
- * Logs error
- */
 export async function handleServerError(
   ctx: Koa.ParameterizedContext<Koa.DefaultState, ApiContext>,
   next: Koa.Next
