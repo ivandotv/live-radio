@@ -25,17 +25,17 @@ export const Menu = observer(function Menu() {
       link: '/app/recent',
       text: t`Recent`,
       selected: router.asPath.startsWith('/app/recent')
-    },
+    }
     // {
     //   link: '/app/settings',
     //   text: t`Settings`,
     //   selected: router.asPath.startsWith('/app/settings')
     // },
-    {
-      link: '/app/about',
-      text: t`About`,
-      selected: router.asPath.startsWith('/app/about')
-    }
+    // {
+    //   link: '/app/about',
+    //   text: t`About`,
+    //   selected: router.asPath.startsWith('/app/about')
+    // }
   ]
 
   return (
