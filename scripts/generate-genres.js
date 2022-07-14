@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+
+/* This script file generates music genres, and prepares them for translation */
 const { inspect } = require('util')
 const fs = require('fs')
 const prettier = require('prettier')

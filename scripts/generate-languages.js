@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+
+/* This script file generates  languages, and prepares them for translation */
 const ISO6391 = require('iso-639-1')
 const { inspect } = require('util')
 const fs = require('fs')

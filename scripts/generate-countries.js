@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+
+/* This script file generates contry names, and prepares them for translation */
 const { inspect } = require('util')
 const fs = require('fs')
 const { countries } = require('countries-list')
