@@ -11,7 +11,7 @@
     "start": "next start",
     "test:db": "jest --selectProjects database",
     "test:api": "jest --selectProjects api",
-    "test:e2e": "node ./scripts/test-e2e.mjs",
+    "test:e2e": "node ./scripts-ci/test-e2e.mjs",
     "cy:open": "cypress open --browser chrome",
     "cy:run": "cypress run --browser chrome",
     "analyze": "ANALYZE=true && pnpm run build",
