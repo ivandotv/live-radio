@@ -34,7 +34,7 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@faker-js/faker": "^6.3.1",
+    "@faker-js/faker": "^7.0.0",
     "@fuerte/core": "^4.0.0",
     "@lingui/core": "^3.13.3",
     "@lingui/react": "^3.13.3",
