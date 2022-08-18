@@ -6,10 +6,11 @@ import {
   MenuItem,
   MenuList,
   Paper,
-  Popper,
-  Typography
+  Popper
 } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 import { useClientUrl } from 'lib/client/hooks'
 import { logger } from 'lib/client/logger-browser'
 import { PlayerStatus } from 'lib/client/stores/music-player-store'
@@ -18,8 +19,6 @@ import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import { useRootStore } from './providers/RootStoreProvider'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -168,9 +167,9 @@ export const UserProfileDropdown = observer(function UserProfileDropdown({
 
   return (
     <div className={classes.avatarWrap}>
-      <Typography className={classes.username}>
+      {/* <Typography className={classes.username}>
         {session?.user?.name ? session.user.name : t`Anonymous`}
-      </Typography>
+      </Typography> */}
       <div onClick={handleToggle} className={classes.dropdownWrap}>
         <div ref={anchorRef}>
           <Avatar
