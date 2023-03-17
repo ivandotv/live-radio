@@ -60,7 +60,7 @@ specifiers:
   eslint-plugin-react: ^7.29.4
   eslint-plugin-react-hooks: ^4.5.0
   howler: ^2.2.3
-  husky: 8.0.1
+  husky: 8.0.3
   idb: ^7.0.1
   iso-639-1: ^2.1.13
   jest: ^28.1.0
@@ -226,7 +226,7 @@ devDependencies:
   eslint-plugin-promise: 6.0.0_eslint@8.19.0
   eslint-plugin-react: 7.30.1_eslint@8.19.0
   eslint-plugin-react-hooks: 4.6.0_eslint@8.19.0
-  husky: 8.0.1
+  husky: 8.0.3
   iso-639-1: 2.1.15
   jest: 28.1.2_8354ef5cac1ade2cc4cf41856748b4a1
   jest-watch-typeahead: 1.1.0_jest@28.1.2
@@ -7164,8 +7164,8 @@ packages:
     engines: {node: '>=10.17.0'}
     dev: true
 
-  /husky/8.0.1:
-    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
+  /husky/8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
