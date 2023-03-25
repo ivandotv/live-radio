@@ -59,7 +59,7 @@
     "mobx-react-lite": "^3.4.0",
     "mobx-utils": "^6.0.5",
     "mongodb": "^4.5.0",
-    "next": "12.2.4",
+    "next": "12.3.4",
     "next-auth": "^4.3.4",
     "nextjs-koa-api": "^2.0.2",
     "node-internet-radio": "^0.2.1",
