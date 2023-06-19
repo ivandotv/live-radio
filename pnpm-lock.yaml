@@ -108,7 +108,7 @@ specifiers:
   styled-jsx: ^5.0.2
   supertest: ^6.2.3
   testcontainers: ^8.10.0
-  time-span: ^4.0.0
+  time-span: ^5.0.0
   tinga: ^4.0.10
   ts-essentials: ^9.1.2
   ts-node: ^10.8.2
@@ -245,7 +245,7 @@ devDependencies:
   prettier-standard: 16.4.1_typescript@4.7.4
   supertest: 6.2.4
   testcontainers: 8.11.0
-  time-span: 4.0.0
+  time-span: 5.1.0
   ts-essentials: 9.1.2_typescript@4.7.4
   ts-node: 10.8.2_bea9319c18027313ff9f3aa6f8c8e70e
   tsm: 2.2.1
@@ -4712,9 +4712,9 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /convert-hrtime/3.0.0:
-    resolution: {integrity: sha512-7V+KqSvMiHp8yWDuwfww06XleMWVVB9b9tURBx+G7UTADuo5hYPuowKloz4OzOqbPezxgo+fdQ1522WzPG4OeA==}
-    engines: {node: '>=8'}
+  /convert-hrtime/5.0.0:
+    resolution: {integrity: sha512-lOETlkIeYSJWcbbcvjRKGxVMXJR+8+OQb/mTPbA4ObPMytYIsUbuOE0Jzy60hjARYszq1id0j8KgVhC+WGZVTg==}
+    engines: {node: '>=12'}
     dev: true
 
   /convert-source-map/1.8.0:
@@ -11947,11 +11947,11 @@ packages:
       xtend: 4.0.2
     dev: true
 
-  /time-span/4.0.0:
-    resolution: {integrity: sha512-MyqZCTGLDZ77u4k+jqg4UlrzPTPZ49NDlaekU6uuFaJLzPIN1woaRXCbGeqOfxwc3Y37ZROGAJ614Rdv7Olt+g==}
-    engines: {node: '>=10'}
+  /time-span/5.1.0:
+    resolution: {integrity: sha512-75voc/9G4rDIJleOo4jPvN4/YC4GRZrY8yy1uU4lwrB3XEQbWve8zXoO5No4eFrGcTAMYyoY67p8jRQdtA1HbA==}
+    engines: {node: '>=12'}
     dependencies:
-      convert-hrtime: 3.0.0
+      convert-hrtime: 5.0.0
     dev: true
 
   /tinga/4.0.10:
