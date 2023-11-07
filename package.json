@@ -43,7 +43,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@next-auth/mongodb-adapter": "^1.0.3",
     "@sentry/nextjs": "^6.19.7",
-    "@types/request-ip": "0.0.37",
+    "@types/request-ip": "0.0.41",
     "accept-language-parser": "^1.5.0",
     "clsx": "^1.1.1",
     "country-code-emoji": "^2.3.0",
