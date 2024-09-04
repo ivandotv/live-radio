@@ -157,7 +157,7 @@
     "ts-node": "^10.8.2",
     "tsm": "^2.2.1",
     "typescript": "^4.6.4",
-    "webpack": "^5.72.1",
+    "webpack": "^5.94.0",
     "workbox-webpack-plugin": "^6.5.3",
     "zx": "^6.2.4"
   }
