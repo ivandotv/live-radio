@@ -64,7 +64,7 @@
     "nextjs-koa-api": "^2.0.2",
     "node-internet-radio": "^0.2.1",
     "notistack": "1.0.10",
-    "path-to-regexp": "^6.2.1",
+    "path-to-regexp": "^8.0.0",
     "pino": "^7.10.0",
     "pino-http": "^6.6.0",
     "pumpit": "^4.0.3",
