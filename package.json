@@ -152,7 +152,7 @@
     "prettier-standard": "^16.4.1",
     "supertest": "^6.2.3",
     "testcontainers": "^8.10.0",
-    "time-span": "^4.0.0",
+    "time-span": "^5.0.0",
     "ts-essentials": "^9.1.2",
     "ts-node": "^10.8.2",
     "tsm": "^2.2.1",
